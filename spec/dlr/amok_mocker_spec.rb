@@ -1,10 +1,11 @@
-require File.dirname(__FILE__) + "/../bacon_helper.rb"
+require File.dirname(__FILE__) + "/../bacon_helper"
+require File.dirname(__FILE__) + "/../../lib/ironmoq/amok_mocker"
 
-describe "IronMoq" do
+describe "AmokMocker" do
   describe "without stubs" do
     before do
       @obj = [1, 2, 3]
-      @mock = Amok.new(@obj)
+      @mock = AmokMocker.new(@obj)
     end
 
     should "not change behavior" do

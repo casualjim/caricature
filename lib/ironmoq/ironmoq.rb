@@ -89,13 +89,14 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
+require File.dirname(__FILE__) + "/amok_mocker"
+require File.dirname(__FILE__) + "/moq_mocker"
 
-
-class IrMoq
+class IronMoq
 
   VERSION = '0.1'
 
-  attr_reader :obj
+  attr_reader :mocker
 
   def self.with(obj)
     mock = new(obj)
@@ -115,9 +116,9 @@ class IrMoq
   end
 
   def initialize(obj, &block)
-    @obj = obj
     @called = {}
     @previous = {}
+    @mocker = obj
     instance_eval(&block)  if block
   end
 
