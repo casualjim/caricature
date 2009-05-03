@@ -1,4 +1,4 @@
-IronMoq - a friendship between moq and amok
+Caricature - a friendship between moq and amok
 ===========================================
 
 This project aims to make interop between IronRuby objects and .NET objects easier.
