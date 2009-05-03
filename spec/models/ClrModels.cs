@@ -1,22 +1,24 @@
-public interface IWeapon{
-    void Attack(IWarrior warrior);
-    int Damage();
-}
-
-public interface IWarrior
-{
-    bool IsKilledBy(IWeapon weapon);
-    void Attack(IWarrior target, IWeapon weapon);
-}
-
-public class Ninja : IWarrior{
-
-    public void Attack(IWarrior target, IWeapon weapon){
-        weapon.Attack(target);
+namespace ClrModels{
+    public interface IWeapon{
+        void Attack(IWarrior warrior);
+        int Damage();
     }
 
-    public bool IsKilledBy(IWeapon weapon)
+    public interface IWarrior
     {
-        return weapon.Damage() > 3;
+        bool IsKilledBy(IWeapon weapon);
+        void Attack(IWarrior target, IWeapon weapon);
+    }
+
+    public class Ninja : IWarrior{
+
+        public void Attack(IWarrior target, IWeapon weapon){
+            weapon.Attack(target);
+        }
+
+        public bool IsKilledBy(IWeapon weapon)
+        {
+            return weapon.Damage() > 3;
+        }
     }
 }
