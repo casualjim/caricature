@@ -6,7 +6,7 @@ class MoqMocker
   attr_reader :mock
 
   def initialize(obj, &block)
-    @mock = Moq::MockObject.new(obj, &block)
+    @mock = Moq::MockObject.of(obj).new
   end
 
   # the mocked object

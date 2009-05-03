@@ -4,7 +4,7 @@ desc "The default task is to run all the specs"
 task :default => :spec
 
 desc "Runs all the specs"
-task :spec => :copy_binaries do
+task :spec => [:copy_binaries, :clr_models] do
   system "ibacon #{Dir.glob('spec/**/*_spec.rb').join(' ')}"
 end
 
@@ -18,4 +18,10 @@ namespace :spec do
   
 end
 
+desc "Compiles the clr models"
+task :clr_models do
+  Dir.chdir(File.dirname(__FILE__))
+  files = Dir.glob("spec/models/*.cs").collect { |f| f.gsub(/\//, "\\")  }.join(" ")
+  system "csc /noconfig /target:library /debug+ /debug:full /out:spec\\bin\\ClrModels.dll #{files}"
+end
 
