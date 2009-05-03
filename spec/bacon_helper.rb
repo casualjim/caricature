@@ -1,4 +1,4 @@
-$: << File.dirname(__FILE__) + '/../lib/bin'
+#$: << File.dirname(__FILE__) + '/../lib/bin'
 $: << File.dirname(__FILE__) + "/bin"
 require 'bacon'
 require 'mscorlib'
