@@ -40,4 +40,70 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require 'proxy'
+
+
+module Caricature
+
+  MethodCall = Struct.new :class_name, :method_name, :args, :block
+
+  class SimpleProxy
+
+    instance_methods.each do |name|
+      undef_method name unless name =~ /^__|^instance_eval$/
+    end
+    
+
+    attr_reader :subject, :method_calls
+
+    def initialize(obj)
+      @subject = create_proxy(obj)
+      @method_calls = []
+    end
+
+    def method_missing(method, *args, &block)
+      @method_calls << MethodCall.new(@subject.class, method, args, &block)
+      @subject.send(method, *args, &block)
+    end
+
+    protected
+
+    def create_proxy(obj)
+      obj
+    end
+
+  end
+
+  class ClrProxy < SimpleProxy
+
+    def class_name(subj)
+      nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
+      @class_name ||= "#{nm}#{System::Guid.new_guid.to_string('n')}Proxy"
+      @class_name
+    end
+
+    protected
+
+    def create_proxy(subj)
+      return subj unless subj.respond_to?(:class_eval)
+      return create_interface_proxy_for(subj) unless subj.respond_to?(:new)
+      subj.new
+    end
+
+    def create_interface_proxy_for(subj)
+      clr_type = subj.to_clr_type
+
+      proxy_members = clr_type.get_methods.collect { |mi| mi.name.underscore }
+      proxy_members += clr_type.get_properties.collect { |pi| pi.name.underscore }
+
+      klass = Object.const_set class_name(subj), Class.new do
+        include subj
+
+        proxy_members.each { |mem| define_method mem.to_s.to_sym }
+      end
+
+      klass.new
+    end
+    
+  end
+  
+end
