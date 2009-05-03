@@ -40,3 +40,26 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
+class SimpleProxy
+
+  instance_methods.each do |name|
+    undef_method name unless name =~ /^__|^instance_eval$/
+  end
+
+  attr_reader :subject
+
+  def initialize(obj)
+    @subject = create_proxy(obj)
+  end
+
+  def method_missing(method, *args, &block)
+    @subject.send(method, *args, &block)
+  end
+
+  private
+
+    def create_proxy(obj)
+      obj
+    end
+
+end
