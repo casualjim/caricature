@@ -40,11 +40,9 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-
-
 module Caricature
 
-  MethodCall = Struct.new :class_name, :method_name, :args, :block
+  MethodCall = Struct.new :method_name, :args, :block
 
   class SimpleProxy
 
@@ -60,8 +58,12 @@ module Caricature
       @method_calls = []
     end
 
+    def proxy_name
+      "#{class_name(@subject)}Proxy"
+    end
+    
     def method_missing(method, *args, &block)
-      @method_calls << MethodCall.new(@subject.class, method, args, &block)
+      @method_calls << MethodCall.new(method, args, &block)
       @subject.send(method, *args, &block)
     end
 
@@ -71,15 +73,15 @@ module Caricature
       obj
     end
 
+    def class_name(subj)
+      nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
+      @class_name ||= "#{nm}#{System::Guid.new_guid.to_string('n')}"
+      @class_name
+    end
+
   end
 
   class ClrProxy < SimpleProxy
-
-    def class_name(subj)
-      nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
-      @class_name ||= "#{nm}#{System::Guid.new_guid.to_string('n')}Proxy"
-      @class_name
-    end
 
     protected
 

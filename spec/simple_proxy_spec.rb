@@ -73,6 +73,4 @@ describe "Caricature::ClrProxy" do
 
   end
 
-
-
 end

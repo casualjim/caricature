@@ -40,4 +40,4 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require 'proxy'
+require File.dirname(__FILE__) + '/proxy'
