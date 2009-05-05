@@ -110,25 +110,19 @@ module Caricature
     def create_interface_proxy_for(subj)
       proxy_members = collect_members(subj)
 
-      klass = Object.const_set(class_name(subj), Class.new(ProxyBase))
-      klass.add_interface subj
+      klass = Object.const_set(class_name(subj), Class.new)
+      klass.send :include, subj
+      klass.send :extend, DynamicMethodAdding
       klass.define_methods proxy_members
      
       klass.new
     end
     
   end
+  
+  module DynamicMethodAdding
 
-
-  # this is an ugly work-around due to the fact that the method include and define_method are private
-  # ironruby doesn't let you call those
-  class ProxyBase
-
-    def self.add_interface(iface)
-      include iface
-    end
-
-    def self.define_methods(members)
+    def define_methods(members)
       members.each { |mem| define_method mem.to_s.to_sym, Proc.new {}  }
     end
   end
