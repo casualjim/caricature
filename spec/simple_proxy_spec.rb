@@ -104,4 +104,39 @@ describe "Caricature::ClrProxy" do
 
   end
 
+  describe "for CLR interface recursion" do
+
+    before do
+      @proxy = Caricature::ClrProxy.new(ClrModels::IExposingWarrior)
+    end
+
+    it "should create a method defined on the CLR interface" do
+      @proxy.should.respond_to?(:own_method)
+    end
+
+    it "should create a method defined on one of the composing interfaces" do
+      @proxy.should.respond_to?(:some_method)
+    end
+
+    it "should create a method defined on one of the topmost composing interfaces" do
+      @proxy.should.respond_to?(:is_killed_by)
+    end
+
+    it "should create an add method for an event defined on a composing interface" do
+      @proxy.should.respond_to?(:add_is_exposed_changed)
+    end
+
+    it "should create a remove method for an event defined on a composing interface" do
+      @proxy.should.respond_to?(:remove_is_exposed_changed)
+    end
+
+    it "should create a getter for a property on the proxy" do
+      @proxy.should.respond_to?(:id)
+    end
+
+    it "should create a setter for a writable property on the proxy" do
+      @proxy.should.respond_to?(:name=)
+    end
+  end
+
 end

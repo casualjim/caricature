@@ -99,8 +99,8 @@ module Caricature
     def collect_members(subj)
       clr_type = subj.to_clr_type
 
-      properties = clr_type.get_properties
-      methods = clr_type.get_methods
+      properties = clr_type.collect_interface_properties
+      methods = clr_type.collect_interface_methods
 
       proxy_members = methods.collect { |mi| mi.name.underscore }
       proxy_members += properties.collect { |pi| pi.name.underscore }

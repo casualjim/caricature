@@ -20,7 +20,11 @@ namespace ClrModels{
         bool IsExpose {get; set; }
     }
 
-    public interface IExposingWarrior : IWarrior, IExposing {
+    public interface IExposingBridge : IWarrior, IExposing {
+        void SomeMethod();
+    }
+
+    public interface IExposingWarrior : IExposingBridge {
         void OwnMethod();
     }
 
