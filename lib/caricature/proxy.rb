@@ -67,6 +67,10 @@ module Caricature
       @subject.send(method, *args, &block)
     end
 
+    def inspect
+      proxy_name
+    end
+
     protected
 
     def create_proxy(obj)
@@ -91,21 +95,40 @@ module Caricature
       subj.new
     end
 
-    def create_interface_proxy_for(subj)
+    def collect_members(subj)
       clr_type = subj.to_clr_type
 
-      proxy_members = clr_type.get_methods.collect { |mi| mi.name.underscore }
-      proxy_members += clr_type.get_properties.collect { |pi| pi.name.underscore }
+      properties = clr_type.get_properties
+      methods = clr_type.get_methods
 
-      klass = Object.const_set class_name(subj), Class.new do
-        include subj
+      proxy_members = methods.collect { |mi| mi.name.underscore }
+      proxy_members += properties.collect { |pi| pi.name.underscore }
+      proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| "#{pi.name.underscore}=" }      
+    end
 
-        proxy_members.each { |mem| define_method mem.to_s.to_sym }
-      end
+    def create_interface_proxy_for(subj)
+      proxy_members = collect_members(subj)
 
+      klass = Object.const_set(class_name(subj), Class.new(ProxyBase))
+      klass.add_interface subj
+      klass.define_methods proxy_members
+      #proxy_members.each { |mem| klass.send :define_method, mem.to_s.to_sym, Proc.new { } }
+      
       klass.new
+
     end
     
   end
-  
+
+  class ProxyBase
+
+    def self.add_interface(iface)
+      include iface
+    end
+
+    def self.define_methods(members)
+      members.each { |mem| define_method mem.to_s.to_sym, Proc.new {}  }
+    end
+  end
+
 end

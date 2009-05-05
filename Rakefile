@@ -1,10 +1,10 @@
 require 'ftools'
 
 desc "The default task is to run all the specs"
-task :default => :spec
+task :default => [:clr_models, :spec]
 
 desc "Runs all the specs"
-task :spec => [:clr_models] do
+task :spec do
   system "ibacon #{Dir.glob('spec/**/*_spec.rb').join(' ')}"
 end
 

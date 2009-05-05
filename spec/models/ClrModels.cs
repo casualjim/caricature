@@ -6,6 +6,9 @@ namespace ClrModels{
 
     public interface IWarrior
     {
+
+        int Id { get; }
+        string Name { get; set; }
         bool IsKilledBy(IWeapon weapon);
         void Attack(IWarrior target, IWeapon weapon);
     }

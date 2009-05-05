@@ -66,9 +66,24 @@ describe "Caricature::ClrProxy" do
 
   describe "for a CLR interface" do
 
+    before do
+      @proxy = Caricature::ClrProxy.new(ClrModels::IWarrior)
+    end
+
     it "should create a proxy" do
-      proxy = Caricature::ClrProxy.new(ClrModels::IWarrior)
-      proxy.class.to_s.should.match /^IWarrior/        
+      @proxy.class.to_s.should.match /^IWarrior/
+    end
+
+    it "should create a method on the proxy" do
+      @proxy.should.respond_to?(:is_killed_by)
+    end
+
+    it "should create a getter for a property on the proxy" do
+      @proxy.should.respond_to?(:id)
+    end
+
+    it "should create a setter for a writable property on the proxy" do
+      @proxy.should.respond_to?(:name=)
     end
 
   end
