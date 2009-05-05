@@ -1,3 +1,5 @@
+using System;
+
 namespace ClrModels{
     public interface IWeapon{
         void Attack(IWarrior warrior);
@@ -11,6 +13,15 @@ namespace ClrModels{
         string Name { get; set; }
         bool IsKilledBy(IWeapon weapon);
         void Attack(IWarrior target, IWeapon weapon);
+    }
+
+    public interface IExposing {
+        event EventHandler<EventArgs> IsExposedChanged;
+        bool IsExpose {get; set; }
+    }
+
+    public interface IExposingWarrior : IWarrior, IExposing {
+        void OwnMethod();
     }
 
     public class Ninja : IWarrior{

@@ -88,4 +88,20 @@ describe "Caricature::ClrProxy" do
 
   end
 
+  describe "for a CLR Interface with an event" do
+
+    before do
+      @proxy = Caricature::ClrProxy.new(ClrModels::IExposing)
+    end
+
+    it "should create an add method for the event" do
+      @proxy.should.respond_to?(:add_is_exposed_changed)
+    end
+
+    it "should create a remove method for the event" do
+      @proxy.should.respond_to?(:remove_is_exposed_changed)
+    end    
+
+  end
+
 end

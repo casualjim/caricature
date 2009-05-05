@@ -53,8 +53,8 @@ module Caricature
 
     attr_reader :subject, :method_calls
 
-    def initialize(obj)
-      @subject = create_proxy(obj)
+    def initialize(subj)
+      @subject = create_proxy(subj)
       @method_calls = []
     end
 
@@ -73,8 +73,9 @@ module Caricature
 
     protected
 
-    def create_proxy(obj)
-      obj
+    def create_proxy(subj)
+      return subj unless subj.respond_to?(:class_eval)
+      subj.new
     end
 
     def class_name(subj)
@@ -112,14 +113,15 @@ module Caricature
       klass = Object.const_set(class_name(subj), Class.new(ProxyBase))
       klass.add_interface subj
       klass.define_methods proxy_members
-      #proxy_members.each { |mem| klass.send :define_method, mem.to_s.to_sym, Proc.new { } }
-      
+     
       klass.new
-
     end
     
   end
 
+
+  # this is an ugly work-around due to the fact that the method include and define_method are private
+  # ironruby doesn't let you call those
   class ProxyBase
 
     def self.add_interface(iface)
