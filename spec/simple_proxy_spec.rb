@@ -23,11 +23,11 @@ describe "String" do
 
 end
 
-describe "Caricature::SimpleProxy" do
+describe "Caricature::RecordingProxy" do
 
   before do    
     @subj = Soldier.new
-    @prxy = Caricature::SimpleProxy.new(@subj)
+    @prxy = Caricature::RecordingProxy.new(@subj)
   end
 
   it "should forward existing methods" do
@@ -39,7 +39,7 @@ describe "Caricature::SimpleProxy" do
   end
 end
 
-describe "Caricature::ClrProxy" do
+describe "Caricature::RecordingClrProxy" do
 
   describe "for an instance of a CLR class" do
 
@@ -47,7 +47,7 @@ describe "Caricature::ClrProxy" do
       samurai = ClrModels::Samurai.new
       samurai.name = "Nakiro"
 
-      proxy = Caricature::ClrProxy.new(samurai)
+      proxy = Caricature::RecordingClrProxy.new(samurai)
       proxy.name.should.equal samurai.name
       proxy.id.should.equal 0
     end
@@ -57,7 +57,7 @@ describe "Caricature::ClrProxy" do
   describe "for a CLR class" do
 
     it "should create a proxy" do
-      proxy = Caricature::ClrProxy.new(ClrModels::Ninja)
+      proxy = Caricature::RecordingClrProxy.new(ClrModels::Ninja)
       proxy.subject.class.should.equal ClrModels::Ninja
       proxy.id.should.equal 0
     end
@@ -67,7 +67,7 @@ describe "Caricature::ClrProxy" do
   describe "for a CLR interface" do
 
     before do
-      @proxy = Caricature::ClrProxy.new(ClrModels::IWarrior)
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IWarrior)
     end
 
     it "should create a proxy" do
@@ -91,7 +91,7 @@ describe "Caricature::ClrProxy" do
   describe "for a CLR Interface with an event" do
 
     before do
-      @proxy = Caricature::ClrProxy.new(ClrModels::IExposing)
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposing)
     end
 
     it "should create an add method for the event" do
@@ -107,7 +107,7 @@ describe "Caricature::ClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      @proxy = Caricature::ClrProxy.new(ClrModels::IExposingWarrior)
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposingWarrior)
     end
 
     it "should create a method defined on the CLR interface" do

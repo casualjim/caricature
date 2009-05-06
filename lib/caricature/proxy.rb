@@ -44,7 +44,7 @@ module Caricature
 
   MethodCall = Struct.new :method_name, :args, :block
 
-  class SimpleProxy
+  class RecordingProxy
 
     instance_methods.each do |name|
       undef_method name unless name =~ /^__|^instance_eval$/
@@ -86,7 +86,7 @@ module Caricature
 
   end
 
-  class ClrProxy < SimpleProxy
+  class RecordingClrProxy < RecordingProxy
 
     protected
 
@@ -111,20 +111,17 @@ module Caricature
       proxy_members = collect_members(subj)
 
       klass = Object.const_set(class_name(subj), Class.new)
-      klass.send :include, subj
-      klass.send :extend, DynamicMethodAdding
-      klass.define_methods proxy_members
-     
+      klass.class_eval do
+        include subj
+
+        proxy_members.each{ |mem|  define_method mem.to_s.to_sym, Proc.new {} }
+      end
+
       klass.new
     end
     
   end
   
-  module DynamicMethodAdding
-
-    def define_methods(members)
-      members.each { |mem| define_method mem.to_s.to_sym, Proc.new {}  }
-    end
-  end
+  
 
 end
