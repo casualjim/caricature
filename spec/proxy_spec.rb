@@ -1,7 +1,4 @@
 require File.dirname(__FILE__) + "/bacon_helper"
-require File.dirname(__FILE__) + "/../lib/caricature/proxy"
-require File.dirname(__FILE__) + "/../lib/core_ext"
-load_assembly 'ClrModels'
 
 class Soldier
 
@@ -27,15 +24,34 @@ describe "Caricature::RecordingProxy" do
 
   before do    
     @subj = Soldier.new
-    @prxy = Caricature::RecordingProxy.new(@subj)
+    @proxy = Caricature::RecordingProxy.new(@subj)
   end
 
   it "should forward existing methods" do
-    @prxy.name.should.equal @subj.name
+    @proxy.name.should.equal @subj.name
   end
 
   it "should call to_s on the proxied object" do
-    @prxy.to_s.should.equal @subj.to_s    
+    @proxy.to_s.should.equal @subj.to_s
+  end
+
+  describe "when invoking a method" do
+
+    before do
+      @proxy.name
+    end
+
+    it "should record a call" do
+      @proxy.method_calls.size.should.equal 1
+    end
+
+    it "should record the correct call" do
+      mc = @proxy.method_calls[0]
+      mc.method_name.should.equal :name
+      mc.args.should.equal []
+      mc.block.should.equal nil
+    end
+
   end
 end
 
