@@ -41,3 +41,22 @@
 #  http://www.opensource.org/licenses/bsd-license.php]
 
 require File.dirname(__FILE__) + '/proxy'
+
+module Caricature
+
+  MethodCall = Struct.new :method_name, :args, :block, :count
+
+  class MethodCallRecorder
+
+    attr_reader :method_calls
+
+    def record_call(method_name, *args, &block)
+      
+    end
+  end
+
+  class Isolator
+
+  end
+
+end

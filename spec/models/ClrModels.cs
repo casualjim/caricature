@@ -64,9 +64,9 @@ namespace ClrModels{
 
     public class ExposedChangedSubscriber{
 
-        private readonly ExposingWarrior _warrior;
+        private readonly IExposingWarrior _warrior;
 
-        public ExposedChangedSubscriber(ExposingWarrior warrior){
+        public ExposedChangedSubscriber(IExposingWarrior warrior){
           _warrior = warrior;
           _warrior.IsExposedChanged += OnExposedChanged;
         }

@@ -42,8 +42,6 @@
 
 module Caricature
 
-  MethodCall = Struct.new :method_name, :args, :block
-
   class RecordingProxy
 
     instance_methods.each do |name|
@@ -64,7 +62,7 @@ module Caricature
     
     def method_missing(method, *args, &block)
       @method_calls << MethodCall.new(method, args, &block)
-      @subject.send(method, *args, &block)
+      block.nil? ? @subject.send(method, *args) : @subject.send(method, *args, &block)
     end
 
     def inspect
@@ -114,7 +112,11 @@ module Caricature
       klass.class_eval do
         include subj
 
-        proxy_members.each{ |mem|  define_method mem.to_s.to_sym, Proc.new {} }
+        proxy_members.each do |mem|
+          define_method mem.to_s.to_sym do |*args|
+            #just a stub
+          end
+        end
       end
 
       klass.new

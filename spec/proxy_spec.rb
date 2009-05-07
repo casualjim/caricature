@@ -59,25 +59,70 @@ describe "Caricature::RecordingClrProxy" do
 
   describe "for an instance of a CLR class" do
 
-    it "should create a proxy" do
-      samurai = ClrModels::Samurai.new
-      samurai.name = "Nakiro"
+    before do
+      @samurai = ClrModels::Samurai.new
+      @samurai.name = "Nakiro"
 
-      proxy = Caricature::RecordingClrProxy.new(samurai)
-      proxy.name.should.equal samurai.name
-      proxy.id.should.equal 0
+      @proxy = Caricature::RecordingClrProxy.new(@samurai)
+    end
+
+    it "should create a proxy" do
+
+      @proxy.name.should.equal @samurai.name
+      @proxy.id.should.equal 0
+    end
+
+    describe "when invoking a method" do
+
+      before do
+        @proxy.name
+      end
+
+      it "should record a call" do
+        @proxy.method_calls.size.should.equal 1
+      end
+
+      it "should record the correct call" do
+        mc = @proxy.method_calls[0]
+        mc.method_name.should.equal :name
+        mc.args.should.equal []
+        mc.block.should.equal nil
+      end
+
     end
 
   end
 
   describe "for a CLR class" do
 
-    it "should create a proxy" do
-      proxy = Caricature::RecordingClrProxy.new(ClrModels::Ninja)
-      proxy.subject.class.should.equal ClrModels::Ninja
-      proxy.id.should.equal 0
+    before do
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::Ninja)
     end
 
+    it "should create a proxy" do
+      @proxy.subject.class.should.equal ClrModels::Ninja
+      @proxy.id.should.equal 0
+    end
+
+
+    describe "when invoking a method" do
+
+      before do
+        @proxy.name
+      end
+
+      it "should record a call" do
+        @proxy.method_calls.size.should.equal 1
+      end
+
+      it "should record the correct call" do
+        mc = @proxy.method_calls[0]
+        mc.method_name.should.equal :name
+        mc.args.should.equal []
+        mc.block.should.equal nil
+      end
+
+    end
   end
 
   describe "for a CLR interface" do
@@ -100,6 +145,26 @@ describe "Caricature::RecordingClrProxy" do
 
     it "should create a setter for a writable property on the proxy" do
       @proxy.should.respond_to?(:name=)
+    end
+
+    #this test invokes a Debug.Assert statement in the ironruby codebase. Nothing is wrong though
+    describe "when invoking a method" do
+
+      before do
+        @proxy.name
+      end
+
+      it "should record a call" do
+        @proxy.method_calls.size.should.equal 1
+      end
+
+      it "should record the correct call" do
+        mc = @proxy.method_calls[0]
+        mc.method_name.should.equal :name
+        mc.args.should.equal []
+        mc.block.should.equal nil
+      end
+
     end
 
   end
