@@ -48,7 +48,7 @@ describe "Caricature::RecordingProxy" do
     it "should record the correct call" do
       mc = @proxy.___call_recorder___[:name]
       mc.method_name.should.equal :name
-      mc.args.should.equal []
+      mc.args.should.equal [Caricature::ArgumentRecording.new]
       mc.block.should.equal nil
     end
 
@@ -85,7 +85,7 @@ describe "Caricature::RecordingClrProxy" do
       it "should record the correct call" do
         mc = @proxy.___call_recorder___[:name]
         mc.method_name.should.equal :name
-        mc.args.should.equal []
+        mc.args.should.equal [Caricature::ArgumentRecording.new]
         mc.block.should.equal nil
       end
 
@@ -118,7 +118,7 @@ describe "Caricature::RecordingClrProxy" do
       it "should record the correct call" do
         mc = @proxy.___call_recorder___[:name]
         mc.method_name.should.equal :name
-        mc.args.should.equal []
+        mc.args.should.equal [Caricature::ArgumentRecording.new]
         mc.block.should.equal nil
       end
 
@@ -161,7 +161,7 @@ describe "Caricature::RecordingClrProxy" do
       it "should record the correct call" do
         mc = @proxy.___call_recorder___[:name]
         mc.method_name.should.equal :name
-        mc.args.should.equal []
+        mc.args.should.equal [Caricature::ArgumentRecording.new]
         mc.block.should.equal nil
       end
 

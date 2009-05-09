@@ -42,14 +42,56 @@
 
 module Caricature
 
-  class MethodCall
-    attr_accessor :method_name, :count, :args, :block
+  class ArgumentRecording
 
-    def initialize(method_name, count, args, block)
-      @method_name = method_name
-      @count = count
+    # contains the arguments of the recorded parameters
+    attr_accessor :args
+
+    # contains the block for the recorded parameters
+    attr_accessor :block
+
+    # the number of the call that has the following parameters
+    attr_accessor :call_number
+
+    def initialize(args=[], call_number=1, block=nil)
       @args = args
       @block = block
+      @call_number = call_number
+    end
+
+    def has_block?
+      !block.nil?
+    end
+
+    def ==(other)
+      other.args == args
+    end
+  end
+
+  class MethodCallRecording
+    attr_accessor :method_name, :count, :args, :block
+
+    def initialize(method_name, count=0)
+      @method_name = method_name
+      @count = count
+      @variations = []
+    end
+
+    def args
+      @variations
+    end
+
+    def has_argument_variations?
+      @variations.size > 1
+    end
+
+    def add_argument_variation(args, block)
+      variation = find_argument_variations args
+      @variations << ArgumentRecording.new(args, @variations.size+1, block) if variation == []
+    end
+
+    def find_argument_variations(args)
+      @variations.select { |ar| ar.args == args }
     end
   end
 
@@ -63,8 +105,10 @@ module Caricature
 
     def record_call(method_name, *args, &block)
       mn_sym = method_name.to_s.to_sym
-      method_calls[mn_sym] ||= MethodCall.new(method_name, 0, args, block )
-      method_calls[mn_sym].count += 1
+      method_calls[mn_sym] ||= MethodCallRecording.new method_name
+      mc = method_calls[mn_sym]
+      mc.count += 1
+      mc.add_argument_variation args, block 
     end
 
     def was_called?(method_name)
