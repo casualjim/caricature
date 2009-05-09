@@ -4,7 +4,8 @@ describe "Caricature::RecordingProxy" do
 
   before do    
     @subj = Soldier.new
-    @proxy = Caricature::RecordingProxy.new(@subj)
+    @recorder = Caricature::MethodCallRecorder.new
+    @proxy = Caricature::RecordingProxy.new(@subj, @recorder)
   end
 
   it "should forward existing methods" do
@@ -22,11 +23,11 @@ describe "Caricature::RecordingProxy" do
     end
 
     it "should record a call" do
-      @proxy.___call_recorder___.size.should.equal 1
+      @recorder.size.should.equal 1
     end
 
     it "should record the correct call" do
-      mc = @proxy.___call_recorder___[:name]
+      mc = @recorder[:name]
       mc.method_name.should.equal :name
       mc.args.should.equal [Caricature::ArgumentRecording.new]
       mc.block.should.equal nil
@@ -42,8 +43,8 @@ describe "Caricature::RecordingClrProxy" do
     before do
       @samurai = ClrModels::Samurai.new
       @samurai.name = "Nakiro"
-
-      @proxy = Caricature::RecordingClrProxy.new(@samurai)
+      @recorder = Caricature::MethodCallRecorder.new
+      @proxy = Caricature::RecordingClrProxy.new(@samurai, @recorder)
     end
 
     it "should create a proxy" do
@@ -59,11 +60,11 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should record a call" do
-        @proxy.___call_recorder___.size.should.equal 1
+        @recorder.size.should.equal 1
       end
 
       it "should record the correct call" do
-        mc = @proxy.___call_recorder___[:name]
+        mc = @recorder[:name]
         mc.method_name.should.equal :name
         mc.args.should.equal [Caricature::ArgumentRecording.new]
         mc.block.should.equal nil
@@ -76,7 +77,8 @@ describe "Caricature::RecordingClrProxy" do
   describe "for a CLR class" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::Ninja)
+      @recorder = Caricature::MethodCallRecorder.new
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::Ninja, @recorder)
     end
 
     it "should create a proxy" do
@@ -92,11 +94,11 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should record a call" do
-        @proxy.___call_recorder___.size.should.equal 1
+        @recorder.size.should.equal 1
       end
 
       it "should record the correct call" do
-        mc = @proxy.___call_recorder___[:name]
+        mc = @recorder[:name]
         mc.method_name.should.equal :name
         mc.args.should.equal [Caricature::ArgumentRecording.new]
         mc.block.should.equal nil
@@ -108,7 +110,8 @@ describe "Caricature::RecordingClrProxy" do
   describe "for a CLR interface" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IWarrior)
+      @recorder = Caricature::MethodCallRecorder.new
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IWarrior, @recorder)
     end
 
     it "should create a proxy" do
@@ -127,7 +130,6 @@ describe "Caricature::RecordingClrProxy" do
       @proxy.should.respond_to?(:name=)
     end
 
-    #this test invokes a Debug.Assert statement in the ironruby codebase. Nothing is wrong though
     describe "when invoking a method" do
 
       before do
@@ -135,11 +137,11 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should record a call" do
-        @proxy.___call_recorder___.size.should.equal 1
+        @recorder.size.should.equal 1
       end
 
       it "should record the correct call" do
-        mc = @proxy.___call_recorder___[:name]
+        mc = @recorder[:name]
         mc.method_name.should.equal :name
         mc.args.should.equal [Caricature::ArgumentRecording.new]
         mc.block.should.equal nil
@@ -152,7 +154,8 @@ describe "Caricature::RecordingClrProxy" do
   describe "for a CLR Interface with an event" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposing)
+      @recorder = Caricature::MethodCallRecorder.new
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposing, @recorder)
     end
 
     it "should create an add method for the event" do
@@ -161,14 +164,14 @@ describe "Caricature::RecordingClrProxy" do
 
     it "should create a remove method for the event" do
       @proxy.should.respond_to?(:remove_is_exposed_changed)
-    end    
+    end
 
   end
 
   describe "for CLR interface recursion" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposingWarrior)
+      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
     end
 
     it "should create a method defined on the CLR interface" do

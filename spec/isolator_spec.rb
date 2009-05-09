@@ -66,6 +66,19 @@ describe "Caricature::Isolator" do
       @isolator.proxy.is_clr_proxy?.should.be.false?
     end
 
+    describe "when asked to stub a method" do
+
+      it "should create an expectrakeation" do
+        nm = "What's in a name"
+        expectation = @isolator.when_told_to(:name) do |cl|
+          cl.return(nm)
+        end
+        expectation.method_name.should.equal :name
+        expectation.has_return_value?.should.be.true?
+        expectation.return_value.should.equal nm
+      end
+    end
+
   end
 
   describe "when creating an isolation for CLR objects" do

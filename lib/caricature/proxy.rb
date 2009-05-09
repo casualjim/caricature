@@ -40,8 +40,6 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require 'caricature/method_call_recorder'
-
 module Caricature
 
   class RecordingProxy
@@ -50,8 +48,9 @@ module Caricature
       undef_method name unless name =~ /^__|^instance_eval$/
     end
 
-    def initialize(subj)
+    def initialize(subj, recorder)
       @subject = ___create_proxy___(subj)
+      @recorder = recorder
     end
 
     def is_clr_proxy?
@@ -62,16 +61,12 @@ module Caricature
       "#{___class_name___(@subject)}Proxy"
     end
 
-    def method_missing(method, *args, &block)
-       ___call_recorder___.record_call(method, *args, &block)
-      block.nil? ? @subject.send(method, *args) : @subject.send(method, *args, &block)
+    def method_missing(method_name, *args, &block)
+      puts method_name
+      @recorder.record_call method_name, *args, &block
+      block.nil? ? @subject.send(method_name, *args) : @subject.send(method_name, *args, &block)
     end
-
-    def ___call_recorder___
-      @method_calls ||= MethodCallRecorder.new
-      @method_calls
-    end
-
+    
     def ___subject___
       @subject
     end

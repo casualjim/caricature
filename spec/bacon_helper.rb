@@ -1,10 +1,11 @@
 $: << File.dirname(__FILE__) + "/bin"
 $: << File.dirname(__FILE__) + "/../lib"
 
+require "caricature"
 require 'bacon'
 require 'mscorlib'
 
-require "caricature"
+
 
 
 load_assembly 'ClrModels'

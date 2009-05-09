@@ -40,49 +40,70 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require 'caricature/proxy'
-require 'caricature/method_call_recorder'
-require 'caricature/expectation'
-
 module Caricature
-    
-  class Isolator
 
-    attr_reader :proxy, :recorder
+  class Expectation
 
-    def initialize(proxy, recorder)
-      @proxy, @recorder = proxy, recorder
+    attr_reader  :method_name, :args, :error_args, :return_value, :super
+
+    def initialize(method_name, args, error_args, return_value, super_mode, record)
+      @method_name, @args, @error_args, @return_value, @super, @record =
+              method_name, args, error_args, return_value, super_mode, record
     end
 
-    def when_told_to(method_name, &block)
-      builder = ExpectationBuilder.new method_name, @recorder
-      block.call builder unless block.nil?
-      builder.build
-    end
-    alias_method :on, :when_told_to
-    alias_method :when, :when_told_to
-
-    def was_told_to(method_name, &block)
-      true
+    def has_error_args?
+      !@error_args.nil?
     end
 
-#    def method_missing(m, *a, &b)
-#      proxy.__send__(m, *a, &b)
-#    end
+    def has_return_value?
+      !@return_value.nil?
+    end
 
-    class << self
+    def has_super?
+      !@super.nil?
+    end
 
-      def for(subject)
-        recorder = MethodCallRecorder.new
-        proxy = subject.is_clr_type? ? RecordingClrProxy.new(subject, recorder) : RecordingProxy.new(subject, recorder)
-
-        return Isolator.new(proxy, recorder)
-      end
-      
+    def verify
+      @recorder.record_call method_name, args
     end
   end
 
-  Mock = Isolator
-  Stub = Isolator
+  class ExpectationBuilder
+    
+    def initialize(method_name, recorder)
+      @method_name, @recorder, @return_value, @super, @block, @error_args, @args, @any_args = 
+              method_name, recorder, nil, nil, nil, nil, [], true
+    end
+
+    def with *args
+      @any_args = false unless args.first == :any
+      @args = args
+      self
+    end
+
+    def return(value=nil)
+      @return_value = value
+      @return_value ||= yield if block_given?
+      self
+    end
+
+    def raise(*args)
+      @error_args = args
+      self
+    end
+
+    def super_before
+      @super = :before
+    end
+
+    def super_after
+      @super = :after
+    end
+
+    def build
+      Expectation.new @method_name, @args, @error_args, @return_value, @super, @recorder      
+    end
+
+  end
 
 end
