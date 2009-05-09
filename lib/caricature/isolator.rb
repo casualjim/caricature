@@ -46,7 +46,7 @@ require 'caricature/expectation'
 require 'caricature/verification'
 
 module Caricature
-    
+
   class Isolator
 
     attr_reader :proxy, :recorder
@@ -64,16 +64,23 @@ module Caricature
       exp
     end
 
-    def was_told_to(method_name, &block)
-      verification = Verification.new(method_name, @expectations, @recorder)
+    def was_told_to?(method_name, &block)
+      verification = Verification.new(method_name, @recorder)
       block.call verification unless block.nil?
-      verification
+      verification.successful?
     end
 
     def method_missing(m, *a, &b)
-      proxy.__send__(m, *a, &b)
+      exp = @expectations.find(m, a)
+      if exp
+        proxy.__send__(m, *a, &b) if exp.super_before?
+        exp.execute
+        proxy.__send__(m, *a, &b) unless exp.super_before?
+      else
+        proxy.__send__(m, *a, &b)
+      end
     end
-
+    
     class << self
 
       def for(subject)
@@ -82,7 +89,7 @@ module Caricature
 
         new(proxy, recorder)
       end
-      
+
     end
   end
 

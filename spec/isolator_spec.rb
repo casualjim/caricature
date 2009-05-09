@@ -68,7 +68,7 @@ describe "Caricature::Isolator" do
 
     describe "when asked to stub a method" do
 
-      it "should create an expectrakeation" do
+      it "should create an expectation" do
         nm = "What's in a name"
         expectation = @isolator.when_told_to(:name) do |cl|
           cl.return(nm)
@@ -77,6 +77,37 @@ describe "Caricature::Isolator" do
         expectation.has_return_value?.should.be.true?
         expectation.return_value.should.equal nm
       end
+    end
+
+  end
+
+  describe 'when verifying if a call was made' do
+
+    before do
+      @rec = Caricature::MethodCallRecorder.new
+      @rec.record_call :my_method
+      @rec.record_call :my_method, 1, 2, 3
+      @proxy = Caricature::RecordingProxy.new(Soldier, @rec)
+    end
+
+    it "should be successful with any arguments allowed" do
+      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso.was_told_to?(:my_method).should.be.true?
+    end
+
+    it "should be successful with a correct set of arguments provided for my_method" do
+      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso.was_told_to?(:my_method){ |ver| ver.with(1, 2, 3) }.should.be.true?
+    end
+
+    it "should be unsuccessful when a wrong set of arguments is provided" do
+      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso.was_told_to?(:my_method){|ver| ver.with(1, 3, 6) }.should.be.false?
+    end
+
+    it "should be unsuccessful when the wrong method name is provided" do
+      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso.was_told_to?(:some_method).should.be.false?
     end
 
   end

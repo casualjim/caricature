@@ -44,8 +44,8 @@ module Caricature
 
   class Verification
 
-    def initialize(method_name, expectations, recorder)
-      @method_name, @args, @any_args = method_name, [], true
+    def initialize(method_name, recorder)
+      @method_name, @args, @any_args, @recorder = method_name, [], true, recorder
     end
 
     def any_args?
@@ -55,14 +55,21 @@ module Caricature
     def with(*args)
       @any_args = false unless args.first == :any
       @args = args
+      self
     end
 
-    def with_any_arguments
+    def allow_any_arguments
       @any_args = true
+      self
     end
 
     def matches?(method_name, *args)
+      @method_name == method_name and any_args? or @args == args
+    end
 
+    def successful?
+      a = any_args? ? [:any] : @args
+      @recorder.was_called?(@method_name, *a)
     end
 
   end

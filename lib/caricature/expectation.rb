@@ -65,9 +65,9 @@ module Caricature
 
     attr_reader  :method_name, :args, :error_args, :return_value, :super
 
-    def initialize(method_name, args, error_args, return_value, super_mode, record)
-      @method_name, @args, @error_args, @return_value, @super, @record =
-              method_name, args, error_args, return_value, super_mode, record
+    def initialize(method_name, args, error_args, return_value, super_mode, recorder)
+      @method_name, @args, @error_args, @return_value, @super, @recorder =
+              method_name, args, error_args, return_value, super_mode, recorder
     end
 
     def has_error_args?
@@ -82,9 +82,15 @@ module Caricature
       !@super.nil?
     end
 
+    def super_before?
+      @super == :before
+    end
+
     def execute
       @recorder.record_call method_name, args
-
+      raise *@error_args if has_error_args?
+      return return_value if has_return_value?
+      nil
     end
   end
 
@@ -95,7 +101,7 @@ module Caricature
               method_name, recorder, nil, nil, nil, nil, [], true
     end
 
-    def with *args
+    def with(*args)
       @any_args = false unless args.first == :any
       @args = args
       self

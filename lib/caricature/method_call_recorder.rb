@@ -60,6 +60,8 @@ module Caricature
     end
    
     def ==(other)
+      other = self.class.new(other) if other.respond_to?(:each)
+      return true if other.args.first == :any
       other.args == args
     end
   end
@@ -88,6 +90,7 @@ module Caricature
     end
 
     def find_argument_variations(args)
+      return @variations if args.first == :any
       @variations.select { |ar| ar.args == args }
     end
   end
@@ -108,8 +111,13 @@ module Caricature
       mc.add_argument_variation args, block 
     end
 
-    def was_called?(method_name)
-      !method_calls[method_name.to_s.to_sym].nil?
+    def was_called?(method_name, *args)
+      mc = method_calls[method_name.to_s.to_sym]
+      if mc
+        return mc.find_argument_variations(args).first == args        
+      else
+        return !!mc
+      end
     end
 
     def [](method_name)

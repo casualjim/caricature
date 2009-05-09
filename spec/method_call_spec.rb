@@ -263,4 +263,33 @@ describe "MethodCallRecorder" do
 
   end
 
+  describe "when asked if a certain method was called" do
+
+    before do
+      @recorder.record_call :my_method
+      @recorder.record_call :my_method, 1, 3, 4
+    end
+
+    it "should confirm when we don't care about the arguments" do
+      @recorder.was_called?(:my_method, :any).should.be.true?
+    end
+
+    it "should confirm when there are no argument variations" do
+      @recorder.record_call :another_method
+      @recorder.was_called?(:another_method, :any).should.be.true?
+    end
+
+    it "should be negative when we provide the wrong arguments" do
+      @recorder.was_called?(:my_method, 1, 2, 5).should.be.false?
+    end
+
+    it "should be positive when we provide the correct arguments" do
+      @recorder.was_called?(:my_method, 1, 3, 4).should.be.true?
+    end
+
+    it "should be positive when we provide no arguments and a call had been recorded without arguments" do
+      @recorder.was_called?(:my_method).should.be.true?
+    end
+  end
+
 end
