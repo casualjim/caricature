@@ -58,8 +58,36 @@ describe "Caricature::Isolator" do
       @isolator = Caricature::Isolator.for(Soldier)
     end
 
-    it "should create a Caricature::RecordingProxy" do
-      @isolator.is_clr_proxy?.should.be.false?
+    it "should create a proxy" do
+      @isolator.proxy.should.not.be == nil
+    end
+
+    it "should create the Ruby objects proxy" do
+      @isolator.proxy.is_clr_proxy?.should.be.false?
+    end
+
+  end
+
+  describe "when creating an isolation for CLR objects" do
+
+    it "should not raise" do
+      lambda { Caricature::Isolator.for(ClrModels::Ninja) }.should.not.raise
+    end
+
+  end
+
+  describe "after creation of the isolation for a CLR object" do
+
+    before do
+      @isolator = Caricature::Isolator.for(ClrModels::Ninja)
+    end
+
+    it "should create a proxy" do
+      @isolator.proxy.should.not.be == nil
+    end
+
+    it "should create the CLR objects proxy" do
+      @isolator.proxy.is_clr_proxy?.should.be.true?
     end
 
   end

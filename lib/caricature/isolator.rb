@@ -46,10 +46,22 @@ module Caricature
     
   class Isolator
 
+    attr_reader :proxy
+
+    def initialize(proxy)
+      @proxy = proxy
+    end
+
+
+    def method_missing(m, *a, &b)
+      proxy.__send__(m, *a, &b)
+    end
+
     class << self
 
       def for(subject)
-        RecordingProxy.new subject
+        proxy = subject.is_clr_type? ? RecordingClrProxy.new(subject) : RecordingProxy.new(subject)
+        new proxy
       end
       
     end
