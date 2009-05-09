@@ -46,6 +46,16 @@ module Caricature
     
   class Isolator
 
+    class << self
+
+      def for(subject)
+        
+      end
+
+    end
   end
+
+  Mock = Isolator
+  Stub = Isolator
 
 end

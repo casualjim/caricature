@@ -51,12 +51,12 @@ module Caricature
     end
 
     def initialize(subj)
-      @subject = create_proxy(subj)
+      @subject = ___create_proxy___(subj)
       @method_calls = MethodCallRecorder.new
     end
 
     def ___proxy_name___
-      "#{class_name(@subject)}Proxy"
+      "#{___class_name___(@subject)}Proxy"
     end
     
     def method_missing(method, *args, &block)
@@ -78,12 +78,12 @@ module Caricature
 
     protected
 
-    def create_proxy(subj)
+    def ___create_proxy___(subj)
       return subj unless subj.respond_to?(:class_eval)
       subj.new
     end
 
-    def class_name(subj)
+    def ___class_name___(subj)
       nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
       @class_name ||= "#{nm}#{System::Guid.new_guid.to_string('n')}"
       @class_name
@@ -95,7 +95,7 @@ module Caricature
 
     protected
 
-    def create_proxy(subj)
+    def ___create_proxy___(subj)
       return subj unless subj.respond_to?(:class_eval)
       return create_interface_proxy_for(subj) unless subj.respond_to?(:new)
       subj.new
@@ -115,7 +115,7 @@ module Caricature
     def create_interface_proxy_for(subj)
       proxy_members = collect_members(subj)
 
-      klass = Object.const_set(class_name(subj), Class.new)
+      klass = Object.const_set(___class_name___(subj), Class.new)
       klass.class_eval do
         include subj
 

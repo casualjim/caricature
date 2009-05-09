@@ -58,17 +58,14 @@ module Caricature
       @block = block
       @call_number = call_number
     end
-
-    def has_block?
-      !block.nil?
-    end
-
+   
     def ==(other)
       other.args == args
     end
   end
 
   class MethodCallRecording
+    
     attr_accessor :method_name, :count, :args, :block
 
     def initialize(method_name, count=0)
