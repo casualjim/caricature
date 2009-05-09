@@ -42,6 +42,25 @@
 
 module Caricature
 
+  class Expectations
+
+    def initialize
+      @inner = []
+    end
+
+    def <<(expectation)
+      @inner << expectation
+    end
+
+    def find(method_name, *args)
+      candidates = @inner.select { |exp| exp.method_name == method_name }
+      return candidates.first if args.first == :any
+      second_pass = candidates.select {|exp| exp.args == args }
+      second_pass.first
+    end
+
+  end
+
   class Expectation
 
     attr_reader  :method_name, :args, :error_args, :return_value, :super
@@ -63,8 +82,9 @@ module Caricature
       !@super.nil?
     end
 
-    def verify
+    def execute
       @recorder.record_call method_name, args
+
     end
   end
 

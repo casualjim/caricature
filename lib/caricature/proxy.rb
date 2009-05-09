@@ -62,7 +62,6 @@ module Caricature
     end
 
     def method_missing(method_name, *args, &block)
-      puts method_name
       @recorder.record_call method_name, *args, &block
       block.nil? ? @subject.send(method_name, *args) : @subject.send(method_name, *args, &block)
     end

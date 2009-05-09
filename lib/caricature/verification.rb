@@ -40,53 +40,31 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require 'caricature/proxy'
-require 'caricature/method_call_recorder'
-require 'caricature/expectation'
-require 'caricature/verification'
-
 module Caricature
-    
-  class Isolator
 
-    attr_reader :proxy, :recorder
+  class Verification
 
-    def initialize(proxy, recorder)
-      @proxy, @recorder = proxy, recorder
-      @expectations = Expectations.new
+    def initialize(method_name, expectations, recorder)
+      @method_name, @args, @any_args = method_name, [], true
     end
 
-    def when_told_to(method_name, &block)
-      builder = ExpectationBuilder.new method_name, @recorder
-      block.call builder unless block.nil?
-      exp = builder.build
-      @expectations << exp
-      exp
+    def any_args?
+      @any_args
     end
 
-    def was_told_to(method_name, &block)
-      verification = Verification.new(method_name, @expectations, @recorder)
-      block.call verification unless block.nil?
-      verification
+    def with(*args)
+      @any_args = false unless args.first == :any
+      @args = args
     end
 
-    def method_missing(m, *a, &b)
-      proxy.__send__(m, *a, &b)
+    def with_any_arguments
+      @any_args = true
     end
 
-    class << self
+    def matches?(method_name, *args)
 
-      def for(subject)
-        recorder = MethodCallRecorder.new
-        proxy = subject.is_clr_type? ? RecordingClrProxy.new(subject, recorder) : RecordingProxy.new(subject, recorder)
-
-        new(proxy, recorder)
-      end
-      
     end
+
   end
-
-  Mock = Isolator
-  Stub = Isolator
 
 end
