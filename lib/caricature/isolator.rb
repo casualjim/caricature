@@ -40,7 +40,7 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require File.dirname(__FILE__) + '/proxy'
+require 'caricature/proxy'
 
 module Caricature
     
@@ -49,9 +49,9 @@ module Caricature
     class << self
 
       def for(subject)
-        
+        RecordingProxy.new subject
       end
-
+      
     end
   end
 

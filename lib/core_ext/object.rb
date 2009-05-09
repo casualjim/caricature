@@ -40,16 +40,10 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-class Class
-
-  def demodulize
-    self.to_s.gsub(/^.*::/, '')
-  end
+class Object
 
   def is_clr_type?
-    !self.to_clr_type.nil? ||
-            self.included_modules.any? {|mod| !mod.to_clr_type.nil? } ||
-            self.ancestors.reject {|mod| mod == Object }.any? { |mod| !mod.to_clr_type.nil? }
+    self.class.is_clr_type?
   end
   
 end

@@ -1,25 +1,5 @@
 require File.dirname(__FILE__) + "/bacon_helper"
 
-class Soldier
-
-  def name
-    "Tommy Boy"
-  end
-
-  def to_s
-    "I'm a soldier"
-  end
-
-end
-
-describe "String" do
-
-  it "should underscore a camel cased name" do
-    "MockingAndStubbingForIronRuby1".underscore.should.equal "mocking_and_stubbing_for_iron_ruby1"
-  end
-
-end
-
 describe "Caricature::RecordingProxy" do
 
   before do    

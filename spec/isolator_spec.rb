@@ -40,16 +40,28 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-class Class
+require File.dirname(__FILE__) + "/bacon_helper"
 
-  def demodulize
-    self.to_s.gsub(/^.*::/, '')
+describe "Caricature::Isolator" do
+
+  describe "when creating an isolation for ruby objects" do
+
+    it "should not raise" do
+      lambda { Caricature::Isolator.for(Soldier) }.should.not.raise
+    end
+
   end
 
-  def is_clr_type?
-    !self.to_clr_type.nil? ||
-            self.included_modules.any? {|mod| !mod.to_clr_type.nil? } ||
-            self.ancestors.reject {|mod| mod == Object }.any? { |mod| !mod.to_clr_type.nil? }
+  describe "after creation of the isolation for a ruby object" do
+
+    before do
+      @isolator = Caricature::Isolator.for(Soldier)
+    end
+
+    it "should create a Caricature::RecordingProxy" do
+      @isolator.is_clr_proxy?.should.be.false?
+    end
+
   end
-  
+
 end

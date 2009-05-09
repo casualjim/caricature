@@ -1,3 +1,5 @@
 $: << File.dirname(__FILE__) + "/bin"
-require File.dirname(__FILE__) + '/core_ext'
-require File.dirname(__FILE__) + '/caricature/caricature'
+$: << File.dirname(__FILE__)
+
+require 'core_ext/core_ext'
+require 'caricature/isolator'

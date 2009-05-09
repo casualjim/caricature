@@ -40,7 +40,7 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require File.dirname(__FILE__) + '/method_call_recorder'
+require 'caricature/method_call_recorder'
 
 module Caricature
 
@@ -52,19 +52,23 @@ module Caricature
 
     def initialize(subj)
       @subject = ___create_proxy___(subj)
-      @method_calls = MethodCallRecorder.new
+    end
+
+    def is_clr_proxy?
+      false
     end
 
     def ___proxy_name___
       "#{___class_name___(@subject)}Proxy"
     end
-    
+
     def method_missing(method, *args, &block)
-      @method_calls.record_call(method, *args, &block)
+       ___call_recorder___.record_call(method, *args, &block)
       block.nil? ? @subject.send(method, *args) : @subject.send(method, *args, &block)
     end
 
     def ___call_recorder___
+      @method_calls ||= MethodCallRecorder.new
       @method_calls
     end
 
@@ -73,7 +77,7 @@ module Caricature
     end
 
     def inspect
-      proxy_name
+      ___proxy_name___
     end
 
     protected
@@ -93,15 +97,20 @@ module Caricature
 
   class RecordingClrProxy < RecordingProxy
 
+    def is_clr_proxy?
+      true
+    end
+
     protected
 
     def ___create_proxy___(subj)
       return subj unless subj.respond_to?(:class_eval)
-      return create_interface_proxy_for(subj) unless subj.respond_to?(:new)
+      return ___create_interface_proxy_for___(subj) unless subj.respond_to?(:new)
+      
       subj.new
     end
 
-    def collect_members(subj)
+    def ___collect_members___(subj)
       clr_type = subj.to_clr_type
 
       properties = clr_type.collect_interface_properties
@@ -112,8 +121,8 @@ module Caricature
       proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| "#{pi.name.underscore}=" }      
     end
 
-    def create_interface_proxy_for(subj)
-      proxy_members = collect_members(subj)
+    def ___create_interface_proxy_for___(subj)
+      proxy_members = ___collect_members___(subj)
 
       klass = Object.const_set(___class_name___(subj), Class.new)
       klass.class_eval do
