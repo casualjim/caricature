@@ -42,11 +42,11 @@ describe "Caricature::RecordingProxy" do
     end
 
     it "should record a call" do
-      @proxy.method_calls.size.should.equal 1
+      @proxy.___call_recorder___.size.should.equal 1
     end
 
     it "should record the correct call" do
-      mc = @proxy.method_calls[0]
+      mc = @proxy.___call_recorder___[:name]
       mc.method_name.should.equal :name
       mc.args.should.equal []
       mc.block.should.equal nil
@@ -79,11 +79,11 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should record a call" do
-        @proxy.method_calls.size.should.equal 1
+        @proxy.___call_recorder___.size.should.equal 1
       end
 
       it "should record the correct call" do
-        mc = @proxy.method_calls[0]
+        mc = @proxy.___call_recorder___[:name]
         mc.method_name.should.equal :name
         mc.args.should.equal []
         mc.block.should.equal nil
@@ -100,7 +100,7 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create a proxy" do
-      @proxy.subject.class.should.equal ClrModels::Ninja
+      @proxy.___subject___.class.should.equal ClrModels::Ninja
       @proxy.id.should.equal 0
     end
 
@@ -112,11 +112,11 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should record a call" do
-        @proxy.method_calls.size.should.equal 1
+        @proxy.___call_recorder___.size.should.equal 1
       end
 
       it "should record the correct call" do
-        mc = @proxy.method_calls[0]
+        mc = @proxy.___call_recorder___[:name]
         mc.method_name.should.equal :name
         mc.args.should.equal []
         mc.block.should.equal nil
@@ -155,11 +155,11 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should record a call" do
-        @proxy.method_calls.size.should.equal 1
+        @proxy.___call_recorder___.size.should.equal 1
       end
 
       it "should record the correct call" do
-        mc = @proxy.method_calls[0]
+        mc = @proxy.___call_recorder___[:name]
         mc.method_name.should.equal :name
         mc.args.should.equal []
         mc.block.should.equal nil

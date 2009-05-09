@@ -40,12 +40,45 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
-require File.dirname(__FILE__) + '/proxy'
-
 module Caricature
-    
-  class Isolator
 
+  class MethodCall
+    attr_accessor :method_name, :count, :args, :block
+
+    def initialize(method_name, count, args, block)
+      @method_name = method_name
+      @count = count
+      @args = args
+      @block = block
+    end
   end
+
+  class MethodCallRecorder
+
+    attr_reader :method_calls
+
+    def initialize
+      @method_calls = {}
+    end
+
+    def record_call(method_name, *args, &block)
+      mn_sym = method_name.to_s.to_sym
+      method_calls[mn_sym] ||= MethodCall.new(method_name, 0, args, block )
+      method_calls[mn_sym].count += 1
+    end
+
+    def was_called?(method_name)
+      !method_calls[method_name.to_s.to_sym].nil?
+    end
+
+    def [](method_name)
+      method_calls[method_name.to_s.to_sym]
+    end
+
+    def size
+      @method_calls.size
+    end
+  end
+
 
 end

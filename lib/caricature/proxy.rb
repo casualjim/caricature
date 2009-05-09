@@ -40,6 +40,8 @@
 # [This is the BSD license, see
 #  http://www.opensource.org/licenses/bsd-license.php]
 
+require File.dirname(__FILE__) + '/method_call_recorder'
+
 module Caricature
 
   class RecordingProxy
@@ -47,22 +49,27 @@ module Caricature
     instance_methods.each do |name|
       undef_method name unless name =~ /^__|^instance_eval$/
     end
-    
-
-    attr_reader :subject, :method_calls
 
     def initialize(subj)
       @subject = create_proxy(subj)
-      @method_calls = []
+      @method_calls = MethodCallRecorder.new
     end
 
-    def proxy_name
+    def ___proxy_name___
       "#{class_name(@subject)}Proxy"
     end
     
     def method_missing(method, *args, &block)
-      @method_calls << MethodCall.new(method, args, &block)
+      @method_calls.record_call(method, *args, &block)
       block.nil? ? @subject.send(method, *args) : @subject.send(method, *args, &block)
+    end
+
+    def ___call_recorder___
+      @method_calls
+    end
+
+    def ___subject___
+      @subject
     end
 
     def inspect
