@@ -42,6 +42,7 @@
 
 module Caricature
 
+  # A proxy to Ruby objects that records method calls
   class RecordingProxy
 
     instance_methods.each do |name|
@@ -89,6 +90,7 @@ module Caricature
 
   end
 
+  # A proxy to CLR objects that records method calls.
   class RecordingClrProxy < RecordingProxy
 
     def is_clr_proxy?
