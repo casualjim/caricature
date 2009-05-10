@@ -26,5 +26,5 @@ end
 Battle.new(mock)
 battle.combat
 
-mock.was_told_to?(:attack).should.be.successful
+mock.was_told_to?(:attack).should.be.true?
 </pre>
