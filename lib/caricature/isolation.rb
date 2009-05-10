@@ -47,7 +47,7 @@ require 'caricature/verification'
 
 module Caricature
 
-  class Isolator
+  class Isolation
 
     attr_reader :proxy, :recorder
 
@@ -93,7 +93,7 @@ module Caricature
     end
   end
 
-  Mock = Isolator
-  Stub = Isolator
+  Mock = Isolation
+  Stub = Isolation
 
 end

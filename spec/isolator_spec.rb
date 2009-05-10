@@ -42,12 +42,12 @@
 
 require File.dirname(__FILE__) + "/bacon_helper"
 
-describe "Caricature::Isolator" do
+describe "Caricature::Isolation" do
 
   describe "when creating an isolation for ruby objects" do
 
     it "should not raise" do
-      lambda { Caricature::Isolator.for(Soldier) }.should.not.raise
+      lambda { Caricature::Isolation.for(Soldier) }.should.not.raise
     end
 
   end
@@ -55,7 +55,7 @@ describe "Caricature::Isolator" do
   describe "after creation of the isolation for a ruby object" do
 
     before do
-      @isolator = Caricature::Isolator.for(Soldier)
+      @isolator = Caricature::Isolation.for(Soldier)
     end
 
     it "should create a proxy" do
@@ -91,22 +91,22 @@ describe "Caricature::Isolator" do
     end
 
     it "should be successful with any arguments allowed" do
-      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso = Caricature::Isolation.new(@proxy, @rec)
       iso.was_told_to?(:my_method).should.be.true?
     end
 
     it "should be successful with a correct set of arguments provided for my_method" do
-      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso = Caricature::Isolation.new(@proxy, @rec)
       iso.was_told_to?(:my_method){ |ver| ver.with(1, 2, 3) }.should.be.true?
     end
 
     it "should be unsuccessful when a wrong set of arguments is provided" do
-      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso = Caricature::Isolation.new(@proxy, @rec)
       iso.was_told_to?(:my_method){|ver| ver.with(1, 3, 6) }.should.be.false?
     end
 
     it "should be unsuccessful when the wrong method name is provided" do
-      iso = Caricature::Isolator.new(@proxy, @rec)
+      iso = Caricature::Isolation.new(@proxy, @rec)
       iso.was_told_to?(:some_method).should.be.false?
     end
 
@@ -115,7 +115,7 @@ describe "Caricature::Isolator" do
   describe "when creating an isolation for CLR objects" do
 
     it "should not raise" do
-      lambda { Caricature::Isolator.for(ClrModels::Ninja) }.should.not.raise
+      lambda { Caricature::Isolation.for(ClrModels::Ninja) }.should.not.raise
     end
 
   end
@@ -123,7 +123,7 @@ describe "Caricature::Isolator" do
   describe "after creation of the isolation for a CLR object" do
 
     before do
-      @isolator = Caricature::Isolator.for(ClrModels::Ninja)
+      @isolator = Caricature::Isolation.for(ClrModels::Ninja)
     end
 
     it "should create a proxy" do
