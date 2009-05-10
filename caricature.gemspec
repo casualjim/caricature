@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/casualjim/caricature}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{caricature}
   s.rubygems_version = %q{1.3.2}
   s.summary = %q{Caricature - Bringing simple mocking to the DLR}
   s.test_files = [
