@@ -25,3 +25,17 @@ task :clr_models do
   system "csc /noconfig /target:library /debug+ /debug:full /out:spec\\bin\\ClrModels.dll #{files}"
 end
 
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "caricature"
+    gemspec.summary = "Caricature - Bringing simple mocking to the DLR"
+    gemspec.email = "ivan@flanders.co.nz"
+    gemspec.homepage = "http://github.com/casualjim/caricature"
+    gemspec.description = "Caricature - Bringing simple mocking to the DLR"
+    gemspec.authors = ["Ivan Porto Carrero"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
+
