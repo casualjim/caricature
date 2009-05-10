@@ -1,4 +1,8 @@
+require 'rubygems'
 require 'ftools'
+require 'rake/rdoctask'
+require 'rake/rdoctask'
+require 'jeweler'
 
 desc "The default task is to run all the specs"
 task :default => [:clr_models, :spec]
@@ -26,7 +30,7 @@ task :clr_models do
 end
 
 begin
-  require 'jeweler'
+
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "caricature"
     gemspec.summary = "Caricature - Bringing simple mocking to the DLR"
