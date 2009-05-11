@@ -1,7 +1,7 @@
-require File.dirname(__FILE__) + '/proxy'
-require File.dirname(__FILE__) + '/method_call_recorder'
-require File.dirname(__FILE__) + '/expectation'
-require File.dirname(__FILE__) + '/verification'
+load File.dirname(__FILE__) + '/proxy.rb'
+load File.dirname(__FILE__) + '/method_call_recorder.rb'
+load File.dirname(__FILE__) + '/expectation.rb'
+load File.dirname(__FILE__) + '/verification.rb'
 
 module Caricature
 
@@ -21,6 +21,7 @@ module Caricature
     # an accessor for the proxy directly. You probably don't want to use this object directly
     attr_reader :proxy
 
+    # initializes a new isolation object with the specified +proxy+ and +recorder+
     def initialize(proxy, recorder)
       @proxy, @recorder = proxy, recorder
       @expectations = Expectations.new

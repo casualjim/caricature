@@ -22,11 +22,16 @@ namespace :spec do
   
 end
 
+def csc
+  system "gmcs"
+  $?.pid.zero? ? "csc" : "gmcs"
+end
+
 desc "Compiles the clr models"
 task :clr_models do
   Dir.chdir(File.dirname(__FILE__))
   files = Dir.glob("spec/models/*.cs").collect { |f| f.gsub(/\//, "\\")  }.join(" ")
-  system "csc /noconfig /target:library /debug+ /debug:full /out:spec\\bin\\ClrModels.dll #{files}"
+  system "#{csc} /noconfig /target:library /debug+ /debug:full /out:spec\\bin\\ClrModels.dll #{files}"
 end
 
 begin

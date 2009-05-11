@@ -9,17 +9,21 @@ describe "Caricature::RecordingProxy" do
   end
 
   it "should forward existing methods" do
-    @proxy.name.should.equal @subj.name
+    @proxy.___super___.name.should.equal @subj.name
   end
 
   it "should call to_s on the proxied object" do
-    @proxy.to_s.should.equal @subj.to_s
+    @proxy.___super___.to_s.should.equal @subj.to_s
   end
 
   describe "when invoking a method" do
 
     before do
       @proxy.name
+    end
+
+    it "should return nil" do
+      @proxy.name.should.be.nil
     end
 
     it "should record a call" do
@@ -49,14 +53,18 @@ describe "Caricature::RecordingClrProxy" do
 
     it "should create a proxy" do
 
-      @proxy.name.should.equal @samurai.name
-      @proxy.id.should.equal 0
+      @proxy.___super___.name.should.equal @samurai.name
+      @proxy.___super___.id.should.equal 0
     end
 
     describe "when invoking a method" do
 
       before do
         @proxy.name
+      end
+
+      it "should return nil" do
+        @proxy.name.should.be.nil
       end
 
       it "should record a call" do
@@ -82,8 +90,8 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create a proxy" do
-      @proxy.___subject___.class.should.equal ClrModels::Ninja
-      @proxy.id.should.equal 0
+      @proxy.___super___.class.should.equal ClrModels::Ninja
+      @proxy.___super___.id.should.equal 0
     end
 
 
