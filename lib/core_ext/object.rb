@@ -5,5 +5,9 @@ class Object
   def is_clr_type?
     self.class.is_clr_type?
   end
+
+  def to_clr_type
+    self.class.to_clr_type
+  end
   
 end

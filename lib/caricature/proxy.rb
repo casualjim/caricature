@@ -2,76 +2,54 @@ module Caricature
 
   # A proxy to Ruby objects that records method calls
   class RecordingProxy
-    
-    instance_methods.each do |name|
-      undef_method name unless name =~ /^__|^instance_eval$/
-    end
 
-    def initialize(subj, recorder=MethodCallRecorder.new)
-      @subject = ___create_proxy___(subj)
-      @recorder = recorder
-    end
-
-    def is_clr_proxy?
-      false
-    end
-
-    def ___proxy_name___
-      "#{@class_name || ___class_name___(@subject)}Proxy"
-    end
-
-    def method_missing(method_name, *args, &block)
-      @recorder.record_call method_name, *args, &block
-      block.nil? ? @subject.send(method_name, *args) : @subject.send(method_name, *args, &block)
-    end
-    
-    def ___subject___
-      @subject
-    end
-
-    def inspect
-      ___proxy_name___
-    end
-
-    protected
-
-    def ___class_name___(subj)
-      nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
-      @class_name ||= "#{nm}#{System::Guid.new_guid.to_string('n')}"
-      @class_name
-    end
-
-    def ___create_proxy___(subj)
-      klass = subj.respond_to?(:class_eval) ? subj : subj.class
-      instance = subj.respond_to?(:class_eval) ? subj.new : subj
-      ___create_ruby_proxy___(klass, instance)
-    end
-
-    def ___initialize_proxy___(klass, inst)
-      pxy = klass.new
-      pxy.instance_variable_set("@super", inst)
-      pxy
-    end
-
-    def ___create_ruby_proxy___(subj, inst)
-
-      klass = Object.const_set(___class_name___(subj), Class.new(subj))
-      klass.class_eval do
-        (subj.methods - Object.instance_methods).each do |mn|
-          define_method mn do
-            # just stub
-          end
-        end
-
-        def ___super___
-          @super
-        end
-                
+    class << self
+      def for(subject, recorder, expectations = Expectations.new)
+        subj = create_proxy(subject, recorder, expectations)
+        subj
       end
 
-      ___initialize_proxy___(klass, inst)
-    end
+      protected
 
+      def class_name(subj)
+        nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
+        @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
+        @class_name
+      end
+
+      def create_proxy(subj, recorder, expectations)
+        klass = subj.respond_to?(:class_eval) ? subj : subj.class
+        instance = subj.respond_to?(:class_eval) ? subj.new : subj
+        pxy = create_ruby_proxy_for klass
+        res = initialize_proxy pxy, instance, recorder, expectations
+        res
+      end
+
+      def initialize_proxy(klass, inst, recorder, expectations)
+        pxy = klass.new
+        pxy.instance_variable_set("@___super___", inst)
+        pxy.instance_variable_set("@___recorder___", recorder)
+        pxy.instance_variable_set("@___expectations___", expectations)
+
+        pxy
+      end
+
+      def create_ruby_proxy_for(subj)
+
+        klass = Object.const_set(class_name(subj), Class.new(subj))
+        klass.class_eval do
+
+          (subj.instance_methods - Object.instance_methods).each do |mn|
+            define_method mn do |*args|
+              #just stub
+            end
+          end
+
+        end
+
+        klass
+      end
+    end
 
 
   end
@@ -79,74 +57,119 @@ module Caricature
   # A proxy to CLR objects that records method calls.
   class RecordingClrProxy < RecordingProxy
 
-    def is_clr_proxy?
-      true
-    end
+    class << self
+      protected
 
-    protected
-
-    def ___create_proxy___(subj)
-      return ___create_clr_proxy___(subj.class, subj) unless subj.respond_to?(:class_eval)
-      return ___create_interface_proxy_for___(subj) unless subj.respond_to?(:new)
-      
-      ___create_clr_proxy___(subj, subj.new)
-    end 
-
-    def  ___create_clr_proxy___(subj, inst)
-      clr_type = subj.to_clr_type
-
-      members = clr_type.get_methods.collect { |mi| mi.name.underscore }
-      members += clr_type.get_properties.collect { |pi| pi.name.underscore }
-      members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| "#{pi.name.underscore}=" }
-
-      klass = Object.const_set(___class_name___(subj), Class.new(subj))
-      klass.class_eval do
-        members.each do |mem|
-          define_method mem.to_s.to_sym do |*args|
-            # just a stub
-          end
+      def create_proxy(subj, recorder, expectations)
+        pxy, instance = nil
+        unless subj.respond_to?(:class_eval)
+          pxy, instance = create_clr_proxy_for(subj.class), subj
         end
+        pxy = create_interface_proxy_for(subj) unless subj.respond_to?(:new)
 
-        define_method :___super___ do 
-          @super
-        end
+        pxy ||= create_clr_proxy_for(subj)
+        instance ||= pxy.new
+        initialize_proxy pxy, instance, recorder, expectations
       end
 
-      ___initialize_proxy___(klass, inst)
-    end
+      def  create_clr_proxy_for(subj)
+        clr_type = subj.to_clr_type
 
-    def ___collect_members___(subj)
-      clr_type = subj.to_clr_type
+        members = clr_type.get_methods.collect { |mi| [mi.name.underscore, mi.return_type] }
+        members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
+        members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
 
-      properties = clr_type.collect_interface_properties
-      methods = clr_type.collect_interface_methods
+        klass = Object.const_set(class_name(subj), Class.new(subj))
+        klass.class_eval do
 
-      proxy_members = methods.collect { |mi| mi.name.underscore }
-      proxy_members += properties.collect { |pi| pi.name.underscore }
-      proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| "#{pi.name.underscore}=" }      
-    end
+          include Interception
 
-    def ___create_interface_proxy_for___(subj)
-      proxy_members = ___collect_members___(subj)
-
-      klass = Object.const_set(___class_name___(subj), Class.new)
-      klass.class_eval do
-        include subj
-
-        proxy_members.each do |mem|
-          define_method mem.to_s.to_sym do |*args|
-            #just a stub
+          define_method :___super___ do
+            @___super___
           end
+
+          members.each do |mem|
+            nm = mem[0].to_s.to_sym
+            define_method nm do |*args|
+              b = nil
+              b = Proc.new { yield } if block_given?
+              ___invoke_method_internal___(nm, mem[1], *args, &b)
+            end
+          end
+               
+
+          private
+
+            def ___invoke_method_internal___(nm, return_type, *args, &b)
+              exp = @___expectations___.find(nm, args)
+              if exp
+                @___super___.__send__(nm, *args, &b) if exp.super_before?
+                exp.execute
+                @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
+              else
+                @___recorder___.record_call nm, *args
+                rt = nil
+                rt = System::Activator.create_instance(return_type) if return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
+                rt
+              end
+            end
+
         end
+
+        klass
       end
 
-      klass.new
+      def collect_members(subj)
+        clr_type = subj.to_clr_type
+
+        properties = clr_type.collect_interface_properties
+        methods = clr_type.collect_interface_methods
+
+        proxy_members = methods.collect { |mi| [mi.name.underscore, mi.return_type] }
+        proxy_members += properties.collect { |pi| [pi.name.underscore, pi.property_type] }
+        proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
+      end
+
+      def create_interface_proxy_for(subj)
+        proxy_members = collect_members(subj)
+
+        klass = Object.const_set(class_name(subj), Class.new)
+        klass.class_eval do
+          include subj
+          include Interception
+
+          proxy_members.each do |mem|
+            nm = mem[0].to_s.to_sym
+            define_method nm do |*args|
+              b = nil
+              b = Proc.new { yield } if block_given?
+              ___invoke_method_internal___(nm, mem[1], *args, &b)
+            end
+          end
+
+          private
+
+            def ___invoke_method_internal___(nm, return_type, *args, &b)
+              exp = @___expectations___.find(nm, args)
+              if exp
+                exp.execute
+              else
+                @___recorder___.record_call nm, *args
+                rt = nil
+                rt = System::Activator.create_instance(return_type) if return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
+                rt
+              end
+            end
+
+        end
+
+        klass
+      end
+
     end
 
-
-    
   end
-  
-  
+
+
 
 end

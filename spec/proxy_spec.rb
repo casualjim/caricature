@@ -5,17 +5,10 @@ describe "Caricature::RecordingProxy" do
   before do    
     @subj = Soldier.new
     @recorder = Caricature::MethodCallRecorder.new
-    @proxy = Caricature::RecordingProxy.new(@subj, @recorder)
+    @proxy = Caricature::RecordingProxy.for(@subj, @recorder)
   end
 
-  it "should forward existing methods" do
-    @proxy.___super___.name.should.equal @subj.name
-  end
-
-  it "should call to_s on the proxied object" do
-    @proxy.___super___.to_s.should.equal @subj.to_s
-  end
-
+  
   describe "when invoking a method" do
 
     before do
@@ -48,7 +41,7 @@ describe "Caricature::RecordingClrProxy" do
       @samurai = ClrModels::Samurai.new
       @samurai.name = "Nakiro"
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.new(@samurai, @recorder)
+      @proxy = Caricature::RecordingClrProxy.for(@samurai, @recorder)
     end
 
     it "should create a proxy" do
@@ -86,12 +79,13 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::Ninja, @recorder)
+      @proxy = Caricature::RecordingClrProxy.for(ClrModels::Ninja, @recorder)
     end
 
     it "should create a proxy" do
-      @proxy.___super___.class.should.equal ClrModels::Ninja
-      @proxy.___super___.id.should.equal 0
+      sup = @proxy.instance_variable_get("@___super___")
+      sup.superclass.should.equal ClrModels::Ninja
+      sup.id.should.equal 0
     end
 
 
@@ -119,7 +113,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IWarrior, @recorder)
+      @proxy = Caricature::RecordingClrProxy.for(ClrModels::IWarrior, @recorder)
     end
 
     it "should create a proxy" do
@@ -163,7 +157,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposing, @recorder)
+      @proxy = Caricature::RecordingClrProxy.for(ClrModels::IExposing, @recorder)
     end
 
     it "should create an add method for the event" do
@@ -179,7 +173,7 @@ describe "Caricature::RecordingClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.new(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
+      @proxy = Caricature::RecordingClrProxy.for(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
     end
 
     it "should create a method defined on the CLR interface" do

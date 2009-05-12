@@ -5,27 +5,7 @@ load File.dirname(__FILE__) + '/verification.rb'
 
 module Caricature
 
-  # Instead of using confusing terms like Mocking and Stubbing which is basically the same. Caricature tries
-  # to unify those concepts by using a term of *Isolation*.
-  # When you're testing you typically want to be in control of what you're testing. To do that you isolate
-  # dependencies and possibly define return values for methods on them.
-  # At a later stage you might be interested in which method was called, maybe even with which parameters
-  # or you might be interested in the amount of times it has been called.
-  class Isolation
-
-    # remove all methods from this isolation so that we are sure to forward everything to the proxy or expectations
-    instance_methods.each do |name|
-      undef_method name unless name =~ /^__$/
-    end
-
-    # an accessor for the proxy directly. You probably don't want to use this object directly
-    attr_reader :proxy
-
-    # initializes a new isolation object with the specified +proxy+ and +recorder+
-    def initialize(proxy, recorder)
-      @proxy, @recorder = proxy, recorder
-      @expectations = Expectations.new
-    end
+  module Interception
 
     # Replaces the call to the proxy with the one you create with this method.
     # You can specify more specific criteria in the block to configure the expectation.
@@ -39,10 +19,11 @@ module Caricature
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
     def when_told_to(method_name, &block)
-      builder = ExpectationBuilder.new method_name, @recorder
+      @___expectations___ ||= Expectations.new
+      builder = ExpectationBuilder.new method_name, @___recorder___
       block.call builder unless block.nil?
       exp = builder.build
-      @expectations << exp
+      @___expectations___ << exp
       exp
     end
 
@@ -61,22 +42,54 @@ module Caricature
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
     def was_told_to?(method_name, &block)
-      verification = Verification.new(method_name, @recorder)
+      verification = Verification.new(method_name, @___recorder___)
       block.call verification unless block.nil?
-      verification.successful?
+      verification
     end
+
+  end
+
+  # Instead of using confusing terms like Mocking and Stubbing which is basically the same. Caricature tries
+  # to unify those concepts by using a term of *Isolation*.
+  # When you're testing you typically want to be in control of what you're testing. To do that you isolate
+  # dependencies and possibly define return values for methods on them.
+  # At a later stage you might be interested in which method was called, maybe even with which parameters
+  # or you might be interested in the amount of times it has been called.
+  class Isolation
+
+    # remove all methods from this isolation so that we are sure to forward everything to the proxy or expectations
+    instance_methods.each do |name|
+      undef_method name unless name =~ /^__$|^instance_eval$/
+    end
+
+    include Interception
+
+    # an accessor for the proxy directly. You probably don't want to use this object directly
+    def object
+      @proxy
+    end
+
+    # initializes a new isolation object with the specified +proxy+ and +recorder+
+    def initialize(proxy, recorder, expectations)
+      @proxy, @___recorder___ = proxy, recorder
+      @___expectations___ = Expectations.new
+    end
+
+
 
     # used as a method dispatcher
     # figures out where to get the result of the method call from.
     def method_missing(m, *a, &b)
-      exp = @expectations.find(m, a)
+      exp = @___expectations___.find(nm, args)
       if exp
-        @proxy.__send__(m, *a, &b) if exp.super_before?
+        sup = @proxy.instance_variable_get("@___super___")
+        sup.__send__(nm, *args, &b) if exp.super_before?
         exp.execute
-        @proxy.__send__(m, *a, &b) if !exp.super_before? and exp.has_super?
+        sup.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
       else
         @proxy.__send__(m, *a, &b)
       end
+      
     end
     
     class << self
@@ -86,9 +99,14 @@ module Caricature
       # method call recorder
       def for(subject)
         recorder = MethodCallRecorder.new
-        proxy = subject.is_clr_type? ? RecordingClrProxy.new(subject, recorder) : RecordingProxy.new(subject, recorder)
+        expectations = Expectations.new
 
-        new(proxy, recorder)
+        clr_t = subject.is_clr_type?
+        proxy_class = clr_t ? RecordingClrProxy : RecordingProxy
+        proxy = proxy_class.for(subject, recorder, expectations)
+
+        isolation = new(proxy, recorder, expectations)
+        clr_t ? isolation.object : isolation 
       end
 
     end

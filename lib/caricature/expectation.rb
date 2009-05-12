@@ -66,6 +66,39 @@ module Caricature
       !@super.nil?
     end
 
+    # tell the expection which arguments it needs to respond to
+    # there is a magic argument here +any+ which configures
+    # the expectation to respond to any arguments
+    def with(*args)
+      @any_args = false unless args.first == :any
+      @args = args
+      self
+    end
+
+    # tell the expectation it nees to return this value or the value returned by the block
+    # you provide to this method.
+    def return(value=nil)
+      @return_value = value
+      @return_value ||= yield if block_given?
+      self
+    end
+
+    # tell the expectation it needs to raise an error with the specified arguments
+    def raise(*args)
+      @error_args = args
+      self
+    end
+
+    # tell the expecation it needs to call the super before the expectation exectution
+    def super_before
+      @super = :before
+    end
+
+    # tell the expectation it needs to call the super after the expecation execution
+    def super_after
+      @super = :after
+    end
+
     # indicates that super needs to be called before this expectation
     def super_before?
       @super == :before

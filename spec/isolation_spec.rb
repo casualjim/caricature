@@ -68,11 +68,19 @@ describe "Caricature::Isolation" do
 
     describe "when asked to stub a method" do
 
-      it "should create an expectation" do
+      it "should create an expectation with a block" do
         nm = "What's in a name"
         expectation = @isolator.when_told_to(:name) do |cl|
           cl.return(nm)
         end
+        expectation.method_name.should.equal :name
+        expectation.has_return_value?.should.be.true?
+        expectation.return_value.should.equal nm
+      end
+
+      it "should create an expectation with a block" do
+        nm = "What's in a name"
+        expectation = @isolator.when_told_to(:name).return(nm)
         expectation.method_name.should.equal :name
         expectation.has_return_value?.should.be.true?
         expectation.return_value.should.equal nm
@@ -92,22 +100,22 @@ describe "Caricature::Isolation" do
 
     it "should be successful with any arguments allowed" do
       iso = Caricature::Isolation.new(@proxy, @rec)
-      iso.was_told_to?(:my_method).should.be.true?
+      iso.was_told_to?(:my_method).should.be.successful
     end
 
     it "should be successful with a correct set of arguments provided for my_method" do
       iso = Caricature::Isolation.new(@proxy, @rec)
-      iso.was_told_to?(:my_method){ |ver| ver.with(1, 2, 3) }.should.be.true?
+      iso.was_told_to?(:my_method){ |ver| ver.with(1, 2, 3) }.should.be.successful
     end
 
     it "should be unsuccessful when a wrong set of arguments is provided" do
       iso = Caricature::Isolation.new(@proxy, @rec)
-      iso.was_told_to?(:my_method){|ver| ver.with(1, 3, 6) }.should.be.false?
+      iso.was_told_to?(:my_method){|ver| ver.with(1, 3, 6) }.should.not.be.successful
     end
 
     it "should be unsuccessful when the wrong method name is provided" do
       iso = Caricature::Isolation.new(@proxy, @rec)
-      iso.was_told_to?(:some_method).should.be.false?
+      iso.was_told_to?(:some_method).should.not.be.successful
     end
 
   end

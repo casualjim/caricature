@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{caricature}
-  s.version = "0.1.2"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ivan Porto Carrero"]
-  s.date = %q{2009-05-10}
+  s.date = %q{2009-05-11}
   s.description = %q{Caricature - Bringing simple mocking to the DLR}
   s.email = %q{ivan@flanders.co.nz}
   s.extra_rdoc_files = [

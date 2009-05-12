@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'ftools'
 require 'rake/rdoctask'
-require 'rake/rdoctask'
 require 'jeweler'
 
 desc "The default task is to run all the specs"
@@ -11,12 +10,6 @@ desc "Runs all the specs"
 task :spec do
   system "ibacon #{Dir.glob('spec/**/*_spec.rb').join(' ')}"
 end
-
-#desc "Copy binaries"
-#task :copy_binaries do
-#  File.copy(File.dirname(__FILE__) + "/vendor/moq/Moq.dll", File.dirname(__FILE__) + "/lib/bin/")
-#  File.copy(File.dirname(__FILE__) + "/vendor/moq/Moq.pdb", File.dirname(__FILE__) + "/lib/bin/")
-#end
 
 namespace :spec do 
   
