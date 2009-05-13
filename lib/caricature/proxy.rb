@@ -41,7 +41,15 @@ module Caricature
 
           (subj.instance_methods - Object.instance_methods).each do |mn|
             define_method mn do |*args|
-              #just stub
+              exp = @___expectations___.find(nm, args)
+              if exp
+                sup = @___super___.instance_variable_get("@___super___")
+                sup.__send__(nm, *args, &b) if exp.super_before?
+                exp.execute
+                sup.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
+              else
+                @___super___.__send__(m, *a, &b)
+              end
             end
           end
 
