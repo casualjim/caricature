@@ -112,4 +112,22 @@ namespace ClrModels{
             return weapon.Damage() > 5;
         }
     }
+
+    public class MyClassWithAStatic{
+
+        public string HelloWorld(){
+            return "Hello World!";
+        }
+
+        public static string GoodByeWorld(){
+            return "Goodbye world!";
+        }
+    }
+
+    public class StaticCaller{
+
+        public string CallsStatic(){
+            return MyClassWithAStatic.GoodByeWorld();
+        }
+    }
 }

@@ -4,7 +4,7 @@ module Caricature
   class RecordingProxy
 
     class << self
-      def for(subject, recorder, expectations = Expectations.new)
+      def for(subject, recorder, expectations=Expectations.new)
         subj = create_proxy(subject, recorder, expectations)
         subj
       end
@@ -62,19 +62,20 @@ module Caricature
 
       def create_proxy(subj, recorder, expectations)
         pxy, instance = nil
+        sklass = subj
         unless subj.respond_to?(:class_eval)
-          pxy, instance = create_clr_proxy_for(subj.class), subj
+          sklass = subj.class
+          instance = subj 
         end
-        pxy = create_interface_proxy_for(subj) unless subj.respond_to?(:new)
+        pxy = create_interface_proxy_for(sklass) unless sklass.respond_to?(:new)
 
-        pxy ||= create_clr_proxy_for(subj)
+        pxy ||= create_clr_proxy_for(sklass)
         instance ||= pxy.new
         initialize_proxy pxy, instance, recorder, expectations
       end
 
       def  create_clr_proxy_for(subj)
         clr_type = subj.to_clr_type
-
         members = clr_type.get_methods.collect { |mi| [mi.name.underscore, mi.return_type] }
         members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
         members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
@@ -83,24 +84,25 @@ module Caricature
         klass.class_eval do
 
           include Interception
-
-          define_method :___super___ do
+          
+          def ___super___ 
             @___super___
           end
-
+                    
           members.each do |mem|
             nm = mem[0].to_s.to_sym
             define_method nm do |*args|
               b = nil
               b = Proc.new { yield } if block_given?
               ___invoke_method_internal___(nm, mem[1], *args, &b)
-            end
+            end unless nm == :to_string
           end
                
 
           private
 
             def ___invoke_method_internal___(nm, return_type, *args, &b)
+              puts "\nfor method #{nm} we have expectations #@___expectations___"
               exp = @___expectations___.find(nm, args)
               if exp
                 @___super___.__send__(nm, *args, &b) if exp.super_before?
@@ -109,7 +111,8 @@ module Caricature
               else
                 @___recorder___.record_call nm, *args
                 rt = nil
-                rt = System::Activator.create_instance(return_type) if return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
+                is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
+                rt = System::Activator.create_instance(return_type) if is_value_type
                 rt
               end
             end

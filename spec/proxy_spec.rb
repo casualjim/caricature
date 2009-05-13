@@ -83,9 +83,9 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create a proxy" do
-      sup = @proxy.instance_variable_get("@___super___")
-      sup.superclass.should.equal ClrModels::Ninja
-      sup.id.should.equal 0
+      
+      @proxy.___super___.class.superclass.should.equal ClrModels::Ninja
+      
     end
 
 
