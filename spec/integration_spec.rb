@@ -60,6 +60,56 @@ describe "Full scenarios" do
 
       result = @weapon.attack @ninja
       result.should.equal 5
+
+      @ninja.was_told_to?(:survive_attack_with).with(@weapon).should.be.successful
+    end
+
+    it "should work with an assertion with wrong arguments" do
+      @ninja.when_told_to(:survive_attack_with) do |method_should|
+         method_should.return(5)
+      end
+
+      result = @weapon.attack @ninja
+      result.should.equal 5
+
+      @ninja.
+        was_told_to?(:survive_attack_with).
+        with(Caricature::Isolation.for(ClrModels::IWeapon)).
+        should.not.be.successful
+    end
+
+  end
+
+  describe "when mocking CLR classes" do
+
+    before do
+      @weapon = ClrModels::Sword.new
+      @ninja = Caricature::Isolation.for(ClrModels::Ninja)
+    end
+
+    it "should work without expectations" do
+      result = @weapon.attack @ninja
+      result.should.equal 0
+
+      @ninja.was_told_to?(:survive_attack_with).with(@weapon).should.be.successful
+    end
+
+    it "should work with an expectation for any arguments" do
+      @ninja.when_told_to(:survive_attack_with).return(5)
+
+      result = @weapon.attack @ninja
+      result.should.equal 5
+
+      @ninja.was_told_to?(:survive_attack_with).with(:any).should.be.successful
+    end
+
+    it "should work with an assertion for specific arguments" do
+      @ninja.when_told_to(:survive_attack_with) do |method_should|
+         method_should.return(5)
+      end
+
+      result = @weapon.attack @ninja
+      result.should.equal 5
       var = @ninja.was_told_to?(:survive_attack_with).with(:any)
       @ninja.was_told_to?(:survive_attack_with).with(@weapon).should.be.successful
     end
