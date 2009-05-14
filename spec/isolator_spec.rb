@@ -1,11 +1,11 @@
 require File.dirname(__FILE__) + "/bacon_helper"
 
-describe "Caricature::RecordingProxy" do
+describe "Caricature::RubyIsolator" do
 
   before do    
     @subj = Soldier.new
     @recorder = Caricature::MethodCallRecorder.new
-    @proxy = Caricature::RecordingProxy.for(@subj, @recorder)
+    @proxy = Caricature::RubyIsolator.for(@subj, @recorder)
   end
 
   
@@ -41,7 +41,7 @@ describe "Caricature::RecordingClrProxy" do
       @samurai = ClrModels::Samurai.new
       @samurai.name = "Nakiro"
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.for(@samurai, @recorder)
+      @proxy = Caricature::ClrIsolator.for(@samurai, @recorder)
     end
 
     it "should create a proxy" do
@@ -79,7 +79,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.for(ClrModels::Ninja, @recorder)
+      @proxy = Caricature::ClrIsolator.for(ClrModels::Ninja, @recorder)
     end
 
     it "should create a proxy" do
@@ -113,7 +113,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.for(ClrModels::IWarrior, @recorder)
+      @proxy = Caricature::ClrIsolator.for(ClrModels::IWarrior, @recorder)
     end
 
     it "should create a proxy" do
@@ -157,7 +157,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::RecordingClrProxy.for(ClrModels::IExposing, @recorder)
+      @proxy = Caricature::ClrIsolator.for(ClrModels::IExposing, @recorder)
     end
 
     it "should create an add method for the event" do
@@ -173,7 +173,7 @@ describe "Caricature::RecordingClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.for(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
+      @proxy = Caricature::ClrIsolator.for(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
     end
 
     it "should create a method defined on the CLR interface" do

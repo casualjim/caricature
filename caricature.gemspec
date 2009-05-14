@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
      "spec/interop_spec.rb",
      "spec/isolation_spec.rb",
      "spec/method_call_spec.rb",
-     "spec/proxy_spec.rb",
+     "spec/isolator_spec.rb",
      "spec/verification_spec.rb"
   ]
 

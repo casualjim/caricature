@@ -30,7 +30,7 @@ describe "Event handling" do
   describe "for an IR generated interface proxy" do
 
     before do
-      @proxy = Caricature::RecordingClrProxy.new ClrModels::IExposingWarrior
+      @proxy = Caricature::ClrIsolator.new ClrModels::IExposingWarrior
     end
 
     # apparently events don't work yet in IronRuby.. keeping this spec here to find out when it does
