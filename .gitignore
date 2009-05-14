@@ -1,3 +1,4 @@
 bin/*
-spec/bin/*
+spec/bin/*.dll
+spec/bin/*.pdb
 .idea
