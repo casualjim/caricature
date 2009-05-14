@@ -80,15 +80,15 @@ module Caricature
     # used as a method dispatcher
     # figures out where to get the result of the method call from.
     def method_missing(m, *a, &b)
-      exp = @___expectations___.find(nm, args)
-      if exp
-        sup = @proxy.instance_variable_get("@___super___")
-        sup.__send__(nm, *args, &b) if exp.super_before?
-        exp.execute
-        sup.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
-      else
+#      exp = @___expectations___.find(nm, args)
+#      if exp
+#        sup = @proxy.instance_variable_get("@___super___")
+#        sup.__send__(nm, *args, &b) if exp.super_before?
+#        exp.execute
+#        sup.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
+#      else
         @proxy.__send__(m, *a, &b)
-      end
+#      end
       
     end
     
@@ -97,16 +97,14 @@ module Caricature
       # Creates an isolation object complete with proxy and method call recorder
       # It works out which proxy it needs to create and provide and initializes the
       # method call recorder
-      def for(subject)
-        recorder = MethodCallRecorder.new
-        expectations = Expectations.new
-
+      def for(subject, recorder = MethodCallRecorder.new, expectations = Expectations.new)
         clr_t = subject.is_clr_type?
         proxy_class = clr_t ? RecordingClrProxy : RecordingProxy
         proxy = proxy_class.for(subject, recorder, expectations)
 
-        isolation = new(proxy, recorder, expectations)
-        clr_t ? isolation.object : isolation 
+        #isolation = new(proxy, recorder, expectations)
+        #clr_t ? isolation.object : isolation
+        proxy
       end
 
     end

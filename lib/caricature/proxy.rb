@@ -5,8 +5,7 @@ module Caricature
 
     class << self
       def for(subject, recorder, expectations=Expectations.new)
-        subj = create_proxy(subject, recorder, expectations)
-        subj
+        create_proxy(subject, recorder, expectations)        
       end
 
       protected
@@ -39,19 +38,30 @@ module Caricature
         klass = Object.const_set(class_name(subj), Class.new(subj))
         klass.class_eval do
 
+          include Interception
+
           (subj.instance_methods - Object.instance_methods).each do |mn|
+            mn = mn.to_s.to_sym
             define_method mn do |*args|
-              exp = @___expectations___.find(nm, args)
-              if exp
-                sup = @___super___.instance_variable_get("@___super___")
-                sup.__send__(nm, *args, &b) if exp.super_before?
-                exp.execute
-                sup.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
-              else
-                @___super___.__send__(m, *a, &b)
-              end
+              b = nil
+              b = Proc.new { yield } if block_given?
+              ___invoke_method_internal___(mn, *args, &b)
             end
           end
+
+          private
+
+            def ___invoke_method_internal___(nm, *args, &b)
+              exp = @___expectations___.find(nm, *args)
+              if exp
+                @___super___.__send__(nm, *args, &b) if exp.super_before?
+                exp.execute
+                @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
+              else
+                @___recorder___.record_call nm, *args
+                nil
+              end
+            end
 
         end
 
@@ -110,12 +120,11 @@ module Caricature
           private
 
             def ___invoke_method_internal___(nm, return_type, *args, &b)
-              puts "\nfor method #{nm} we have expectations #@___expectations___"
               exp = @___expectations___.find(nm, args)
               if exp
                 @___super___.__send__(nm, *args, &b) if exp.super_before?
                 exp.execute
-                @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.has_super?
+                @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
               else
                 @___recorder___.record_call nm, *args
                 rt = nil

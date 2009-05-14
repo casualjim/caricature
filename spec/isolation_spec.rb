@@ -59,11 +59,7 @@ describe "Caricature::Isolation" do
     end
 
     it "should create a proxy" do
-      @isolator.proxy.should.not.be == nil
-    end
-
-    it "should create the Ruby objects proxy" do
-      @isolator.proxy.is_clr_proxy?.should.be.false?
+      @isolator.should.not.be == nil
     end
 
     describe "when asked to stub a method" do
@@ -95,26 +91,26 @@ describe "Caricature::Isolation" do
       @rec = Caricature::MethodCallRecorder.new
       @rec.record_call :my_method
       @rec.record_call :my_method, 1, 2, 3
-      @proxy = Caricature::RecordingProxy.new(Soldier, @rec)
+      @proxy = Caricature::RecordingProxy.for(Soldier, @rec)
     end
 
     it "should be successful with any arguments allowed" do
-      iso = Caricature::Isolation.new(@proxy, @rec)
+      iso = Caricature::Isolation.for(@proxy, @rec)
       iso.was_told_to?(:my_method).should.be.successful
     end
 
     it "should be successful with a correct set of arguments provided for my_method" do
-      iso = Caricature::Isolation.new(@proxy, @rec)
+      iso = Caricature::Isolation.for(@proxy, @rec)
       iso.was_told_to?(:my_method){ |ver| ver.with(1, 2, 3) }.should.be.successful
     end
 
     it "should be unsuccessful when a wrong set of arguments is provided" do
-      iso = Caricature::Isolation.new(@proxy, @rec)
+      iso = Caricature::Isolation.for(@proxy, @rec)
       iso.was_told_to?(:my_method){|ver| ver.with(1, 3, 6) }.should.not.be.successful
     end
 
     it "should be unsuccessful when the wrong method name is provided" do
-      iso = Caricature::Isolation.new(@proxy, @rec)
+      iso = Caricature::Isolation.for(@proxy, @rec)
       iso.was_told_to?(:some_method).should.not.be.successful
     end
 
@@ -135,12 +131,10 @@ describe "Caricature::Isolation" do
     end
 
     it "should create a proxy" do
-      @isolator.proxy.should.not.be == nil
+      @isolator.should.not.be == nil
     end
 
-    it "should create the CLR objects proxy" do
-      @isolator.proxy.is_clr_proxy?.should.be.true?
-    end
+    
 
   end
 
