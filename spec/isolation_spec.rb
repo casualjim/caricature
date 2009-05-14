@@ -84,38 +84,7 @@ describe "Caricature::Isolation" do
     end
 
   end
-
-  describe 'when verifying if a call was made' do
-
-    before do
-      @rec = Caricature::MethodCallRecorder.new
-      @rec.record_call :my_method
-      @rec.record_call :my_method, 1, 2, 3
-      @proxy = Caricature::RecordingProxy.for(Soldier, @rec)
-    end
-
-    it "should be successful with any arguments allowed" do
-      iso = Caricature::Isolation.for(@proxy, @rec)
-      iso.was_told_to?(:my_method).should.be.successful
-    end
-
-    it "should be successful with a correct set of arguments provided for my_method" do
-      iso = Caricature::Isolation.for(@proxy, @rec)
-      iso.was_told_to?(:my_method){ |ver| ver.with(1, 2, 3) }.should.be.successful
-    end
-
-    it "should be unsuccessful when a wrong set of arguments is provided" do
-      iso = Caricature::Isolation.for(@proxy, @rec)
-      iso.was_told_to?(:my_method){|ver| ver.with(1, 3, 6) }.should.not.be.successful
-    end
-
-    it "should be unsuccessful when the wrong method name is provided" do
-      iso = Caricature::Isolation.for(@proxy, @rec)
-      iso.was_told_to?(:some_method).should.not.be.successful
-    end
-
-  end
-
+    
   describe "when creating an isolation for CLR objects" do
 
     it "should not raise" do
@@ -134,7 +103,26 @@ describe "Caricature::Isolation" do
       @isolator.should.not.be == nil
     end
 
-    
+    describe "when asked to stub a method" do
+
+      it "should create an expectation with a block" do
+        nm = "What's in a name"
+        expectation = @isolator.when_told_to(:name) do |cl|
+          cl.return(nm)
+        end
+        expectation.method_name.should.equal :name
+        expectation.has_return_value?.should.be.true?
+        expectation.return_value.should.equal nm
+      end
+
+      it "should create an expectation with a block" do
+        nm = "What's in a name"
+        expectation = @isolator.when_told_to(:name).return(nm)
+        expectation.method_name.should.equal :name
+        expectation.has_return_value?.should.be.true?
+        expectation.return_value.should.equal nm
+      end
+    end
 
   end
 
