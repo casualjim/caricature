@@ -14,12 +14,19 @@ describe "Full scenarios" do
       @weapon.was_told_to?(:attack).should.be.successful
     end
 
-    it "should work with an expectation" do
+    it "should work with an expectation with any arguments" do
       @weapon.when_told_to(:damage).return(5)
 
       @ninja.is_killed_by(@weapon).should.be.true?
       @weapon.was_told_to?(:damage).should.be.successful
     end
+
+#    it "should work with an expectation with any arguments" do
+#      @weapon.when_told_to(:damage).return(5)
+#
+#      @ninja.is_killed_by(@weapon).should.be.true?
+#      @weapon.was_told_to?(:damage).should.be.successful
+#    end
 
     it "should work with an expectation getting different method call result" do
       @weapon.when_told_to(:damage).return(2)

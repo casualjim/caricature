@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{caricature}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ivan Porto Carrero"]
-  s.date = %q{2009-05-11}
+  s.date = %q{2009-05-15}
   s.description = %q{Caricature - Bringing simple mocking to the DLR}
   s.email = %q{ivan@flanders.co.nz}
   s.extra_rdoc_files = [
@@ -24,10 +24,11 @@ Gem::Specification.new do |s|
     "spec/bacon_helper.rb",
      "spec/core_ext_spec.rb",
      "spec/expectation_spec.rb",
+     "spec/integration_spec.rb",
      "spec/interop_spec.rb",
      "spec/isolation_spec.rb",
-     "spec/method_call_spec.rb",
      "spec/isolator_spec.rb",
+     "spec/method_call_spec.rb",
      "spec/verification_spec.rb"
   ]
 
