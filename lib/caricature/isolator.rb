@@ -1,5 +1,7 @@
 module Caricature
 
+  # Groups the methods for interception together
+  # this is a mix-in for the created isolations for classes
   module Interception
 
     # Replaces the call to the proxy with the one you create with this method.
@@ -44,12 +46,28 @@ module Caricature
 
   end
 
-  # A proxy to Ruby objects that records method calls
-  class RubyIsolator
-
+  # A base class for +Isolator+ objects
+  # to stick with the +Isolation+ nomenclature the strategies for creating isolations
+  # are called isolators.
+  # An isolator functions as a barrier between the code in your test and the
+  # underlying type/instance. It allows you to take control over the value
+  # that is returned from a specific method, if you want to pass the method call along to
+  # the underlying instance etc.  It also contains the ability to verify if a method
+  # was called, with which arguments etc.
+  class Isolator
     class << self
+
+      # Creates the actual proxy object for the +subject+ and initializes it with a
+      # +recorder+ and +expectations+
+      # This is the actual isolation that will be used to in your tests.
+      # It implements all the methods of the +subject+ so as long as you're in Ruby
+      # and just need to isolate out some classes defined in a statically compiled language
+      # it should get you all the way there for public instance methods at this point.
+      # when you're going to isolation for usage within a statically compiled language type
+      # then  you're bound to most of their rules. So you need to either isolate interfaces
+      # or mark the methods you want to isolate as virtual in your implementing classes.
       def for(subject, recorder=MethodCallRecorder.new, expectations=Expectations.new)
-        create_proxy(subject, recorder, expectations)        
+        create_proxy(subject, recorder, expectations)
       end
 
       protected
@@ -61,11 +79,7 @@ module Caricature
       end
 
       def create_proxy(subj, recorder, expectations)
-        klass = subj.respond_to?(:class_eval) ? subj : subj.class
-        instance = subj.respond_to?(:class_eval) ? subj.new : subj
-        pxy = create_ruby_proxy_for klass
-        res = initialize_proxy pxy, instance, recorder, expectations
-        res
+        raise NotImplementedError, "implement this method in an inheritor"
       end
 
       def initialize_proxy(klass, inst, recorder, expectations)
@@ -75,6 +89,26 @@ module Caricature
         pxy.instance_variable_set("@___expectations___", expectations)
 
         pxy
+      end
+
+
+    end
+  end
+
+  # A proxy to Ruby objects that records method calls
+  # this implements all the instance methods that are defined on the class.
+  class RubyIsolator < Isolator
+
+    class << self
+
+      protected
+
+      def create_proxy(subj, recorder, expectations)
+        klass = subj.respond_to?(:class_eval) ? subj : subj.class
+        instance = subj.respond_to?(:class_eval) ? subj.new : subj
+        pxy = create_ruby_proxy_for klass
+        res = initialize_proxy pxy, instance, recorder, expectations
+        res
       end
 
       def create_ruby_proxy_for(subj)
@@ -117,21 +151,23 @@ module Caricature
   end
 
   # A proxy to CLR objects that records method calls.
-  class ClrIsolator < RubyIsolator
+  # this implements all the public instance methods of the class when you use it in ruby code
+  # When you use it in a CLR class you're bound to CLR rules and it only overrides the methods
+  # that are marked as virtual. We also can't isolate static or sealed types at the moment. 
+  class ClrIsolator < Isolator
 
     class << self
       protected
 
       def create_proxy(subj, recorder, expectations)
-        pxy, instance = nil
+        instance = nil
         sklass = subj
         unless subj.respond_to?(:class_eval)
           sklass = subj.class
           instance = subj 
         end
-        pxy = create_interface_proxy_for(sklass) unless sklass.respond_to?(:new)
 
-        pxy ||= create_clr_proxy_for(sklass)
+        pxy = create_clr_proxy_for(sklass)
         instance ||= pxy.new
         initialize_proxy pxy, instance, recorder, expectations
       end
@@ -185,6 +221,32 @@ module Caricature
         klass
       end
 
+
+
+    end
+
+  end
+
+  # An +Isolator+ for CLR interfaces.
+  # this implements all the methods that are defined on the interface.
+  class ClrInterfaceIsolator < Isolator
+    class << self
+      protected
+
+      def create_proxy(subj, recorder, expectations)
+        pxy, instance = nil
+        sklass = subj
+        unless subj.respond_to?(:class_eval)
+          sklass = subj.class
+          instance = subj
+        end
+        pxy = create_interface_proxy_for(sklass) unless sklass.respond_to?(:new)
+
+        pxy ||= create_clr_proxy_for(sklass)
+        instance ||= pxy.new
+        initialize_proxy pxy, instance, recorder, expectations
+      end
+
       def collect_members(subj)
         clr_type = subj.to_clr_type
 
@@ -201,7 +263,7 @@ module Caricature
 
         klass = Object.const_set(class_name(subj), Class.new)
         klass.class_eval do
-          
+
           include subj
           include Interception
 
@@ -232,9 +294,7 @@ module Caricature
 
         klass
       end
-
     end
-
   end
 
 

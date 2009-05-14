@@ -20,12 +20,19 @@ module Caricature
       # method call recorder
       def for(subject, recorder = MethodCallRecorder.new, expectations = Expectations.new)
         clr_t = subject.is_clr_type?
-        proxy_class = clr_t ? ClrIsolator : RubyIsolator
+
+        proxy_class = clr_t ? get_clr_isolation_strategy(subject) : RubyIsolator
         proxy = proxy_class.for(subject, recorder, expectations)
 
         proxy
       end
 
+      private
+
+        def get_clr_isolation_strategy(subject)
+          return ClrInterfaceIsolator if subject.respond_to? :class_eval and !subject.respond_to? :new
+          ClrIsolator
+        end
     end
   end
 

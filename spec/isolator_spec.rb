@@ -113,7 +113,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::ClrIsolator.for(ClrModels::IWarrior, @recorder)
+      @proxy = Caricature::ClrInterfaceIsolator.for(ClrModels::IWarrior, @recorder)
     end
 
     it "should create a proxy" do
@@ -157,7 +157,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::ClrIsolator.for(ClrModels::IExposing, @recorder)
+      @proxy = Caricature::ClrInterfaceIsolator.for(ClrModels::IExposing, @recorder)
     end
 
     it "should create an add method for the event" do
@@ -173,7 +173,7 @@ describe "Caricature::RecordingClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      @proxy = Caricature::ClrIsolator.for(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
+      @proxy = Caricature::ClrInterfaceIsolator.for(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
     end
 
     it "should create a method defined on the CLR interface" do

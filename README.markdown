@@ -13,12 +13,12 @@ An Isolation will create what in Rhino.Mocks would be called a DynamicMock (but 
 In Moq it would be the Loose mocking strategy.
 
 The naming of the methods for creating mocks is the one that JP Boodhoo proposed WhenToldTo and WasToldTo.
-To specify a stub/expectation on a mock you have one and only one way of doing that with the method called when_told_to.
+To specify a stub/expectation on an isolation you have one and only one way of doing that with the method called when_told_to.
 Then only if you're interested in asserting if a method has been called you can use the was_told_to? method for this.
 
 <pre>
-mock = Isolation.for(Ninja)
-mock.when_told_to(:attack) do |exp|
+isolation = Isolation.for(Ninja)
+isolation.when_told_to(:attack) do |exp|
   exp.with(:shuriken)
   exp.return(3)
 end
@@ -26,11 +26,11 @@ end
 Battle.new(mock)
 battle.combat
 
-mock.was_told_to?(:attack).should.be.true?
+isolation.was_told_to?(:attack).should.be.true?
 </pre>
 
-It may be very important to note that when you're going to be mocking CLR classes to be used in other CLR classes
-you still need to obide by the CLR rules. That means if yclaou want to redefine a method you'll need to make sure it's
+It may be very important to note that when you're going to be isolating CLR classes to be used in other CLR classes
+you still need to obide by the CLR rules. That means if you want to redefine a method you'll need to make sure it's
 marked as virtual. Static types are still governed by static type rules.  I'm working on a solution around those
 problems but for the time being this is how it has to be.
 
