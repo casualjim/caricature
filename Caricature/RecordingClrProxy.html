@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Caricature::RecordingClrProxy</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/caricature/proxy_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/proxy.rb">lib/caricature/proxy.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">RecordingProxy</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000049">#___collect_members___</a></li>
+					
+					<li><a href="#M000052">#___create_interface_proxy_for___</a></li>
+					
+					<li><a href="#M000047">#___create_proxy___</a></li>
+					
+					<li><a href="#M000046">#is_clr_proxy?</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Caricature.html">Caricature</a></li>
+				
+					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
+				
+					<li><a href="../Caricature/ExpectationBuilder.html">Caricature::ExpectationBuilder</a></li>
+				
+					<li><a href="../Caricature/Expectations.html">Caricature::Expectations</a></li>
+				
+					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
+				
+					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
+				
+					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RecordingClrProxy.html">Caricature::RecordingClrProxy</a></li>
+				
+					<li><a href="../Caricature/RecordingProxy.html">Caricature::RecordingProxy</a></li>
+				
+					<li><a href="../Caricature/Verification.html">Caricature::Verification</a></li>
+				
+					<li><a href="../System.html">System</a></li>
+				
+					<li><a href="../System/String.html">System::String</a></li>
+				
+					<li><a href="../System/Type.html">System::Type</a></li>
+				
+					<li><a href="../Class.html">Class</a></li>
+				
+					<li><a href="../Module.html">Module</a></li>
+				
+					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Caricature::RecordingClrProxy</h1>
+
+		<div id="description">
+			<p>
+A proxy to CLR objects that records method calls.
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="is-clr-proxy--method" class="method-detail ">
+				<a name="M000046"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">is_clr_proxy?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="is-clr-proxy--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/proxy.rb, line 54</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_clr_proxy?</span>
+      <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="protected-instance-method-details" class="method-section section">
+			<h3 class="section-header">Protected Instance Methods</h3>
+
+		
+			<div id="-collect-members--method" class="method-detail ">
+				<a name="M000049"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">___collect_members___</span><span
+						class="method-args">(subj)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-collect-members--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/proxy.rb, line 67</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">___collect_members___</span>(<span class="ruby-identifier">subj</span>)
+      <span class="ruby-identifier">clr_type</span> = <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">to_clr_type</span>
+
+      <span class="ruby-identifier">properties</span> = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">collect_interface_properties</span>
+      <span class="ruby-identifier">methods</span> = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">collect_interface_methods</span>
+
+      <span class="ruby-identifier">proxy_members</span> = <span class="ruby-identifier">methods</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mi</span><span class="ruby-operator">|</span> <span class="ruby-identifier">mi</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">underscore</span> }
+      <span class="ruby-identifier">proxy_members</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pi</span><span class="ruby-operator">|</span> <span class="ruby-identifier">pi</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">underscore</span> }
+      <span class="ruby-identifier">proxy_members</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pi</span><span class="ruby-operator">|</span> <span class="ruby-identifier">pi</span>.<span class="ruby-identifier">can_write</span> }.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">pi</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{pi.name.underscore}=&quot;</span> }      
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="-create-interface-proxy-for--method" class="method-detail ">
+				<a name="M000052"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">___create_interface_proxy_for___</span><span
+						class="method-args">(subj)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-create-interface-proxy-for--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/proxy.rb, line 78</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">___create_interface_proxy_for___</span>(<span class="ruby-identifier">subj</span>)
+      <span class="ruby-identifier">proxy_members</span> = <span class="ruby-identifier">___collect_members___</span>(<span class="ruby-identifier">subj</span>)
+
+      <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-identifier">___class_name___</span>(<span class="ruby-identifier">subj</span>), <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>)
+      <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">include</span> <span class="ruby-identifier">subj</span>
+
+        <span class="ruby-identifier">proxy_members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mem</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">define_method</span> <span class="ruby-identifier">mem</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
+            <span class="ruby-comment cmt">#just a stub</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="-create-proxy--method" class="method-detail ">
+				<a name="M000047"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">___create_proxy___</span><span
+						class="method-args">(subj)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="-create-proxy--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/proxy.rb, line 60</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">___create_proxy___</span>(<span class="ruby-identifier">subj</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">subj</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:class_eval</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">___create_interface_proxy_for___</span>(<span class="ruby-identifier">subj</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:new</span>)
+      
+      <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
