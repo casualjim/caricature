@@ -29,6 +29,11 @@ battle.combat
 mock.was_told_to?(:attack).should.be.true?
 </pre>
 
+It may be very important to note that when you're going to be mocking CLR classes to be used in other CLR classes
+you still need to obide by the CLR rules. That means if yclaou want to redefine a method you'll need to make sure it's
+marked as virtual. Static types are still governed by static type rules.  I'm working on a solution around those
+problems but for the time being this is how it has to be.
+
 License:
 --------
 

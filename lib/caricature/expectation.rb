@@ -4,6 +4,7 @@ module Caricature
   # It allows you to add and find expectations based on certain criteria.
   class Expectations
 
+    #initializes a new empty instance of the +Expecatation+ collection
     def initialize
       @inner = []
     end
@@ -16,11 +17,12 @@ module Caricature
     # Finds an expectation in the collection. It matches by +method_name+ first.
     # Then it tries to figure out if you care about the arguments. You can say you don't care by providing
     # the symbol +:any+ as first argument to this method. When you don't care the first match is being returned
-    # When you specify arguments other than +:any+ it will also try to match the specified arguments in addition
+    # When you specify arguments other than +:any+ it will try to match the specified arguments in addition
     # to the method name. It will then also return the first result it can find.
     def find(method_name, args)
       candidates = @inner.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
-      return candidates.first if args.empty? or args.first == :any
+      return candidates.first if args.empty? or args.first == :any or (candidates.size == 1 && candidates.first.any_args?)
+
       second_pass = candidates.select {|exp| exp.args == args }
       second_pass.first
     end
@@ -62,6 +64,11 @@ module Caricature
     def super_after
       @super = :after
     end
+
+
+    def any_args?
+      @any_args
+    end
   end
 
   # A description of an expectation.
@@ -88,6 +95,7 @@ module Caricature
     def initialize(method_name, args, error_args, return_value, super_mode, recorder)
       @method_name, @args, @error_args, @return_value, @super, @recorder =
               method_name, args, error_args, return_value, super_mode, recorder
+      @any_args = true
     end
 
     # indicates whether this expecation will raise an event.
@@ -100,14 +108,20 @@ module Caricature
       !@return_value.nil?
     end
 
+    # call the super before the expectation
+    def super_before?
+      @super == :before
+    end
+
     # indicates whether super needs to be called somewhere
     def call_super?
       !@super.nil?
     end
     
     # executes this expectation with its configuration
-    def execute
-      @recorder.record_call method_name, *args
+    def execute(*margs)
+      ags = any_args? ? (margs.empty? ? :any : margs) : args
+      @recorder.record_call method_name, *ags
       raise *@error_args if has_error_args?
       return return_value if has_return_value?
       nil

@@ -99,7 +99,7 @@ module Caricature
               exp = @___expectations___.find(nm, args)
               if exp
                 @___super___.__send__(nm, *args, &b) if exp.super_before?
-                exp.execute
+                exp.execute *args
                 @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
               else
                 @___recorder___.record_call nm, *args
@@ -154,7 +154,6 @@ module Caricature
           members.each do |mem|
             nm = mem[0].to_s.to_sym
             define_method nm do |*args|
-              puts "in #{nm}"
               b = nil
               b = Proc.new { yield } if block_given?
               ___invoke_method_internal___(nm, mem[1], *args, &b)
@@ -167,9 +166,11 @@ module Caricature
             def ___invoke_method_internal___(nm, return_type, *args, &b)
               exp = @___expectations___.find(nm, args)
               if exp
-                @___super___.__send__(nm, *args, &b) if exp.super_before?
-                exp.execute
-                @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?                
+                res = nil
+                res = @___super___.__send__(nm, *args, &b) if exp.super_before?
+                res = exp.execute *args
+                res = @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
+                res
               else
                 @___recorder___.record_call nm, *args
                 rt = nil
@@ -200,6 +201,7 @@ module Caricature
 
         klass = Object.const_set(class_name(subj), Class.new)
         klass.class_eval do
+          
           include subj
           include Interception
 

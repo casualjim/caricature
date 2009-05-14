@@ -94,7 +94,7 @@ module Caricature
     # returns whether the method was actually called with the specified constraints
     def was_called?(method_name, *args)
       mc = method_calls[method_name.to_s.to_sym]
-      if mc
+      if mc    
         return mc.find_argument_variations(args).first == args        
       else
         return !!mc

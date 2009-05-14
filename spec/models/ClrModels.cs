@@ -2,7 +2,7 @@ using System;
 
 namespace ClrModels{
     public interface IWeapon{
-        void Attack(IWarrior warrior);
+        int Attack(IWarrior warrior);
         int Damage();
     }
 
@@ -12,7 +12,8 @@ namespace ClrModels{
         int Id { get; }
         string Name { get; set; }
         bool IsKilledBy(IWeapon weapon);
-        void Attack(IWarrior target, IWeapon weapon);
+        int Attack(IWarrior target, IWeapon weapon);
+        int SurviveAttackWith(IWeapon weapon);
     }
 
     public interface IExposing {
@@ -34,8 +35,8 @@ namespace ClrModels{
         public string Name { get; set; }
         public int Id { get { return _id; } }
 
-        public void Attack(IWarrior target, IWeapon weapon){
-            weapon.Attack(target);
+        public int Attack(IWarrior target, IWeapon weapon){
+            return weapon.Attack(target);
         }
 
         public bool IsKilledBy(IWeapon weapon)
@@ -49,6 +50,11 @@ namespace ClrModels{
         public void SomeMethod(){}
         public void OwnMethod(){
 
+        }
+
+        private int _life = 10;
+        public int SurviveAttackWith(IWeapon weapon){
+            return _life - weapon.Damage();
         }
 
         public void ChangeIsExposed(){
@@ -79,21 +85,44 @@ namespace ClrModels{
 
     }
 
+    public class Sword : IWeapon{
+
+        public int Attack(IWarrior warrior){
+            return warrior.SurviveAttackWith(this);
+        }
+
+        public int Damage(){
+            return 4;
+        }
+    }
+
     public class Ninja : IWarrior{
+
+        public Ninja(){
+            Name = "Tony the Ninja";
+            _id = 1;
+        }
 
         private readonly int _id;
 
         public string Name { get; set; }
         public int Id { get { return _id; } }
 
-        public void Attack(IWarrior target, IWeapon weapon){
-            weapon.Attack(target);
+        public int Attack(IWarrior target, IWeapon weapon){
+            return weapon.Attack(target);
         }
 
         public bool IsKilledBy(IWeapon weapon)
         {
             return weapon.Damage() > 3;
         }
+
+        private int _life = 10;
+        public virtual int SurviveAttackWith(IWeapon weapon){
+            return _life - weapon.Damage();
+        }
+
+
     }
 
     public class Samurai : IWarrior{
@@ -103,14 +132,21 @@ namespace ClrModels{
         public string Name { get; set; }
         public int Id { get { return _id; } }
 
-        public void Attack(IWarrior target, IWeapon weapon){
-            weapon.Attack(target);
+        public int Attack(IWarrior target, IWeapon weapon){
+            return weapon.Attack(target);
         }
 
         public bool IsKilledBy(IWeapon weapon)
         {
             return weapon.Damage() > 5;
         }
+
+        private int _life = 10;
+        public int SurviveAttackWith(IWeapon weapon){
+            return _life - weapon.Damage();
+        }
+
+
     }
 
     public class MyClassWithAStatic{
