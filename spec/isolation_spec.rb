@@ -66,7 +66,7 @@ describe "Caricature::Isolation" do
 
       it "should create an expectation with a block" do
         nm = "What's in a name"
-        expectation = @isolator.when_told_to(:name) do |cl|
+        expectation = @isolator.when_receiving(:name) do |cl|
           cl.return(nm)
         end
         expectation.method_name.should.equal :name
@@ -76,7 +76,7 @@ describe "Caricature::Isolation" do
 
       it "should create an expectation without a block" do
         nm = "What's in a name"
-        expectation = @isolator.when_told_to(:name).return(nm)
+        expectation = @isolator.when_receiving(:name).return(nm)
         expectation.method_name.should.equal :name
         expectation.has_return_value?.should.be.true?
         expectation.return_value.should.equal nm
@@ -107,7 +107,7 @@ describe "Caricature::Isolation" do
 
       it "should create an expectation with a block" do
         nm = "What's in a name"
-        expectation = @isolator.when_told_to(:name) do |cl|
+        expectation = @isolator.when_receiving(:name) do |cl|
           cl.return(nm)
         end
         expectation.method_name.should.equal :name
@@ -117,7 +117,7 @@ describe "Caricature::Isolation" do
 
       it "should create an expectation without a block" do
         nm = "What's in a name"
-        expectation = @isolator.when_told_to(:name).return(nm)
+        expectation = @isolator.when_receiving(:name).return(nm)
         expectation.method_name.should.equal :name
         expectation.has_return_value?.should.be.true?
         expectation.return_value.should.equal nm

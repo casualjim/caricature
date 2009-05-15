@@ -9,13 +9,17 @@ module Caricature
     #
     # Example:
     #
-    # an_isolation.when_told_to(:a_method) do |method_call|
+    # an_isolation.when_receiving(:a_method) do |method_call|
     #   method_call.with(3, "a").return(5)
     # end
     #
+    # is equivalent to:
+    #
+    # an_isolation.when_receiving(:a_method).with(3, "a").return(5)
+    #
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
-    def when_told_to(method_name, &block)
+    def when_receiving(method_name, &block)
       @___expectations___ ||= Expectations.new
       builder = ExpectationBuilder.new method_name, @___recorder___
       block.call builder unless block.nil?
@@ -32,13 +36,13 @@ module Caricature
     #
     # Example:
     #
-    # an_isolation.was_told_to?(:a_method) do |method_call|
+    # an_isolation.did_receive?(:a_method) do |method_call|
     #   method_call.with(3, "a")
     # end.should.be.true?
     #
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
-    def was_told_to?(method_name, &block)
+    def did_receive?(method_name, &block)
       verification = Verification.new(method_name, @___recorder___)
       block.call verification unless block.nil?
       verification
