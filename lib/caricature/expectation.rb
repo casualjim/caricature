@@ -4,7 +4,7 @@ module Caricature
   # It allows you to add and find expectations based on certain criteria.
   class Expectations
 
-    #initializes a new empty instance of the +Expecatation+ collection
+    #initializes a new empty instance of the +Expectation+ collection
     def initialize
       @inner = []
     end

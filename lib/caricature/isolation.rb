@@ -1,7 +1,7 @@
-load File.dirname(__FILE__) + '/isolator.rb'
-load File.dirname(__FILE__) + '/method_call_recorder.rb'
-load File.dirname(__FILE__) + '/expectation.rb'
-load File.dirname(__FILE__) + '/verification.rb'
+require File.dirname(__FILE__) + '/isolator'
+require File.dirname(__FILE__) + '/method_call_recorder'
+require File.dirname(__FILE__) + '/expectation'
+require File.dirname(__FILE__) + '/verification'
 
 module Caricature
 
