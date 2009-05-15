@@ -141,9 +141,11 @@ module Caricature
             def ___invoke_method_internal___(nm, *args, &b)
               exp = @___expectations___.find(nm, args)
               if exp
-                @___super___.__send__(nm, *args, &b) if exp.super_before?
-                exp.execute *args
-                @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
+                res = nil
+                res = @___super___.__send__(nm, *args, &b) if exp.super_before?
+                res = exp.execute *args
+                res = @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
+                res 
               else
                 @___recorder___.record_call nm, *args
                 nil
