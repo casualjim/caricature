@@ -12,7 +12,17 @@ task :spec do
 end
 
 namespace :spec do 
-  
+
+  desc "runs the specifications for the different classes"
+  task :unit do
+    specs = Dir.glob('spec/**/*_spec.rb').reject { |file| File..basename(file) == "integration_spec.rb"  }
+    system "ibacon #{specs.join(' ')}"
+  end
+
+  desc "runs the integration tests"
+  task :integration do
+    system "ibacon spec/integration_spec.rb"
+  end
 end
 
 def csc
@@ -47,7 +57,7 @@ begin
   namespace :rubyforge do
 
     desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+    task :release => ["rubyforge:release:gem"]
 
     namespace :release do
       desc "Publish RDoc to RubyForge."

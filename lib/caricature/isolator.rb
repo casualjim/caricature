@@ -297,7 +297,8 @@ module Caricature
             def ___invoke_method_internal___(nm, return_type, *args, &b)
               exp = @___expectations___.find(nm, args)
               if exp
-                return exp.execute
+                res = exp.execute
+                res
               else
                 @___recorder___.record_call nm, *args
                 rt = nil

@@ -21,7 +21,8 @@ module Caricature
     # to the method name. It will then also return the first result it can find.
     def find(method_name, args)
       candidates = @inner.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
-      return candidates.first if args.empty? or args.first == :any or (candidates.size == 1 && candidates.first.any_args?)
+      is_single = args.empty? || args.first == :any || (candidates.size == 1 && candidates.first.any_args?)
+      return candidates.first if is_single
 
       second_pass = candidates.select {|exp| exp.args == args }
       second_pass.first
