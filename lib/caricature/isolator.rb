@@ -71,22 +71,25 @@ module Caricature
       # then  you're bound to most of their rules. So you need to either isolate interfaces
       # or mark the methods you want to isolate as virtual in your implementing classes.
       def for(subject, recorder=MethodCallRecorder.new, expectations=Expectations.new)
-        create_proxy(subject, recorder, expectations)
+        create_isolation(subject, recorder, expectations)
       end
 
       protected
 
+      # Creates the new class name for the isolation
       def class_name(subj)
         nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
         @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
         @class_name
       end
 
-      def create_proxy(subj, recorder, expectations)
+      # template method for creating a platform specific isolator
+      def create_isolation(subj, recorder, expectations)
         raise NotImplementedError, "implement this method in an inheritor"
       end
 
-      def initialize_proxy(klass, inst, recorder, expectations)
+      # Sets up the necessary instance variables for the isolation
+      def initialize_isolation(klass, inst, recorder, expectations)
         pxy = klass.new
         pxy.instance_variable_set("@___super___", inst)
         pxy.instance_variable_set("@___recorder___", recorder)
@@ -107,15 +110,17 @@ module Caricature
 
       protected
 
-      def create_proxy(subj, recorder, expectations)
+      # implemented template method for creating Ruby isolations
+      def create_isolation(subj, recorder, expectations)
         klass = subj.respond_to?(:class_eval) ? subj : subj.class
         instance = subj.respond_to?(:class_eval) ? subj.new : subj
-        pxy = create_ruby_proxy_for klass
-        res = initialize_proxy pxy, instance, recorder, expectations
+        pxy = create_ruby_isolation_for klass
+        res = initialize_isolation pxy, instance, recorder, expectations
         res
       end
 
-      def create_ruby_proxy_for(subj)
+      # creates the ruby isolator for the specified subject
+      def create_ruby_isolation_for(subj)
 
         klass = Object.const_set(class_name(subj), Class.new(subj))
         klass.class_eval do
@@ -163,7 +168,9 @@ module Caricature
     class << self
       protected
 
-      def create_proxy(subj, recorder, expectations)
+      # Implementation of the template method that creates
+      # an isolator for a class defined in a CLR language.
+      def create_isolation(subj, recorder, expectations)
         instance = nil
         sklass = subj
         unless subj.respond_to?(:class_eval)
@@ -171,12 +178,13 @@ module Caricature
           instance = subj 
         end
 
-        pxy = create_clr_proxy_for(sklass)
+        pxy = create_clr_isolation_for(sklass)
         instance ||= pxy.new
-        initialize_proxy pxy, instance, recorder, expectations
+        initialize_isolation pxy, instance, recorder, expectations
       end
 
-      def  create_clr_proxy_for(subj)
+      # builds the Isolator class for the specified subject
+      def  create_clr_isolation_for(subj)
         clr_type = subj.to_clr_type
         members = clr_type.get_methods.collect { |mi| [mi.name.underscore, mi.return_type] }
         members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
@@ -237,20 +245,23 @@ module Caricature
     class << self
       protected
 
-      def create_proxy(subj, recorder, expectations)
+      # Implementation of the template method that creates
+      # an isolator for an interface defined in a CLR language.
+      def create_isolation(subj, recorder, expectations)
         pxy, instance = nil
         sklass = subj
         unless subj.respond_to?(:class_eval)
           sklass = subj.class
           instance = subj
         end
-        pxy = create_interface_proxy_for(sklass) unless sklass.respond_to?(:new)
+        pxy = create_interface_isolation_for(sklass) unless sklass.respond_to?(:new)
 
-        pxy ||= create_clr_proxy_for(sklass)
+        pxy ||= create_clr_isolation_for(sklass)
         instance ||= pxy.new
-        initialize_proxy pxy, instance, recorder, expectations
+        initialize_isolation pxy, instance, recorder, expectations
       end
 
+      # recursively collects the members of an interface and its ancestors
       def collect_members(subj)
         clr_type = subj.to_clr_type
 
@@ -262,7 +273,8 @@ module Caricature
         proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
       end
 
-      def create_interface_proxy_for(subj)
+      # builds the actual +isolator+ for the CLR interface
+      def create_interface_isolation_for(subj)
         proxy_members = collect_members(subj)
 
         klass = Object.const_set(class_name(subj), Class.new)

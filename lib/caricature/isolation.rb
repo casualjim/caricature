@@ -29,6 +29,9 @@ module Caricature
 
       private
 
+        # decides which startegy to use for mocking a CLR object.
+        # When the provided subject is an interface it will return a +ClrInterfaceIsolator+
+        # otherwise it will return a +ClrIsolator+
         def get_clr_isolation_strategy(subject)
           return ClrInterfaceIsolator if subject.respond_to? :class_eval and !subject.respond_to? :new
           ClrIsolator

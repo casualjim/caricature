@@ -4,6 +4,7 @@ module Caricature
   # This corresponds kind of to an assertion
   class Verification
 
+    # Initializes a new instance of a +Verification+
     def initialize(method_name, recorder)
       @method_name, @args, @any_args, @recorder = method_name, [], true, recorder
     end

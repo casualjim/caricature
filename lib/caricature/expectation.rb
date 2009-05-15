@@ -65,7 +65,8 @@ module Caricature
       @super = :after
     end
 
-
+    # indicates whether this expectation should match with any arguments
+    # or only for the specified arguments
     def any_args?
       @any_args
     end
@@ -134,6 +135,9 @@ module Caricature
 
     include ExpectationSyntax
 
+    # initialises a new instance of the expectation builder
+    # this builder is passed into the block to allow only certain
+    # operations in the block.
     def initialize(method_name, recorder)
       @method_name, @recorder, @return_value, @super, @block, @error_args, @args, @any_args = 
               method_name, recorder, nil, nil, nil, nil, [], true
