@@ -2,16 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{caricature}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ivan Porto Carrero"]
-  s.date = %q{2009-05-15}
-  s.description = %q{Caricature - Bringing simple mocking to the DLR}
+  s.date = %q{2009-05-16}
+  s.description = %q{This project aims to make interop between IronRuby objects and .NET objects easier. The idea is that it integrates nicely with bacon and later rspec and that it transparently lets you mock ironruby ojbects as well as CLR objects/interfaces. Caricature handles interfaces, interface inheritance, CLR objects, CLR object instances, Ruby classes and instances of Ruby classes.}
   s.email = %q{ivan@flanders.co.nz}
   s.extra_rdoc_files = [
-    "README",
-     "README.markdown"
+    "README.markdown"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/casualjim/caricature}

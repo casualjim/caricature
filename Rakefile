@@ -44,7 +44,7 @@ begin
     gemspec.summary = "Caricature - Bringing simple mocking to the DLR"
     gemspec.email = "ivan@flanders.co.nz"
     gemspec.homepage = "http://github.com/casualjim/caricature"
-    gemspec.description = "Caricature - Bringing simple mocking to the DLR"
+    gemspec.description = "This project aims to make interop between IronRuby objects and .NET objects easier. The idea is that it integrates nicely with bacon and later rspec and that it transparently lets you mock ironruby ojbects as well as CLR objects/interfaces. Caricature handles interfaces, interface inheritance, CLR objects, CLR object instances, Ruby classes and instances of Ruby classes."
     gemspec.authors = ["Ivan Porto Carrero"]
     gemspec.rubyforge_project = 'caricature' # This line would be new
   end
