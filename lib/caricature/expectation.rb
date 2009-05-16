@@ -94,6 +94,7 @@ module Caricature
     # indicator for the mode to call the super +:before+, +:after+ and +nil+
     attr_reader :super
 
+    # Initializes a new instance of an expectation
     def initialize(method_name, args, error_args, return_value, super_mode, recorder)
       @method_name, @args, @error_args, @return_value, @super, @recorder =
               method_name, args, error_args, return_value, super_mode, recorder

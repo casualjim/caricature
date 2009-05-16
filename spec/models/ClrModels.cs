@@ -125,7 +125,7 @@ namespace ClrModels{
 
     }
 
-    public class Samurai : IWarrior{
+    public sealed class Samurai : IWarrior{
 
         private readonly int _id;
 
@@ -159,6 +159,8 @@ namespace ClrModels{
             return "Goodbye world!";
         }
     }
+
+
 
     public class StaticCaller{
 

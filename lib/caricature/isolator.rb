@@ -9,13 +9,13 @@ module Caricature
     #
     # Example:
     #
-    # an_isolation.when_receiving(:a_method) do |method_call|
-    #   method_call.with(3, "a").return(5)
-    # end
+    #     an_isolation.when_receiving(:a_method) do |method_call|
+    #       method_call.with(3, "a").return(5)
+    #     end
     #
     # is equivalent to:
     #
-    # an_isolation.when_receiving(:a_method).with(3, "a").return(5)
+    #     an_isolation.when_receiving(:a_method).with(3, "a").return(5)
     #
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
@@ -36,9 +36,13 @@ module Caricature
     #
     # Example:
     #
-    # an_isolation.did_receive?(:a_method) do |method_call|
-    #   method_call.with(3, "a")
-    # end.should.be.true?
+    #     an_isolation.did_receive?(:a_method) do |method_call|
+    #       method_call.with(3, "a")
+    #     end.should.be.successful
+    #
+    # is equivalent to:
+    #
+    #     an_isolation.did_receive?(:a_method).with(3, "a").should.be.successful
     #
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
@@ -70,8 +74,9 @@ module Caricature
       # when you're going to isolation for usage within a statically compiled language type
       # then  you're bound to most of their rules. So you need to either isolate interfaces
       # or mark the methods you want to isolate as virtual in your implementing classes.
-      def for(subject, recorder=MethodCallRecorder.new, expectations=Expectations.new)
-        create_isolation(subject, recorder, expectations)
+      def isolate(subject, recorder = MethodCallRecorder.new, expectations = Expectations.new)
+        context = IsolationContext.new subject, recorder, expectations
+        create_isolation(context)
       end
 
       protected
@@ -84,7 +89,7 @@ module Caricature
       end
 
       # template method for creating a platform specific isolator
-      def create_isolation(subj, recorder, expectations)
+      def create_isolation(context)
         raise NotImplementedError, "implement this method in an inheritor"
       end
 
@@ -111,11 +116,11 @@ module Caricature
       protected
 
       # implemented template method for creating Ruby isolations
-      def create_isolation(subj, recorder, expectations)
-        klass = subj.respond_to?(:class_eval) ? subj : subj.class
-        instance = subj.respond_to?(:class_eval) ? subj.new : subj
+      def create_isolation(context)
+        klass = context.subject.respond_to?(:class_eval) ? context.subject : context.subject.class
+        instance = context.subject.respond_to?(:class_eval) ? context.subject.new : context.subject
         pxy = create_ruby_isolation_for klass
-        res = initialize_isolation pxy, instance, recorder, expectations
+        res = initialize_isolation pxy, instance, context.recorder, context.expectations
         res
       end
 
@@ -138,6 +143,8 @@ module Caricature
 
           private
 
+            # included in the generated proxy object
+            # this is the method call all the isolated calls pass through
             def ___invoke_method_internal___(nm, *args, &b)
               exp = @___expectations___.find(nm, args)
               if exp
@@ -172,23 +179,23 @@ module Caricature
 
       # Implementation of the template method that creates
       # an isolator for a class defined in a CLR language.
-      def create_isolation(subj, recorder, expectations)
+      def create_isolation(context)
         instance = nil
-        sklass = subj
-        unless subj.respond_to?(:class_eval)
-          sklass = subj.class
-          instance = subj 
+        sklass = context.subject
+        unless context.subject.respond_to?(:class_eval)
+          sklass = context.subject.class
+          instance = context.subject
         end
 
         pxy = create_clr_isolation_for(sklass)
-        instance ||= pxy.new
-        initialize_isolation pxy, instance, recorder, expectations
+        instance ||= sklass.new
+        initialize_isolation pxy, instance, context.recorder, context.expectations
       end
 
       # builds the Isolator class for the specified subject
       def  create_clr_isolation_for(subj)
         clr_type = subj.to_clr_type
-        members = clr_type.get_methods.collect { |mi| [mi.name.underscore, mi.return_type] }
+        members = clr_type.get_methods.select { |pi| !pi.is_static }.collect { |mi| [mi.name.underscore, mi.return_type] }
         members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
         members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
 
@@ -213,6 +220,8 @@ module Caricature
 
           private
 
+            # included in the generated proxy object
+            # this is the method call all the isolated calls pass through
             def ___invoke_method_internal___(nm, return_type, *args, &b)
               exp = @___expectations___.find(nm, args)
               if exp
@@ -249,18 +258,12 @@ module Caricature
 
       # Implementation of the template method that creates
       # an isolator for an interface defined in a CLR language.
-      def create_isolation(subj, recorder, expectations)
+      def create_isolation(context)
         pxy, instance = nil
-        sklass = subj
-        unless subj.respond_to?(:class_eval)
-          sklass = subj.class
-          instance = subj
-        end
-        pxy = create_interface_isolation_for(sklass) unless sklass.respond_to?(:new)
+        sklass = context.subject
+        pxy = create_interface_isolation_for(sklass) 
 
-        pxy ||= create_clr_isolation_for(sklass)
-        instance ||= pxy.new
-        initialize_isolation pxy, instance, recorder, expectations
+        initialize_isolation pxy, instance, context.recorder, context.expectations
       end
 
       # recursively collects the members of an interface and its ancestors
