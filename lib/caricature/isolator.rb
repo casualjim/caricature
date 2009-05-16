@@ -20,11 +20,11 @@ module Caricature
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
     def when_receiving(method_name, &block)
-      @___expectations___ ||= Expectations.new
-      builder = ExpectationBuilder.new method_name, @___recorder___
+      @___context___.expectations ||= Expectations.new
+      builder = ExpectationBuilder.new method_name, @___context___.recorder
       block.call builder unless block.nil?
       exp = builder.build
-      @___expectations___ << exp
+      @___context___.expectations << exp
       exp
     end
 
@@ -47,7 +47,7 @@ module Caricature
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
     def did_receive?(method_name, &block)
-      verification = Verification.new(method_name, @___recorder___)
+      verification = Verification.new(method_name, @___context___.recorder)
       block.call verification unless block.nil?
       verification
     end
@@ -95,11 +95,9 @@ module Caricature
       end
 
       # Sets up the necessary instance variables for the isolation
-      def initialize_isolation(klass, inst, recorder, expectations)
+      def initialize_isolation(klass, context)
         pxy = klass.new
-        pxy.instance_variable_set("@___super___", inst)
-        pxy.instance_variable_set("@___recorder___", recorder)
-        pxy.instance_variable_set("@___expectations___", expectations)
+        pxy.instance_variable_set("@___context___", context)
 
         pxy
       end
@@ -121,7 +119,8 @@ module Caricature
         klass = context.subject.respond_to?(:class_eval) ? context.subject : context.subject.class
         instance = context.subject.respond_to?(:class_eval) ? context.subject.new : context.subject
         pxy = create_ruby_isolation_for klass
-        res = initialize_isolation pxy, instance, context.recorder, context.expectations
+        ctxt = IsolationContext.new instance, context.recorder, context.expectations
+        res = initialize_isolation pxy, ctxt
         res
       end
 
@@ -147,15 +146,14 @@ module Caricature
             # included in the generated proxy object
             # this is the method call all the isolated calls pass through
             def ___invoke_method_internal___(nm, *args, &b)
-              exp = @___expectations___.find(nm, args)
+              exp = @___context___.expectations.find(nm, args)
               if exp
-                res = nil
-                res = @___super___.__send__(nm, *args, &b) if exp.super_before?
+                res = @___context___.instance.__send__(nm, *args, &b) if exp.super_before?
                 res = exp.execute *args
-                res = @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
+                res = @___context___.instance.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
                 res 
               else
-                @___recorder___.record_call nm, *args
+                @___context___.recorder.record_call nm, *args
                 nil
               end
             end
@@ -190,7 +188,8 @@ module Caricature
 
         pxy = create_clr_isolation_for(sklass)
         instance ||= sklass.new
-        initialize_isolation pxy, instance, context.recorder, context.expectations
+        ctxt = IsolationContext.new instance, context.recorder, context.expectations
+        res = initialize_isolation pxy, ctxt
       end
 
       # builds the Isolator class for the specified subject
@@ -204,9 +203,10 @@ module Caricature
         klass.class_eval do
 
           include Interception
-          
+
+          # access to the proxied subject
           def ___super___ 
-            @___super___
+            @___context___.instance
           end
                     
           members.each do |mem|
@@ -224,15 +224,14 @@ module Caricature
             # included in the generated proxy object
             # this is the method call all the isolated calls pass through
             def ___invoke_method_internal___(nm, return_type, *args, &b)
-              exp = @___expectations___.find(nm, args)
+              exp = @___context___.expectations.find(nm, args)
               if exp
-                res = nil
-                res = @___super___.__send__(nm, *args, &b) if exp.super_before?
+                res = @___context___.instance.__send__(nm, *args, &b) if exp.super_before?
                 res = exp.execute *args
-                res = @___super___.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
+                res = @___context___.instance.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
                 res
               else
-                @___recorder___.record_call nm, *args
+                @___context___.recorder.record_call nm, *args
                 rt = nil
                 is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
                 rt = System::Activator.create_instance(return_type) if is_value_type
@@ -260,11 +259,12 @@ module Caricature
       # Implementation of the template method that creates
       # an isolator for an interface defined in a CLR language.
       def create_isolation(context)
-        pxy, instance = nil
+        pxy = nil
         sklass = context.subject
         pxy = create_interface_isolation_for(sklass) 
 
-        initialize_isolation pxy, instance, context.recorder, context.expectations
+        ctxt = IsolationContext.new pxy.new, context.recorder, context.expectations
+        res = initialize_isolation pxy, ctxt
       end
 
       # recursively collects the members of an interface and its ancestors
@@ -301,12 +301,11 @@ module Caricature
           private
 
             def ___invoke_method_internal___(nm, return_type, *args, &b)
-              exp = @___expectations___.find(nm, args)
+              exp = @___context___.expectations.find(nm, args)
               if exp
-                res = exp.execute
-                res
+                exp.execute                
               else
-                @___recorder___.record_call nm, *args
+                @___context___.recorder.record_call nm, *args
                 rt = nil
                 rt = System::Activator.create_instance(return_type) if return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
                 rt

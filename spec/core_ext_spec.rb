@@ -76,3 +76,12 @@ describe "Class" do
 
 end
 
+describe "Array" do
+
+  it "should convert an array to a hash" do
+    expected = { :key1 => "value1", :key2 => "value2"}
+    %w(key1 value1 key2 value2).to_h.should.equal expected
+  end
+
+end
+

@@ -5,7 +5,7 @@ describe "Caricature::RubyIsolator" do
   before do    
     @subj = Soldier.new
     @recorder = Caricature::MethodCallRecorder.new
-    context = Caricature::IsolationContext.new(@subj, @recorder)
+    context = Caricature::IsolatorContext.new(@subj, @recorder)
     @proxy = Caricature::RubyIsolator.isolate context
   end
 
@@ -42,7 +42,7 @@ describe "Caricature::RecordingClrProxy" do
       @ninja = ClrModels::Ninja.new
       @ninja.name = "Nakiro"
       @recorder = Caricature::MethodCallRecorder.new
-      context = Caricature::IsolationContext.new(@ninja, @recorder)
+      context = Caricature::IsolatorContext.new(@ninja, @recorder)
       @proxy = Caricature::ClrIsolator.isolate context
     end
 
@@ -81,7 +81,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      context = Caricature::IsolationContext.new(ClrModels::Ninja, @recorder)
+      context = Caricature::IsolatorContext.new(ClrModels::Ninja, @recorder)
       @proxy = Caricature::ClrIsolator.isolate context
     end
 
@@ -116,7 +116,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      context = Caricature::IsolationContext.new(ClrModels::IWarrior, @recorder)
+      context = Caricature::IsolatorContext.new(ClrModels::IWarrior, @recorder)
       @proxy = Caricature::ClrInterfaceIsolator.isolate context
     end
 
@@ -161,7 +161,7 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      context = Caricature::IsolationContext.new(ClrModels::IExposing, @recorder)
+      context = Caricature::IsolatorContext.new(ClrModels::IExposing, @recorder)
       @proxy = Caricature::ClrInterfaceIsolator.isolate context
     end
 
@@ -178,7 +178,7 @@ describe "Caricature::RecordingClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      context = Caricature::IsolationContext.new(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
+      context = Caricature::IsolatorContext.new(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
       @proxy = Caricature::ClrInterfaceIsolator.isolate context
     end
 
