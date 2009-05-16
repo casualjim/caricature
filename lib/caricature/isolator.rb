@@ -74,8 +74,9 @@ module Caricature
       # when you're going to isolation for usage within a statically compiled language type
       # then  you're bound to most of their rules. So you need to either isolate interfaces
       # or mark the methods you want to isolate as virtual in your implementing classes.
-      def isolate(subject, recorder = MethodCallRecorder.new, expectations = Expectations.new)
-        context = IsolationContext.new subject, recorder, expectations
+      def isolate(context)
+        context.recorder ||= MethodCallRecorder.new
+        context.expectations ||= Expectations.new
         create_isolation(context)
       end
 

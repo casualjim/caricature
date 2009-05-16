@@ -5,7 +5,8 @@ describe "Caricature::RubyIsolator" do
   before do    
     @subj = Soldier.new
     @recorder = Caricature::MethodCallRecorder.new
-    @proxy = Caricature::RubyIsolator.isolate(@subj, @recorder)
+    context = Caricature::IsolationContext.new(@subj, @recorder)
+    @proxy = Caricature::RubyIsolator.isolate context
   end
 
   
@@ -41,7 +42,8 @@ describe "Caricature::RecordingClrProxy" do
       @ninja = ClrModels::Ninja.new
       @ninja.name = "Nakiro"
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::ClrIsolator.isolate(@ninja, @recorder)
+      context = Caricature::IsolationContext.new(@ninja, @recorder)
+      @proxy = Caricature::ClrIsolator.isolate context
     end
 
     it "should create a proxy" do
@@ -79,7 +81,8 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::ClrIsolator.isolate(ClrModels::Ninja, @recorder)
+      context = Caricature::IsolationContext.new(ClrModels::Ninja, @recorder)
+      @proxy = Caricature::ClrIsolator.isolate context
     end
 
     it "should create a proxy" do
@@ -113,7 +116,8 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::ClrInterfaceIsolator.isolate(ClrModels::IWarrior, @recorder)
+      context = Caricature::IsolationContext.new(ClrModels::IWarrior, @recorder)
+      @proxy = Caricature::ClrInterfaceIsolator.isolate context
     end
 
     it "should create a proxy" do
@@ -157,7 +161,8 @@ describe "Caricature::RecordingClrProxy" do
 
     before do
       @recorder = Caricature::MethodCallRecorder.new
-      @proxy = Caricature::ClrInterfaceIsolator.isolate(ClrModels::IExposing, @recorder)
+      context = Caricature::IsolationContext.new(ClrModels::IExposing, @recorder)
+      @proxy = Caricature::ClrInterfaceIsolator.isolate context
     end
 
     it "should create an add method for the event" do
@@ -173,7 +178,8 @@ describe "Caricature::RecordingClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      @proxy = Caricature::ClrInterfaceIsolator.isolate(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
+      context = Caricature::IsolationContext.new(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
+      @proxy = Caricature::ClrInterfaceIsolator.isolate context
     end
 
     it "should create a method defined on the CLR interface" do
