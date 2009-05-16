@@ -18,13 +18,14 @@ module Caricature
     class << self
 
       # Creates an isolation object complete with proxy and method call recorder
-      # It works out which proxy it needs to create and provide and initializes the
+      # It works out which isolation it needs to create and provide and initializes the
       # method call recorder
       def for(subject, recorder = MethodCallRecorder.new, expectations = Expectations.new)
-        clr_t = subject.is_clr_type?
+        context = IsolationContext.new subject, recorder, expectations
 
-        isolation_strategy = clr_t ? get_clr_isolation_strategy(subject) : RubyIsolator
-        isolation = isolation_strategy.isolate(subject, recorder, expectations)
+        isolation_strategy = subject.is_clr_type? ? get_clr_isolation_strategy(subject) : RubyIsolator
+
+        isolation = isolation_strategy.isolate context
 
         isolation
       end
