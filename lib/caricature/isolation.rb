@@ -68,6 +68,7 @@ module Caricature
     end
 
     def send_message(method_name, return_type, *args, &b)
+      recorder.record_call method_name, *args, &b
       @messenger.deliver(method_name, return_type, *args, &b)
     end
 

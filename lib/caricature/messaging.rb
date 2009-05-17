@@ -1,20 +1,17 @@
 module Caricature
 
-
+  # A base class to encapsulate method invocation
   class Messenger
 
     # the real instance of the isolated subject
     # used to forward calls in partial mocks
     attr_reader :instance
 
-    # the method call recorder
-    attr_reader :recorder
-
     # the expecations that have been set for the isolation
     attr_reader :expectations
 
     def initialize(context, instance=nil)
-      @instance, @recorder, @expectations = instance, context.recorder, context.expectations
+      @instance, @expectations = instance, context.expectations
     end
 
     def deliver(method_name, return_type, *args, &b)
@@ -35,7 +32,6 @@ module Caricature
         res = instance.__send__(method_name, *args, &b) if !exp.super_before? and exp.call_super?
         res
       else
-        recorder.record_call method_name, *args
         nil
       end
     end
@@ -52,7 +48,6 @@ module Caricature
         res = instance.__send__(method_name, *args, &b) if !exp.super_before? and exp.call_super?
         res
       else
-        recorder.record_call method_name, *args
         rt = nil
         is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
         rt = System::Activator.create_instance(return_type) if is_value_type
@@ -69,7 +64,6 @@ module Caricature
       if exp
         exp.execute *args               
       else
-        recorder.record_call method_name, *args
         rt = nil
         rt = System::Activator.create_instance(return_type) if return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
         rt

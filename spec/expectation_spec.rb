@@ -3,14 +3,14 @@ require File.dirname(__FILE__) + "/bacon_helper"
 describe "Caricature::ExpectationBuilder" do
 
   it "should create an expectation builder" do
-    builder = Caricature::ExpectationBuilder.new :some_method, nil
+    builder = Caricature::ExpectationBuilder.new :some_method
     builder.should.not.equal nil
   end
 
   describe "when using all defaults" do
 
     before do
-      builder = Caricature::ExpectationBuilder.new :some_method, nil
+      builder = Caricature::ExpectationBuilder.new :some_method
       @expectation = builder.build
     end
 
@@ -39,7 +39,7 @@ describe "Caricature::ExpectationBuilder" do
   describe "when specifying only arguments" do
 
     before do
-      builder = Caricature::ExpectationBuilder.new :some_method,nil
+      builder = Caricature::ExpectationBuilder.new :some_method
       builder.with(1, 2, 3)
       @expectation = builder.build
     end
@@ -69,7 +69,7 @@ describe "Caricature::ExpectationBuilder" do
   describe "when specifying only a block for the return value" do
 
     before do
-      builder = Caricature::ExpectationBuilder.new :some_method, nil
+      builder = Caricature::ExpectationBuilder.new :some_method
       builder.return {  5 }
       @expectation = builder.build
     end
@@ -99,7 +99,7 @@ describe "Caricature::ExpectationBuilder" do
   describe "when specifying a return value" do
 
     before do
-      builder = Caricature::ExpectationBuilder.new :some_method, nil
+      builder = Caricature::ExpectationBuilder.new :some_method
       builder.return 5
       @expectation = builder.build
     end
@@ -130,7 +130,7 @@ describe "Caricature::ExpectationBuilder" do
 
     before do
       @msg = "Hold on, that wasn't supposed to happen"
-      builder = Caricature::ExpectationBuilder.new :some_method, nil
+      builder = Caricature::ExpectationBuilder.new :some_method
       builder.raise @msg
       @expectation = builder.build
     end
@@ -160,7 +160,7 @@ describe "Caricature::ExpectationBuilder" do
   describe "when specifying a return value and telling you want a call to super before" do
 
     before do
-      builder = Caricature::ExpectationBuilder.new :some_method, nil
+      builder = Caricature::ExpectationBuilder.new :some_method
       builder.return(5).super_before
       @expectation = builder.build
     end

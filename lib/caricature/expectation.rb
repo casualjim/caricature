@@ -95,9 +95,9 @@ module Caricature
     attr_reader :super
 
     # Initializes a new instance of an expectation
-    def initialize(method_name, args, error_args, return_value, super_mode, recorder)
-      @method_name, @args, @error_args, @return_value, @super, @recorder =
-              method_name, args, error_args, return_value, super_mode, recorder
+    def initialize(method_name, args, error_args, return_value, super_mode)
+      @method_name, @args, @error_args, @return_value, @super =
+              method_name, args, error_args, return_value, super_mode
       @any_args = true
     end
 
@@ -124,7 +124,6 @@ module Caricature
     # executes this expectation with its configuration
     def execute(*margs)
       ags = any_args? ? (margs.empty? ? :any : margs) : args
-      @recorder.record_call method_name, *ags
       raise *@error_args if has_error_args?
       return return_value if has_return_value?
       nil
@@ -140,16 +139,16 @@ module Caricature
     # initialises a new instance of the expectation builder
     # this builder is passed into the block to allow only certain
     # operations in the block.
-    def initialize(method_name, recorder)
-      @method_name, @recorder, @return_value, @super, @block, @error_args, @args, @any_args = 
-              method_name, recorder, nil, nil, nil, nil, [], true
+    def initialize(method_name)
+      @method_name, @return_value, @super, @block, @error_args, @args, @any_args = 
+              method_name, nil, nil, nil, nil, [], true
     end
 
 
 
     # build up the expectation with the provided arguments
     def build
-      Expectation.new @method_name, @args, @error_args, @return_value, @super, @recorder      
+      Expectation.new @method_name, @args, @error_args, @return_value, @super
     end
 
   end

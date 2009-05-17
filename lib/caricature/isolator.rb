@@ -26,7 +26,7 @@ module Caricature
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
     def when_receiving(method_name, &block)
-      builder = ExpectationBuilder.new method_name, isolation_context.recorder
+      builder = ExpectationBuilder.new method_name
       block.call builder unless block.nil?
       exp = builder.build
       isolation_context.expectations << exp
