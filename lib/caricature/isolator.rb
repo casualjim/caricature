@@ -98,7 +98,6 @@ module Caricature
       def initialize_isolation(klass, context)
         pxy = klass.new
         pxy.instance_variable_set("@___context___", context)
-
         pxy
       end
 
@@ -119,9 +118,7 @@ module Caricature
         klass = context.subject.respond_to?(:class_eval) ? context.subject : context.subject.class
         instance = context.subject.respond_to?(:class_eval) ? context.subject.new : context.subject
         pxy = create_ruby_isolation_for klass
-        ctxt = IsolationContext.new instance, context.recorder, context.expectations
-        res = initialize_isolation pxy, ctxt
-        res
+        [pxy.new, instance]
       end
 
       # creates the ruby isolator for the specified subject
@@ -188,8 +185,7 @@ module Caricature
 
         pxy = create_clr_isolation_for(sklass)
         instance ||= sklass.new
-        ctxt = IsolationContext.new instance, context.recorder, context.expectations
-        res = initialize_isolation pxy, ctxt
+        [pxy.new, instance]
       end
 
       # builds the Isolator class for the specified subject
@@ -261,10 +257,8 @@ module Caricature
       def create_isolation(context)
         pxy = nil
         sklass = context.subject
-        pxy = create_interface_isolation_for(sklass) 
-
-        ctxt = IsolationContext.new pxy.new, context.recorder, context.expectations
-        res = initialize_isolation pxy, ctxt
+        pxy = create_interface_isolation_for(sklass)
+        [pxy.new, pxy.new]
       end
 
       # recursively collects the members of an interface and its ancestors

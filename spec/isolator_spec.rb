@@ -1,12 +1,17 @@
 require File.dirname(__FILE__) + "/bacon_helper"
 
+TestIsolation = Struct.new(:recorder, :instance, :expectations)
+
 describe "Caricature::RubyIsolator" do
 
   before do    
     @subj = Soldier.new
     @recorder = Caricature::MethodCallRecorder.new
     context = Caricature::IsolatorContext.new(@subj, @recorder)
-    @proxy = Caricature::RubyIsolator.isolate context
+    res = Caricature::RubyIsolator.isolate context
+    iso = TestIsolation.new @recorder, res.last, Caricature::Expectations.new
+    @proxy = res.first
+    @proxy.instance_variable_set("@___context___", iso)
   end
 
   
@@ -43,7 +48,10 @@ describe "Caricature::RecordingClrProxy" do
       @ninja.name = "Nakiro"
       @recorder = Caricature::MethodCallRecorder.new
       context = Caricature::IsolatorContext.new(@ninja, @recorder)
-      @proxy = Caricature::ClrIsolator.isolate context
+      res = Caricature::ClrIsolator.isolate context
+      iso = TestIsolation.new @recorder, @ninja, Caricature::Expectations.new
+      @proxy = res.first
+      @proxy.instance_variable_set("@___context___", iso)
     end
 
     it "should create a proxy" do
@@ -82,12 +90,15 @@ describe "Caricature::RecordingClrProxy" do
     before do
       @recorder = Caricature::MethodCallRecorder.new
       context = Caricature::IsolatorContext.new(ClrModels::Ninja, @recorder)
-      @proxy = Caricature::ClrIsolator.isolate context
+      res = Caricature::ClrIsolator.isolate context
+      iso = TestIsolation.new @recorder, @subj, Caricature::Expectations.new
+      @proxy = res.first
+      @proxy.instance_variable_set("@___context___", iso)
     end
 
     it "should create a proxy" do
       
-      @proxy.___super___.class.should.equal ClrModels::Ninja
+      @proxy.class.superclass.should.equal ClrModels::Ninja
       
     end
 
@@ -117,7 +128,10 @@ describe "Caricature::RecordingClrProxy" do
     before do
       @recorder = Caricature::MethodCallRecorder.new
       context = Caricature::IsolatorContext.new(ClrModels::IWarrior, @recorder)
-      @proxy = Caricature::ClrInterfaceIsolator.isolate context
+      res = Caricature::ClrInterfaceIsolator.isolate context
+      iso = TestIsolation.new @recorder, res.last, Caricature::Expectations.new
+      @proxy = res.first
+      @proxy.instance_variable_set("@___context___", iso)
     end
 
     it "should create a proxy" do
@@ -162,7 +176,10 @@ describe "Caricature::RecordingClrProxy" do
     before do
       @recorder = Caricature::MethodCallRecorder.new
       context = Caricature::IsolatorContext.new(ClrModels::IExposing, @recorder)
-      @proxy = Caricature::ClrInterfaceIsolator.isolate context
+      res = Caricature::ClrInterfaceIsolator.isolate context
+      iso = TestIsolation.new @recorder, @subj, Caricature::Expectations.new
+      @proxy = res.first
+      @proxy.instance_variable_set("@___context___", iso)
     end
 
     it "should create an add method for the event" do
@@ -178,8 +195,12 @@ describe "Caricature::RecordingClrProxy" do
   describe "for CLR interface recursion" do
 
     before do
-      context = Caricature::IsolatorContext.new(ClrModels::IExposingWarrior, Caricature::MethodCallRecorder.new)
-      @proxy = Caricature::ClrInterfaceIsolator.isolate context
+      recorder = Caricature::MethodCallRecorder.new 
+      context = Caricature::IsolatorContext.new(ClrModels::IExposingWarrior, recorder)
+      res = Caricature::ClrInterfaceIsolator.isolate context
+      iso = TestIsolation.new recorder, res.last, Caricature::Expectations.new
+      @proxy = res.first
+      @proxy.instance_variable_set("@___context___", iso)
     end
 
     it "should create a method defined on the CLR interface" do

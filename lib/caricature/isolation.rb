@@ -6,7 +6,6 @@ require File.dirname(__FILE__) + '/verification'
 module Caricature
 
   IsolatorContext = Struct.new(:subject, :recorder, :expectations)
-  IsolationContext = Struct.new(:instance, :recorder, :expectations)
 
   # Instead of using confusing terms like Mocking and Stubbing which is basically the same. Caricature tries
   # to unify those concepts by using a term of *Isolation*.
@@ -15,6 +14,24 @@ module Caricature
   # At a later stage you might be interested in which method was called, maybe even with which parameters
   # or you might be interested in the amount of times it has been called.
   class Isolation
+
+    # contains the subject that is isolated.
+    # used to forward calls in partial mocks
+    attr_reader :instance
+
+    # the method call recorder
+    attr_reader :recorder
+
+    # the expectations on the object
+    attr_reader :expectations
+
+    def initialize(isolator, context)
+      @instance = isolator.last
+      @recorder = context.recorder
+      #@messager = messager
+      @expectations = context.expectations
+      isolator.first.instance_variable_set("@___context___", self)
+    end
 
     class << self
 
@@ -25,8 +42,9 @@ module Caricature
         context = IsolatorContext.new subject, recorder, expectations
         isolation_strategy = subject.is_clr_type? ? get_clr_isolation_strategy(subject) : RubyIsolator
 
-        isolation = isolation_strategy.isolate context
-        isolation
+        isolator = isolation_strategy.isolate(context)
+        isolation = new(isolator, context)
+        isolator.first
       end
 
       private
