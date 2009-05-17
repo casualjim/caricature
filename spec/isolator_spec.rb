@@ -1,6 +1,30 @@
 require File.dirname(__FILE__) + "/bacon_helper"
 
-TestIsolation = Struct.new(:recorder, :instance, :expectations)
+class TestIsolation 
+  
+  attr_accessor :recorder, :instance, :expectations
+  
+  def initialize(recorder, instance, expectations)
+    @recorder, @instance, @expectations = recorder, instance, expectations
+  end
+
+  def send_message(method_name, return_type, *args, &b)
+    exp = expectations.find(method_name, args)
+    if exp
+      res = instance.__send__(method_name, *args, &b) if exp.super_before?
+      res = exp.execute *args
+      res = instance.__send__(method_name, *args, &b) if !exp.super_before? and exp.call_super?
+      res
+    else
+      recorder.record_call method_name, *args
+      rt = nil
+      is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
+      rt = System::Activator.create_instance(return_type) if is_value_type
+      rt
+    end
+  end
+
+end
 
 describe "Caricature::RubyIsolator" do
 

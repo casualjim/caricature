@@ -1,8 +1,14 @@
+require File.dirname(__FILE__) + '/messaging'
+
 module Caricature
 
   # Groups the methods for interception together
   # this is a mix-in for the created isolations for classes
   module Interception
+
+    def isolation_context
+      @___context___
+    end
 
     # Replaces the call to the proxy with the one you create with this method.
     # You can specify more specific criteria in the block to configure the expectation.
@@ -20,11 +26,10 @@ module Caricature
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
     def when_receiving(method_name, &block)
-      @___context___.expectations ||= Expectations.new
-      builder = ExpectationBuilder.new method_name, @___context___.recorder
+      builder = ExpectationBuilder.new method_name, isolation_context.recorder
       block.call builder unless block.nil?
       exp = builder.build
-      @___context___.expectations << exp
+      isolation_context.expectations << exp
       exp
     end
 
@@ -47,7 +52,7 @@ module Caricature
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
     def did_receive?(method_name, &block)
-      verification = Verification.new(method_name, @___context___.recorder)
+      verification = Verification.new(method_name, isolation_context.recorder)
       block.call verification unless block.nil?
       verification
     end
@@ -118,6 +123,7 @@ module Caricature
         klass = context.subject.respond_to?(:class_eval) ? context.subject : context.subject.class
         instance = context.subject.respond_to?(:class_eval) ? context.subject.new : context.subject
         pxy = create_ruby_isolation_for klass
+        context.messenger = RubyMessenger.new context, instance
         [pxy.new, instance]
       end
 
@@ -129,31 +135,20 @@ module Caricature
 
           include Interception
 
+          # access to the proxied subject
+          def ___super___
+            isolation_context.instance
+          end
+         
+
           (subj.instance_methods - Object.instance_methods).each do |mn|
             mn = mn.to_s.to_sym
             define_method mn do |*args|
               b = nil
               b = Proc.new { yield } if block_given?
-              ___invoke_method_internal___(mn, *args, &b)
+              isolation_context.send_message(mn, nil, *args, &b)
             end
           end
-
-          private
-
-            # included in the generated proxy object
-            # this is the method call all the isolated calls pass through
-            def ___invoke_method_internal___(nm, *args, &b)
-              exp = @___context___.expectations.find(nm, args)
-              if exp
-                res = @___context___.instance.__send__(nm, *args, &b) if exp.super_before?
-                res = exp.execute *args
-                res = @___context___.instance.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
-                res 
-              else
-                @___context___.recorder.record_call nm, *args
-                nil
-              end
-            end
 
         end
 
@@ -185,6 +180,7 @@ module Caricature
 
         pxy = create_clr_isolation_for(sklass)
         instance ||= sklass.new
+        context.messenger = ClrClassMessenger.new context, instance
         [pxy.new, instance]
       end
 
@@ -202,39 +198,18 @@ module Caricature
 
           # access to the proxied subject
           def ___super___ 
-            @___context___.instance
+            isolation_context.instance
           end
-                    
+
           members.each do |mem|
             nm = mem[0].to_s.to_sym
             define_method nm do |*args|
               b = nil
               b = Proc.new { yield } if block_given?
-              ___invoke_method_internal___(nm, mem[1], *args, &b)
+              isolation_context.send_message(nm, mem[1], *args, &b)
             end unless nm == :to_string
           end
-               
-
-          private
-
-            # included in the generated proxy object
-            # this is the method call all the isolated calls pass through
-            def ___invoke_method_internal___(nm, return_type, *args, &b)
-              exp = @___context___.expectations.find(nm, args)
-              if exp
-                res = @___context___.instance.__send__(nm, *args, &b) if exp.super_before?
-                res = exp.execute *args
-                res = @___context___.instance.__send__(nm, *args, &b) if !exp.super_before? and exp.call_super?
-                res
-              else
-                @___context___.recorder.record_call nm, *args
-                rt = nil
-                is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
-                rt = System::Activator.create_instance(return_type) if is_value_type
-                rt
-              end
-            end
-
+          
         end
 
         klass
@@ -258,6 +233,7 @@ module Caricature
         pxy = nil
         sklass = context.subject
         pxy = create_interface_isolation_for(sklass)
+        context.messenger = ClrInterfaceMessenger.new context
         [pxy.new, pxy.new]
       end
 
@@ -288,23 +264,9 @@ module Caricature
             define_method nm do |*args|
               b = nil
               b = Proc.new { yield } if block_given?
-              ___invoke_method_internal___(nm, mem[1], *args, &b)
+              isolation_context.send_message(nm, mem[1], *args, &b)
             end
           end
-
-          private
-
-            def ___invoke_method_internal___(nm, return_type, *args, &b)
-              exp = @___context___.expectations.find(nm, args)
-              if exp
-                exp.execute                
-              else
-                @___context___.recorder.record_call nm, *args
-                rt = nil
-                rt = System::Activator.create_instance(return_type) if return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
-                rt
-              end
-            end
 
         end
 
