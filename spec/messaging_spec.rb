@@ -96,6 +96,11 @@ describe "Caricature::Messenger strategies" do
       messenger.deliver(:a_message, nil).should.be.nil
     end
 
+    it "should return the default value for a value type return type" do
+      messenger = Caricature::ClrClassMessenger.new EmptyExpectations.new
+      messenger.deliver(:a_message, System::Int32.to_clr_type).should.equal 0
+    end
+
     describe "when an expectation with a return value has been defined" do
 
       before do
@@ -129,6 +134,11 @@ describe "Caricature::Messenger strategies" do
     it "should return nil for any method name not in the expectation collection" do
       messenger = Caricature::ClrInterfaceMessenger.new EmptyExpectations.new
       messenger.deliver(:a_message, nil).should.be.nil
+    end
+
+    it "should return the default value for a value type return type" do
+      messenger = Caricature::ClrClassMessenger.new EmptyExpectations.new
+      messenger.deliver(:a_message, System::Int32.to_clr_type).should.equal 0
     end
 
     describe "when an expectation with a return value has been defined" do

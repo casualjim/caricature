@@ -77,7 +77,7 @@ module Caricature
       @messenger.deliver(method_name, return_type, *args, &b)
     end
 
-    def create_override(method_name, &b)
+    def create_override(method_name, &block)
       builder = ExpectationBuilder.new method_name
       block.call builder unless block.nil?
       exp = builder.build
@@ -85,7 +85,7 @@ module Caricature
       exp
     end
 
-    def verify(method_name, &b)
+    def verify(method_name, &block)
       verification = Verification.new(method_name, recorder)
       block.call verification unless block.nil?
       verification
