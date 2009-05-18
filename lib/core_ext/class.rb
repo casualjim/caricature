@@ -11,5 +11,5 @@ class Class
             self.included_modules.any? {|mod| !mod.to_clr_type.nil? } ||
             self.ancestors.reject {|mod| mod == Object }.any? { |mod| !mod.to_clr_type.nil? }
   end
-  
+
 end

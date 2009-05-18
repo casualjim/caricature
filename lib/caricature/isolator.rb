@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/messaging'
+require File.dirname(__FILE__) + '/descriptor'
 
 module Caricature
 
@@ -71,6 +72,9 @@ module Caricature
     # holds the subject of this isolator
     attr_reader :subject
 
+    # holds the descriptor for this type of object
+    attr_reader :descriptor
+
     # creates a new instance of an isolator
     def initialize(context)
       @context = context
@@ -131,6 +135,7 @@ module Caricature
       super
       klass = @context.subject.respond_to?(:class_eval) ? @context.subject : @context.subject.class
       inst = @context.subject.respond_to?(:class_eval) ? @context.subject.new : @context.subject
+      @descriptor = RubyObjectDescriptor.new klass
       build_isolation klass, inst
     end
 
@@ -141,6 +146,7 @@ module Caricature
 
     # creates the ruby isolator for the specified subject
     def create_isolation_for(subj)
+      imembers = @descriptor.instance_members
 
       klass = Object.const_set(class_name(subj), Class.new(subj))
       klass.class_eval do
@@ -153,8 +159,8 @@ module Caricature
         end
 
 
-        (subj.instance_methods - Object.instance_methods).each do |mn|
-          mn = mn.to_s.to_sym
+        imembers.each do |mn|
+          mn = mn.name.to_s.to_sym
           define_method mn do |*args|
             b = nil
             b = Proc.new { yield } if block_given?
@@ -187,6 +193,7 @@ module Caricature
         sklass = context.subject.class
         instance = context.subject
       end
+      @descriptor = ClrClassDescriptor.new sklass
       build_isolation sklass, (instance || sklass.new)
     end
 
@@ -197,10 +204,7 @@ module Caricature
 
     # builds the Isolator class for the specified subject
     def  create_isolation_for(subj)
-      clr_type = subj.to_clr_type
-      members = clr_type.get_methods.select { |pi| !pi.is_static }.collect { |mi| [mi.name.underscore, mi.return_type] }
-      members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
-      members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
+      members = @descriptor.instance_members
 
       klass = Object.const_set(class_name(subj), Class.new(subj))
       klass.class_eval do
@@ -213,11 +217,11 @@ module Caricature
         end
 
         members.each do |mem|
-          nm = mem[0].to_s.to_sym
+          nm = mem.name.to_s.to_sym
           define_method nm do |*args|
             b = nil
             b = Proc.new { yield } if block_given?
-            isolation_context.send_message(nm, mem[1], *args, &b)
+            isolation_context.send_message(nm, mem.return_type, *args, &b)
           end unless nm == :to_string
         end
 
@@ -237,7 +241,8 @@ module Caricature
     def initialize(context)
       super
       sklass = context.subject
-      build_isolation sklass      
+      @descriptor = ClrInterfaceDescriptor.new sklass
+      build_isolation sklass
     end
 
     # initializes the messaging strategy for the isolator
@@ -245,21 +250,9 @@ module Caricature
       @context.messenger = ClrInterfaceMessenger.new @context.expectations
     end
 
-    # recursively collects the members of an interface and its ancestors
-    def collect_members(subj)
-      clr_type = subj.to_clr_type
-
-      properties = clr_type.collect_interface_properties
-      methods = clr_type.collect_interface_methods
-
-      proxy_members = methods.collect { |mi| [mi.name.underscore, mi.return_type] }
-      proxy_members += properties.collect { |pi| [pi.name.underscore, pi.property_type] }
-      proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
-    end
-
     # builds the actual +isolator+ for the CLR interface
     def create_isolation_for(subj)
-      proxy_members = collect_members(subj)
+      proxy_members = @descriptor.instance_members
 
       klass = Object.const_set(class_name(subj), Class.new)
       klass.class_eval do
@@ -268,11 +261,11 @@ module Caricature
         include Interception
 
         proxy_members.each do |mem|
-          nm = mem[0].to_s.to_sym
+          nm = mem.name.to_s.to_sym
           define_method nm do |*args|
             b = nil
             b = Proc.new { yield } if block_given?
-            isolation_context.send_message(nm, mem[1], *args, &b)
+            isolation_context.send_message(nm, mem.return_type, *args, &b)
           end
         end
 
