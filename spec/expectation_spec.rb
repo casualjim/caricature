@@ -1,5 +1,9 @@
 require File.dirname(__FILE__) + "/bacon_helper"
 
+describe "Caricature::Expectations" do
+
+end
+
 describe "Caricature::ExpectationBuilder" do
 
   it "should create an expectation builder" do

@@ -6,6 +6,8 @@ module Caricature
   # this is a mix-in for the created isolations for classes
   module Interception
 
+    # the context of this isolation instance.
+    # this context takes care of responding to method calls etc.
     def isolation_context
       @___context___
     end
@@ -26,11 +28,7 @@ module Caricature
     # You will most likely use this method when you want your stubs to return something else than +nil+
     # when they get called during the run of the test they are defined in.
     def when_receiving(method_name, &block)
-      builder = ExpectationBuilder.new method_name
-      block.call builder unless block.nil?
-      exp = builder.build
-      isolation_context.expectations << exp
-      exp
+      isolation_context.create_override method_name, &block
     end
 
     # Verifies whether the specified method has been called
@@ -52,9 +50,7 @@ module Caricature
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
     def did_receive?(method_name, &block)
-      verification = Verification.new(method_name, isolation_context.recorder)
-      block.call verification unless block.nil?
-      verification
+      isolation_context.verify method_name
     end
 
   end
@@ -68,6 +64,45 @@ module Caricature
   # the underlying instance etc.  It also contains the ability to verify if a method
   # was called, with which arguments etc.
   class Isolator
+
+    # holds the isolation created by this isolator
+    attr_reader :isolation
+
+    # holds the subject of this isolator
+    attr_reader :subject
+
+    # creates a new instance of an isolator
+    def initialize(context)
+      @context = context
+    end
+
+    # builds up the isolation class instance
+    def build_isolation(klass, inst=nil)
+      pxy = create_isolation_for klass
+      @isolation = pxy.new
+      @subject = inst
+      initialize_messenger
+    end
+
+    # initializes the messaging strategy for the isolator
+    def initialize_messenger
+      raise NotImplementedError
+    end
+
+    # Creates the new class name for the isolation
+    def class_name(subj)
+      nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
+      @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
+      @class_name
+    end
+
+    # Sets up the necessary instance variables for the isolation
+    def initialize_isolation(klass, context)
+      pxy = klass.new
+      pxy.instance_variable_set("@___context___", context)
+      pxy
+    end
+
     class << self
 
       # Creates the actual proxy object for the +subject+ and initializes it with a
@@ -79,34 +114,11 @@ module Caricature
       # when you're going to isolation for usage within a statically compiled language type
       # then  you're bound to most of their rules. So you need to either isolate interfaces
       # or mark the methods you want to isolate as virtual in your implementing classes.
-      def isolate(context)
+      def for(context)
         context.recorder ||= MethodCallRecorder.new
         context.expectations ||= Expectations.new
-        create_isolation(context)
+        new(context)
       end
-
-      protected
-
-      # Creates the new class name for the isolation
-      def class_name(subj)
-        nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
-        @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
-        @class_name
-      end
-
-      # template method for creating a platform specific isolator
-      def create_isolation(context)
-        raise NotImplementedError, "implement this method in an inheritor"
-      end
-
-      # Sets up the necessary instance variables for the isolation
-      def initialize_isolation(klass, context)
-        pxy = klass.new
-        pxy.instance_variable_set("@___context___", context)
-        pxy
-      end
-
-
     end
   end
 
@@ -114,46 +126,45 @@ module Caricature
   # this implements all the instance methods that are defined on the class.
   class RubyIsolator < Isolator
 
-    class << self
+    # implemented template method for creating Ruby isolations
+    def initialize(context)
+      super
+      klass = @context.subject.respond_to?(:class_eval) ? @context.subject : @context.subject.class
+      inst = @context.subject.respond_to?(:class_eval) ? @context.subject.new : @context.subject
+      build_isolation klass, inst
+    end
 
-      protected
+    # initializes the messaging strategy for the isolator
+    def initialize_messenger
+      @context.messenger = RubyMessenger.new @context.expectations, @subject
+    end
 
-      # implemented template method for creating Ruby isolations
-      def create_isolation(context)
-        klass = context.subject.respond_to?(:class_eval) ? context.subject : context.subject.class
-        instance = context.subject.respond_to?(:class_eval) ? context.subject.new : context.subject
-        pxy = create_ruby_isolation_for klass
-        context.messenger = RubyMessenger.new context, instance
-        [pxy.new, instance]
-      end
+    # creates the ruby isolator for the specified subject
+    def create_isolation_for(subj)
 
-      # creates the ruby isolator for the specified subject
-      def create_ruby_isolation_for(subj)
+      klass = Object.const_set(class_name(subj), Class.new(subj))
+      klass.class_eval do
 
-        klass = Object.const_set(class_name(subj), Class.new(subj))
-        klass.class_eval do
+        include Interception
 
-          include Interception
-
-          # access to the proxied subject
-          def ___super___
-            isolation_context.instance
-          end
-         
-
-          (subj.instance_methods - Object.instance_methods).each do |mn|
-            mn = mn.to_s.to_sym
-            define_method mn do |*args|
-              b = nil
-              b = Proc.new { yield } if block_given?
-              isolation_context.send_message(mn, nil, *args, &b)
-            end
-          end
-
+        # access to the proxied subject
+        def ___super___
+          isolation_context.instance
         end
 
-        klass
+
+        (subj.instance_methods - Object.instance_methods).each do |mn|
+          mn = mn.to_s.to_sym
+          define_method mn do |*args|
+            b = nil
+            b = Proc.new { yield } if block_given?
+            isolation_context.send_message(mn, nil, *args, &b)
+          end
+        end
+
       end
+
+      klass
     end
 
 
@@ -165,58 +176,54 @@ module Caricature
   # that are marked as virtual. We also can't isolate static or sealed types at the moment. 
   class ClrIsolator < Isolator
 
-    class << self
-      protected
 
-      # Implementation of the template method that creates
-      # an isolator for a class defined in a CLR language.
-      def create_isolation(context)
-        instance = nil
-        sklass = context.subject
-        unless context.subject.respond_to?(:class_eval)
-          sklass = context.subject.class
-          instance = context.subject
+    # Implementation of the template method that creates
+    # an isolator for a class defined in a CLR language.
+    def initialize(context)
+      super
+      instance = nil
+      sklass = context.subject
+      unless context.subject.respond_to?(:class_eval)
+        sklass = context.subject.class
+        instance = context.subject
+      end
+      build_isolation sklass, (instance || sklass.new)
+    end
+
+    # initializes the messaging strategy for the isolator
+    def initialize_messenger
+      @context.messenger = ClrClassMessenger.new @context.expectations, @subject
+    end
+
+    # builds the Isolator class for the specified subject
+    def  create_isolation_for(subj)
+      clr_type = subj.to_clr_type
+      members = clr_type.get_methods.select { |pi| !pi.is_static }.collect { |mi| [mi.name.underscore, mi.return_type] }
+      members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
+      members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
+
+      klass = Object.const_set(class_name(subj), Class.new(subj))
+      klass.class_eval do
+
+        include Interception
+
+        # access to the proxied subject
+        def ___super___
+          isolation_context.instance
         end
 
-        pxy = create_clr_isolation_for(sklass)
-        instance ||= sklass.new
-        context.messenger = ClrClassMessenger.new context, instance
-        [pxy.new, instance]
-      end
-
-      # builds the Isolator class for the specified subject
-      def  create_clr_isolation_for(subj)
-        clr_type = subj.to_clr_type
-        members = clr_type.get_methods.select { |pi| !pi.is_static }.collect { |mi| [mi.name.underscore, mi.return_type] }
-        members += clr_type.get_properties.collect { |pi| [pi.name.underscore, pi.property_type] }
-        members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
-
-        klass = Object.const_set(class_name(subj), Class.new(subj))
-        klass.class_eval do
-
-          include Interception
-
-          # access to the proxied subject
-          def ___super___ 
-            isolation_context.instance
-          end
-
-          members.each do |mem|
-            nm = mem[0].to_s.to_sym
-            define_method nm do |*args|
-              b = nil
-              b = Proc.new { yield } if block_given?
-              isolation_context.send_message(nm, mem[1], *args, &b)
-            end unless nm == :to_string
-          end
-          
+        members.each do |mem|
+          nm = mem[0].to_s.to_sym
+          define_method nm do |*args|
+            b = nil
+            b = Proc.new { yield } if block_given?
+            isolation_context.send_message(nm, mem[1], *args, &b)
+          end unless nm == :to_string
         end
 
-        klass
       end
 
-
-
+      klass
     end
 
   end
@@ -224,54 +231,54 @@ module Caricature
   # An +Isolator+ for CLR interfaces.
   # this implements all the methods that are defined on the interface.
   class ClrInterfaceIsolator < Isolator
-    class << self
-      protected
 
-      # Implementation of the template method that creates
-      # an isolator for an interface defined in a CLR language.
-      def create_isolation(context)
-        pxy = nil
-        sklass = context.subject
-        pxy = create_interface_isolation_for(sklass)
-        context.messenger = ClrInterfaceMessenger.new context
-        [pxy.new, pxy.new]
-      end
+    # Implementation of the template method that creates
+    # an isolator for an interface defined in a CLR language.
+    def initialize(context)
+      super
+      sklass = context.subject
+      build_isolation sklass      
+    end
 
-      # recursively collects the members of an interface and its ancestors
-      def collect_members(subj)
-        clr_type = subj.to_clr_type
+    # initializes the messaging strategy for the isolator
+    def initialize_messenger
+      @context.messenger = ClrInterfaceMessenger.new @context.expectations
+    end
 
-        properties = clr_type.collect_interface_properties
-        methods = clr_type.collect_interface_methods
+    # recursively collects the members of an interface and its ancestors
+    def collect_members(subj)
+      clr_type = subj.to_clr_type
 
-        proxy_members = methods.collect { |mi| [mi.name.underscore, mi.return_type] }
-        proxy_members += properties.collect { |pi| [pi.name.underscore, pi.property_type] }
-        proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
-      end
+      properties = clr_type.collect_interface_properties
+      methods = clr_type.collect_interface_methods
 
-      # builds the actual +isolator+ for the CLR interface
-      def create_interface_isolation_for(subj)
-        proxy_members = collect_members(subj)
+      proxy_members = methods.collect { |mi| [mi.name.underscore, mi.return_type] }
+      proxy_members += properties.collect { |pi| [pi.name.underscore, pi.property_type] }
+      proxy_members += properties.select { |pi| pi.can_write }.collect { |pi| ["#{pi.name.underscore}=", nil] }
+    end
 
-        klass = Object.const_set(class_name(subj), Class.new)
-        klass.class_eval do
+    # builds the actual +isolator+ for the CLR interface
+    def create_isolation_for(subj)
+      proxy_members = collect_members(subj)
 
-          include subj
-          include Interception
+      klass = Object.const_set(class_name(subj), Class.new)
+      klass.class_eval do
 
-          proxy_members.each do |mem|
-            nm = mem[0].to_s.to_sym
-            define_method nm do |*args|
-              b = nil
-              b = Proc.new { yield } if block_given?
-              isolation_context.send_message(nm, mem[1], *args, &b)
-            end
+        include subj
+        include Interception
+
+        proxy_members.each do |mem|
+          nm = mem[0].to_s.to_sym
+          define_method nm do |*args|
+            b = nil
+            b = Proc.new { yield } if block_given?
+            isolation_context.send_message(nm, mem[1], *args, &b)
           end
-
         end
 
-        klass
       end
+
+      klass
     end
   end
 

@@ -458,12 +458,12 @@ describe "Full scenarios" do
         var = @ninja.did_receive?(:survive_attack_with).with(:any)
         @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
       end
-           
+
 
     end
 
   end
-  
+
   describe "Ruby to Ruby interactions" do
 
     describe "when isolating Ruby classes" do

@@ -19,7 +19,7 @@ module Caricature
     # the symbol +:any+ as first argument to this method. When you don't care the first match is being returned
     # When you specify arguments other than +:any+ it will try to match the specified arguments in addition
     # to the method name. It will then also return the first result it can find.
-    def find(method_name, args)
+    def find(method_name, *args)
       candidates = @inner.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
       is_single = args.empty? || args.first == :any || (candidates.size == 1 && candidates.first.any_args?)
       return candidates.first if is_single

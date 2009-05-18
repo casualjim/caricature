@@ -40,6 +40,7 @@ require File.dirname(__FILE__) + '/verification'
 # problems but for the time being this is how it has to be.
 module Caricature
 
+
   IsolatorContext = Struct.new(:subject, :recorder, :expectations, :messenger)
 
   # Instead of using confusing terms like Mocking and Stubbing which is basically the same. Caricature tries
@@ -57,19 +58,37 @@ module Caricature
     # the method call recorder
     attr_reader :recorder
 
-    # the expectations on the object
+    # the expecations set for this isolation
     attr_reader :expectations
 
+    # Initializes a new instance of this isolation.
     def initialize(isolator, context)
+      @instance = isolator.subject
       @recorder = context.recorder
       @messenger = context.messenger
       @expectations = context.expectations
-      isolator.first.instance_variable_set("@___context___", self)
+      isolator.isolation.instance_variable_set("@___context___", self)
     end
 
+    # record and send the message to the isolation.
+    # takes care of following expectations rules when sending messages.
     def send_message(method_name, return_type, *args, &b)
       recorder.record_call method_name, *args, &b
       @messenger.deliver(method_name, return_type, *args, &b)
+    end
+
+    def create_override(method_name, &b)
+      builder = ExpectationBuilder.new method_name
+      block.call builder unless block.nil?
+      exp = builder.build
+      expectations << exp
+      exp
+    end
+
+    def verify(method_name, &b)
+      verification = Verification.new(method_name, recorder)
+      block.call verification unless block.nil?
+      verification
     end
 
     class << self
@@ -81,9 +100,9 @@ module Caricature
         context = IsolatorContext.new subject, recorder, expectations
         isolation_strategy = subject.is_clr_type? ? get_clr_isolation_strategy(subject) : RubyIsolator
 
-        isolator = isolation_strategy.isolate(context)
+        isolator = isolation_strategy.for context
         isolation = new(isolator, context)
-        isolator.first
+        isolator.isolation
       end
 
       private
