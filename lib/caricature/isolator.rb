@@ -7,10 +7,26 @@ module Caricature
   # this is a mix-in for the created isolations for classes
   module Interception
 
+    # the class methods of this intercepting object
+    module ClassMethods
+
+      # the context of this isolation instance.
+      # this context takes care of responding to method calls etc.
+      def isolation_context
+        @___context___
+      end
+
+    end
+
+    # mixes in the class methods of this module when it gets included in a class.
+    def self.included(base)
+      base.extend ClassMethods
+    end
+
     # the context of this isolation instance.
     # this context takes care of responding to method calls etc.
     def isolation_context
-      @___context___
+      self.class.isolation_context
     end
 
     # Replaces the call to the proxy with the one you create with this method.
@@ -52,7 +68,7 @@ module Caricature
     # during the course of the test you're running.
     def did_receive?(method_name, &block)
       isolation_context.verify method_name
-    end
+    end  
 
   end
 
@@ -147,6 +163,7 @@ module Caricature
     # creates the ruby isolator for the specified subject
     def create_isolation_for(subj)
       imembers = @descriptor.instance_members
+      cmembers = @descriptor.class_members
 
       klass = Object.const_set(class_name(subj), Class.new(subj))
       klass.class_eval do
@@ -158,7 +175,6 @@ module Caricature
           isolation_context.instance
         end
 
-
         imembers.each do |mn|
           mn = mn.name.to_s.to_sym
           define_method mn do |*args|
@@ -167,6 +183,16 @@ module Caricature
             isolation_context.send_message(mn, nil, *args, &b)
           end
         end
+
+        cmembers.each do |mn|
+          mn = mn.name.to_s
+          define_cmethod mn do |*args|
+            b = nil
+            b = Proc.new { yield } if block_given?
+            isolation_context.send_message(mn, nil, *args, &b)
+          end
+        end
+
 
       end
 

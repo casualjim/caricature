@@ -67,7 +67,8 @@ module Caricature
       @recorder = context.recorder
       @messenger = context.messenger
       @expectations = context.expectations
-      isolator.isolation.instance_variable_set("@___context___", self)
+#      isolator.isolation.instance_variable_set("@___context___", self)
+      isolator.isolation.class.instance_variable_set("@___context___", self)
     end
 
     # record and send the message to the isolation.
@@ -77,6 +78,7 @@ module Caricature
       @messenger.deliver(method_name, return_type, *args, &b)
     end
 
+    # builds up an expectation, allows for overriding the result returned by the method
     def create_override(method_name, &block)
       builder = ExpectationBuilder.new method_name
       block.call builder unless block.nil?
@@ -85,6 +87,7 @@ module Caricature
       exp
     end
 
+    # asserts whether the method has been called for the specified configuration
     def verify(method_name, &block)
       verification = Verification.new(method_name, recorder)
       block.call verification unless block.nil?

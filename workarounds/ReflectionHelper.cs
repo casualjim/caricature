@@ -11,7 +11,7 @@ namespace Workarounds
             return target.GetProperties(BindingFlags.Public | BindingFlags.Instance);
         }
 
-        public static PropertyInfo[] GetStaticProperties(Type target)
+        public static PropertyInfo[] GetClassProperties(Type target)
         {
             return target.GetProperties(BindingFlags.Public | BindingFlags.Static);
         }
@@ -21,7 +21,7 @@ namespace Workarounds
             return target.GetMethods(BindingFlags.Public | BindingFlags.Instance);
         }
 
-        public static MethodInfo[] GetStaticMethods(Type target)
+        public static MethodInfo[] GetClassMethods(Type target)
         {
             return target.GetMethods(BindingFlags.Public | BindingFlags.Static);
         }

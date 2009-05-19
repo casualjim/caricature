@@ -42,7 +42,12 @@ module Caricature
     def initialize_class_members_for(klass)
       clr_type = klass.to_clr_type
 
-      @class_members += clr_type.get_methods.select { |mi| mi.is_static }.collect  { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type, false) }
+      methods = Workarounds::ReflectionHelper.get_class_methods(clr_type)
+      properties = Workarounds::ReflectionHelper.get_class_properties(clr_type)
+
+      @class_members += methods.collect  { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type, false) }
+      @class_members += properties.collect { |pi| MemberDescriptor.new(pi.name.underscore, pi.property_type, false) }
+      @class_members += properties.select{|pi| pi.can_write }.collect { |pi| MemberDescriptor.new("#{pi.name.underscore}=", nil, false) }
     end
 
   end

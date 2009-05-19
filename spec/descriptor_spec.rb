@@ -97,12 +97,12 @@ describe "Caricature::ClrClassDescriptor" do
     @des = Caricature::ClrClassDescriptor.new ClrModels::SwordWithStatics
   end
 
-  it "should have 7 instance members" do
+  it "should have 11 instance members" do
     @des.instance_members.size.should.equal 11
   end
 
-  it "should have 3 static members" do
-    @des.class_members.size.should.equal 3
+  it "should have 5 static members" do
+    @des.class_members.size.should.equal 5
   end
 
   it "should have a damage instance member" do
@@ -120,7 +120,7 @@ end
 describe "Caricature::RubyObjectDescriptor" do
 
   before do
-    @des = Caricature::RubyObjectDescriptor.new Dagger
+    @des = Caricature::RubyObjectDescriptor.new DaggerWithClassMembers
   end
 
   it "should have 2 instance members" do
@@ -129,6 +129,14 @@ describe "Caricature::RubyObjectDescriptor" do
 
   it "should have a damage instance member" do
     @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+  end
+
+  it "should have 1 class member" do
+    @des.class_members.size.should.equal 1
+  end
+
+  it "should have a class_name class member" do
+    @des.class_members.select { |mem| mem.name == "class_name" }.should.not.be.empty
   end
 
 end

@@ -1,18 +1,15 @@
 require File.dirname(__FILE__) + "/bacon_helper"
 
-class TestIsolation 
-  
+class TestIsolation
   attr_accessor :instance, :expectations
-  
   def initialize(instance, expectations)
     @instance, @expectations = instance, expectations
   end
-
   def send_message(method_name, return_type, *args, &b)
     exp = expectations.find(method_name, *args)
     if exp
       res = instance.__send__(method_name, *args, &b) if exp.super_before?
-      res = exp.execute *args
+      res = exp.execute(*args)
       res = instance.__send__(method_name, *args, &b) if !exp.super_before? and exp.call_super?
       res
     else
@@ -22,7 +19,6 @@ class TestIsolation
       rt
     end
   end
-
 end
 
 describe "Caricature::RubyIsolator" do
@@ -32,7 +28,7 @@ describe "Caricature::RubyIsolator" do
     res = Caricature::RubyIsolator.for Caricature::IsolatorContext.new(@subj)
     iso = TestIsolation.new res.subject, Caricature::Expectations.new
     @proxy = res.isolation
-    @proxy.instance_variable_set("@___context___", iso)
+    @proxy.class.instance_variable_set("@___context___", iso)
   end
 
   
@@ -44,6 +40,23 @@ describe "Caricature::RubyIsolator" do
 
     it "should return nil" do
       @proxy.name.should.be.nil
+    end
+
+  end
+
+  describe "when isolating a class with class members" do
+
+    before do
+      res = Caricature::RubyIsolator.for Caricature::IsolatorContext.new(DaggerWithClassMembers)
+      iso = TestIsolation.new res.subject, Caricature::Expectations.new
+      @proxy = res.isolation
+      @proxy.class.instance_variable_set("@___context___", iso)
+    end
+
+    it "should return nil for the class method" do
+
+      @proxy.class.class_name.should.be.nil
+
     end
 
   end
@@ -60,7 +73,7 @@ describe "Caricature::RecordingClrProxy" do
       res = Caricature::ClrIsolator.for context
       iso = TestIsolation.new res.subject, Caricature::Expectations.new
       @proxy = res.isolation
-      @proxy.instance_variable_set("@___context___", iso)
+      @proxy.class.instance_variable_set("@___context___", iso)
     end
 
     it "should create a proxy" do
@@ -91,7 +104,7 @@ describe "Caricature::RecordingClrProxy" do
       res = Caricature::ClrIsolator.for context
       iso = TestIsolation.new res.subject, Caricature::Expectations.new
       @proxy = res.isolation
-      @proxy.instance_variable_set("@___context___", iso)
+      @proxy.class.instance_variable_set("@___context___", iso)
     end
 
     it "should create a proxy" do
