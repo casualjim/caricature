@@ -59,9 +59,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000056">#is_clr_type?</a></li>
+					<li><a href="#M000098">#define_cmethod</a></li>
 					
-					<li><a href="#M000057">#to_clr_type</a></li>
+					<li><a href="#M000096">#is_clr_type?</a></li>
+					
+					<li><a href="#M000097">#to_clr_type</a></li>
 					
 				</ul>
 			</div>
@@ -73,6 +75,15 @@
 
 		<div id="project-metadata">
 			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./README_markdown.html">README.markdown</a></li>
+				
+				</ul>
+			</div>
 			
 
 			<div id="classindex-section" class="section project-section">
@@ -94,7 +105,15 @@
 				
 					<li><a href="./Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
 				
+					<li><a href="./Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="./Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="./Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
 					<li><a href="./Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="./Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="./Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
@@ -108,15 +127,27 @@
 				
 					<li><a href="./Caricature/Interception.html">Caricature::Interception</a></li>
 				
+					<li><a href="./Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
 					<li><a href="./Caricature/Isolation.html">Caricature::Isolation</a></li>
 				
 					<li><a href="./Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="./Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="./Caricature/Messenger.html">Caricature::Messenger</a></li>
 				
 					<li><a href="./Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="./Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
 				
 					<li><a href="./Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="./Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="./Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="./Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
 				
 					<li><a href="./Caricature/Verification.html">Caricature::Verification</a></li>
 				
@@ -126,7 +157,11 @@
 				
 					<li><a href="./System/Type.html">System::Type</a></li>
 				
+					<li><a href="./Array.html">Array</a></li>
+				
 					<li><a href="./Class.html">Class</a></li>
+				
+					<li><a href="./Hash.html">Hash</a></li>
 				
 					<li><a href="./Module.html">Module</a></li>
 				
@@ -161,8 +196,42 @@
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="define-cmethod-method" class="method-detail ">
+				<a name="M000098"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">define_cmethod</span><span
+						class="method-args">(name, &blk)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+defines a class method on an object
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="define-cmethod-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/core_ext/object.rb, line 15</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_cmethod</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+    (<span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">end</span>).<span class="ruby-identifier">instance_eval</span> { <span class="ruby-identifier">define_method</span> <span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="is-clr-type--method" class="method-detail ">
-				<a name="M000056"></a>
+				<a name="M000096"></a>
 
 				<div class="method-heading">
 				
@@ -197,7 +266,7 @@ its ancestors
 
 		
 			<div id="to-clr-type-method" class="method-detail ">
-				<a name="M000057"></a>
+				<a name="M000097"></a>
 
 				<div class="method-heading">
 				
@@ -209,14 +278,16 @@ its ancestors
 
 				<div class="method-description">
 					
-					<p class="missing-docs">(Not documented)</p>
+					<p>
+returns the clr type of this object if any
+</p>
 					
 
 					
 					<div class="method-source-code"
 						id="to-clr-type-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/object.rb, line 9</span>
+<span class="ruby-comment cmt"># File lib/core_ext/object.rb, line 10</span>
   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_clr_type</span>
     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">to_clr_type</span>
   <span class="ruby-keyword kw">end</span></pre>
