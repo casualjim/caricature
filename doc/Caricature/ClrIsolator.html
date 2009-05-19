@@ -351,7 +351,7 @@ subject
           <span class="ruby-identifier">define_cmethod</span> <span class="ruby-identifier">mn</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
             <span class="ruby-identifier">b</span> = <span class="ruby-keyword kw">nil</span>
             <span class="ruby-identifier">b</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> { <span class="ruby-keyword kw">yield</span> } <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
-            <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">send_message</span>(<span class="ruby-identifier">mn</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+            <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">send_class_message</span>(<span class="ruby-identifier">mn</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
           <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">end</span>
 

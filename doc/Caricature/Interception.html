@@ -61,13 +61,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000044">::included</a></li>
+					<li><a href="#M000052">::included</a></li>
 					
-					<li><a href="#M000049">#did_receive?</a></li>
+					<li><a href="#M000062">#did_class_receive?</a></li>
 					
-					<li><a href="#M000046">#isolation_context</a></li>
+					<li><a href="#M000060">#did_receive?</a></li>
 					
-					<li><a href="#M000047">#when_receiving</a></li>
+					<li><a href="#M000053">#isolation_context</a></li>
+					
+					<li><a href="#M000057">#when_class_receives</a></li>
+					
+					<li><a href="#M000054">#when_receiving</a></li>
 					
 				</ul>
 			</div>
@@ -205,7 +209,7 @@ created isolations for classes
 
 		
 			<div id="included-method" class="method-detail ">
-				<a name="M000044"></a>
+				<a name="M000052"></a>
 
 				<div class="method-heading">
 				
@@ -226,7 +230,7 @@ mixes in the class methods of this module when it gets included in a class.
 					<div class="method-source-code"
 						id="included-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 22</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 63</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ClassMethods</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -244,8 +248,67 @@ mixes in the class methods of this module when it gets included in a class.
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="did-class-receive--method" class="method-detail ">
+				<a name="M000062"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">did_class_receive?</span><span
+						class="method-args">(method_name, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Verifies whether the specified class method has been called You can specify
+constraints in the block
+</p>
+<p>
+The most complex configuration you can make currently is one that is
+constrained by arguments. This is most likely to be extended in the future
+to allow for more complex verifications.
+</p>
+<p>
+Example:
+</p>
+<pre>
+    an_isolation.did_class_receive?(:a_method) do |method_call|
+      method_call.with(3, &quot;a&quot;)
+    end.should.be.successful
+</pre>
+<p>
+is equivalent to:
+</p>
+<pre>
+    an_isolation.did_class_receive?(:a_method).with(3, &quot;a&quot;).should.be.successful
+</pre>
+<p>
+You will probably be using this method only when you&#8217;re interested in
+whether a method has been called during the course of the test you&#8217;re
+running.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="did-class-receive--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 151</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_class_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="did-receive--method" class="method-detail ">
-				<a name="M000049"></a>
+				<a name="M000060"></a>
 
 				<div class="method-heading">
 				
@@ -291,7 +354,7 @@ running.
 					<div class="method-source-code"
 						id="did-receive--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 69</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 129</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">verify</span> <span class="ruby-identifier">method_name</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -304,7 +367,7 @@ running.
 
 		
 			<div id="isolation-context-method" class="method-detail ">
-				<a name="M000046"></a>
+				<a name="M000053"></a>
 
 				<div class="method-heading">
 				
@@ -326,7 +389,7 @@ responding to method calls etc.
 					<div class="method-source-code"
 						id="isolation-context-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 28</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 69</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">isolation_context</span>
       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">isolation_context</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -338,8 +401,63 @@ responding to method calls etc.
 			</div>
 
 		
+			<div id="when-class-receives-method" class="method-detail ">
+				<a name="M000057"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">when_class_receives</span><span
+						class="method-args">(method_name, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Replaces the call to the class of the proxy with the one you create with
+this method. You can specify more specific criteria in the block to
+configure the expectation.
+</p>
+<p>
+Example:
+</p>
+<pre>
+    an_isolation.when_class_receives(:a_method) do |method_call|
+      method_call.with(3, &quot;a&quot;).return(5)
+    end
+</pre>
+<p>
+is equivalent to:
+</p>
+<pre>
+    an_isolation.when_class_receives(:a_method).with(3, &quot;a&quot;).return(5)
+</pre>
+<p>
+You will most likely use this method when you want your stubs to return
+something else than <tt>nil</tt> when they get called during the run of the
+test they are defined in.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="when-class-receives-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 107</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_class_receives</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">when_receiving</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="when-receiving-method" class="method-detail ">
-				<a name="M000047"></a>
+				<a name="M000054"></a>
 
 				<div class="method-heading">
 				
@@ -381,7 +499,7 @@ test they are defined in.
 					<div class="method-source-code"
 						id="when-receiving-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 47</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 88</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">create_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
     <span class="ruby-keyword kw">end</span></pre>

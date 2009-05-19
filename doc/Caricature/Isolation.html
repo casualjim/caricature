@@ -64,17 +64,27 @@
 					
 					<li><a href="#M000001">::for</a></li>
 					
-					<li><a href="#M000045">::for</a></li>
+					<li><a href="#M000047">::for</a></li>
 					
 					<li><a href="#M000002">::get_clr_isolation_strategy</a></li>
 					
-					<li><a href="#M000037">::new</a></li>
+					<li><a href="#M000034">::new</a></li>
+					
+					<li><a href="#M000045">#class_verify</a></li>
+					
+					<li><a href="#M000043">#create_class_override</a></li>
 					
 					<li><a href="#M000041">#create_override</a></li>
 					
-					<li><a href="#M000039">#send_message</a></li>
+					<li><a href="#M000049">#internal_create_override</a></li>
 					
-					<li><a href="#M000042">#verify</a></li>
+					<li><a href="#M000051">#internal_verify</a></li>
+					
+					<li><a href="#M000039">#send_class_message</a></li>
+					
+					<li><a href="#M000038">#send_message</a></li>
+					
+					<li><a href="#M000044">#verify</a></li>
 					
 				</ul>
 			</div>
@@ -317,7 +327,7 @@ the method call recorder
 
 		
 			<div id="for-method" class="method-detail ">
-				<a name="M000045"></a>
+				<a name="M000047"></a>
 
 				<div class="method-heading">
 				
@@ -340,7 +350,7 @@ the method call recorder
 					<div class="method-source-code"
 						id="for-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 102</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 113</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">for</span>(<span class="ruby-identifier">subject</span>, <span class="ruby-identifier">recorder</span> = <span class="ruby-constant">MethodCallRecorder</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">expectations</span> = <span class="ruby-constant">Expectations</span>.<span class="ruby-identifier">new</span>)
         <span class="ruby-identifier">context</span> = <span class="ruby-constant">IsolatorContext</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">subject</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">expectations</span>
 
@@ -357,7 +367,7 @@ the method call recorder
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000037"></a>
+				<a name="M000034"></a>
 
 				<div class="method-heading">
 				
@@ -384,7 +394,6 @@ Initializes a new instance of this isolation.
       <span class="ruby-ivar">@recorder</span> = <span class="ruby-identifier">context</span>.<span class="ruby-identifier">recorder</span>
       <span class="ruby-ivar">@messenger</span> = <span class="ruby-identifier">context</span>.<span class="ruby-identifier">messenger</span>
       <span class="ruby-ivar">@expectations</span> = <span class="ruby-identifier">context</span>.<span class="ruby-identifier">expectations</span>
-<span class="ruby-comment cmt">#      isolator.isolation.instance_variable_set(&quot;@___context___&quot;, self)</span>
       <span class="ruby-identifier">isolator</span>.<span class="ruby-identifier">isolation</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value str">&quot;@___context___&quot;</span>, <span class="ruby-keyword kw">self</span>)
     <span class="ruby-keyword kw">end</span></pre>
 					</div>
@@ -444,6 +453,76 @@ otherwise it will return a <tt>ClrIsolator</tt>
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="class-verify-method" class="method-detail ">
+				<a name="M000045"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">class_verify</span><span
+						class="method-args">(method_name, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+asserts whether the method has been called for the specified configuration
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="class-verify-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 104</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_verify</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">internal_verify</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">:class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="create-class-override-method" class="method-detail ">
+				<a name="M000043"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">create_class_override</span><span
+						class="method-args">(method_name, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+builds up an expectation for a class method, allows for overriding the
+result returned by the class method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="create-class-override-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 93</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_class_override</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;creating override&quot;</span>
+      <span class="ruby-identifier">internal_create_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">:class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>      
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="create-override-method" class="method-detail ">
 				<a name="M000041"></a>
 
@@ -458,8 +537,8 @@ otherwise it will return a <tt>ClrIsolator</tt>
 				<div class="method-description">
 					
 					<p>
-builds up an expectation, allows for overriding the result returned by the
-method
+builds up an expectation for an instance method, allows for overriding the
+result returned by the method
 </p>
 					
 
@@ -467,13 +546,45 @@ method
 					<div class="method-source-code"
 						id="create-override-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 82</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 88</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_override</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-      <span class="ruby-identifier">builder</span> = <span class="ruby-constant">ExpectationBuilder</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">method_name</span>
-      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-identifier">builder</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">exp</span> = <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">build</span>
-      <span class="ruby-identifier">expectations</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">exp</span>
-      <span class="ruby-identifier">exp</span>
+      <span class="ruby-identifier">internal_create_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">:instance</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="send-class-message-method" class="method-detail ">
+				<a name="M000039"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">send_class_message</span><span
+						class="method-args">(method_name, return_type, *args, &b)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+record and send the message to the isolation. takes care of following
+expectations rules when sending messages.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="send-class-message-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 82</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_class_message</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+      <span class="ruby-identifier">recorder</span>.<span class="ruby-identifier">record_call</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">:class</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>
+      <span class="ruby-ivar">@messenger</span>.<span class="ruby-identifier">deliver_to_class</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
@@ -484,7 +595,7 @@ method
 
 		
 			<div id="send-message-method" class="method-detail ">
-				<a name="M000039"></a>
+				<a name="M000038"></a>
 
 				<div class="method-heading">
 				
@@ -506,9 +617,9 @@ expectations rules when sending messages.
 					<div class="method-source-code"
 						id="send-message-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 76</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 75</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_message</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-      <span class="ruby-identifier">recorder</span>.<span class="ruby-identifier">record_call</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>
+      <span class="ruby-identifier">recorder</span>.<span class="ruby-identifier">record_call</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">:instance</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>
       <span class="ruby-ivar">@messenger</span>.<span class="ruby-identifier">deliver</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
     <span class="ruby-keyword kw">end</span></pre>
 					</div>
@@ -520,7 +631,7 @@ expectations rules when sending messages.
 
 		
 			<div id="verify-method" class="method-detail ">
-				<a name="M000042"></a>
+				<a name="M000044"></a>
 
 				<div class="method-heading">
 				
@@ -541,9 +652,83 @@ asserts whether the method has been called for the specified configuration
 					<div class="method-source-code"
 						id="verify-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 91</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 99</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-      <span class="ruby-identifier">verification</span> = <span class="ruby-constant">Verification</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">recorder</span>)
+      <span class="ruby-identifier">internal_verify</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">:instance</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="protected-instance-method-details" class="method-section section">
+			<h3 class="section-header">Protected Instance Methods</h3>
+
+		
+			<div id="internal-create-override-method" class="method-detail ">
+				<a name="M000049"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">internal_create_override</span><span
+						class="method-args">(method_name, mode=:instance, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="internal-create-override-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 125</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_create_override</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">builder</span> = <span class="ruby-constant">ExpectationBuilder</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">method_name</span>
+      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-identifier">builder</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">exp</span> = <span class="ruby-identifier">builder</span>.<span class="ruby-identifier">build</span>
+      <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">add_expectation</span> <span class="ruby-identifier">exp</span>, <span class="ruby-identifier">mode</span>
+      <span class="ruby-identifier">exp</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="internal-verify-method" class="method-detail ">
+				<a name="M000051"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">internal_verify</span><span
+						class="method-args">(method_name, mode=:instance, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="internal-verify-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolation.rb, line 133</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_verify</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">verification</span> = <span class="ruby-constant">Verification</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">mode</span>)
       <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-identifier">verification</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">nil?</span>
       <span class="ruby-identifier">verification</span>
     <span class="ruby-keyword kw">end</span></pre>

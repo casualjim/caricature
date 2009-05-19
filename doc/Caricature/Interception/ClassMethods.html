@@ -52,7 +52,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000043">#isolation_context</a></li>
+					<li><a href="#M000050">#did_receive?</a></li>
+					
+					<li><a href="#M000046">#isolation_context</a></li>
+					
+					<li><a href="#M000048">#when_receiving</a></li>
 					
 				</ul>
 			</div>
@@ -188,8 +192,67 @@ the class methods of this intercepting object
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="did-receive--method" class="method-detail ">
+				<a name="M000050"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">did_receive?</span><span
+						class="method-args">(method_name, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Verifies whether the specified method has been called You can specify
+constraints in the block
+</p>
+<p>
+The most complex configuration you can make currently is one that is
+constrained by arguments. This is most likely to be extended in the future
+to allow for more complex verifications.
+</p>
+<p>
+Example:
+</p>
+<pre>
+    an_isolation.class.did_receive?(:a_method) do |method_call|
+      method_call.with(3, &quot;a&quot;)
+    end.should.be.successful
+</pre>
+<p>
+is equivalent to:
+</p>
+<pre>
+    an_isolation.class.did_receive?(:a_method).with(3, &quot;a&quot;).should.be.successful
+</pre>
+<p>
+You will probably be using this method only when you&#8217;re interested in
+whether a method has been called during the course of the test you&#8217;re
+running.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="did-receive--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 56</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+        <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">class_verify</span> <span class="ruby-identifier">method_name</span>
+      <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="isolation-context-method" class="method-detail ">
-				<a name="M000043"></a>
+				<a name="M000046"></a>
 
 				<div class="method-heading">
 				
@@ -214,6 +277,61 @@ responding to method calls etc.
 <span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 15</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">isolation_context</span>
         <span class="ruby-ivar">@___context___</span>
+      <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="when-receiving-method" class="method-detail ">
+				<a name="M000048"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">when_receiving</span><span
+						class="method-args">(method_name, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Replaces the call to the proxy with the one you create with this method.
+You can specify more specific criteria in the block to configure the
+expectation.
+</p>
+<p>
+Example:
+</p>
+<pre>
+    an_isolation.class.when_receiving(:a_method) do |method_call|
+      method_call.with(3, &quot;a&quot;).return(5)
+    end
+</pre>
+<p>
+is equivalent to:
+</p>
+<pre>
+    an_isolation.class.when_receiving(:a_method).with(3, &quot;a&quot;).return(5)
+</pre>
+<p>
+You will most likely use this method when you want your stubs to return
+something else than <tt>nil</tt> when they get called during the run of the
+test they are defined in.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="when-receiving-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 34</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+        <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">create_class_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					

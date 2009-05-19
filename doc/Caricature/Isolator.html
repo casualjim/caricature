@@ -59,17 +59,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000059">::for</a></li>
+					<li><a href="#M000072">::for</a></li>
 					
-					<li><a href="#M000052">::new</a></li>
+					<li><a href="#M000063">::new</a></li>
 					
-					<li><a href="#M000053">#build_isolation</a></li>
+					<li><a href="#M000065">#build_isolation</a></li>
 					
-					<li><a href="#M000055">#class_name</a></li>
+					<li><a href="#M000068">#class_name</a></li>
 					
-					<li><a href="#M000056">#initialize_isolation</a></li>
+					<li><a href="#M000069">#initialize_isolation</a></li>
 					
-					<li><a href="#M000054">#initialize_messenger</a></li>
+					<li><a href="#M000067">#initialize_messenger</a></li>
 					
 				</ul>
 			</div>
@@ -269,7 +269,7 @@ holds the descriptor for this type of object
 
 		
 			<div id="for-method" class="method-detail ">
-				<a name="M000059"></a>
+				<a name="M000072"></a>
 
 				<div class="method-heading">
 				
@@ -299,7 +299,7 @@ virtual in your implementing classes.
 					<div class="method-source-code"
 						id="for-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 137</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 219</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">for</span>(<span class="ruby-identifier">context</span>)
         <span class="ruby-identifier">context</span>.<span class="ruby-identifier">recorder</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">MethodCallRecorder</span>.<span class="ruby-identifier">new</span>
         <span class="ruby-identifier">context</span>.<span class="ruby-identifier">expectations</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Expectations</span>.<span class="ruby-identifier">new</span>
@@ -314,7 +314,7 @@ virtual in your implementing classes.
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000052"></a>
+				<a name="M000063"></a>
 
 				<div class="method-heading">
 				
@@ -335,7 +335,7 @@ creates a new instance of an isolator
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 95</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 177</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">context</span>)
       <span class="ruby-ivar">@context</span> = <span class="ruby-identifier">context</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -354,7 +354,7 @@ creates a new instance of an isolator
 
 		
 			<div id="build-isolation-method" class="method-detail ">
-				<a name="M000053"></a>
+				<a name="M000065"></a>
 
 				<div class="method-heading">
 				
@@ -375,7 +375,7 @@ builds up the isolation class instance
 					<div class="method-source-code"
 						id="build-isolation-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 100</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 182</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_isolation</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">inst</span>=<span class="ruby-keyword kw">nil</span>)
       <span class="ruby-identifier">pxy</span> = <span class="ruby-identifier">create_isolation_for</span> <span class="ruby-identifier">klass</span>
       <span class="ruby-ivar">@isolation</span> = <span class="ruby-identifier">pxy</span>.<span class="ruby-identifier">new</span>
@@ -391,7 +391,7 @@ builds up the isolation class instance
 
 		
 			<div id="class-name-method" class="method-detail ">
-				<a name="M000055"></a>
+				<a name="M000068"></a>
 
 				<div class="method-heading">
 				
@@ -412,7 +412,7 @@ Creates the new class name for the isolation
 					<div class="method-source-code"
 						id="class-name-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 113</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 195</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_name</span>(<span class="ruby-identifier">subj</span>)
       <span class="ruby-identifier">nm</span> = <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:class_eval</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">demodulize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">subj</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">demodulize</span>
       <span class="ruby-ivar">@class_name</span> = <span class="ruby-node">&quot;#{nm}#{System::Guid.new_guid.to_string('n')}&quot;</span>
@@ -427,7 +427,7 @@ Creates the new class name for the isolation
 
 		
 			<div id="initialize-isolation-method" class="method-detail ">
-				<a name="M000056"></a>
+				<a name="M000069"></a>
 
 				<div class="method-heading">
 				
@@ -448,7 +448,7 @@ Sets up the necessary instance variables for the isolation
 					<div class="method-source-code"
 						id="initialize-isolation-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 120</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 202</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_isolation</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">context</span>)
       <span class="ruby-identifier">pxy</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">new</span>
       <span class="ruby-identifier">pxy</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value str">&quot;@___context___&quot;</span>, <span class="ruby-identifier">context</span>)
@@ -463,7 +463,7 @@ Sets up the necessary instance variables for the isolation
 
 		
 			<div id="initialize-messenger-method" class="method-detail ">
-				<a name="M000054"></a>
+				<a name="M000067"></a>
 
 				<div class="method-heading">
 				
@@ -484,7 +484,7 @@ initializes the messaging strategy for the isolator
 					<div class="method-source-code"
 						id="initialize-messenger-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 108</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 190</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_messenger</span>
       <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>
     <span class="ruby-keyword kw">end</span></pre>

@@ -59,9 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000038">::new</a></li>
+					<li><a href="#M000040">::new</a></li>
 					
-					<li><a href="#M000040">#build</a></li>
+					<li><a href="#M000042">#build</a></li>
 					
 				</ul>
 			</div>
@@ -210,7 +210,7 @@ and usage of the expectation
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000038"></a>
+				<a name="M000040"></a>
 
 				<div class="method-heading">
 				
@@ -232,7 +232,7 @@ passed into the block to allow only certain operations in the block.
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 142</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 145</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>)
       <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span>, <span class="ruby-ivar">@block</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@any_args</span> = 
               <span class="ruby-identifier">method_name</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, [], <span class="ruby-keyword kw">true</span>
@@ -252,7 +252,7 @@ passed into the block to allow only certain operations in the block.
 
 		
 			<div id="build-method" class="method-detail ">
-				<a name="M000040"></a>
+				<a name="M000042"></a>
 
 				<div class="method-heading">
 				
@@ -273,7 +273,7 @@ build up the expectation with the provided arguments
 					<div class="method-source-code"
 						id="build-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 150</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 153</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build</span>
       <span class="ruby-constant">Expectation</span>.<span class="ruby-identifier">new</span> <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span>
     <span class="ruby-keyword kw">end</span></pre>
