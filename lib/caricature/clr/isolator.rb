@@ -29,6 +29,7 @@ module Caricature
     # builds the Isolator class for the specified subject
     def  create_isolation_for(subj)
       members = @descriptor.instance_members
+      class_members = @descriptor.class_members
 
       klass = Object.const_set(class_name(subj), Class.new(subj))
       klass.class_eval do
@@ -47,6 +48,15 @@ module Caricature
             b = Proc.new { yield } if block_given?
             isolation_context.send_message(nm, mem.return_type, *args, &b)
           end unless nm == :to_string
+        end
+
+        class_members.each do |mn|
+          mn = mn.name.to_s.to_sym
+          define_cmethod mn do |*args|
+            b = nil
+            b = Proc.new { yield } if block_given?
+            isolation_context.send_message(mn, nil, *args, &b)
+          end
         end
 
       end

@@ -185,7 +185,7 @@ module Caricature
         end
 
         cmembers.each do |mn|
-          mn = mn.name.to_s
+          mn = mn.name.to_s.to_sym
           define_cmethod mn do |*args|
             b = nil
             b = Proc.new { yield } if block_given?

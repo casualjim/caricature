@@ -94,6 +94,23 @@ describe "Caricature::RecordingClrProxy" do
 
     end
 
+    describe "when isolating a class with class members" do
+
+      before do
+        res = Caricature::ClrIsolator.for Caricature::IsolatorContext.new(ClrModels::SwordWithStatics)
+        iso = TestIsolation.new res.subject, Caricature::Expectations.new
+        @proxy = res.isolation
+        @proxy.class.instance_variable_set("@___context___", iso)
+      end
+
+      it "should return nil for the class method" do
+
+        @proxy.class.class_naming.should.be.nil
+
+      end
+
+    end
+
   end
 
   describe "for a CLR class" do
