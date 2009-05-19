@@ -59,11 +59,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000000">::new</a></li>
+					<li><a href="#M000016">::new</a></li>
 					
-					<li><a href="#M000001">#<<</a></li>
+					<li><a href="#M000017">#<<</a></li>
 					
-					<li><a href="#M000002">#find</a></li>
+					<li><a href="#M000019">#find</a></li>
 					
 				</ul>
 			</div>
@@ -75,6 +75,15 @@
 
 		<div id="project-metadata">
 			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+				</ul>
+			</div>
 			
 
 			<div id="classindex-section" class="section project-section">
@@ -96,7 +105,15 @@
 				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
 				
+					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
 					<li><a href="../Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
@@ -110,15 +127,27 @@
 				
 					<li><a href="../Caricature/Interception.html">Caricature::Interception</a></li>
 				
+					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
 					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
 				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="../Caricature/Messenger.html">Caricature::Messenger</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="../Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="../Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="../Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
 				
 					<li><a href="../Caricature/Verification.html">Caricature::Verification</a></li>
 				
@@ -128,7 +157,11 @@
 				
 					<li><a href="../System/Type.html">System::Type</a></li>
 				
+					<li><a href="../Array.html">Array</a></li>
+				
 					<li><a href="../Class.html">Class</a></li>
+				
+					<li><a href="../Hash.html">Hash</a></li>
 				
 					<li><a href="../Module.html">Module</a></li>
 				
@@ -169,7 +202,7 @@ criteria.
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000000"></a>
+				<a name="M000016"></a>
 
 				<div class="method-heading">
 				
@@ -209,7 +242,7 @@ initializes a new empty instance of the <tt>Expectation</tt> collection
 
 		
 			<div id="--method" class="method-detail ">
-				<a name="M000001"></a>
+				<a name="M000017"></a>
 
 				<div class="method-heading">
 				
@@ -244,12 +277,12 @@ collection.
 
 		
 			<div id="find-method" class="method-detail ">
-				<a name="M000002"></a>
+				<a name="M000019"></a>
 
 				<div class="method-heading">
 				
 					<span class="method-name">find</span><span
-						class="method-args">(method_name, args)</span>
+						class="method-args">(method_name, *args)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -272,7 +305,7 @@ also return the first result it can find.
 						id="find-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 22</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
       <span class="ruby-identifier">candidates</span> = <span class="ruby-ivar">@inner</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">exp</span><span class="ruby-operator">|</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span> }
       <span class="ruby-identifier">is_single</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">any_args?</span>)
       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_single</span>

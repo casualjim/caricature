@@ -72,7 +72,7 @@ describe "Caricature::Verification" do
     before do
       @rec = Caricature::MethodCallRecorder.new
       @rec.record_call :my_method
-      @rec.record_call :my_method, 1, 2, 3
+      @rec.record_call :my_method, :instance, 1, 2, 3
       @rec.record_call :another_method
 
     end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/messaging'
+require File.dirname(__FILE__) + '/messenger'
 require File.dirname(__FILE__) + '/descriptor'
 
 module Caricature
@@ -14,6 +14,47 @@ module Caricature
       # this context takes care of responding to method calls etc.
       def isolation_context
         @___context___
+      end
+
+      # Replaces the call to the proxy with the one you create with this method.
+      # You can specify more specific criteria in the block to configure the expectation.
+      #
+      # Example:
+      #
+      #     an_isolation.class.when_receiving(:a_method) do |method_call|
+      #       method_call.with(3, "a").return(5)
+      #     end
+      #
+      # is equivalent to:
+      #
+      #     an_isolation.class.when_receiving(:a_method).with(3, "a").return(5)
+      #
+      # You will most likely use this method when you want your stubs to return something else than +nil+
+      # when they get called during the run of the test they are defined in.
+      def when_receiving(method_name, &block)
+        isolation_context.create_class_override method_name, &block
+      end
+
+      # Verifies whether the specified method has been called
+      # You can specify constraints in the block
+      #
+      # The most complex configuration you can make currently is one that is constrained by arguments.
+      # This is most likely to be extended in the future to allow for more complex verifications.
+      #
+      # Example:
+      #
+      #     an_isolation.class.did_receive?(:a_method) do |method_call|
+      #       method_call.with(3, "a")
+      #     end.should.be.successful
+      #
+      # is equivalent to:
+      #
+      #     an_isolation.class.did_receive?(:a_method).with(3, "a").should.be.successful
+      #
+      # You will probably be using this method only when you're interested in whether a method has been called
+      # during the course of the test you're running.
+      def did_receive?(method_name, &block)
+        isolation_context.class_verify method_name
       end
 
     end
@@ -48,6 +89,25 @@ module Caricature
       isolation_context.create_override method_name, &block
     end
 
+    # Replaces the call to the class of the proxy with the one you create with this method.
+    # You can specify more specific criteria in the block to configure the expectation.
+    #
+    # Example:
+    #
+    #     an_isolation.when_class_receives(:a_method) do |method_call|
+    #       method_call.with(3, "a").return(5)
+    #     end
+    #
+    # is equivalent to:
+    #
+    #     an_isolation.when_class_receives(:a_method).with(3, "a").return(5)
+    #
+    # You will most likely use this method when you want your stubs to return something else than +nil+
+    # when they get called during the run of the test they are defined in.
+    def when_class_receives(method_name, &block)
+      self.class.when_receiving method_name, &block
+    end
+
     # Verifies whether the specified method has been called
     # You can specify constraints in the block
     #
@@ -68,7 +128,29 @@ module Caricature
     # during the course of the test you're running.
     def did_receive?(method_name, &block)
       isolation_context.verify method_name
-    end  
+    end
+
+    # Verifies whether the specified class method has been called
+    # You can specify constraints in the block
+    #
+    # The most complex configuration you can make currently is one that is constrained by arguments.
+    # This is most likely to be extended in the future to allow for more complex verifications.
+    #
+    # Example:
+    #
+    #     an_isolation.did_class_receive?(:a_method) do |method_call|
+    #       method_call.with(3, "a")
+    #     end.should.be.successful
+    #
+    # is equivalent to:
+    #
+    #     an_isolation.did_class_receive?(:a_method).with(3, "a").should.be.successful
+    #
+    # You will probably be using this method only when you're interested in whether a method has been called
+    # during the course of the test you're running.
+    def did_class_receive?(method_name, &block)
+      self.class.did_receive?(method_name, &block)
+    end
 
   end
 
@@ -189,7 +271,7 @@ module Caricature
           define_cmethod mn do |*args|
             b = nil
             b = Proc.new { yield } if block_given?
-            isolation_context.send_message(mn, nil, *args, &b)
+            isolation_context.send_class_message(mn, nil, *args, &b)
           end
         end
 

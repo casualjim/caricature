@@ -55,7 +55,7 @@ module Caricature
           define_cmethod mn do |*args|
             b = nil
             b = Proc.new { yield } if block_given?
-            isolation_context.send_message(mn, nil, *args, &b)
+            isolation_context.send_class_message(mn, nil, *args, &b)
           end
         end
 

@@ -59,9 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000026">::new</a></li>
+					<li><a href="#M000057">::new</a></li>
 					
-					<li><a href="#M000027">#==</a></li>
+					<li><a href="#M000058">#==</a></li>
 					
 				</ul>
 			</div>
@@ -73,6 +73,15 @@
 
 		<div id="project-metadata">
 			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+				</ul>
+			</div>
 			
 
 			<div id="classindex-section" class="section project-section">
@@ -94,7 +103,15 @@
 				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
 				
+					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
 					<li><a href="../Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
@@ -108,15 +125,27 @@
 				
 					<li><a href="../Caricature/Interception.html">Caricature::Interception</a></li>
 				
+					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
 					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
 				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="../Caricature/Messenger.html">Caricature::Messenger</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="../Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="../Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="../Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
 				
 					<li><a href="../Caricature/Verification.html">Caricature::Verification</a></li>
 				
@@ -126,7 +155,11 @@
 				
 					<li><a href="../System/Type.html">System::Type</a></li>
 				
+					<li><a href="../Array.html">Array</a></li>
+				
 					<li><a href="../Class.html">Class</a></li>
+				
+					<li><a href="../Hash.html">Hash</a></li>
 				
 					<li><a href="../Module.html">Module</a></li>
 				
@@ -147,7 +180,10 @@
 
 		<div id="description">
 			<p>
-A recording of an argument variation.
+A recording of an argument variation. Every time a method is called with
+different arguments the method call recorder will create an
+ArgumentVariation these variations are used later in the assertion to
+verify against specific argument values
 </p>
 
 		</div>
@@ -228,7 +264,7 @@ the number of the call that has the following parameters
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000026"></a>
+				<a name="M000057"></a>
 
 				<div class="method-heading">
 				
@@ -240,14 +276,17 @@ the number of the call that has the following parameters
 
 				<div class="method-description">
 					
-					<p class="missing-docs">(Not documented)</p>
+					<p>
+initializes a new instance of an argument recording. configures it with 1
+call count and the args as an <tt>Array</tt>
+</p>
 					
 
 					
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 15</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 21</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">args</span>=[], <span class="ruby-identifier">call_number</span>=<span class="ruby-value">1</span>, <span class="ruby-identifier">block</span>=<span class="ruby-keyword kw">nil</span>)
       <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>
       <span class="ruby-ivar">@block</span> = <span class="ruby-identifier">block</span>
@@ -268,7 +307,7 @@ the number of the call that has the following parameters
 
 		
 			<div id="--method" class="method-detail ">
-				<a name="M000027"></a>
+				<a name="M000058"></a>
 
 				<div class="method-heading">
 				
@@ -290,7 +329,7 @@ argument
 					<div class="method-source-code"
 						id="--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 23</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 29</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other</span>)
       <span class="ruby-identifier">other</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">other</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:each</span>)
       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>

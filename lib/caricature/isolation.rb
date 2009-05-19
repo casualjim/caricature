@@ -40,7 +40,7 @@ require File.dirname(__FILE__) + '/verification'
 # problems but for the time being this is how it has to be.
 module Caricature
 
-
+  # The context for an isolator. This contains the +subject+, +recorder+, +expectations+ and +messenger+
   IsolatorContext = Struct.new(:subject, :recorder, :expectations, :messenger)
 
   # Instead of using confusing terms like Mocking and Stubbing which is basically the same. Caricature tries
@@ -67,31 +67,42 @@ module Caricature
       @recorder = context.recorder
       @messenger = context.messenger
       @expectations = context.expectations
-#      isolator.isolation.instance_variable_set("@___context___", self)
       isolator.isolation.class.instance_variable_set("@___context___", self)
     end
 
     # record and send the message to the isolation.
     # takes care of following expectations rules when sending messages.
     def send_message(method_name, return_type, *args, &b)
-      recorder.record_call method_name, *args, &b
+      recorder.record_call method_name, :instance, *args, &b
       @messenger.deliver(method_name, return_type, *args, &b)
     end
 
-    # builds up an expectation, allows for overriding the result returned by the method
+    # record and send the message to the isolation.
+    # takes care of following expectations rules when sending messages.
+    def send_class_message(method_name, return_type, *args, &b)
+      recorder.record_call method_name, :class, *args, &b
+      @messenger.deliver_to_class(method_name, return_type, *args, &b)
+    end
+
+    # builds up an expectation for an instance method, allows for overriding the result returned by the method
     def create_override(method_name, &block)
-      builder = ExpectationBuilder.new method_name
-      block.call builder unless block.nil?
-      exp = builder.build
-      expectations << exp
-      exp
+      internal_create_override method_name, :instance, &block
+    end
+
+    # builds up an expectation for a class method, allows for overriding the result returned by the class method
+    def create_class_override(method_name, &block)
+      puts "creating override"
+      internal_create_override method_name, :class, &block      
     end
 
     # asserts whether the method has been called for the specified configuration
     def verify(method_name, &block)
-      verification = Verification.new(method_name, recorder)
-      block.call verification unless block.nil?
-      verification
+      internal_verify method_name, :instance, &block
+    end
+
+    # asserts whether the method has been called for the specified configuration
+    def class_verify(method_name, &block)
+      internal_verify method_name, :class, &block
     end
 
     class << self
@@ -107,6 +118,22 @@ module Caricature
         isolator.isolation
       end
             
+    end
+
+    protected
+
+    def internal_create_override(method_name, mode=:instance, &block)
+      builder = ExpectationBuilder.new method_name
+      block.call builder unless block.nil?
+      exp = builder.build
+      expectations.add_expectation exp, mode
+      exp
+    end
+
+    def internal_verify(method_name, mode=:instance, &block)
+      verification = Verification.new(method_name, recorder, mode)
+      block.call verification unless block.nil?
+      verification
     end
   end
 

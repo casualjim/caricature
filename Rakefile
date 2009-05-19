@@ -44,6 +44,18 @@ task :workarounds do
   system "#{csc} /noconfig /target:library /debug+ /debug:full /out:lib\\bin\\Workarounds.dll #{files}"
 end
 
+file_list = Dir.glob("lib/**/*.rb")
+
+desc "Create RDoc documentation"
+file 'doc/index.html' => file_list do
+  puts "######## Creating RDoc documentation"
+  system "rdoc --title 'Caricature isolation framework documentation' -m README README.markdown lib/"
+end
+
+desc "An alias for creating the RDoc documentation"
+task :rdoc do
+  Rake::Task['doc/index.html'].invoke
+end
 
 begin
 
@@ -65,7 +77,7 @@ begin
   namespace :rubyforge do
 
     desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem"]
+    task :release => ["rubyforge:release:gem", 'rubyforge:release:docs']
 
     namespace :release do
       desc "Publish RDoc to RubyForge."
@@ -76,7 +88,7 @@ begin
 
         host = "#{config['username']}@rubyforge.org"
         remote_dir = "/var/www/gforge-projects/caricature/"
-        local_dir = 'rdoc'
+        local_dir = 'doc'
 
         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
       end

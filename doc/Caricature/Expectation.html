@@ -59,17 +59,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000012">::new</a></li>
+					<li><a href="#M000031">::new</a></li>
 					
-					<li><a href="#M000017">#call_super?</a></li>
+					<li><a href="#M000035">#call_super?</a></li>
 					
-					<li><a href="#M000018">#execute</a></li>
+					<li><a href="#M000036">#execute</a></li>
 					
-					<li><a href="#M000014">#has_error_args?</a></li>
+					<li><a href="#M000032">#has_error_args?</a></li>
 					
-					<li><a href="#M000015">#has_return_value?</a></li>
+					<li><a href="#M000033">#has_return_value?</a></li>
 					
-					<li><a href="#M000016">#super_before?</a></li>
+					<li><a href="#M000034">#super_before?</a></li>
 					
 				</ul>
 			</div>
@@ -93,6 +93,15 @@
 		<div id="project-metadata">
 			
 			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+				</ul>
+			</div>
+			
 
 			<div id="classindex-section" class="section project-section">
 				<h3 class="section-header">Class Index
@@ -113,7 +122,15 @@
 				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
 				
+					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
 					<li><a href="../Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
@@ -127,15 +144,27 @@
 				
 					<li><a href="../Caricature/Interception.html">Caricature::Interception</a></li>
 				
+					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
 					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
 				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="../Caricature/Messenger.html">Caricature::Messenger</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="../Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="../Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="../Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
 				
 					<li><a href="../Caricature/Verification.html">Caricature::Verification</a></li>
 				
@@ -145,7 +174,11 @@
 				
 					<li><a href="../System/Type.html">System::Type</a></li>
 				
+					<li><a href="../Array.html">Array</a></li>
+				
 					<li><a href="../Class.html">Class</a></li>
+				
+					<li><a href="../Hash.html">Hash</a></li>
 				
 					<li><a href="../Module.html">Module</a></li>
 				
@@ -279,29 +312,31 @@ and <tt>nil</tt>
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000012"></a>
+				<a name="M000031"></a>
 
 				<div class="method-heading">
 				
 					<span class="method-name">new</span><span
-						class="method-args">(method_name, args, error_args, return_value, super_mode, recorder)</span>
+						class="method-args">(method_name, args, error_args, return_value, super_mode)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
 
 				<div class="method-description">
 					
-					<p class="missing-docs">(Not documented)</p>
+					<p>
+Initializes a new instance of an expectation
+</p>
 					
 
 					
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 97</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>, <span class="ruby-identifier">recorder</span>)
-      <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span>, <span class="ruby-ivar">@recorder</span> =
-              <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>, <span class="ruby-identifier">recorder</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 98</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>)
+      <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span> =
+              <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>
       <span class="ruby-ivar">@any_args</span> = <span class="ruby-keyword kw">true</span>
     <span class="ruby-keyword kw">end</span></pre>
 					</div>
@@ -319,7 +354,7 @@ and <tt>nil</tt>
 
 		
 			<div id="call-super--method" class="method-detail ">
-				<a name="M000017"></a>
+				<a name="M000035"></a>
 
 				<div class="method-heading">
 				
@@ -340,7 +375,7 @@ indicates whether super needs to be called somewhere
 					<div class="method-source-code"
 						id="call-super--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 119</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 120</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_super?</span>
       <span class="ruby-operator">!</span><span class="ruby-ivar">@super</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -353,7 +388,7 @@ indicates whether super needs to be called somewhere
 
 		
 			<div id="execute-method" class="method-detail ">
-				<a name="M000018"></a>
+				<a name="M000036"></a>
 
 				<div class="method-heading">
 				
@@ -374,10 +409,9 @@ executes this expectation with its configuration
 					<div class="method-source-code"
 						id="execute-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 124</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 125</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">margs</span>)
       <span class="ruby-identifier">ags</span> = <span class="ruby-identifier">any_args?</span> <span class="ruby-value">? </span>(<span class="ruby-identifier">margs</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-operator">:</span><span class="ruby-identifier">any</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">margs</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">args</span>
-      <span class="ruby-ivar">@recorder</span>.<span class="ruby-identifier">record_call</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">ags</span>
       <span class="ruby-identifier">raise</span> <span class="ruby-operator">*</span><span class="ruby-ivar">@error_args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_error_args?</span>
       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_return_value?</span>
       <span class="ruby-keyword kw">nil</span>
@@ -391,7 +425,7 @@ executes this expectation with its configuration
 
 		
 			<div id="has-error-args--method" class="method-detail ">
-				<a name="M000014"></a>
+				<a name="M000032"></a>
 
 				<div class="method-heading">
 				
@@ -412,7 +446,7 @@ indicates whether this expecation will raise an event.
 					<div class="method-source-code"
 						id="has-error-args--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 104</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 105</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_error_args?</span>
       <span class="ruby-operator">!</span><span class="ruby-ivar">@error_args</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -425,7 +459,7 @@ indicates whether this expecation will raise an event.
 
 		
 			<div id="has-return-value--method" class="method-detail ">
-				<a name="M000015"></a>
+				<a name="M000033"></a>
 
 				<div class="method-heading">
 				
@@ -446,7 +480,7 @@ indicates whether this expectation will return a value.
 					<div class="method-source-code"
 						id="has-return-value--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 109</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 110</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_return_value?</span>
       <span class="ruby-operator">!</span><span class="ruby-ivar">@return_value</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -459,7 +493,7 @@ indicates whether this expectation will return a value.
 
 		
 			<div id="super-before--method" class="method-detail ">
-				<a name="M000016"></a>
+				<a name="M000034"></a>
 
 				<div class="method-heading">
 				
@@ -480,7 +514,7 @@ call the super before the expectation
 					<div class="method-source-code"
 						id="super-before--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 114</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 115</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_before?</span>
       <span class="ruby-ivar">@super</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:before</span>
     <span class="ruby-keyword kw">end</span></pre>

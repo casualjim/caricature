@@ -6,12 +6,14 @@ module Caricature
 
     #initializes a new empty instance of the +Expectation+ collection
     def initialize
-      @inner = []
+      @instance_expectations = []
+      @class_expectations = []
     end
 
     # Adds an expectation to this collection. From then on it can be found in the collection.
-    def <<(expectation)
-      @inner << expectation
+    def add_expectation(expectation, mode=:instance)
+      @instance_expectations << expectation unless mode == :class
+      @class_expectations << expectation if mode == :class
     end
 
     # Finds an expectation in the collection. It matches by +method_name+ first.
@@ -19,8 +21,9 @@ module Caricature
     # the symbol +:any+ as first argument to this method. When you don't care the first match is being returned
     # When you specify arguments other than +:any+ it will try to match the specified arguments in addition
     # to the method name. It will then also return the first result it can find.
-    def find(method_name, *args)
-      candidates = @inner.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
+    def find(method_name, mode=:instance, *args)
+      expectations = mode == :class ? @class_expectations : @instance_expectations
+      candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
       is_single = args.empty? || args.first == :any || (candidates.size == 1 && candidates.first.any_args?)
       return candidates.first if is_single
 

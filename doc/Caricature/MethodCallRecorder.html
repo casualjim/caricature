@@ -59,15 +59,15 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000035">::new</a></li>
+					<li><a href="#M000069">::new</a></li>
 					
-					<li><a href="#M000040">#[]</a></li>
+					<li><a href="#M000072">#[]</a></li>
 					
-					<li><a href="#M000036">#record_call</a></li>
+					<li><a href="#M000070">#record_call</a></li>
 					
-					<li><a href="#M000041">#size</a></li>
+					<li><a href="#M000074">#size</a></li>
 					
-					<li><a href="#M000038">#was_called?</a></li>
+					<li><a href="#M000071">#was_called?</a></li>
 					
 				</ul>
 			</div>
@@ -79,6 +79,15 @@
 
 		<div id="project-metadata">
 			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+				</ul>
+			</div>
 			
 
 			<div id="classindex-section" class="section project-section">
@@ -100,7 +109,15 @@
 				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
 				
+					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
 					<li><a href="../Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
@@ -114,15 +131,27 @@
 				
 					<li><a href="../Caricature/Interception.html">Caricature::Interception</a></li>
 				
+					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
 					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
 				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="../Caricature/Messenger.html">Caricature::Messenger</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="../Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="../Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="../Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
 				
 					<li><a href="../Caricature/Verification.html">Caricature::Verification</a></li>
 				
@@ -132,7 +161,11 @@
 				
 					<li><a href="../System/Type.html">System::Type</a></li>
 				
+					<li><a href="../Array.html">Array</a></li>
+				
 					<li><a href="../Class.html">Class</a></li>
+				
+					<li><a href="../Hash.html">Hash</a></li>
 				
 					<li><a href="../Module.html">Module</a></li>
 				
@@ -196,7 +229,7 @@ key
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000035"></a>
+				<a name="M000069"></a>
 
 				<div class="method-heading">
 				
@@ -208,14 +241,18 @@ key
 
 				<div class="method-description">
 					
-					<p class="missing-docs">(Not documented)</p>
+					<p>
+Initializes a new instance of a method call recorder every time a method
+gets called in an isolated object this gets stored in the method call
+recorder
+</p>
 					
 
 					
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 81</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 94</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
       <span class="ruby-ivar">@method_calls</span> = {}
     <span class="ruby-keyword kw">end</span></pre>
@@ -234,7 +271,7 @@ key
 
 		
 			<div id="--method" class="method-detail ">
-				<a name="M000040"></a>
+				<a name="M000072"></a>
 
 				<div class="method-heading">
 				
@@ -255,7 +292,7 @@ indexer that gives you access to the recorded method by method name
 					<div class="method-source-code"
 						id="--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 105</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 118</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">method_name</span>)
       <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>]
     <span class="ruby-keyword kw">end</span></pre>
@@ -268,7 +305,7 @@ indexer that gives you access to the recorded method by method name
 
 		
 			<div id="record-call-method" class="method-detail ">
-				<a name="M000036"></a>
+				<a name="M000070"></a>
 
 				<div class="method-heading">
 				
@@ -290,7 +327,7 @@ was called.
 					<div class="method-source-code"
 						id="record-call-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 86</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 99</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">record_call</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">mn_sym</span> = <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>
       <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mn_sym</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">MethodCallRecording</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">method_name</span>
@@ -307,7 +344,7 @@ was called.
 
 		
 			<div id="size-method" class="method-detail ">
-				<a name="M000041"></a>
+				<a name="M000074"></a>
 
 				<div class="method-heading">
 				
@@ -328,7 +365,7 @@ returns the number of different methods that has been recorderd
 					<div class="method-source-code"
 						id="size-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 110</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 123</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">size</span>
       <span class="ruby-ivar">@method_calls</span>.<span class="ruby-identifier">size</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -341,7 +378,7 @@ returns the number of different methods that has been recorderd
 
 		
 			<div id="was-called--method" class="method-detail ">
-				<a name="M000038"></a>
+				<a name="M000071"></a>
 
 				<div class="method-heading">
 				
@@ -363,7 +400,7 @@ constraints
 					<div class="method-source-code"
 						id="was-called--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 95</span>
+<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 108</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">was_called?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
       <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>]
       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mc</span>    

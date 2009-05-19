@@ -1,5 +1,4 @@
 $: << File.dirname(__FILE__) + "/bin"
-
 #module Caricature
 #
 #  module Interception
