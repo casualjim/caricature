@@ -94,16 +94,26 @@ end
 describe "Caricature::ClrClassDescriptor" do
 
   before do
-    @des = Caricature::ClrClassDescriptor.new ClrModels::Sword
+    @des = Caricature::ClrClassDescriptor.new ClrModels::SwordWithStatics
   end
 
-  it "should have 6 instance members" do
-    @des.instance_members.size.should.equal 6
+  it "should have 7 instance members" do
+    @des.instance_members.size.should.equal 11
+  end
+
+  it "should have 3 static members" do
+    @des.class_members.size.should.equal 3
   end
 
   it "should have a damage instance member" do
     @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
   end
+
+  it "should have a another method instance member" do
+    @des.instance_members.select { |mem| mem.name == "another_method" }.should.not.be.empty
+  end
+
+
 
 end
 

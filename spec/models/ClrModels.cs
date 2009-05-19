@@ -96,6 +96,14 @@ namespace ClrModels{
         }
     }
 
+    public class SwordWithStatics : Sword{
+
+        public void AnotherMethod(){}
+        public static void AStaticMethod(){}
+        public static string ClassNaming { get; set; }
+        public string SwordName{get; set;}
+    }
+
     public class Ninja : IWarrior{
 
         public Ninja(){

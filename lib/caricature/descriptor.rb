@@ -56,64 +56,19 @@ module Caricature
 
   end
 
-  # describes clr interfaces.
-  # Because CLR interfaces can't have static members this descriptor does not collect any class members
-  class ClrInterfaceDescriptor < TypeDescriptor
-
-    # initializes a new instance of the CLR interface descriptor with the provided type
-    def initialize(klass)
-      super
-    end
-
-    # collects instance members on this interface
-    # it will collect properties, methods and property setters
-    def initialize_instance_members_for(klass)
-      clr_type = klass.to_clr_type
-
-      properties = clr_type.collect_interface_properties
-      methods = clr_type.collect_interface_methods
-      @instance_members += methods.collect { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type) }
-      @instance_members += properties.collect { |pi| MemberDescriptor.new(pi.name.underscore, pi.property_type) }
-      @instance_members += properties.select { |pi| pi.can_write }.collect { |pi| MemberDescriptor.new("#{pi.name.underscore}=", nil) }
-    end
-
-    # this method is empty because an interface can't have static members
-    def initialize_class_members_for(klass); end
-
-  end
-
-  # Describes a ruby object. at this moment it will only detect methods that aren't overrides of Object members
+  # Describes a ruby object.
   class RubyObjectDescriptor < TypeDescriptor
 
-    # collects all the members that aren't member of Object.instance_methods
+    # collects all the members that are defined by this class
     def initialize_instance_members_for(klass)
-      @instance_members += (klass.instance_methods - Object.instance_methods).collect { |mn| MemberDescriptor.new(mn) }
+      @instance_members += klass.instance_methods(false).collect { |mn| MemberDescriptor.new(mn) }
     end
 
     # collects all the members that aren't a member of Object.singleton_methods
     def initialize_class_members_for(klass)
-
+      @class_members += klass.methods(false).collect { |mn| MemberDescriptor.new(mn) }
     end
 
-  end
-
-  # Describes a CLR class type. it collects the properties and methods on an instance as well as on a static level 
-  class ClrClassDescriptor < TypeDescriptor
-
-    # collects all the instance members of the provided CLR class type
-    def initialize_instance_members_for(klass)
-      clr_type = klass.to_clr_type
-
-      @instance_members += clr_type.get_methods.select { |pi| !pi.is_static }.collect { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type) }
-      @instance_members += clr_type.get_properties.collect { |pi| MemberDescriptor.new(pi.name.underscore, pi.property_type) }
-      @instance_members += clr_type.get_properties.select{|pi| pi.can_write }.collect { |pi| MemberDescriptor.new("#{pi.name.underscore}=", nil) }
-    end
-
-    # collects all the static members of the provided CLR class type
-    def initialize_class_members_for(klass)
-
-    end
-
-  end
+  end  
 
 end

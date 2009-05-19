@@ -2,6 +2,7 @@ $: << File.dirname(__FILE__) + "/bin"
 $: << File.dirname(__FILE__) + "/../lib"
 
 require "caricature"
+require 'caricature/clr'
 require 'bacon'
 require 'mscorlib'
 
