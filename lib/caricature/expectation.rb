@@ -24,7 +24,7 @@ module Caricature
     def find(method_name, mode=:instance, *args)
       expectations = mode == :class ? @class_expectations : @instance_expectations
       candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
-      is_single = args.empty? || args.first == :any || (candidates.size == 1 && candidates.first.any_args?)
+      is_single = args.empty? || args.first.to_s.to_sym == :any || (candidates.size == 1 && candidates.first.any_args?)
       return candidates.first if is_single
 
       second_pass = candidates.select {|exp| exp.args == args }

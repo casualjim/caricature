@@ -6,7 +6,13 @@ class TestIsolation
     @instance, @expectations = instance, expectations
   end
   def send_message(method_name, return_type, *args, &b)
-    exp = expectations.find(method_name, *args)
+    internal_send method_name, :internal, return_type, *args, &b
+  end
+  def send_class_message(method_name, return_type, *args, &b)
+    internal_send method_name, :class, return_type, *args, &b
+  end
+  def internal_send(method_name, mode, return_type, *args, &b)
+    exp = expectations.find(method_name, mode, *args)
     if exp
       res = instance.__send__(method_name, *args, &b) if exp.super_before?
       res = exp.execute(*args)
