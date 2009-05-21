@@ -52,17 +52,19 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000030">#any_args?</a></li>
+					<li><a href="#M000032">#actual_raise</a></li>
 					
-					<li><a href="#M000027">#raise</a></li>
+					<li><a href="#M000035">#any_args?</a></li>
 					
-					<li><a href="#M000026">#return</a></li>
+					<li><a href="#M000031">#raise</a></li>
 					
-					<li><a href="#M000029">#super_after</a></li>
+					<li><a href="#M000030">#return</a></li>
 					
-					<li><a href="#M000028">#super_before</a></li>
+					<li><a href="#M000034">#super_after</a></li>
 					
-					<li><a href="#M000025">#with</a></li>
+					<li><a href="#M000033">#super_before</a></li>
+					
+					<li><a href="#M000029">#with</a></li>
 					
 				</ul>
 			</div>
@@ -199,8 +201,33 @@ the <tt>ExpecationBuilder</tt> and the <tt>Expectation</tt>
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="actual-raise-method" class="method-detail method-alias">
+				<a name="M000032"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">actual_raise</span><span
+						class="method-args">(*args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Alias for <a href="ExpectationSyntax.html#M000031">raise</a>
+</p>
+					
+
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="any-args--method" class="method-detail ">
-				<a name="M000030"></a>
+				<a name="M000035"></a>
 
 				<div class="method-heading">
 				
@@ -222,7 +249,7 @@ for the specified arguments
 					<div class="method-source-code"
 						id="any-args--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 74</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 75</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">any_args?</span>
       <span class="ruby-ivar">@any_args</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -235,7 +262,7 @@ for the specified arguments
 
 		
 			<div id="raise-method" class="method-detail ">
-				<a name="M000027"></a>
+				<a name="M000031"></a>
 
 				<div class="method-heading">
 				
@@ -247,17 +274,14 @@ for the specified arguments
 
 				<div class="method-description">
 					
-					<p>
-tell the expectation it needs to raise an error with the specified
-arguments
-</p>
+					<p class="missing-docs">(Not documented)</p>
 					
 
 					
 					<div class="method-source-code"
 						id="raise-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 57</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 58</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
       <span class="ruby-ivar">@error_args</span> = <span class="ruby-identifier">args</span>
       <span class="ruby-keyword kw">self</span>
@@ -267,11 +291,15 @@ arguments
 				</div>
 
 				
+				<div class="aliases">
+					Also aliased as: <a href="ExpectationSyntax.html#M000032">actual_raise</a>
+				</div>
+				
 			</div>
 
 		
 			<div id="return-method" class="method-detail ">
-				<a name="M000026"></a>
+				<a name="M000030"></a>
 
 				<div class="method-heading">
 				
@@ -308,7 +336,7 @@ the block you provide to this method.
 
 		
 			<div id="super-after-method" class="method-detail ">
-				<a name="M000029"></a>
+				<a name="M000034"></a>
 
 				<div class="method-heading">
 				
@@ -330,7 +358,7 @@ execution
 					<div class="method-source-code"
 						id="super-after-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 68</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 69</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_after</span>
       <span class="ruby-ivar">@super</span> = <span class="ruby-identifier">:after</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -343,7 +371,7 @@ execution
 
 		
 			<div id="super-before-method" class="method-detail ">
-				<a name="M000028"></a>
+				<a name="M000033"></a>
 
 				<div class="method-heading">
 				
@@ -365,7 +393,7 @@ exectution
 					<div class="method-source-code"
 						id="super-before-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 63</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 64</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_before</span>
       <span class="ruby-ivar">@super</span> = <span class="ruby-identifier">:before</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -378,7 +406,7 @@ exectution
 
 		
 			<div id="with-method" class="method-detail ">
-				<a name="M000025"></a>
+				<a name="M000029"></a>
 
 				<div class="method-heading">
 				
@@ -403,7 +431,7 @@ any arguments
 <pre>
 <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 42</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-ivar">@any_args</span> = <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
+      <span class="ruby-ivar">@any_args</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
       <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>
       <span class="ruby-keyword kw">self</span>
     <span class="ruby-keyword kw">end</span></pre>

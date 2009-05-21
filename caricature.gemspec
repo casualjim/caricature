@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{caricature}
-  s.version = "0.5.0"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ivan Porto Carrero"]
-  s.date = %q{2009-05-19}
+  s.date = %q{2009-05-21}
   s.description = %q{This project aims to make interop between IronRuby objects and .NET objects easier. The idea is that it integrates nicely with bacon and later rspec and that it transparently lets you mock ironruby ojbects as well as CLR objects/interfaces. Caricature handles interfaces, interface inheritance, CLR objects, CLR object instances, Ruby classes and instances of Ruby classes.}
   s.email = %q{ivan@flanders.co.nz}
   s.extra_rdoc_files = [
@@ -89,6 +89,7 @@ Gem::Specification.new do |s|
      "doc/lib/caricature/isolation_rb.html",
      "doc/lib/caricature/isolator_rb.html",
      "doc/lib/caricature/messaging_rb.html",
+     "doc/lib/caricature/messenger_rb.html",
      "doc/lib/caricature/method_call_recorder_rb.html",
      "doc/lib/caricature/verification_rb.html",
      "doc/lib/caricature_rb.html",
@@ -107,6 +108,7 @@ Gem::Specification.new do |s|
      "lib/bin/Workarounds.pdb",
      "lib/caricature.rb",
      "lib/caricature/clr.rb",
+     "lib/caricature/clr/aspnet_mvc.rb",
      "lib/caricature/clr/descriptor.rb",
      "lib/caricature/clr/isolation.rb",
      "lib/caricature/clr/isolator.rb",
@@ -129,6 +131,7 @@ Gem::Specification.new do |s|
      "lib/core_ext/system/type.rb",
      "pkg/.gitignore",
      "pkg/caricature-0.1.0.gem",
+     "pkg/caricature-0.5.0.gem",
      "spec/bacon_helper.rb",
      "spec/bin/.gitignore",
      "spec/core_ext_spec.rb",

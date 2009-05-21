@@ -28,6 +28,9 @@
 				<div class="section-body">
 					<ul>
 					
+						<li><a href="./lib/caricature/clr/aspnet_mvc_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/clr/aspnet_mvc.rb">lib/caricature/clr/aspnet_mvc.rb</a></li>
+					
 						<li><a href="./lib/core_ext/string_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/core_ext/string.rb">lib/core_ext/string.rb</a></li>
 					
@@ -59,9 +62,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000101">#classify</a></li>
+					<li><a href="#M000105">#classify</a></li>
 					
-					<li><a href="#M000099">#underscore</a></li>
+					<li><a href="#M000002">#to_qs_parameters</a></li>
+					
+					<li><a href="#M000000">#to_url_filename</a></li>
+					
+					<li><a href="#M000104">#underscore</a></li>
 					
 				</ul>
 			</div>
@@ -195,7 +202,7 @@
 
 		
 			<div id="classify-method" class="method-detail ">
-				<a name="M000101"></a>
+				<a name="M000105"></a>
 
 				<div class="method-heading">
 				
@@ -228,8 +235,81 @@ Gets the constant when it is defined that corresponds to this string
 			</div>
 
 		
+			<div id="to-qs-parameters-method" class="method-detail ">
+				<a name="M000002"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_qs_parameters</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-qs-parameters-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 12</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_qs_parameters</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?/</span>
+      <span class="ruby-identifier">parameters</span> = <span class="ruby-constant">NameValueCollection</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'?'</span>)[<span class="ruby-value">1</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;&amp;&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>)
+        <span class="ruby-identifier">parameters</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">last</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">parameters</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">nil</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-url-filename-method" class="method-detail ">
+				<a name="M000000"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_url_filename</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-url-filename-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 7</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_url_filename</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\?.*/</span>, <span class="ruby-value str">''</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?/</span>
+    <span class="ruby-keyword kw">self</span>
+  <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="underscore-method" class="method-detail ">
-				<a name="M000099"></a>
+				<a name="M000104"></a>
 
 				<div class="method-heading">
 				

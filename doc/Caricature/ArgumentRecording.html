@@ -59,9 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000064">::new</a></li>
+					<li><a href="#M000067">::new</a></li>
 					
-					<li><a href="#M000066">#==</a></li>
+					<li><a href="#M000068">#==</a></li>
 					
 				</ul>
 			</div>
@@ -264,7 +264,7 @@ the number of the call that has the following parameters
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000064"></a>
+				<a name="M000067"></a>
 
 				<div class="method-heading">
 				
@@ -307,7 +307,7 @@ call count and the args as an <tt>Array</tt>
 
 		
 			<div id="--method" class="method-detail ">
-				<a name="M000066"></a>
+				<a name="M000068"></a>
 
 				<div class="method-heading">
 				
@@ -332,7 +332,7 @@ argument
 <span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 29</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other</span>)
       <span class="ruby-identifier">other</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">other</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:each</span>)
-      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span> 
       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">args</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">args</span>
     <span class="ruby-keyword kw">end</span></pre>
 					</div>

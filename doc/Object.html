@@ -59,11 +59,15 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000098">#define_cmethod</a></li>
+					<li><a href="#M000103">#define_cmethod</a></li>
 					
-					<li><a href="#M000096">#is_clr_type?</a></li>
+					<li><a href="#M000003">#http_context_isolation</a></li>
 					
-					<li><a href="#M000097">#to_clr_type</a></li>
+					<li><a href="#M000101">#is_clr_type?</a></li>
+					
+					<li><a href="#M000006">#setup_request_url</a></li>
+					
+					<li><a href="#M000102">#to_clr_type</a></li>
 					
 				</ul>
 			</div>
@@ -197,7 +201,7 @@
 
 		
 			<div id="define-cmethod-method" class="method-detail ">
-				<a name="M000098"></a>
+				<a name="M000103"></a>
 
 				<div class="method-heading">
 				
@@ -230,8 +234,54 @@ defines a class method on an object
 			</div>
 
 		
+			<div id="http-context-isolation-method" class="method-detail ">
+				<a name="M000003"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">http_context_isolation</span><span
+						class="method-args">(url="")</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="http-context-isolation-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 26</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-identifier">http_context_isolation</span>(<span class="ruby-identifier">url</span>=<span class="ruby-value str">&quot;&quot;</span>)
+
+  <span class="ruby-identifier">context</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Isolation</span>.<span class="ruby-identifier">for</span>(<span class="ruby-constant">HttpContextBase</span>)
+  <span class="ruby-identifier">request</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Isolation</span>.<span class="ruby-identifier">for</span>(<span class="ruby-constant">HttpRequestBase</span>)
+  <span class="ruby-identifier">response</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Isolation</span>.<span class="ruby-identifier">for</span>(<span class="ruby-constant">HttpResponseBase</span>)
+  <span class="ruby-identifier">session</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Isolation</span>.<span class="ruby-identifier">for</span>(<span class="ruby-constant">HttpSessionStateBase</span>)
+  <span class="ruby-identifier">server</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Isolation</span>.<span class="ruby-identifier">for</span>(<span class="ruby-constant">HttpServerUtilityBase</span>)
+
+  <span class="ruby-identifier">context</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:request</span>).<span class="ruby-identifier">return</span>(<span class="ruby-identifier">request</span>)
+  <span class="ruby-identifier">context</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:response</span>).<span class="ruby-identifier">return</span>(<span class="ruby-identifier">response</span>)
+  <span class="ruby-identifier">context</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:session</span>).<span class="ruby-identifier">return</span>(<span class="ruby-identifier">session</span>)
+  <span class="ruby-identifier">context</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:server</span>).<span class="ruby-identifier">return</span>(<span class="ruby-identifier">server</span>)
+
+  <span class="ruby-identifier">setup_request_url</span>(<span class="ruby-identifier">context</span>.<span class="ruby-identifier">request</span>, <span class="ruby-identifier">url</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">context</span>
+<span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="is-clr-type--method" class="method-detail ">
-				<a name="M000096"></a>
+				<a name="M000101"></a>
 
 				<div class="method-heading">
 				
@@ -265,8 +315,45 @@ its ancestors
 			</div>
 
 		
+			<div id="setup-request-url-method" class="method-detail ">
+				<a name="M000006"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">setup_request_url</span><span
+						class="method-args">(request, url)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="setup-request-url-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 44</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup_request_url</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">url</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;url should not be nil&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;we expect a url to start with '~/'.&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">url</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^~\//</span>
+
+  <span class="ruby-identifier">request</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:query_string</span>).<span class="ruby-identifier">return</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_qs_parameters</span>)
+  <span class="ruby-identifier">request</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:app_relative_current_execution_file_path</span>).<span class="ruby-identifier">return</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_url_filename</span>)
+  <span class="ruby-identifier">request</span>.<span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">:path_info</span>).<span class="ruby-identifier">return</span>(<span class="ruby-value str">&quot;&quot;</span>)
+<span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
 			<div id="to-clr-type-method" class="method-detail ">
-				<a name="M000097"></a>
+				<a name="M000102"></a>
 
 				<div class="method-heading">
 				

@@ -59,17 +59,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000031">::new</a></li>
+					<li><a href="#M000038">::new</a></li>
 					
-					<li><a href="#M000036">#call_super?</a></li>
+					<li><a href="#M000044">#call_super?</a></li>
 					
-					<li><a href="#M000037">#execute</a></li>
+					<li><a href="#M000045">#execute</a></li>
 					
-					<li><a href="#M000032">#has_error_args?</a></li>
+					<li><a href="#M000040">#has_error_args?</a></li>
 					
-					<li><a href="#M000033">#has_return_value?</a></li>
+					<li><a href="#M000041">#has_return_value?</a></li>
 					
-					<li><a href="#M000035">#super_before?</a></li>
+					<li><a href="#M000042">#super_before?</a></li>
 					
 				</ul>
 			</div>
@@ -312,7 +312,7 @@ and <tt>nil</tt>
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000031"></a>
+				<a name="M000038"></a>
 
 				<div class="method-heading">
 				
@@ -333,7 +333,7 @@ Initializes a new instance of an expectation
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 101</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 102</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>)
       <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span> =
               <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>
@@ -354,7 +354,7 @@ Initializes a new instance of an expectation
 
 		
 			<div id="call-super--method" class="method-detail ">
-				<a name="M000036"></a>
+				<a name="M000044"></a>
 
 				<div class="method-heading">
 				
@@ -375,7 +375,7 @@ indicates whether super needs to be called somewhere
 					<div class="method-source-code"
 						id="call-super--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 123</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 124</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_super?</span>
       <span class="ruby-operator">!</span><span class="ruby-ivar">@super</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -388,7 +388,7 @@ indicates whether super needs to be called somewhere
 
 		
 			<div id="execute-method" class="method-detail ">
-				<a name="M000037"></a>
+				<a name="M000045"></a>
 
 				<div class="method-heading">
 				
@@ -409,10 +409,10 @@ executes this expectation with its configuration
 					<div class="method-source-code"
 						id="execute-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 128</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 129</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">margs</span>)
       <span class="ruby-identifier">ags</span> = <span class="ruby-identifier">any_args?</span> <span class="ruby-value">? </span>(<span class="ruby-identifier">margs</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-operator">:</span><span class="ruby-identifier">any</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">margs</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">args</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-operator">*</span><span class="ruby-ivar">@error_args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_error_args?</span>
+      <span class="ruby-identifier">actual_raise</span> <span class="ruby-operator">*</span><span class="ruby-ivar">@error_args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_error_args?</span>
       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_return_value?</span>
       <span class="ruby-keyword kw">nil</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -425,7 +425,7 @@ executes this expectation with its configuration
 
 		
 			<div id="has-error-args--method" class="method-detail ">
-				<a name="M000032"></a>
+				<a name="M000040"></a>
 
 				<div class="method-heading">
 				
@@ -446,7 +446,7 @@ indicates whether this expecation will raise an event.
 					<div class="method-source-code"
 						id="has-error-args--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 108</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 109</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_error_args?</span>
       <span class="ruby-operator">!</span><span class="ruby-ivar">@error_args</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -459,7 +459,7 @@ indicates whether this expecation will raise an event.
 
 		
 			<div id="has-return-value--method" class="method-detail ">
-				<a name="M000033"></a>
+				<a name="M000041"></a>
 
 				<div class="method-heading">
 				
@@ -480,7 +480,7 @@ indicates whether this expectation will return a value.
 					<div class="method-source-code"
 						id="has-return-value--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 113</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 114</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_return_value?</span>
       <span class="ruby-operator">!</span><span class="ruby-ivar">@return_value</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -493,7 +493,7 @@ indicates whether this expectation will return a value.
 
 		
 			<div id="super-before--method" class="method-detail ">
-				<a name="M000035"></a>
+				<a name="M000042"></a>
 
 				<div class="method-heading">
 				
@@ -514,7 +514,7 @@ call the super before the expectation
 					<div class="method-source-code"
 						id="super-before--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 118</span>
+<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 119</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_before?</span>
       <span class="ruby-ivar">@super</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:before</span>
     <span class="ruby-keyword kw">end</span></pre>

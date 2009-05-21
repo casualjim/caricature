@@ -59,17 +59,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000084">::new</a></li>
+					<li><a href="#M000089">::new</a></li>
 					
-					<li><a href="#M000088">#allow_any_arguments</a></li>
+					<li><a href="#M000092">#allow_any_arguments</a></li>
 					
-					<li><a href="#M000085">#any_args?</a></li>
+					<li><a href="#M000090">#any_args?</a></li>
 					
-					<li><a href="#M000089">#matches?</a></li>
+					<li><a href="#M000093">#matches?</a></li>
 					
-					<li><a href="#M000091">#successful?</a></li>
+					<li><a href="#M000094">#successful?</a></li>
 					
-					<li><a href="#M000086">#with</a></li>
+					<li><a href="#M000091">#with</a></li>
 					
 				</ul>
 			</div>
@@ -207,7 +207,7 @@ assertion
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000084"></a>
+				<a name="M000089"></a>
 
 				<div class="method-heading">
 				
@@ -247,7 +247,7 @@ Initializes a new instance of a <tt>Verification</tt>
 
 		
 			<div id="allow-any-arguments-method" class="method-detail ">
-				<a name="M000088"></a>
+				<a name="M000092"></a>
 
 				<div class="method-heading">
 				
@@ -282,7 +282,7 @@ allow any arguments ignore the argument constraint
 
 		
 			<div id="any-args--method" class="method-detail ">
-				<a name="M000085"></a>
+				<a name="M000090"></a>
 
 				<div class="method-heading">
 				
@@ -316,7 +316,7 @@ indicates whether this verification can be for any arguments
 
 		
 			<div id="matches--method" class="method-detail ">
-				<a name="M000089"></a>
+				<a name="M000093"></a>
 
 				<div class="method-heading">
 				
@@ -350,7 +350,7 @@ figure out if this argument variation matches the provided args.
 
 		
 			<div id="successful--method" class="method-detail ">
-				<a name="M000091"></a>
+				<a name="M000094"></a>
 
 				<div class="method-heading">
 				
@@ -385,7 +385,7 @@ indicate that this method verification is successful
 
 		
 			<div id="with-method" class="method-detail ">
-				<a name="M000086"></a>
+				<a name="M000091"></a>
 
 				<div class="method-heading">
 				
@@ -408,7 +408,7 @@ constrain this verification to the provided arguments
 <pre>
 <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 18</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-ivar">@any_args</span> = <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
+      <span class="ruby-ivar">@any_args</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
       <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>
       <span class="ruby-keyword kw">self</span>
     <span class="ruby-keyword kw">end</span></pre>

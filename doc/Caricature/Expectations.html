@@ -59,11 +59,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000016">::new</a></li>
+					<li><a href="#M000023">::new</a></li>
 					
-					<li><a href="#M000018">#add_expectation</a></li>
+					<li><a href="#M000025">#add_expectation</a></li>
 					
-					<li><a href="#M000020">#find</a></li>
+					<li><a href="#M000028">#find</a></li>
 					
 				</ul>
 			</div>
@@ -202,7 +202,7 @@ criteria.
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000016"></a>
+				<a name="M000023"></a>
 
 				<div class="method-heading">
 				
@@ -243,7 +243,7 @@ initializes a new empty instance of the <tt>Expectation</tt> collection
 
 		
 			<div id="add-expectation-method" class="method-detail ">
-				<a name="M000018"></a>
+				<a name="M000025"></a>
 
 				<div class="method-heading">
 				
@@ -279,7 +279,7 @@ collection.
 
 		
 			<div id="find-method" class="method-detail ">
-				<a name="M000020"></a>
+				<a name="M000028"></a>
 
 				<div class="method-heading">
 				
@@ -310,7 +310,7 @@ also return the first result it can find.
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
       <span class="ruby-identifier">expectations</span> = <span class="ruby-identifier">mode</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:class</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@class_expectations</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@instance_expectations</span>
       <span class="ruby-identifier">candidates</span> = <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">exp</span><span class="ruby-operator">|</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span> }
-      <span class="ruby-identifier">is_single</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">any_args?</span>)
+      <span class="ruby-identifier">is_single</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>) <span class="ruby-operator">||</span> (<span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">any_args?</span>)
       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_single</span>
 
       <span class="ruby-identifier">second_pass</span> = <span class="ruby-identifier">candidates</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">exp</span><span class="ruby-operator">|</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">args</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">args</span> }

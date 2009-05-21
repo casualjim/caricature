@@ -59,11 +59,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000011">::new</a></li>
+					<li><a href="#M000016">::new</a></li>
 					
-					<li><a href="#M000013">#create_isolation_for</a></li>
+					<li><a href="#M000018">#create_isolation_for</a></li>
 					
-					<li><a href="#M000012">#initialize_messenger</a></li>
+					<li><a href="#M000017">#initialize_messenger</a></li>
 					
 				</ul>
 			</div>
@@ -212,7 +212,7 @@ that are defined on the interface.
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000011"></a>
+				<a name="M000016"></a>
 
 				<div class="method-heading">
 				
@@ -234,7 +234,7 @@ interface defined in a CLR language.
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 75</span>
+<span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 76</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">context</span>)
       <span class="ruby-keyword kw">super</span>
       <span class="ruby-identifier">sklass</span> = <span class="ruby-identifier">context</span>.<span class="ruby-identifier">subject</span>
@@ -256,7 +256,7 @@ interface defined in a CLR language.
 
 		
 			<div id="create-isolation-for-method" class="method-detail ">
-				<a name="M000013"></a>
+				<a name="M000018"></a>
 
 				<div class="method-heading">
 				
@@ -277,7 +277,7 @@ builds the actual <tt>isolator</tt> for the CLR interface
 					<div class="method-source-code"
 						id="create-isolation-for-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 88</span>
+<span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 89</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_isolation_for</span>(<span class="ruby-identifier">subj</span>)
       <span class="ruby-identifier">proxy_members</span> = <span class="ruby-ivar">@descriptor</span>.<span class="ruby-identifier">instance_members</span>
 
@@ -309,7 +309,7 @@ builds the actual <tt>isolator</tt> for the CLR interface
 
 		
 			<div id="initialize-messenger-method" class="method-detail ">
-				<a name="M000012"></a>
+				<a name="M000017"></a>
 
 				<div class="method-heading">
 				
@@ -330,7 +330,7 @@ initializes the messaging strategy for the isolator
 					<div class="method-source-code"
 						id="initialize-messenger-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 83</span>
+<span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 84</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_messenger</span>
       <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">messenger</span> = <span class="ruby-constant">ClrInterfaceMessenger</span>.<span class="ruby-identifier">new</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">expectations</span>
     <span class="ruby-keyword kw">end</span></pre>
