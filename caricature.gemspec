@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{caricature}
-  s.version = "0.6.0"
+  s.version = "0.6.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ivan Porto Carrero"]
@@ -79,6 +79,7 @@ Gem::Specification.new do |s|
      "doc/js/jquery.js",
      "doc/js/quicksearch.js",
      "doc/js/thickbox-compressed.js",
+     "doc/lib/caricature/clr/aspnet_mvc_rb.html",
      "doc/lib/caricature/clr/descriptor_rb.html",
      "doc/lib/caricature/clr/isolation_rb.html",
      "doc/lib/caricature/clr/isolator_rb.html",
@@ -132,6 +133,7 @@ Gem::Specification.new do |s|
      "pkg/.gitignore",
      "pkg/caricature-0.1.0.gem",
      "pkg/caricature-0.5.0.gem",
+     "pkg/caricature-0.6.0.gem",
      "spec/bacon_helper.rb",
      "spec/bin/.gitignore",
      "spec/core_ext_spec.rb",
@@ -144,6 +146,7 @@ Gem::Specification.new do |s|
      "spec/messaging_spec.rb",
      "spec/method_call_spec.rb",
      "spec/models/ClrModels.cs",
+     "spec/sword_spec.rb",
      "spec/verification_spec.rb",
      "workarounds/ReflectionHelper.cs"
   ]
@@ -165,6 +168,7 @@ Gem::Specification.new do |s|
      "spec/isolator_spec.rb",
      "spec/messaging_spec.rb",
      "spec/method_call_spec.rb",
+     "spec/sword_spec.rb",
      "spec/verification_spec.rb"
   ]
 
