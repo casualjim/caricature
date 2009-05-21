@@ -24,11 +24,18 @@ module Caricature
     def find(method_name, mode=:instance, *args)
       expectations = mode == :class ? @class_expectations : @instance_expectations
       candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
-      is_single = args.empty? || (args.first.is_a?(Symbol) and args.first == :any) || (candidates.size == 1 && candidates.first.any_args?)
+      is_single = (args.first.is_a?(Symbol) and args.first == :any)
       return candidates.first if is_single
 
-      second_pass = candidates.select {|exp| exp.args == args }
-      second_pass.first
+      second_pass = candidates.select do |exp|
+        result = false
+        exp.args.each_with_index do |item, idx|
+          result = true if args[idx] == item
+        end
+        result
+      end
+      return second_pass.first unless second_pass.empty?
+      candidates.select { |exp| exp.any_args?  }.first
     end
 
   end
@@ -131,6 +138,14 @@ module Caricature
       actual_raise *@error_args if has_error_args?
       return return_value if has_return_value?
       nil
+    end
+
+    def to_s
+      "<Caricature::Expecation, method_name: #{method_name}, args: #{args}, error args: #{error_args}>"
+    end
+
+    def inspect
+      to_s
     end
   end
 

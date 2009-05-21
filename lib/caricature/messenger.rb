@@ -17,6 +17,7 @@ module Caricature
 
     # deliver the message to the receiving isolation
     def deliver(method_name, return_type, *args, &b)
+      
       internal_deliver(:instance, method_name, return_type, *args, &b)
     end
 

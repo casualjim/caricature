@@ -1,11 +1,21 @@
+# add some search paths to ironruby
+# this first one adds the path with the assemblies
+# this enables us not to have to specify a path to the assemblies everywhere.
 $: << File.dirname(__FILE__) + "/bin"
+# adds the path to the caricature library.
 $: << File.dirname(__FILE__) + "/../lib"
 
+# load the caricature library
 require "caricature"
 require 'caricature/clr'
+
+# load the bacon library
 require 'bacon'
+
+# Add the .NET framework
 require 'mscorlib'
 
+# load the assembly with the C# code
 load_assembly 'ClrModels'
 
 class Soldier

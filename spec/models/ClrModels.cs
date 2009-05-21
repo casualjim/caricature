@@ -85,16 +85,16 @@ namespace ClrModels{
 
     }
 
-    public class Sword : IWeapon{
+public class Sword : IWeapon{
 
-        public int Attack(IWarrior warrior){
-            return warrior.SurviveAttackWith(this);
-        }
-
-        public int Damage(){
-            return 4;
-        }
+    public int Attack(IWarrior warrior){
+        return warrior.SurviveAttackWith(this);
     }
+
+    public int Damage(){
+        return 4;
+    }
+}
 
     public class SwordWithStatics : Sword{
 
