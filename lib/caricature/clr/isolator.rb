@@ -18,7 +18,8 @@ module Caricature
         instance = context.subject
       end
       @descriptor = ClrClassDescriptor.new sklass
-      build_isolation sklass, (instance || sklass.new)
+      instance ||= sklass.new unless sklass.to_clr_type.is_abstract
+      build_isolation sklass, instance
     end
 
     # initializes the messaging strategy for the isolator

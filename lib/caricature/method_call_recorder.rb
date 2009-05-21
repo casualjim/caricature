@@ -28,7 +28,7 @@ module Caricature
     # Also takes an array as an argument
     def ==(other)
       other = self.class.new(other) if other.respond_to?(:each)
-      return true if other.args.empty? or other.args.first.to_s.to_sym == :any
+      return true if other.args.first.is_a?(Symbol) and other.args.first == :any 
       other.args == args
     end
   end
@@ -77,7 +77,7 @@ module Caricature
 
     # finds an argument variation that matches the provided +args+
     def find_argument_variations(args)
-      return @variations if args.empty? or args.first.to_s.to_sym == :any
+      return @variations if args.first.is_a?(Symbol) and args.first == :any
       @variations.select { |ar| ar.args == args }
     end
   end

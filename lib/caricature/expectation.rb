@@ -24,7 +24,7 @@ module Caricature
     def find(method_name, mode=:instance, *args)
       expectations = mode == :class ? @class_expectations : @instance_expectations
       candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
-      is_single = args.empty? || args.first.to_s.to_sym == :any || (candidates.size == 1 && candidates.first.any_args?)
+      is_single = args.empty? || (args.first.is_a?(Symbol) and args.first == :any) || (candidates.size == 1 && candidates.first.any_args?)
       return candidates.first if is_single
 
       second_pass = candidates.select {|exp| exp.args == args }
@@ -40,7 +40,7 @@ module Caricature
     # there is a magic argument here +any+ which configures
     # the expectation to respond to any arguments
     def with(*args)
-      @any_args = false unless args.first == :any
+      @any_args = args.first.is_a?(Symbol) and args.first == :any
       @args = args
       self
     end
@@ -54,6 +54,7 @@ module Caricature
     end
 
     # tell the expectation it needs to raise an error with the specified arguments
+    alias_method :actual_raise, :raise
     def raise(*args)
       @error_args = args
       self
@@ -127,7 +128,7 @@ module Caricature
     # executes this expectation with its configuration
     def execute(*margs)
       ags = any_args? ? (margs.empty? ? :any : margs) : args
-      raise *@error_args if has_error_args?
+      actual_raise *@error_args if has_error_args?
       return return_value if has_return_value?
       nil
     end

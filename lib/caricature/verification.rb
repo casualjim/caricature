@@ -16,7 +16,7 @@ module Caricature
 
     # constrain this verification to the provided arguments
     def with(*args)
-      @any_args = false unless args.first == :any
+      @any_args = args.first.is_a?(Symbol) and args.first == :any
       @args = args
       self
     end
