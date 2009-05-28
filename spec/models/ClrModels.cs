@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ClrModels{
     public interface IWeapon{
@@ -181,5 +182,24 @@ public class Sword : IWeapon{
         public string CallsStatic(){
             return MyClassWithAStatic.GoodByeWorld();
         }
+    }
+
+    public class IndexerContained{
+
+        private Dictionary<string, string> _inner = new Dictionary<string, string>{
+            { "key1", "value1" },
+            { "key2", "value2" },
+            { "key3", "value3" },
+            { "key4", "value4" }
+        };
+
+        public string this[string name]{
+          get { return _inner[name]; }
+          set { _inner[name] = value; }
+        }
+    }
+
+    public interface IHaveAnIndexer{
+        string this[string name]{ get; set; }
     }
 }

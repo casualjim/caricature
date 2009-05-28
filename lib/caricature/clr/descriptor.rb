@@ -1,8 +1,37 @@
 module Caricature
 
+  # Contains the logic to collect members from a CLR type
+  module ClrMemberCollector
+
+    private
+      # collects the instance members for a CLR type.
+      # makes sure it can handle indexers for properties etc.
+      def collect_members_from(meths, properties, instance_member=true)
+
+        mem = []
+        mem += meths.collect { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type, instance_member) }
+        properties.each do |pi|
+          prop_name = property_name_from(pi)
+          mem << MemberDescriptor.new(prop_name, pi.property_type, instance_member)
+          mem << MemberDescriptor.new("#{prop_name}=", nil, instance_member) if pi.can_write
+        end
+        mem
+      end
+
+      # gets the property name from the +PropertyInfo+
+      # when the property is an indexer it will return +[]+
+      def property_name_from(property_info)
+        return property_info.name.underscore if property_info.get_index_parameters.empty?
+        "[]"
+      end
+
+  end
+
   # describes clr interfaces.
   # Because CLR interfaces can't have static members this descriptor does not collect any class members
   class ClrInterfaceDescriptor < TypeDescriptor
+
+    include ClrMemberCollector
 
     # collects instance members on this interface
     # it will collect properties, methods and property setters
@@ -12,9 +41,7 @@ module Caricature
       properties = clr_type.collect_interface_properties
       methods = clr_type.collect_interface_methods
 
-      @instance_members += methods.collect { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type) }
-      @instance_members += properties.collect { |pi| MemberDescriptor.new(pi.name.underscore, pi.property_type) }
-      @instance_members += properties.select { |pi| pi.can_write }.collect { |pi| MemberDescriptor.new("#{pi.name.underscore}=", nil) }
+      @instance_members = collect_members_from methods, properties
     end
 
     # this method is empty because an interface can't have static members
@@ -26,6 +53,8 @@ module Caricature
   # Describes a CLR class type. it collects the properties and methods on an instance as well as on a static level
   class ClrClassDescriptor < TypeDescriptor
 
+    include ClrMemberCollector
+
     # collects all the instance members of the provided CLR class type
     def initialize_instance_members_for(klass)
       clr_type = klass.to_clr_type
@@ -33,9 +62,7 @@ module Caricature
       methods = Workarounds::ReflectionHelper.get_instance_methods(clr_type)
       properties = Workarounds::ReflectionHelper.get_instance_properties(clr_type)
 
-      @instance_members += methods.collect { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type) }
-      @instance_members += properties.collect { |pi| MemberDescriptor.new(pi.name.underscore, pi.property_type) }
-      @instance_members += properties.select{|pi| pi.can_write }.collect { |pi| MemberDescriptor.new("#{pi.name.underscore}=", nil) }
+      @instance_members = collect_members_from methods, properties
     end
 
     # collects all the static members of the provided CLR class type
@@ -45,9 +72,7 @@ module Caricature
       methods = Workarounds::ReflectionHelper.get_class_methods(clr_type)
       properties = Workarounds::ReflectionHelper.get_class_properties(clr_type)
 
-      @class_members += methods.collect  { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type, false) }
-      @class_members += properties.collect { |pi| MemberDescriptor.new(pi.name.underscore, pi.property_type, false) }
-      @class_members += properties.select{|pi| pi.can_write }.collect { |pi| MemberDescriptor.new("#{pi.name.underscore}=", nil, false) }
+      @class_members = collect_members_from methods, properties, false
     end
 
   end

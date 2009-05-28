@@ -23,19 +23,11 @@ module Caricature
     # to the method name. It will then also return the first result it can find.
     def find(method_name, mode=:instance, *args)
       expectations = mode == :class ? @class_expectations : @instance_expectations
-      candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
-      is_single = (args.first.is_a?(Symbol) and args.first == :any)
-      return candidates.first if is_single
 
-      second_pass = candidates.select do |exp|
-        result = false
-        exp.args.each_with_index do |item, idx|
-          result = true if args[idx] == item
-        end
-        result
-      end
-      return second_pass.first unless second_pass.empty?
-      candidates.select { |exp| exp.any_args?  }.first
+      candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
+      with_arguments_candidates = candidates.select { |exp| exp.args == args }
+      
+      with_arguments_candidates.first || candidates.select { |exp| exp.any_args?  }.first
     end
 
   end

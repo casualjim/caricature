@@ -89,6 +89,16 @@ describe "Caricature::ClrInterfaceDescriptor" do
     @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
   end
 
+  it "should correctly identify indexers" do
+    des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
+    des.instance_members.select { |mem| mem.name == "[]" }.should.not.be.empty
+  end
+
+  it "should correctly identify indexers" do
+    des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
+    des.instance_members.select { |mem| mem.name == "[]=" }.should.not.be.empty
+  end
+    
 end
 
 describe "Caricature::ClrClassDescriptor" do
@@ -113,7 +123,15 @@ describe "Caricature::ClrClassDescriptor" do
     @des.instance_members.select { |mem| mem.name == "another_method" }.should.not.be.empty
   end
 
+  it "should correctly identify indexers" do
+    des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
+    des.instance_members.select { |mem| mem.name == "[]" }.should.not.be.empty
+  end
 
+  it "should correctly identify indexers" do
+    des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
+    des.instance_members.select { |mem| mem.name == "[]=" }.should.not.be.empty
+  end
 
 end
 
