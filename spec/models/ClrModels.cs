@@ -193,10 +193,22 @@ public class Sword : IWeapon{
             { "key4", "value4" }
         };
 
-        public string this[string name]{
+        public virtual string this[string name]{
           get { return _inner[name]; }
           set { _inner[name] = value; }
         }
+    }
+
+    public class IndexerCaller{
+
+        public string CallIndexOnClass(IndexerContained klass, string name){
+            return klass[name];
+        }
+
+        public string CallIndexOnInterface(IHaveAnIndexer klass, string name){
+            return klass[name];
+        }
+
     }
 
     public interface IHaveAnIndexer{

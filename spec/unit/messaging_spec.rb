@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/bacon_helper"
+require File.dirname(__FILE__) + "/../bacon_helper"
 
 class EmptyExpectations
   def find(method_name, *args, &b)

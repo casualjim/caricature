@@ -91,7 +91,6 @@ module Caricature
 
     # builds up an expectation for a class method, allows for overriding the result returned by the class method
     def create_class_override(method_name, &block)
-      puts "creating override"
       internal_create_override method_name, :class, &block      
     end
 

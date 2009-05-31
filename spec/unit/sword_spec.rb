@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/bacon_helper.rb"
+require File.dirname(__FILE__) + "/../bacon_helper.rb"
 
 class ClrModels::Sword
 

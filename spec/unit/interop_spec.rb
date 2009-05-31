@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/bacon_helper"
+require File.dirname(__FILE__) + "/../bacon_helper"
 
 describe "Event handling" do
 

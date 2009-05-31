@@ -1,0 +1,29 @@
+require File.dirname(__FILE__) + "/../bacon_helper"
+
+describe "CLR to CLR interactions" do
+
+  describe "when isolating CLR classes" do
+
+    describe "that have an indexer" do
+      before do
+        @cons = ClrModels::IndexerCaller.new
+        @ind = Caricature::Isolation.for(ClrModels::IndexerContained)
+      end
+
+      it "should work without expectations" do
+        @cons.call_index_on_class(@ind, "key1").should.be.nil
+      end
+
+      it "should work with an expectation" do
+        @ind.when_receiving(:[]).return("5")
+        @ind.when_receiving(:get_Item).return("6")
+        
+        @cons.call_index_on_class(@ind, "key1").should.equal "5"
+      end
+
+
+    end
+
+  end
+
+end

@@ -2,6 +2,10 @@ load_assembly 'System.Web.Routing, Version=3.5.0.0, Culture=neutral, PublicKeyTo
 load_assembly 'System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'
 load_assembly 'System.Web.Abstractions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'
 
+include System::Web
+include System::Web::Routing
+include System::Web::Mvc
+
 class String
 
   def to_url_filename
