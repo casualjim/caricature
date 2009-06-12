@@ -9,11 +9,14 @@ module Caricature
       def collect_members_from(meths, properties, instance_member=true)
 
         mem = []
-        mem += meths.collect { |mi| MemberDescriptor.new(mi.name.underscore, mi.return_type, instance_member) }
+        mem += meths.collect do |mi|
+          MemberDescriptor.new(mi.name.underscore, mi.return_type, instance_member)
+        end
         properties.each do |pi|
           prop_name = property_name_from(pi)
           mem << MemberDescriptor.new(prop_name, pi.property_type, instance_member)
-          mem << MemberDescriptor.new("#{prop_name}=", nil, instance_member) if pi.can_write
+          mem << MemberDescriptor.new("__setitem__", nil, instance_member) if prop_name == "__getitem__"
+          mem << MemberDescriptor.new("#{prop_name}=", nil, instance_member) if pi.can_write and prop_name != "__getitem__"
         end
         mem
       end
@@ -22,7 +25,7 @@ module Caricature
       # when the property is an indexer it will return +[]+
       def property_name_from(property_info)
         return property_info.name.underscore if property_info.get_index_parameters.empty?
-        "[]"
+        "__getitem__"
       end
 
   end
