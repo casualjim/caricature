@@ -9,6 +9,7 @@ $: << File.dirname(__FILE__) + "/../lib"
 require "caricature"
 require 'caricature/clr'
 
+require 'rubygems'
 # load the bacon library
 require 'bacon'
 
@@ -16,7 +17,7 @@ require 'bacon'
 require 'mscorlib'
 
 # load the assembly with the C# code
-load_assembly 'ClrModels'
+require 'ClrModels.dll'
 
 class Soldier
 

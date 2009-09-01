@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'uuidtools'
 require File.dirname(__FILE__) + '/messenger'
 require File.dirname(__FILE__) + '/descriptor'
 
@@ -194,7 +196,8 @@ module Caricature
     # Creates the new class name for the isolation
     def class_name(subj)
       nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
-      @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
+#      @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
+      @class_name = "#{nm}#{UUIDTools::UUID.random_create.to_s.gsub /-/, ''}"
       @class_name
     end
 
@@ -232,7 +235,7 @@ module Caricature
     def initialize(context)
       super
       klass = @context.subject.respond_to?(:class_eval) ? @context.subject : @context.subject.class
-      inst = @context.subject.respond_to?(:class_eval) ? @context.subject.new : @context.subject
+      inst = @context.subject.respond_to?(:class_eval) ? @context.subject.new : @context.subject            
       @descriptor = RubyObjectDescriptor.new klass
       build_isolation klass, inst
     end
@@ -261,7 +264,7 @@ module Caricature
           mn = mn.name.to_s.to_sym
           define_method mn do |*args|
             b = nil
-            b = Proc.new { yield } if block_given?
+            b = Proc.new { yield } if block_given?    
             isolation_context.send_message(mn, nil, *args, &b)
           end
         end
@@ -270,7 +273,7 @@ module Caricature
           mn = mn.name.to_s.to_sym
           define_cmethod mn do |*args|
             b = nil
-            b = Proc.new { yield } if block_given?
+            b = Proc.new { yield } if block_given?  
             isolation_context.send_class_message(mn, nil, *args, &b)
           end
         end

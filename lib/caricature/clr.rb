@@ -1,4 +1,4 @@
-load_assembly 'Workarounds, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'
+#IronRuby.load_assembly 'Workarounds, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'
 
 require File.dirname(__FILE__) + "/clr/descriptor"
 require File.dirname(__FILE__) + "/clr/messenger"

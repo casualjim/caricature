@@ -34,16 +34,10 @@ end
 desc "Compiles the clr models"
 task :clr_models do
   Dir.chdir(File.dirname(__FILE__))
-  files = Dir.glob("spec/models/*.cs").collect { |f| f.gsub(/\//, "\\")  }.join(" ")
-  system "#{csc} /noconfig /target:library /debug+ /debug:full /out:spec\\bin\\ClrModels.dll #{files}"
+  files = Dir.glob("spec/models/*.cs").join(' ') #.collect { |f| f.gsub(/\//, "\\")  }.join(" ")
+  system "#{csc} /noconfig /target:library /debug+ /debug:full /out:spec/bin/ClrModels.dll #{files}"
 end
 
-desc "Compiles the CLR workarounds"
-task :workarounds do
-  Dir.chdir(File.dirname(__FILE__))
-  files = Dir.glob("workarounds/*.cs").collect { |f| f.gsub(/\//, "\\")  }.join(" ")
-  system "#{csc} /noconfig /target:library /debug+ /debug:full /out:lib\\bin\\Workarounds.dll #{files}"
-end
 
 file_list = Dir.glob("lib/**/*.rb")
 
