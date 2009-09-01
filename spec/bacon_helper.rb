@@ -7,17 +7,17 @@ $: << File.dirname(__FILE__) + "/../lib"
 
 # load the caricature library
 require "caricature"
-require 'caricature/clr'
+require 'caricature/clr' if defined? IRONRUBY_VERSION
 
 require 'rubygems'
 # load the bacon library
 require 'bacon'
 
 # Add the .NET framework
-require 'mscorlib'
+require 'mscorlib' if defined? IRONRUBY_VERSION
 
 # load the assembly with the C# code
-require 'ClrModels.dll'
+require 'ClrModels.dll' if defined? IRONRUBY_VERSION
 
 class Soldier
 
@@ -106,44 +106,67 @@ class WithClassMethods
     "Goodbye world!"
   end
 
+end   
+
+class Sheath
+  attr_reader :dagger
+  
+  def initialize(dagger)
+    @dagger = dagger
+  end       
+  
+  def insert(dagger)
+    raise "There is already a dagger in here" if @dagger
+    @dagger = dagger
+  end               
+  
+  def draw       
+    raise "Dagger is nowhere to be found" unless @dagger
+    d = @dagger
+    @dagger = nil
+    d
+  end
 end
 
-module Caricature
+if defined? IRONRUBY_VERSION
 
-  module InterfaceIncludingModule
-    include ClrModels::IWarrior
-  end
+  module Caricature
 
-  module PureRubyModule
+    module InterfaceIncludingModule
+      include ClrModels::IWarrior
+    end
+
+    module PureRubyModule
     
+    end
+
+    module RubyModuleIncludingModule
+      include PureRubyModule
+    end
+
+    module InterfaceUpTheWazoo
+      include InterfaceIncludingModule
+    end
+
+    class InterfaceIncludingClass
+      include ClrModels::IWarrior
+    end
+
+    class SubClassingClrClass < ClrModels::Ninja
+
+    end
+
+    class InterfaceUpTheWazooClass
+      include InterfaceUpTheWazoo
+    end
+
+    class SubclassingRubyClass < Soldier
+
+    end
+
+    class ModuleIncludingClass
+      include RubyModuleIncludingModule
+    end
   end
 
-  module RubyModuleIncludingModule
-    include PureRubyModule
-  end
-
-  module InterfaceUpTheWazoo
-    include InterfaceIncludingModule
-  end
-
-  class InterfaceIncludingClass
-    include ClrModels::IWarrior
-  end
-
-  class SubClassingClrClass < ClrModels::Ninja
-
-  end
-
-  class InterfaceUpTheWazooClass
-    include InterfaceUpTheWazoo
-  end
-
-  class SubclassingRubyClass < Soldier
-
-  end
-
-  class ModuleIncludingClass
-    include RubyModuleIncludingModule
-  end
 end
-

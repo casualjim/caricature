@@ -152,6 +152,12 @@ module Caricature
     # during the course of the test you're running.
     def did_class_receive?(method_name, &block)
       self.class.did_receive?(method_name, &block)
+    end    
+    
+    def with_subject(*args, &b)
+      isolation_context.instance = self.class.superclass.new *args 
+      yield self if block_given?
+      self
     end
 
   end
@@ -235,7 +241,7 @@ module Caricature
     def initialize(context)
       super
       klass = @context.subject.respond_to?(:class_eval) ? @context.subject : @context.subject.class
-      inst = @context.subject.respond_to?(:class_eval) ? @context.subject.new : @context.subject            
+      inst = @context.subject.respond_to?(:class_eval) ? nil : @context.subject #@context.subject.new : @context.subject            
       @descriptor = RubyObjectDescriptor.new klass
       build_isolation klass, inst
     end
@@ -267,11 +273,16 @@ module Caricature
             b = Proc.new { yield } if block_given?    
             isolation_context.send_message(mn, nil, *args, &b)
           end
-        end
-
+        end  
+        
+        define_method :initialize do |*args|                        
+          #b = Proc.new { yield } if block_given?      
+          #isolation_context.send_message(:initialize, nil, *args, &b)
+        end  
+        
         cmembers.each do |mn|
           mn = mn.name.to_s.to_sym
-          define_cmethod mn do |*args|
+          define_cmethod mn do |*args|        
             b = nil
             b = Proc.new { yield } if block_given?  
             isolation_context.send_class_message(mn, nil, *args, &b)

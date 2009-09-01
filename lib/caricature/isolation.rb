@@ -53,7 +53,7 @@ module Caricature
 
     # the real instance of the isolated subject
     # used to forward calls in partial mocks
-    attr_reader :instance
+    attr_accessor :instance
 
     # the method call recorder
     attr_reader :recorder

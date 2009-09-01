@@ -254,7 +254,18 @@ describe "Ruby to Ruby interactions" do
 
       @soldier.did_receive?(:survive_attack_with).should.be.successful
     end
+    
+    it "should be able to isolate objects with constructor params" do
+      sheath = Caricature::Isolation.for(Sheath)   
+      sheath.when_receiving(:insert).raise("Overridden")
+      lambda { sheath.insert(@dagger) }.should.raise.message.should.match(/Overridden/)
+    end 
+    
+    it "should be able to isolate objects with constructor params" do
+      sheath = Caricature::Isolation.for(Sheath)
+        lambda { sheath.insert(@dagger) }.should.not.raise
+    end
 
-  end
+  end  
 
 end
