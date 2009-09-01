@@ -270,7 +270,7 @@ module Caricature
           mn = mn.name.to_s.to_sym
           define_method mn do |*args|
             b = nil
-            b = Proc.new { yield } if block_given?    
+            b = Proc.new { yield } if block_given?  
             isolation_context.send_message(mn, nil, *args, &b)
           end
         end  
@@ -287,7 +287,8 @@ module Caricature
             b = Proc.new { yield } if block_given?  
             isolation_context.send_class_message(mn, nil, *args, &b)
           end
-        end
+        end   
+              
 
 
       end
