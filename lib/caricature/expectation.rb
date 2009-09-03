@@ -40,7 +40,8 @@ module Caricature
     # the expectation to respond to any arguments
     def with(*args)
       @any_args = args.first.is_a?(Symbol) and args.first == :any
-      @args = args
+      @args = args   
+      @callback = lambda { |*ags| yield *ags } if block_given?
       self
     end
 
@@ -95,7 +96,10 @@ module Caricature
     attr_reader :return_value
 
     # indicator for the mode to call the super +:before+, +:after+ and +nil+
-    attr_reader :super
+    attr_reader :super   
+                         
+    # contains the callback if one is given
+    attr_reader :callback
 
     # Initializes a new instance of an expectation
     def initialize(method_name, args, error_args, return_value, super_mode)
@@ -122,13 +126,18 @@ module Caricature
     # indicates whether super needs to be called somewhere
     def call_super?
       !@super.nil?
+    end      
+    
+    def has_callback?
+      !@callback.nil?
     end
     
     # executes this expectation with its configuration
     def execute(*margs)
       ags = any_args? ? (margs.empty? ? :any : margs) : args
-      actual_raise *@error_args if has_error_args?
-      return return_value if has_return_value?
+      actual_raise *@error_args if has_error_args?    
+      callback.call(*margs) if has_callback?
+      return return_value if has_return_value? 
       nil
     end
 

@@ -61,7 +61,7 @@ module Caricature
 
     # collects all the members that are defined by this class
     def initialize_instance_members_for(klass)
-      @instance_members += klass.instance_methods(false).collect { |mn| MemberDescriptor.new(mn) }
+      @instance_members += (klass.instance_methods - Object.instance_methods).collect { |mn| MemberDescriptor.new(mn) }
     end
 
     # collects all the members that aren't a member of Object.singleton_methods

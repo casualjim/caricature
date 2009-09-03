@@ -17,7 +17,8 @@ module Caricature
     # constrain this verification to the provided arguments
     def with(*args)
       @any_args = args.first.is_a?(Symbol) and args.first == :any
-      @args = args
+      @args = args 
+     # @callback = b if b
       self
     end
 

@@ -40,6 +40,10 @@ module Caricature
         # access to the proxied subject
         def ___super___
           isolation_context.instance
+        end      
+        
+        def initialize(*args)  
+          self                      
         end
 
         members.each do |mem|

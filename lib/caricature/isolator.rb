@@ -136,7 +136,7 @@ module Caricature
     # You can specify constraints in the block
     #
     # The most complex configuration you can make currently is one that is constrained by arguments.
-    # This is most likely to be extended in the future to allow for more complex verifications.
+    # This is likely to be extended in the future to allow for more complex verifications.
     #
     # Example:
     #
@@ -154,6 +154,8 @@ module Caricature
       self.class.did_receive?(method_name, &block)
     end    
     
+    # Initializes the underlying subject
+    # It expects the constructor parameters if they are needed.
     def with_subject(*args, &b)
       isolation_context.instance = self.class.superclass.new *args 
       yield self if block_given?
@@ -241,7 +243,8 @@ module Caricature
     def initialize(context)
       super
       klass = @context.subject.respond_to?(:class_eval) ? @context.subject : @context.subject.class
-      inst = @context.subject.respond_to?(:class_eval) ? nil : @context.subject #@context.subject.new : @context.subject            
+      inst = @context.subject.respond_to?(:class_eval) ? nil : @context.subject
+      # inst = @context.subject.respond_to?(:class_eval) ? @context.subject.new : @context.subject            
       @descriptor = RubyObjectDescriptor.new klass
       build_isolation klass, inst
     end
@@ -275,11 +278,10 @@ module Caricature
           end
         end  
         
-        define_method :initialize do |*args|                        
-          #b = Proc.new { yield } if block_given?      
-          #isolation_context.send_message(:initialize, nil, *args, &b)
-        end  
-        
+        def initialize(*args)  
+          self                      
+        end 
+                   
         cmembers.each do |mn|
           mn = mn.name.to_s.to_sym
           define_cmethod mn do |*args|        

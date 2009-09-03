@@ -1,6 +1,15 @@
 module Caricature
 
   class Isolation
+    
+    def internal_create_override(method_name, mode=:instance, &block)
+      builder = ExpectationBuilder.new method_name
+      block.call builder unless block.nil?
+      exp = builder.build           
+      
+      expectations.add_expectation exp, mode
+      exp
+    end
 
     class << self
 
