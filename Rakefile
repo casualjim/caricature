@@ -59,9 +59,8 @@ SUMMARY       = "Caricature brings simple mocking to Ruby, DLR and CLR."
 RDOC_OPTIONS  = [
                 "--quiet",
                 "--title", SUMMARY,
-                "--main", "lib/caricature/isolation.rb",
+                "--main", "README.rdoc",
                 "--line-numbers",
-                "--inline-source",
                 "--format","darkfish"
                 ]
 
