@@ -5,7 +5,7 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-	<title>Class: Array</title>
+	<title>Class: MyClass</title>
 
 	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
 
@@ -28,8 +28,8 @@
 				<div class="section-body">
 					<ul>
 					
-						<li><a href="./lib/core_ext/array_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/core_ext/array.rb">lib/core_ext/array.rb</a></li>
+						<li><a href="./irb_init_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="irb_init.rb">irb_init.rb</a></li>
 					
 					</ul>
 				</div>
@@ -59,7 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000109">#to_h</a></li>
+					<li><a href="#M000000">::new</a></li>
+					
+					<li><a href="#M000001">::new</a></li>
 					
 				</ul>
 			</div>
@@ -184,10 +186,13 @@
 	</div>
 
 	<div id="documentation">
-		<h1 class="class">Array</h1>
+		<h1 class="class">MyClass</h1>
 
 		<div id="description">
-			
+			<p>
+require File.dirname(<em>FILE</em>) + &#8220;/lib/caricature/clr.rb&#8220;
+</p>
+
 		</div>
 
 		<!-- Constants -->
@@ -198,16 +203,16 @@
 
 		<!-- Methods -->
 		
-		<div id="public-instance-method-details" class="method-section section">
-			<h3 class="section-header">Public Instance Methods</h3>
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
 
 		
-			<div id="to-h-method" class="method-detail ">
-				<a name="M000109"></a>
+			<div id="new-method" class="method-detail ">
+				<a name="M000000"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">to_h</span><span
+					<span class="method-name">new</span><span
 						class="method-args">()</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
@@ -215,21 +220,45 @@
 
 				<div class="method-description">
 					
-					<p>
-Converts an array of values to a hash. the even indexes are the hash keys
-the odd indexes are the hash values
-</p>
+					<p class="missing-docs">(Not documented)</p>
 					
 
 					
 					<div class="method-source-code"
-						id="to-h-source">
+						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/array.rb, line 6</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_h</span>
-    <span class="ruby-identifier">h</span> = <span class="ruby-constant">Hash</span>[<span class="ruby-operator">*</span><span class="ruby-keyword kw">self</span>]
-    <span class="ruby-identifier">h</span>.<span class="ruby-identifier">symbolize_keys!</span>    
-  <span class="ruby-keyword kw">end</span></pre>
+<span class="ruby-comment cmt"># File irb_init.rb, line 5</span>
+               <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>; <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;in initialize&quot;</span>; <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="M000001"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File irb_init.rb, line 5</span>
+                                                          <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>; <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;in new&quot;</span>; <span class="ruby-keyword kw">super</span>; <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

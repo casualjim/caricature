@@ -5,7 +5,7 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-	<title>Module: Caricature::ExpectationSyntax</title>
+	<title>Module: Caricature::ClrMemberCollector</title>
 
 	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
 
@@ -28,8 +28,8 @@
 				<div class="section-body">
 					<ul>
 					
-						<li><a href="../lib/caricature/expectation_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/caricature/expectation.rb">lib/caricature/expectation.rb</a></li>
+						<li><a href="../lib/caricature/clr/descriptor_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/clr/descriptor.rb">lib/caricature/clr/descriptor.rb</a></li>
 					
 					</ul>
 				</div>
@@ -52,19 +52,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000040">#actual_raise</a></li>
+					<li><a href="#M000009">#class_flags</a></li>
 					
-					<li><a href="#M000044">#any_args?</a></li>
+					<li><a href="#M000004">#collect_members_from</a></li>
 					
-					<li><a href="#M000039">#raise</a></li>
+					<li><a href="#M000008">#instance_flags</a></li>
 					
-					<li><a href="#M000038">#return</a></li>
-					
-					<li><a href="#M000043">#super_after</a></li>
-					
-					<li><a href="#M000041">#super_before</a></li>
-					
-					<li><a href="#M000037">#with</a></li>
+					<li><a href="#M000006">#property_name_from</a></li>
 					
 				</ul>
 			</div>
@@ -189,12 +183,11 @@
 	</div>
 
 	<div id="documentation">
-		<h1 class="module">Caricature::ExpectationSyntax</h1>
+		<h1 class="module">Caricature::ClrMemberCollector</h1>
 
 		<div id="description">
 			<p>
-contains the syntax for building up an expectation This is shared between
-the <tt>ExpecationBuilder</tt> and the <tt>Expectation</tt>
+Contains the logic to collect members from a CLR type
 </p>
 
 		</div>
@@ -207,41 +200,16 @@ the <tt>ExpecationBuilder</tt> and the <tt>Expectation</tt>
 
 		<!-- Methods -->
 		
-		<div id="public-instance-method-details" class="method-section section">
-			<h3 class="section-header">Public Instance Methods</h3>
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
 
 		
-			<div id="actual-raise-method" class="method-detail method-alias">
-				<a name="M000040"></a>
+			<div id="class-flags-method" class="method-detail ">
+				<a name="M000009"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">actual_raise</span><span
-						class="method-args">(*args)</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p>
-Alias for <a href="ExpectationSyntax.html#M000039">raise</a>
-</p>
-					
-
-					
-				</div>
-
-				
-			</div>
-
-		
-			<div id="any-args--method" class="method-detail ">
-				<a name="M000044"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">any_args?</span><span
+					<span class="method-name">class_flags</span><span
 						class="method-args">()</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
@@ -250,19 +218,18 @@ Alias for <a href="ExpectationSyntax.html#M000039">raise</a>
 				<div class="method-description">
 					
 					<p>
-indicates whether this expectation should match with any arguments or only
-for the specified arguments
+the binding flags for class members of a CLR type
 </p>
 					
 
 					
 					<div class="method-source-code"
-						id="any-args--source">
+						id="class-flags-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 75</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">any_args?</span>
-      <span class="ruby-ivar">@any_args</span>
-    <span class="ruby-keyword kw">end</span></pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 37</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_flags</span>
+        <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Reflection</span><span class="ruby-operator">::</span><span class="ruby-constant">BindingFlags</span>.<span class="ruby-identifier">public</span> <span class="ruby-operator">|</span> <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Reflection</span><span class="ruby-operator">::</span><span class="ruby-constant">BindingFlags</span>.<span class="ruby-identifier">static</span>
+      <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -271,50 +238,13 @@ for the specified arguments
 			</div>
 
 		
-			<div id="raise-method" class="method-detail ">
-				<a name="M000039"></a>
+			<div id="collect-members-from-method" class="method-detail ">
+				<a name="M000004"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">raise</span><span
-						class="method-args">(*args)</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p class="missing-docs">(Not documented)</p>
-					
-
-					
-					<div class="method-source-code"
-						id="raise-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 58</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-ivar">@error_args</span> = <span class="ruby-identifier">args</span>
-      <span class="ruby-keyword kw">self</span>
-    <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
-
-				
-				<div class="aliases">
-					Also aliased as: <a href="ExpectationSyntax.html#M000040">actual_raise</a>
-				</div>
-				
-			</div>
-
-		
-			<div id="return-method" class="method-detail ">
-				<a name="M000038"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">return</span><span
-						class="method-args">(value=nil)</span>
+					<span class="method-name">collect_members_from</span><span
+						class="method-args">(meths, properties, instance_member=true)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -322,21 +252,30 @@ for the specified arguments
 				<div class="method-description">
 					
 					<p>
-tell the expectation it nees to return this value or the value returned by
-the block you provide to this method.
+collects the instance members for a CLR type. makes sure it can handle
+indexers for properties etc.
 </p>
 					
 
 					
 					<div class="method-source-code"
-						id="return-source">
+						id="collect-members-from-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 50</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">return</span>(<span class="ruby-identifier">value</span>=<span class="ruby-keyword kw">nil</span>)
-      <span class="ruby-ivar">@return_value</span> = <span class="ruby-identifier">value</span>
-      <span class="ruby-ivar">@return_value</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
-      <span class="ruby-keyword kw">self</span>
-    <span class="ruby-keyword kw">end</span></pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 9</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collect_members_from</span>(<span class="ruby-identifier">meths</span>, <span class="ruby-identifier">properties</span>, <span class="ruby-identifier">instance_member</span>=<span class="ruby-keyword kw">true</span>)
+
+        <span class="ruby-identifier">mem</span> = []
+        <span class="ruby-identifier">mem</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">meths</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mi</span><span class="ruby-operator">|</span>
+          <span class="ruby-constant">MemberDescriptor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mi</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">underscore</span>, <span class="ruby-identifier">mi</span>.<span class="ruby-identifier">return_type</span>, <span class="ruby-identifier">instance_member</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pi</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">prop_name</span> = <span class="ruby-identifier">property_name_from</span>(<span class="ruby-identifier">pi</span>)
+          <span class="ruby-identifier">mem</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">MemberDescriptor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">prop_name</span>, <span class="ruby-identifier">pi</span>.<span class="ruby-identifier">property_type</span>, <span class="ruby-identifier">instance_member</span>)
+          <span class="ruby-identifier">mem</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">MemberDescriptor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;__setitem__&quot;</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">instance_member</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">prop_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;__getitem__&quot;</span>
+          <span class="ruby-identifier">mem</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">MemberDescriptor</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{prop_name}=&quot;</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">instance_member</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pi</span>.<span class="ruby-identifier">can_write</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">prop_name</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;__getitem__&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">mem</span>
+      <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -345,12 +284,12 @@ the block you provide to this method.
 			</div>
 
 		
-			<div id="super-after-method" class="method-detail ">
-				<a name="M000043"></a>
+			<div id="instance-flags-method" class="method-detail ">
+				<a name="M000008"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">super_after</span><span
+					<span class="method-name">instance_flags</span><span
 						class="method-args">()</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
@@ -359,19 +298,18 @@ the block you provide to this method.
 				<div class="method-description">
 					
 					<p>
-tell the expectation it needs to call the super after the expecation
-execution
+the binding flags for instance members of a CLR type
 </p>
 					
 
 					
 					<div class="method-source-code"
-						id="super-after-source">
+						id="instance-flags-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 69</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_after</span>
-      <span class="ruby-ivar">@super</span> = <span class="ruby-identifier">:after</span>
-    <span class="ruby-keyword kw">end</span></pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 32</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_flags</span>
+        <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Reflection</span><span class="ruby-operator">::</span><span class="ruby-constant">BindingFlags</span>.<span class="ruby-identifier">public</span> <span class="ruby-operator">|</span> <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Reflection</span><span class="ruby-operator">::</span><span class="ruby-constant">BindingFlags</span>.<span class="ruby-identifier">instance</span>
+      <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -380,13 +318,13 @@ execution
 			</div>
 
 		
-			<div id="super-before-method" class="method-detail ">
-				<a name="M000041"></a>
+			<div id="property-name-from-method" class="method-detail ">
+				<a name="M000006"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">super_before</span><span
-						class="method-args">()</span>
+					<span class="method-name">property_name_from</span><span
+						class="method-args">(property_info)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -394,58 +332,20 @@ execution
 				<div class="method-description">
 					
 					<p>
-tell the expecation it needs to call the super before the expectation
-exectution
+gets the property name from the <tt>PropertyInfo</tt> when the property is
+an indexer it will return +[]+
 </p>
 					
 
 					
 					<div class="method-source-code"
-						id="super-before-source">
+						id="property-name-from-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 64</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_before</span>
-      <span class="ruby-ivar">@super</span> = <span class="ruby-identifier">:before</span>
-    <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
-
-				
-			</div>
-
-		
-			<div id="with-method" class="method-detail ">
-				<a name="M000037"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">with</span><span
-						class="method-args">(*args, &b)</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p>
-tell the expection which arguments it needs to respond to there is a magic
-argument here <tt>any</tt> which configures the expectation to respond to
-any arguments
-</p>
-					
-
-					
-					<div class="method-source-code"
-						id="with-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 41</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-      <span class="ruby-ivar">@any_args</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
-      <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>   
-      <span class="ruby-ivar">@callback</span> = <span class="ruby-identifier">b</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">nil?</span>
-      <span class="ruby-keyword kw">self</span>
-    <span class="ruby-keyword kw">end</span></pre>
+<span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 26</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">property_name_from</span>(<span class="ruby-identifier">property_info</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">property_info</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">underscore</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">property_info</span>.<span class="ruby-identifier">get_index_parameters</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-value str">&quot;__getitem__&quot;</span>
+      <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

@@ -59,13 +59,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000055">::new</a></li>
+					<li><a href="#M000067">::new</a></li>
 					
-					<li><a href="#M000056">#deliver</a></li>
+					<li><a href="#M000068">#deliver</a></li>
 					
-					<li><a href="#M000058">#deliver_to_class</a></li>
+					<li><a href="#M000069">#deliver_to_class</a></li>
 					
-					<li><a href="#M000059">#internal_deliver</a></li>
+					<li><a href="#M000071">#internal_deliver</a></li>
 					
 				</ul>
 			</div>
@@ -82,7 +82,13 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
+					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
+				
 					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -118,6 +124,8 @@
 					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -166,6 +174,8 @@
 					<li><a href="../Hash.html">Hash</a></li>
 				
 					<li><a href="../Module.html">Module</a></li>
+				
+					<li><a href="../MyClass.html">MyClass</a></li>
 				
 					<li><a href="../Object.html">Object</a></li>
 				
@@ -243,7 +253,7 @@ the expecations that have been set for the isolation
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000055"></a>
+				<a name="M000067"></a>
 
 				<div class="method-heading">
 				
@@ -283,7 +293,7 @@ creates a new instance of this messaging strategy
 
 		
 			<div id="deliver-method" class="method-detail ">
-				<a name="M000056"></a>
+				<a name="M000068"></a>
 
 				<div class="method-heading">
 				
@@ -306,6 +316,7 @@ deliver the message to the receiving isolation
 <pre>
 <span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 19</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deliver</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+      
       <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">:instance</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
     <span class="ruby-keyword kw">end</span></pre>
 					</div>
@@ -317,7 +328,7 @@ deliver the message to the receiving isolation
 
 		
 			<div id="deliver-to-class-method" class="method-detail ">
-				<a name="M000058"></a>
+				<a name="M000069"></a>
 
 				<div class="method-heading">
 				
@@ -338,7 +349,7 @@ deliver the message to class of the receiving isolation
 					<div class="method-source-code"
 						id="deliver-to-class-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 24</span>
+<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 25</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deliver_to_class</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
       <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">:class</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -357,7 +368,7 @@ deliver the message to class of the receiving isolation
 
 		
 			<div id="internal-deliver-method" class="method-detail ">
-				<a name="M000059"></a>
+				<a name="M000071"></a>
 
 				<div class="method-heading">
 				
@@ -378,7 +389,7 @@ template method for looking up the expectation and/or returning a value
 					<div class="method-source-code"
 						id="internal-deliver-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 31</span>
+<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 32</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in an implementing class&quot;</span>)
       <span class="ruby-keyword kw">end</span></pre>

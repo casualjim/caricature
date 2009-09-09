@@ -52,11 +52,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000050">#did_receive?</a></li>
+					<li><a href="#M000070">#did_receive?</a></li>
 					
-					<li><a href="#M000046">#isolation_context</a></li>
+					<li><a href="#M000065">#isolation_context</a></li>
 					
-					<li><a href="#M000048">#when_receiving</a></li>
+					<li><a href="#M000066">#when_receiving</a></li>
 					
 				</ul>
 			</div>
@@ -73,7 +73,13 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
+					<li class="file"><a href="../../PostInstall_txt.html">PostInstall.txt</a></li>
+				
 					<li class="file"><a href="../../README_markdown.html">README.markdown</a></li>
+				
+					<li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -109,6 +115,8 @@
 					<li><a href="../../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
+				
+					<li><a href="../../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
 				
 					<li><a href="../../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -158,6 +166,8 @@
 				
 					<li><a href="../../Module.html">Module</a></li>
 				
+					<li><a href="../../MyClass.html">MyClass</a></li>
+				
 					<li><a href="../../Object.html">Object</a></li>
 				
 					<li><a href="../../String.html">String</a></li>
@@ -193,7 +203,7 @@ the class methods of this intercepting object
 
 		
 			<div id="did-receive--method" class="method-detail ">
-				<a name="M000050"></a>
+				<a name="M000070"></a>
 
 				<div class="method-heading">
 				
@@ -239,7 +249,7 @@ running.
 					<div class="method-source-code"
 						id="did-receive--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 56</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 58</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
         <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">class_verify</span> <span class="ruby-identifier">method_name</span>
       <span class="ruby-keyword kw">end</span></pre>
@@ -252,7 +262,7 @@ running.
 
 		
 			<div id="isolation-context-method" class="method-detail ">
-				<a name="M000046"></a>
+				<a name="M000065"></a>
 
 				<div class="method-heading">
 				
@@ -274,7 +284,7 @@ responding to method calls etc.
 					<div class="method-source-code"
 						id="isolation-context-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 15</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 17</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">isolation_context</span>
         <span class="ruby-ivar">@___context___</span>
       <span class="ruby-keyword kw">end</span></pre>
@@ -287,7 +297,7 @@ responding to method calls etc.
 
 		
 			<div id="when-receiving-method" class="method-detail ">
-				<a name="M000048"></a>
+				<a name="M000066"></a>
 
 				<div class="method-heading">
 				
@@ -329,7 +339,7 @@ test they are defined in.
 					<div class="method-source-code"
 						id="when-receiving-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 34</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 36</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
         <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">create_class_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
       <span class="ruby-keyword kw">end</span></pre>

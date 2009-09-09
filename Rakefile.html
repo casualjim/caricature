@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>File: Rakefile [RDoc Documentation]</title>
+
+	<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+</head>
+
+<body class="file">
+	<div id="metadata">
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./PostInstall_txt.html">PostInstall.txt</a></li>
+				
+					<li class="file"><a href="./README_markdown.html">README.markdown</a></li>
+				
+					<li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="./Rakefile.html">Rakefile</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./Caricature.html">Caricature</a></li>
+				
+					<li><a href="./Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="./Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="./Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="./Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
+					<li><a href="./Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="./Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
+				
+					<li><a href="./Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
+				
+					<li><a href="./Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="./Caricature/Expectation.html">Caricature::Expectation</a></li>
+				
+					<li><a href="./Caricature/ExpectationBuilder.html">Caricature::ExpectationBuilder</a></li>
+				
+					<li><a href="./Caricature/ExpectationSyntax.html">Caricature::ExpectationSyntax</a></li>
+				
+					<li><a href="./Caricature/Expectations.html">Caricature::Expectations</a></li>
+				
+					<li><a href="./Caricature/Interception.html">Caricature::Interception</a></li>
+				
+					<li><a href="./Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
+					<li><a href="./Caricature/Isolation.html">Caricature::Isolation</a></li>
+				
+					<li><a href="./Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="./Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="./Caricature/Messenger.html">Caricature::Messenger</a></li>
+				
+					<li><a href="./Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
+				
+					<li><a href="./Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="./Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="./Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="./Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="./Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
+				
+					<li><a href="./Caricature/Verification.html">Caricature::Verification</a></li>
+				
+					<li><a href="./System.html">System</a></li>
+				
+					<li><a href="./System/String.html">System::String</a></li>
+				
+					<li><a href="./System/Type.html">System::Type</a></li>
+				
+					<li><a href="./Array.html">Array</a></li>
+				
+					<li><a href="./Class.html">Class</a></li>
+				
+					<li><a href="./Hash.html">Hash</a></li>
+				
+					<li><a href="./Module.html">Module</a></li>
+				
+					<li><a href="./MyClass.html">MyClass</a></li>
+				
+					<li><a href="./Object.html">Object</a></li>
+				
+					<li><a href="./String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<p>
+require &#8216;rubygems&#8217; require &#8216;fileutils&#8217; require
+&#8216;rake/rdoctask&#8216;
+</p>
+<p>
+$:.unshift &#8216;lib&#8217; require &#8216;caricature&#8217;
+</p>
+<p>
+desc &#8220;The default task is to run all the specs&#8221; task :default
+=> [:clr_models, :spec]
+</p>
+<p>
+desc &#8220;Runs all the specs&#8221; task :spec do
+</p>
+<pre>
+  system &quot;ibacon #{Dir.glob('spec/**/*_spec.rb').join(' ')}&quot;
+</pre>
+<p>
+end
+</p>
+<p>
+namespace :spec do
+</p>
+<pre>
+  desc &quot;runs the specifications for the different classes&quot;
+  task :unit do
+    specs = Dir.glob('spec/unit/**/*_spec.rb')
+    system &quot;ibacon #{specs.join(' ')}&quot;
+  end
+
+  desc &quot;runs the integration tests&quot;
+  task :integration do
+    specs = Dir.glob('spec/integration/**/*_spec.rb')
+    system &quot;ibacon #{specs.join(' ')}&quot;
+  end
+</pre>
+<p>
+end
+</p>
+<p>
+def csc
+</p>
+<pre>
+  system &quot;gmcs&quot;
+  $?.pid.zero? ? &quot;csc&quot; : &quot;gmcs&quot;
+</pre>
+<p>
+end
+</p>
+<p>
+desc &#8220;Compiles the clr models&#8221; task :clr_models do
+</p>
+<pre>
+  Dir.chdir(File.dirname(__FILE__))
+  files = Dir.glob(&quot;spec/models/*.cs&quot;).join(' ') #.collect { |f| f.gsub(/\//, &quot;\\&quot;)  }.join(&quot; &quot;)
+  system &quot;#{csc} /noconfig /target:library /debug+ /debug:full /out:spec/bin/ClrModels.dll #{files}&quot;
+</pre>
+<p>
+end
+</p>
+<p>
+##############################################################################
+# OPTIONS
+##############################################################################
+</p>
+<p>
+PKG_NAME = &#8216;caricature&#8217; PKG_VERSION = Caricature::VERSION
+AUTHORS = [&#8216;Ivan Porto Carrero&#8217;] EMAIL =
+&#8220;ivan@flanders.co.nz&#8220; HOMEPAGE = &#8220;<a
+href="http://casualjim.github.com/caricature">casualjim.github.com/caricature</a>&#8220;
+SUMMARY = &#8220;<a href="Caricature.html">Caricature</a> brings simple
+mocking to Ruby, DLR and CLR.&#8220;
+</p>
+<p>
+# These are the common rdoc options that are shared between generation of #
+rdoc files using BOTH &#8216;rake rdoc&#8217; and the installation by users
+of a # RubyGem version which builds rdoc&#8217;s along with its
+installation. Any # rdoc options that are ONLY for developers running
+&#8216;rake rdoc&#8217; should be # added in the
+&#8216;Rake::RDocTask&#8217; block below. RDOC_OPTIONS = [
+</p>
+<pre>
+                &quot;--quiet&quot;,
+                &quot;--title&quot;, SUMMARY,
+                &quot;--main&quot;, &quot;lib/caricature/isolation.rb&quot;,
+                &quot;--line-numbers&quot;,
+                &quot;--inline-source&quot;,
+                &quot;--format&quot;,&quot;darkfish&quot;
+                ]
+</pre>
+<p>
+# Extra files outside of the lib dir that should be included with the
+rdocs. RDOC_FILES = (%w( <a href="README_rdoc.html">README.rdoc</a>)).sort
+</p>
+<p>
+# The full file list used for rdocs, tarballs, gems, and for generating the
+xmpp4r.gemspec. PKG_FILES = (%w( <a href="Rakefile.html">Rakefile</a>
+caricature.gemspec ) + RDOC_FILES +
+Dir[&#8220;{lib,spec}/*<b>/</b>&#8220;]).sort
+</p>
+<p>
+# RDOC ####### Rake::RDocTask.new do |rd|
+</p>
+<pre>
+  # which dir should rdoc files be installed in?
+  rd.rdoc_dir = 'rdoc'
+
+  # the full list of files to be included
+  rd.rdoc_files.include(RDOC_FILES, &quot;lib/**/*.rb&quot;)
+
+  # the full list of options that are common between gem build
+  # and 'rake rdoc' build of docs.
+  rd.options = RDOC_OPTIONS
+
+  # Devs Only : Uncomment to also document private methods in the rdocs
+  # Please don't check this change in to the source repo.
+  #rd.options &lt;&lt; '--all'
+
+  # Devs Only : Uncomment to generate dot (graphviz) diagrams along with rdocs.
+  # This requires that graphiz (dot) be installed as a local binary and on your path.
+  # See : http://www.graphviz.org/
+  # Please don't check this change in to the source repo as it introduces a binary dependency.
+  #rd.options &lt;&lt; '--diagram'
+  #rd.options &lt;&lt; '--fileboxes'
+</pre>
+<p>
+end
+</p>
+<p>
+desc &#8220;Check syntax of all Ruby files.&#8221; task :check_syntax do
+</p>
+<pre>
+  `find . -name &quot;*.rb&quot; |xargs -n1 ruby -c |grep -v &quot;Syntax OK&quot;`
+  puts &quot;* Done&quot;
+</pre>
+<p>
+end
+</p>
+<p>
+##############################################################################
+# PACKAGING &amp; INSTALLATION
+##############################################################################
+</p>
+<p>
+# What files/dirs should &#8216;rake clean&#8217; remove? CLEAN.include
+[&#8220;*.gem&#8221;, &#8220;pkg&#8221;, &#8220;rdoc&#8221;,
+&#8220;coverage&#8221;]
+</p>
+<p>
+begin
+</p>
+<pre>
+  require 'rake/gempackagetask'
+
+  spec = Gem::Specification.new do |s|
+    s.name = PKG_NAME
+    s.version = PKG_VERSION
+    s.authors = AUTHORS
+    s.email = EMAIL
+    s.homepage = HOMEPAGE
+    s.rubyforge_project = PKG_NAME
+    s.summary = SUMMARY
+    s.description = s.summary
+    s.platform = Gem::Platform::RUBY
+    s.require_path = 'lib'
+    s.executables = []
+    s.files = PKG_FILES
+    s.test_files = []
+    s.has_rdoc = true
+    s.extra_rdoc_files = RDOC_FILES
+    s.rdoc_options = RDOC_OPTIONS
+    s.required_ruby_version = &quot;&gt;= 1.8.4&quot;
+    s.add_dependency 'uuidtools', &quot;&gt;= 2.0.0&quot;
+  end
+
+  Rake::GemPackageTask.new(spec) do |pkg|
+    pkg.gem_spec = spec
+    pkg.need_tar = true
+    pkg.need_zip = true
+  end
+
+  namespace :gem do
+
+    desc &quot;Run :package and install the .gem locally&quot;
+    task :install =&gt; [:update_gemspec, :package] do
+      sh %{sudo gem install --local pkg/#{PKG_NAME}-#{PKG_VERSION}.gem}
+    end
+
+    desc &quot;Like gem:install but without ri or rdocs&quot;
+    task :install_fast =&gt; [:update_gemspec, :package] do
+      sh %{sudo gem install --local pkg/#{PKG_NAME}-#{PKG_VERSION}.gem --no-rdoc --no-ri}
+    end
+
+    desc &quot;Run :clean and uninstall the .gem&quot;
+    task :uninstall =&gt; :clean do
+      sh %{sudo gem uninstall #{PKG_NAME}}
+    end
+
+    # Thanks to the Merb project for this code.
+    desc &quot;Update Github Gemspec&quot;
+    task :update_gemspec do
+      skip_fields = %w(new_platform original_platform date)
+
+      result = &quot;# WARNING : RAKE AUTO-GENERATED FILE.  DO NOT MANUALLY EDIT!\n&quot;
+      result &lt;&lt; &quot;# RUN : 'rake gem:update_gemspec'\n\n&quot;
+      result &lt;&lt; &quot;Gem::Specification.new do |s|\n&quot;
+      spec.instance_variables.sort.each do |ivar|
+        value = spec.instance_variable_get(ivar)
+        name  = ivar.to_s.split(&quot;@&quot;).last
+        next if skip_fields.include?(name) || value.nil? || value == &quot;&quot; || (value.respond_to?(:empty?) &amp;&amp; value.empty?)
+        if name == &quot;dependencies&quot;
+          value.each do |d|
+            dep, *ver = d.to_s.split(&quot; &quot;)
+            result &lt;&lt;  &quot;  s.add_dependency #{dep.inspect}, #{ver.join(&quot; &quot;).inspect.gsub(/[()]/, &quot;&quot;)}\n&quot;
+          end
+        else
+          case value
+          when Array
+            value =  name != &quot;files&quot; ? value.inspect : value.sort.uniq.inspect.split(&quot;,&quot;).join(&quot;,\n&quot;)
+          when String, Fixnum, true, false
+            value = value.inspect
+          else
+            value = value.to_s.inspect
+          end
+          result &lt;&lt; &quot;  s.#{name} = #{value}\n&quot;
+        end
+      end
+      result &lt;&lt; &quot;end&quot;
+      File.open(File.join(File.dirname(__FILE__), &quot;#{spec.name}.gemspec&quot;), &quot;w&quot;){|f| f &lt;&lt; result}
+    end
+
+  end # namespace :gem
+
+  # also keep the gemspec up to date each time we package a tarball or gem
+  task :package =&gt; ['gem:update_gemspec']
+  task :gem =&gt; ['gem:update_gemspec']
+</pre>
+<p>
+rescue LoadError
+</p>
+<pre>
+  puts &lt;&lt;EOF
+</pre>
+<p>
+###
+</p>
+<pre>
+  Packaging Warning : RubyGems is apparently not installed on this
+  system and any file add/remove/rename will not
+  be auto-updated in the 'caricature.gemspec' when you run any
+  package tasks.  All such file changes are recommended
+  to be packaged on a system with RubyGems installed
+  if you intend to push commits to the Git repo so the
+  gemspec will also stay in sync for others.
+</pre>
+<p>
+### EOF end
+</p>
+<p>
+# we are apparently on a system that does not have RubyGems installed. #
+Lets try to provide only the basic tarball package tasks as a fallback.
+unless defined? Gem
+</p>
+<pre>
+  begin
+    require 'rake/packagetask'
+    Rake::PackageTask.new(PKG_NAME, PKG_VERSION) do |p|
+      p.package_files = PKG_FILES
+      p.need_tar = true
+      p.need_zip = true
+    end
+  rescue LoadError
+    puts &lt;&lt;EOF
+</pre>
+<p>
+###
+</p>
+<pre>
+  Warning : Unable to require the 'rake/packagetask'. Is Rake installed?
+</pre>
+<p>
+### EOF
+</p>
+<pre>
+  end
+</pre>
+<p>
+end
+</p>
+<p>
+# # Generate all the Rake tasks # # Run &#8216;rake -T&#8217; to see list
+of generated tasks (from gem root directory) # $hoe = Hoe.spec
+&#8216;cloudslide&#8217; do # self.developer &#8216;Ivan Porto
+Carrero&#8217;, &#8216;ivan@flanders.co.nz&#8217; #
+self.post_install_message = &#8216;<a
+href="PostInstall_txt.html">PostInstall.txt</a>&#8217; # TODO remove if
+post-install message not required # self.rubyforge_name = self.name # TODO
+this is default value # self.extra_deps =
+[[&#8216;uuidtools&#8217;,&#8217;>= 2.0.0&#8217;], [&#8216;newgem&#8217;,
+&#8217;>= 1.5.2&#8217;]] # end # # require &#8216;newgem/tasks&#8217; # <a
+href="http://'tasks/*/.rake'">Dir</a>.each { |t| load t }
+</p>
+<p>
+# TODO - want other tests/tasks run by default? Add them to the list #
+remove_task :default # task :default => [:spec, :features]
+</p>
+<p>
+# file_list = Dir.glob(&#8220;lib/*<b>/</b>.rb&#8221;)
+</p>
+<p>
+# desc &#8220;Create RDoc documentation&#8221; # file
+&#8216;doc/index.html&#8217; => file_list do # puts &#8220;########
+Creating RDoc documentation&#8221; # system &#8220;rdoc &#8212;title
+&#8216;<a href="Caricature.html">Caricature</a> isolation framework
+documentation&#8217; -m README <a
+href="README_markdown.html">README.markdown</a> lib/&#8221; # end # # desc
+&#8220;An alias for creating the RDoc documentation&#8221; # task :rdoc do
+# <a href="http://'doc/index.html'">Rake::Task</a>.invoke # end
+</p>
+<p>
+# begin # # Jeweler::Tasks.new do |gemspec| # gemspec.name =
+&#8220;caricature&#8221; # gemspec.summary = &#8220;<a
+href="Caricature.html">Caricature</a> - Bringing simple mocking to the
+DLR&#8221; # gemspec.email = &#8220;ivan@flanders.co.nz&#8220; #
+gemspec.homepage = &#8220;<a
+href="http://github.com/casualjim/caricature">github.com/casualjim/caricature</a>&#8220;
+# gemspec.description = &#8220;This project aims to make interop between
+IronRuby objects and .NET objects easier. The idea is that it integrates
+nicely with bacon and later rspec and that it transparently lets you mock
+ironruby ojbects as well as CLR objects/interfaces. <a
+href="Caricature.html">Caricature</a> handles interfaces, interface
+inheritance, CLR objects, CLR object instances, Ruby classes and instances
+of Ruby classes.&#8221; # gemspec.authors = [&#8220;Ivan Porto
+Carrero&#8221;] # gemspec.rubyforge_project = &#8216;caricature&#8217; #
+This line would be new # end # rescue LoadError # puts &#8220;Jeweler not
+available. Install it with: sudo gem install technicalpickles-jeweler -s <a
+href="http://gems.github.com">gems.github.com</a>&#8220; # end # # begin #
+require &#8216;rake/contrib/sshpublisher&#8217; # namespace :rubyforge do #
+# desc &#8220;Release gem and RDoc documentation to RubyForge&#8221; # task
+:release => [&#8220;rubyforge:release:gem&#8221;,
+&#8216;rubyforge:release:docs&#8217;] # # namespace :release do # desc
+&#8220;Publish RDoc to RubyForge.&#8221; # task :docs => [:rdoc] do #
+config = YAML.load( #
+File.read(File.expand_path(&#8217;~/.rubyforge/user-config.yml&#8217;)) # )
+# # host = &#8220;#{config[&#8216;username&#8217;]}@rubyforge.org&#8220; #
+remote_dir = &#8220;/var/www/gforge-projects/caricature/&#8220; # local_dir
+= &#8216;doc&#8217; # # Rake::SshDirPublisher.new(host, remote_dir,
+local_dir).upload # end # end # end # rescue LoadError # puts &#8220;Rake
+SshDirPublisher is unavailable or your rubyforge environment is not
+configured.&#8221; # end # #
+</p>
+
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>
+

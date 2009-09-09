@@ -59,7 +59,7 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000010">#internal_deliver</a></li>
+					<li><a href="#M000018">#internal_deliver</a></li>
 					
 				</ul>
 			</div>
@@ -76,7 +76,13 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
+					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
+				
 					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -112,6 +118,8 @@
 					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -161,6 +169,8 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
+					<li><a href="../MyClass.html">MyClass</a></li>
+				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -196,7 +206,7 @@ Encapsulates sending messages to CLR class or instance isolations
 
 		
 			<div id="internal-deliver-method" class="method-detail ">
-				<a name="M000010"></a>
+				<a name="M000018"></a>
 
 				<div class="method-heading">
 				
@@ -218,19 +228,17 @@ deliver the message to the receiving isolation
 						id="internal-deliver-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/caricature/clr/messenger.rb, line 9</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-        <span class="ruby-identifier">exp</span> = <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)   
+        <span class="ruby-identifier">exp</span> = <span class="ruby-identifier">expectations</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) 
+        <span class="ruby-identifier">is_value_type</span> = <span class="ruby-identifier">return_type</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">return_type</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Void</span>.<span class="ruby-identifier">to_clr_type</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">return_type</span>.<span class="ruby-identifier">is_value_type</span> 
+        <span class="ruby-identifier">res</span> = <span class="ruby-keyword kw">nil</span>
         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">exp</span>
           <span class="ruby-identifier">res</span> = <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">super_before?</span>
           <span class="ruby-identifier">res</span> = <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">execute</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
           <span class="ruby-identifier">res</span> = <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">exp</span>.<span class="ruby-identifier">super_before?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">exp</span>.<span class="ruby-identifier">call_super?</span>
-          <span class="ruby-identifier">res</span>
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-identifier">rt</span> = <span class="ruby-keyword kw">nil</span>
-          <span class="ruby-identifier">is_value_type</span> = <span class="ruby-identifier">return_type</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">return_type</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Void</span>.<span class="ruby-identifier">to_clr_type</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">return_type</span>.<span class="ruby-identifier">is_value_type</span>
-          <span class="ruby-identifier">rt</span> = <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Activator</span>.<span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">return_type</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_value_type</span>
-          <span class="ruby-identifier">rt</span>
         <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">res</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">Activator</span>.<span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">return_type</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_value_type</span>     
+        <span class="ruby-identifier">res</span>
       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					

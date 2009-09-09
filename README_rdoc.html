@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-	<title>Class: Array</title>
+	<title>File: README.rdoc [RDoc Documentation]</title>
 
-	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+	<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet" />
 
 	<script src="./js/jquery.js" type="text/javascript"
 		charset="utf-8"></script>
@@ -17,58 +18,10 @@
 		charset="utf-8"></script>
 	<script src="./js/darkfish.js" type="text/javascript"
 		charset="utf-8"></script>
-
 </head>
-<body class="class">
 
+<body class="file">
 	<div id="metadata">
-		<div id="file-metadata">
-			<div id="file-list-section" class="section">
-				<h3 class="section-header">In Files</h3>
-				<div class="section-body">
-					<ul>
-					
-						<li><a href="./lib/core_ext/array_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/core_ext/array.rb">lib/core_ext/array.rb</a></li>
-					
-					</ul>
-				</div>
-			</div>
-
-			
-		</div>
-
-		<div id="class-metadata">
-
-			<!-- Parent Class -->
-			
-			<div id="parent-class-section" class="section">
-				<h3 class="section-header">Parent</h3>
-				
-				<p class="link"><a href="Object.html">Object</a></p>
-				
-			</div>
-			
-
-			<!-- Namespace Contents -->
-			
-
-			<!-- Method Quickref -->
-			
-			<div id="method-list-section" class="section">
-				<h3 class="section-header">Methods</h3>
-				<ul class="link-list">
-					
-					<li><a href="#M000109">#to_h</a></li>
-					
-				</ul>
-			</div>
-			
-
-			<!-- Included Modules -->
-			
-		</div>
-
 		<div id="project-metadata">
 			
 			
@@ -184,70 +137,135 @@
 	</div>
 
 	<div id="documentation">
-		<h1 class="class">Array</h1>
+		<h1><a href="Caricature.html">Caricature</a> - Bringing simple mocking to the DLR</h1>
+<ul>
+<li><a
+href="http://github.com/casualjim/caricature">github.com/casualjim/caricature</a>
 
-		<div id="description">
-			
-		</div>
-
-		<!-- Constants -->
-		
-
-		<!-- Attributes -->
-		
-
-		<!-- Methods -->
-		
-		<div id="public-instance-method-details" class="method-section section">
-			<h3 class="section-header">Public Instance Methods</h3>
-
-		
-			<div id="to-h-method" class="method-detail ">
-				<a name="M000109"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">to_h</span><span
-						class="method-args">()</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p>
-Converts an array of values to a hash. the even indexes are the hash keys
-the odd indexes are the hash values
+</li>
+</ul>
+<h2>DESCRIPTION:</h2>
+<p>
+This project aims to make interop between IronRuby objects and .NET objects
+easier. The idea is that it integrates nicely with bacon and later rspec
+and that it transparently lets you mock ironruby ojbects as well as CLR
+objects/interfaces. <a href="Caricature.html">Caricature</a> handles
+interfaces, interface inheritance, CLR objects, CLR object instances, Ruby
+classes and instances of Ruby classes.
 </p>
-					
+<p>
+From the start I wanted to do away with names like mock, stub, record,
+replay, verify etc. Instead I took the advice from Roy Osherhove and went
+with a name of Isolation for creating a mock.
+</p>
+<p>
+An Isolation will create what in Rhino.Mocks would be called a DynamicMock
+(but can be a partial too) :) In Moq it would be the Loose mocking
+strategy.
+</p>
+<p>
+The naming of the methods for creating mocks is the one that JP Boodhoo
+proposed WhenToldTo and WasToldTo. To specify a stub/expectation on an
+isolation you have one and only one way of doing that with the method
+called when_receiving. Then only if you&#8217;re interested in asserting if
+a method has been called you can use the did_receive? method for this.
+</p>
+<p>
+It may be very important to note that when you&#8217;re going to be
+isolating CLR classes to be used in other CLR classes you still need to
+obide by the CLR rules. That means if you want to redefine a method
+you&#8217;ll need to make sure it&#8217;s marked as virtual. Static types
+are still governed by static type rules. I&#8217;m working on a solution
+around those problems but for the time being this is how it has to be.
+</p>
+<h2>FEATURES/PROBLEMS:</h2>
+<ul>
+<li>[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> won&#8217;t
+mock static methods because you can&#8217;t override those according to CLR
+rules
 
-					
-					<div class="method-source-code"
-						id="to-h-source">
+</li>
+<li>[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> can only
+override methods that are marked virtual (CLR rules)
+
+</li>
+</ul>
+<h2>SYNOPSIS:</h2>
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/array.rb, line 6</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_h</span>
-    <span class="ruby-identifier">h</span> = <span class="ruby-constant">Hash</span>[<span class="ruby-operator">*</span><span class="ruby-keyword kw">self</span>]
-    <span class="ruby-identifier">h</span>.<span class="ruby-identifier">symbolize_keys!</span>    
-  <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
+    isolation = Isolation.for(Ninja)
+    isolation.when_receiving(:attack) do |exp|
+      exp.with(:shuriken)
+      exp.return(3)
+    end
+</pre>
+<p>
+Battle.new(mock) battle.combat
+</p>
+<p>
+isolation.did_receive?(:attack).should.be.successful
+</p>
+<h2>REQUIREMENTS:</h2>
+<ul>
+<li>To use the caricature library you need to have uuidtools installed
 
-				
-			</div>
+</li>
+</ul>
+<p>
+sudo gem install uuidtools sudo igem install uuidtools
+</p>
+<h2>INSTALL:</h2>
+<p>
+sudo gem install caricature
+</p>
+<h2>LICENSE:</h2>
+<p>
+<a href="Caricature.html">Caricature</a> &#8212; A simple mocking framework
+for IronRuby
+</p>
+<p>
+Copyright &#169; 2009, <a href="Caricature.html">Caricature</a> Team <a
+href="http://github.com/casualjim/caricature">github.com/casualjim/caricature</a>
+All rights reserved.
+</p>
+<p>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+</p>
+<pre>
+   * Redistributions of source code must retain the
+   above copyright notice, this list of conditions and
+   the following disclaimer.
 
-		
-		</div>
-	
+   * Redistributions in binary form must reproduce
+   the above copyright notice, this list of conditions
+   and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
-	</div>
+   * Neither the name of the Caricature Team nor the
+   names of its contributors may be used to endorse
+   or promote products derived from this software
+   without specific prior written permission.
+</pre>
+<p>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+&#8220;AS IS&#8221; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT
+NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</p>
+<p>
+[This is the BSD license, see
+</p>
+<pre>
+ http://www.opensource.org/licenses/bsd-license.php]
+</pre>
 
-
-	<div id="rdoc-debugging-section-dump" class="debugging-section">
-	
-		<p>Disabled; run with --debug to generate this.</p>
-	
 	</div>
 
 	<div id="validator-badges">
@@ -255,7 +273,6 @@ the odd indexes are the hash values
 		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
 			Rdoc Generator</a> 1.1.6</small>.</p>
 	</div>
-
 </body>
 </html>
 

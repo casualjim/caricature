@@ -61,17 +61,19 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000052">::included</a></li>
+					<li><a href="#M000072">::included</a></li>
 					
-					<li><a href="#M000062">#did_class_receive?</a></li>
+					<li><a href="#M000080">#did_class_receive?</a></li>
 					
-					<li><a href="#M000060">#did_receive?</a></li>
+					<li><a href="#M000078">#did_receive?</a></li>
 					
-					<li><a href="#M000053">#isolation_context</a></li>
+					<li><a href="#M000073">#isolation_context</a></li>
 					
-					<li><a href="#M000057">#when_class_receives</a></li>
+					<li><a href="#M000076">#when_class_receives</a></li>
 					
-					<li><a href="#M000054">#when_receiving</a></li>
+					<li><a href="#M000075">#when_receiving</a></li>
+					
+					<li><a href="#M000081">#with_subject</a></li>
 					
 				</ul>
 			</div>
@@ -88,7 +90,13 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
+					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
+				
 					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -124,6 +132,8 @@
 					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
 				
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -173,6 +183,8 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
+					<li><a href="../MyClass.html">MyClass</a></li>
+				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -209,7 +221,7 @@ created isolations for classes
 
 		
 			<div id="included-method" class="method-detail ">
-				<a name="M000052"></a>
+				<a name="M000072"></a>
 
 				<div class="method-heading">
 				
@@ -230,7 +242,7 @@ mixes in the class methods of this module when it gets included in a class.
 					<div class="method-source-code"
 						id="included-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 63</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 65</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ClassMethods</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -249,7 +261,7 @@ mixes in the class methods of this module when it gets included in a class.
 
 		
 			<div id="did-class-receive--method" class="method-detail ">
-				<a name="M000062"></a>
+				<a name="M000080"></a>
 
 				<div class="method-heading">
 				
@@ -267,8 +279,8 @@ constraints in the block
 </p>
 <p>
 The most complex configuration you can make currently is one that is
-constrained by arguments. This is most likely to be extended in the future
-to allow for more complex verifications.
+constrained by arguments. This is likely to be extended in the future to
+allow for more complex verifications.
 </p>
 <p>
 Example:
@@ -295,7 +307,7 @@ running.
 					<div class="method-source-code"
 						id="did-class-receive--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 151</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 153</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_class_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -308,7 +320,7 @@ running.
 
 		
 			<div id="did-receive--method" class="method-detail ">
-				<a name="M000060"></a>
+				<a name="M000078"></a>
 
 				<div class="method-heading">
 				
@@ -354,7 +366,7 @@ running.
 					<div class="method-source-code"
 						id="did-receive--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 129</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 131</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">verify</span> <span class="ruby-identifier">method_name</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -367,7 +379,7 @@ running.
 
 		
 			<div id="isolation-context-method" class="method-detail ">
-				<a name="M000053"></a>
+				<a name="M000073"></a>
 
 				<div class="method-heading">
 				
@@ -389,7 +401,7 @@ responding to method calls etc.
 					<div class="method-source-code"
 						id="isolation-context-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 69</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 71</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">isolation_context</span>
       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">isolation_context</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -402,7 +414,7 @@ responding to method calls etc.
 
 		
 			<div id="when-class-receives-method" class="method-detail ">
-				<a name="M000057"></a>
+				<a name="M000076"></a>
 
 				<div class="method-heading">
 				
@@ -444,7 +456,7 @@ test they are defined in.
 					<div class="method-source-code"
 						id="when-class-receives-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 107</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 109</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_class_receives</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">when_receiving</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -457,7 +469,7 @@ test they are defined in.
 
 		
 			<div id="when-receiving-method" class="method-detail ">
-				<a name="M000054"></a>
+				<a name="M000075"></a>
 
 				<div class="method-heading">
 				
@@ -499,9 +511,46 @@ test they are defined in.
 					<div class="method-source-code"
 						id="when-receiving-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 88</span>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 90</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">create_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="with-subject-method" class="method-detail ">
+				<a name="M000081"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">with_subject</span><span
+						class="method-args">(*args, &b)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Initializes the underlying subject It expects the constructor parameters if
+they are needed.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="with-subject-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 159</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_subject</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+      <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">instance</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">new</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> 
+      <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+      <span class="ruby-keyword kw">self</span>
     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
