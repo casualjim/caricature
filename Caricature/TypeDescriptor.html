@@ -61,9 +61,9 @@
 					
 					<li><a href="#M000025">::new</a></li>
 					
-					<li><a href="#M000029">#initialize_class_members_for</a></li>
+					<li><a href="#M000027">#initialize_class_members_for</a></li>
 					
-					<li><a href="#M000027">#initialize_instance_members_for</a></li>
+					<li><a href="#M000026">#initialize_instance_members_for</a></li>
 					
 				</ul>
 			</div>
@@ -80,13 +80,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -172,8 +166,6 @@
 					<li><a href="../Hash.html">Hash</a></li>
 				
 					<li><a href="../Module.html">Module</a></li>
-				
-					<li><a href="../MyClass.html">MyClass</a></li>
 				
 					<li><a href="../Object.html">Object</a></li>
 				
@@ -273,16 +265,16 @@ initializes a new instance of a type descriptor
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 15</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">klass</span>)
-      <span class="ruby-ivar">@instance_members</span> = []
-      <span class="ruby-ivar">@class_members</span> = []
-
-      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:in_unit_test_for_class</span>
-        <span class="ruby-identifier">initialize_instance_members_for</span> <span class="ruby-identifier">klass</span>
-        <span class="ruby-identifier">initialize_class_members_for</span> <span class="ruby-identifier">klass</span>
-      <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">klass</span>)
+16:       <span class="ruby-ivar">@instance_members</span> = []
+17:       <span class="ruby-ivar">@class_members</span> = []
+18: 
+19:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:in_unit_test_for_class</span>
+20:         <span class="ruby-identifier">initialize_instance_members_for</span> <span class="ruby-identifier">klass</span>
+21:         <span class="ruby-identifier">initialize_class_members_for</span> <span class="ruby-identifier">klass</span>
+22:       <span class="ruby-keyword kw">end</span>
+23:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -298,7 +290,7 @@ initializes a new instance of a type descriptor
 
 		
 			<div id="initialize-class-members-for-method" class="method-detail ">
-				<a name="M000029"></a>
+				<a name="M000027"></a>
 
 				<div class="method-heading">
 				
@@ -319,10 +311,10 @@ collects the class members of the provided type
 					<div class="method-source-code"
 						id="initialize-class-members-for-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 31</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_class_members_for</span>(<span class="ruby-identifier">klass</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in implementing class&quot;</span>)
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_class_members_for</span>(<span class="ruby-identifier">klass</span>)
+32:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in implementing class&quot;</span>)
+33:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -332,7 +324,7 @@ collects the class members of the provided type
 
 		
 			<div id="initialize-instance-members-for-method" class="method-detail ">
-				<a name="M000027"></a>
+				<a name="M000026"></a>
 
 				<div class="method-heading">
 				
@@ -353,10 +345,10 @@ collects the instance members of the provided type
 					<div class="method-source-code"
 						id="initialize-instance-members-for-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 26</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_instance_members_for</span>(<span class="ruby-identifier">klass</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in implementing class&quot;</span>)
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 26</span>
+26:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_instance_members_for</span>(<span class="ruby-identifier">klass</span>)
+27:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in implementing class&quot;</span>)
+28:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

@@ -59,9 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000112">#demodulize</a></li>
+					<li><a href="#M000110">#demodulize</a></li>
 					
-					<li><a href="#M000113">#is_clr_type?</a></li>
+					<li><a href="#M000111">#is_clr_type?</a></li>
 					
 				</ul>
 			</div>
@@ -78,13 +78,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="./PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="./README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="./Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -171,8 +165,6 @@
 				
 					<li><a href="./Module.html">Module</a></li>
 				
-					<li><a href="./MyClass.html">MyClass</a></li>
-				
 					<li><a href="./Object.html">Object</a></li>
 				
 					<li><a href="./String.html">String</a></li>
@@ -205,7 +197,7 @@
 
 		
 			<div id="demodulize-method" class="method-detail ">
-				<a name="M000112"></a>
+				<a name="M000110"></a>
 
 				<div class="method-heading">
 				
@@ -226,10 +218,10 @@ Removes all but the containing modules from this module&#8217;s name
 					<div class="method-source-code"
 						id="demodulize-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/module.rb, line 4</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demodulize</span>
-    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/^.*::/</span>, <span class="ruby-value str">''</span>)
-  <span class="ruby-keyword kw">end</span></pre>
+   <span class="ruby-comment cmt"># File lib/core_ext/module.rb, line 4</span>
+4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demodulize</span>
+5:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/^.*::/</span>, <span class="ruby-value str">''</span>)
+6:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -239,7 +231,7 @@ Removes all but the containing modules from this module&#8217;s name
 
 		
 			<div id="is-clr-type--method" class="method-detail ">
-				<a name="M000113"></a>
+				<a name="M000111"></a>
 
 				<div class="method-heading">
 				
@@ -260,12 +252,12 @@ indicates whether this type has a CLR type in its ancestors
 					<div class="method-source-code"
 						id="is-clr-type--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/module.rb, line 9</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_clr_type?</span>
-    <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span>
-            <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included_modules</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> } <span class="ruby-operator">||</span>
-            <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> }
-  <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/core_ext/module.rb, line 9</span>
+ 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_clr_type?</span>
+10:     <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span>
+11:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included_modules</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> } <span class="ruby-operator">||</span>
+12:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> }
+13:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

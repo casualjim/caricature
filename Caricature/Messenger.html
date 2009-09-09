@@ -59,13 +59,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000067">::new</a></li>
+					<li><a href="#M000064">::new</a></li>
 					
-					<li><a href="#M000068">#deliver</a></li>
+					<li><a href="#M000065">#deliver</a></li>
 					
-					<li><a href="#M000069">#deliver_to_class</a></li>
+					<li><a href="#M000066">#deliver_to_class</a></li>
 					
-					<li><a href="#M000071">#internal_deliver</a></li>
+					<li><a href="#M000067">#internal_deliver</a></li>
 					
 				</ul>
 			</div>
@@ -82,13 +82,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -175,8 +169,6 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
-					<li><a href="../MyClass.html">MyClass</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -253,7 +245,7 @@ the expecations that have been set for the isolation
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000067"></a>
+				<a name="M000064"></a>
 
 				<div class="method-heading">
 				
@@ -274,10 +266,10 @@ creates a new instance of this messaging strategy
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 14</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">expectations</span>, <span class="ruby-identifier">instance</span>=<span class="ruby-keyword kw">nil</span>)
-      <span class="ruby-ivar">@instance</span>, <span class="ruby-ivar">@expectations</span> = <span class="ruby-identifier">instance</span>, <span class="ruby-identifier">expectations</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 14</span>
+14:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">expectations</span>, <span class="ruby-identifier">instance</span>=<span class="ruby-keyword kw">nil</span>)
+15:       <span class="ruby-ivar">@instance</span>, <span class="ruby-ivar">@expectations</span> = <span class="ruby-identifier">instance</span>, <span class="ruby-identifier">expectations</span>
+16:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -293,7 +285,7 @@ creates a new instance of this messaging strategy
 
 		
 			<div id="deliver-method" class="method-detail ">
-				<a name="M000068"></a>
+				<a name="M000065"></a>
 
 				<div class="method-heading">
 				
@@ -314,11 +306,11 @@ deliver the message to the receiving isolation
 					<div class="method-source-code"
 						id="deliver-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 19</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deliver</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-      
-      <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">:instance</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deliver</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+20:       
+21:       <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">:instance</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+22:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -328,7 +320,7 @@ deliver the message to the receiving isolation
 
 		
 			<div id="deliver-to-class-method" class="method-detail ">
-				<a name="M000069"></a>
+				<a name="M000066"></a>
 
 				<div class="method-heading">
 				
@@ -349,10 +341,10 @@ deliver the message to class of the receiving isolation
 					<div class="method-source-code"
 						id="deliver-to-class-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 25</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deliver_to_class</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-      <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">:class</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 25</span>
+25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deliver_to_class</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+26:       <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">:class</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+27:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -368,7 +360,7 @@ deliver the message to class of the receiving isolation
 
 		
 			<div id="internal-deliver-method" class="method-detail ">
-				<a name="M000071"></a>
+				<a name="M000067"></a>
 
 				<div class="method-heading">
 				
@@ -389,10 +381,10 @@ template method for looking up the expectation and/or returning a value
 					<div class="method-source-code"
 						id="internal-deliver-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 32</span>
-      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in an implementing class&quot;</span>)
-      <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/messenger.rb, line 32</span>
+32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">internal_deliver</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
+33:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Override in an implementing class&quot;</span>)
+34:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

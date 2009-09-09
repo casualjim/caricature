@@ -59,9 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000121">#classify</a></li>
+					<li><a href="#M000118">#classify</a></li>
 					
-					<li><a href="#M000119">#underscore</a></li>
+					<li><a href="#M000117">#underscore</a></li>
 					
 				</ul>
 			</div>
@@ -78,13 +78,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -171,8 +165,6 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
-					<li><a href="../MyClass.html">MyClass</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -205,7 +197,7 @@
 
 		
 			<div id="classify-method" class="method-detail ">
-				<a name="M000121"></a>
+				<a name="M000118"></a>
 
 				<div class="method-heading">
 				
@@ -226,10 +218,10 @@ Gets the constant when it is defined that corresponds to this string
 					<div class="method-source-code"
 						id="classify-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/system/string.rb, line 15</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">classify</span>
-      <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span> <span class="ruby-keyword kw">self</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/core_ext/system/string.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">classify</span>
+16:       <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span> <span class="ruby-keyword kw">self</span>
+17:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -239,7 +231,7 @@ Gets the constant when it is defined that corresponds to this string
 
 		
 			<div id="underscore-method" class="method-detail ">
-				<a name="M000119"></a>
+				<a name="M000117"></a>
 
 				<div class="method-heading">
 				
@@ -260,14 +252,14 @@ converts a camel cased word to an underscored word
 					<div class="method-source-code"
 						id="underscore-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/system/string.rb, line 6</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">underscore</span>
-      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/::/</span>, <span class="ruby-value str">'/'</span>).
-        <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([A-Z]+)([A-Z][a-z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
-        <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([a-z\d])([A-Z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
-        <span class="ruby-identifier">tr</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;_&quot;</span>).
-        <span class="ruby-identifier">downcase</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/core_ext/system/string.rb, line 6</span>
+ 6:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">underscore</span>
+ 7:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/::/</span>, <span class="ruby-value str">'/'</span>).
+ 8:         <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([A-Z]+)([A-Z][a-z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
+ 9:         <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([a-z\d])([A-Z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
+10:         <span class="ruby-identifier">tr</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;_&quot;</span>).
+11:         <span class="ruby-identifier">downcase</span>
+12:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

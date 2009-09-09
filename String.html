@@ -62,13 +62,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000118">#classify</a></li>
+					<li><a href="#M000116">#classify</a></li>
 					
-					<li><a href="#M000003">#to_qs_parameters</a></li>
+					<li><a href="#M000001">#to_qs_parameters</a></li>
 					
-					<li><a href="#M000002">#to_url_filename</a></li>
+					<li><a href="#M000000">#to_url_filename</a></li>
 					
-					<li><a href="#M000117">#underscore</a></li>
+					<li><a href="#M000115">#underscore</a></li>
 					
 				</ul>
 			</div>
@@ -85,13 +85,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="./PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="./README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="./Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -178,8 +172,6 @@
 				
 					<li><a href="./Module.html">Module</a></li>
 				
-					<li><a href="./MyClass.html">MyClass</a></li>
-				
 					<li><a href="./Object.html">Object</a></li>
 				
 					<li><a href="./String.html">String</a></li>
@@ -212,7 +204,7 @@
 
 		
 			<div id="classify-method" class="method-detail ">
-				<a name="M000118"></a>
+				<a name="M000116"></a>
 
 				<div class="method-heading">
 				
@@ -233,10 +225,10 @@ Gets the constant when it is defined that corresponds to this string
 					<div class="method-source-code"
 						id="classify-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/string.rb, line 13</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">classify</span>
-    <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span> <span class="ruby-keyword kw">self</span>
-  <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/core_ext/string.rb, line 13</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">classify</span>
+14:     <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span> <span class="ruby-keyword kw">self</span>
+15:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -246,7 +238,7 @@ Gets the constant when it is defined that corresponds to this string
 
 		
 			<div id="to-qs-parameters-method" class="method-detail ">
-				<a name="M000003"></a>
+				<a name="M000001"></a>
 
 				<div class="method-heading">
 				
@@ -265,18 +257,18 @@ Gets the constant when it is defined that corresponds to this string
 					<div class="method-source-code"
 						id="to-qs-parameters-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 16</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_qs_parameters</span>
-    <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?/</span>
-      <span class="ruby-identifier">parameters</span> = <span class="ruby-constant">NameValueCollection</span>.<span class="ruby-identifier">new</span>
-      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'?'</span>)[<span class="ruby-value">1</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;&amp;&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>)
-        <span class="ruby-identifier">parameters</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">last</span>
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">parameters</span>
-    <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">nil</span>
-  <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 16</span>
+16:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_qs_parameters</span>
+17:     <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?/</span>
+18:       <span class="ruby-identifier">parameters</span> = <span class="ruby-constant">NameValueCollection</span>.<span class="ruby-identifier">new</span>
+19:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'?'</span>)[<span class="ruby-value">1</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;&amp;&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pair</span><span class="ruby-operator">|</span>
+20:         <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>)
+21:         <span class="ruby-identifier">parameters</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">last</span>
+22:       <span class="ruby-keyword kw">end</span>
+23:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">parameters</span>
+24:     <span class="ruby-keyword kw">end</span>
+25:     <span class="ruby-keyword kw">nil</span>
+26:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -286,7 +278,7 @@ Gets the constant when it is defined that corresponds to this string
 
 		
 			<div id="to-url-filename-method" class="method-detail ">
-				<a name="M000002"></a>
+				<a name="M000000"></a>
 
 				<div class="method-heading">
 				
@@ -305,11 +297,11 @@ Gets the constant when it is defined that corresponds to this string
 					<div class="method-source-code"
 						id="to-url-filename-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 11</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_url_filename</span>
-    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\?.*/</span>, <span class="ruby-value str">''</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?/</span>
-    <span class="ruby-keyword kw">self</span>
-  <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/aspnet_mvc.rb, line 11</span>
+11:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_url_filename</span>
+12:     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\?.*/</span>, <span class="ruby-value str">''</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\?/</span>
+13:     <span class="ruby-keyword kw">self</span>
+14:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -319,7 +311,7 @@ Gets the constant when it is defined that corresponds to this string
 
 		
 			<div id="underscore-method" class="method-detail ">
-				<a name="M000117"></a>
+				<a name="M000115"></a>
 
 				<div class="method-heading">
 				
@@ -340,14 +332,14 @@ converts a camel cased word to an underscored word
 					<div class="method-source-code"
 						id="underscore-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/string.rb, line 4</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">underscore</span>
-    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/::/</span>, <span class="ruby-value str">'/'</span>).
-        <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([A-Z]+)([A-Z][a-z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
-        <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([a-z\d])([A-Z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
-        <span class="ruby-identifier">tr</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;_&quot;</span>).
-        <span class="ruby-identifier">downcase</span>
-  <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/core_ext/string.rb, line 4</span>
+ 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">underscore</span>
+ 5:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/::/</span>, <span class="ruby-value str">'/'</span>).
+ 6:         <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([A-Z]+)([A-Z][a-z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
+ 7:         <span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/([a-z\d])([A-Z])/</span>,<span class="ruby-value str">'\1_\2'</span>).
+ 8:         <span class="ruby-identifier">tr</span>(<span class="ruby-value str">&quot;-&quot;</span>, <span class="ruby-value str">&quot;_&quot;</span>).
+ 9:         <span class="ruby-identifier">downcase</span>
+10:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

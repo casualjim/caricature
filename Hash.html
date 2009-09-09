@@ -59,7 +59,7 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000111">#symbolize_keys!</a></li>
+					<li><a href="#M000109">#symbolize_keys!</a></li>
 					
 				</ul>
 			</div>
@@ -76,13 +76,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="./PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="./README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="./Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -169,8 +163,6 @@
 				
 					<li><a href="./Module.html">Module</a></li>
 				
-					<li><a href="./MyClass.html">MyClass</a></li>
-				
 					<li><a href="./Object.html">Object</a></li>
 				
 					<li><a href="./String.html">String</a></li>
@@ -203,7 +195,7 @@
 
 		
 			<div id="symbolize-keys--method" class="method-detail ">
-				<a name="M000111"></a>
+				<a name="M000109"></a>
 
 				<div class="method-heading">
 				
@@ -225,15 +217,15 @@ recursively if given nested hashes.
 					<div class="method-source-code"
 						id="symbolize-keys--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/core_ext/hash.rb, line 4</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">symbolize_keys!</span>
-    <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">sym</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_sym</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">k</span>
-      <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">sym</span>] = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">v</span> <span class="ruby-value">? </span><span class="ruby-identifier">v</span>.<span class="ruby-identifier">symbolize_keys!</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">v</span>
-      <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">sym</span>
-    <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">self</span>
-  <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/core_ext/hash.rb, line 4</span>
+ 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">symbolize_keys!</span>
+ 5:     <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+ 6:       <span class="ruby-identifier">sym</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_sym</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">k</span>
+ 7:       <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">sym</span>] = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">v</span> <span class="ruby-value">? </span><span class="ruby-identifier">v</span>.<span class="ruby-identifier">symbolize_keys!</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">v</span>
+ 8:       <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">sym</span>
+ 9:     <span class="ruby-keyword kw">end</span>
+10:     <span class="ruby-keyword kw">self</span>
+11:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

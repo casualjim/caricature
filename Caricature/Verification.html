@@ -59,15 +59,15 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000098">::new</a></li>
+					<li><a href="#M000100">::new</a></li>
 					
-					<li><a href="#M000104">#allow_any_arguments</a></li>
+					<li><a href="#M000103">#allow_any_arguments</a></li>
 					
 					<li><a href="#M000101">#any_args?</a></li>
 					
-					<li><a href="#M000105">#matches?</a></li>
+					<li><a href="#M000104">#matches?</a></li>
 					
-					<li><a href="#M000106">#successful?</a></li>
+					<li><a href="#M000105">#successful?</a></li>
 					
 					<li><a href="#M000102">#with</a></li>
 					
@@ -86,13 +86,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -179,8 +173,6 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
-					<li><a href="../MyClass.html">MyClass</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -217,7 +209,7 @@ assertion
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000098"></a>
+				<a name="M000100"></a>
 
 				<div class="method-heading">
 				
@@ -238,10 +230,10 @@ Initializes a new instance of a <tt>Verification</tt>
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 8</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>)
-      <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@any_args</span>, <span class="ruby-ivar">@recorder</span>, <span class="ruby-ivar">@mode</span> = <span class="ruby-identifier">method_name</span>, [], <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">mode</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 8</span>
+ 8:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>)
+ 9:       <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@any_args</span>, <span class="ruby-ivar">@recorder</span>, <span class="ruby-ivar">@mode</span> = <span class="ruby-identifier">method_name</span>, [], <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">mode</span>
+10:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -257,7 +249,7 @@ Initializes a new instance of a <tt>Verification</tt>
 
 		
 			<div id="allow-any-arguments-method" class="method-detail ">
-				<a name="M000104"></a>
+				<a name="M000103"></a>
 
 				<div class="method-heading">
 				
@@ -278,11 +270,11 @@ allow any arguments ignore the argument constraint
 					<div class="method-source-code"
 						id="allow-any-arguments-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 26</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_any_arguments</span>
-      <span class="ruby-ivar">@any_args</span> = <span class="ruby-keyword kw">true</span>
-      <span class="ruby-keyword kw">self</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 26</span>
+26:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_any_arguments</span>
+27:       <span class="ruby-ivar">@any_args</span> = <span class="ruby-keyword kw">true</span>
+28:       <span class="ruby-keyword kw">self</span>
+29:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -313,10 +305,10 @@ indicates whether this verification can be for any arguments
 					<div class="method-source-code"
 						id="any-args--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 13</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">any_args?</span>
-      <span class="ruby-ivar">@any_args</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 13</span>
+13:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">any_args?</span>
+14:       <span class="ruby-ivar">@any_args</span>
+15:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -326,7 +318,7 @@ indicates whether this verification can be for any arguments
 
 		
 			<div id="matches--method" class="method-detail ">
-				<a name="M000105"></a>
+				<a name="M000104"></a>
 
 				<div class="method-heading">
 				
@@ -347,10 +339,10 @@ figure out if this argument variation matches the provided args.
 					<div class="method-source-code"
 						id="matches--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 32</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-ivar">@method_name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">method_name</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">any_args?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@args</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">args</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 32</span>
+32:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+33:       <span class="ruby-ivar">@method_name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">method_name</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">any_args?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@args</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">args</span>
+34:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -360,7 +352,7 @@ figure out if this argument variation matches the provided args.
 
 		
 			<div id="successful--method" class="method-detail ">
-				<a name="M000106"></a>
+				<a name="M000105"></a>
 
 				<div class="method-heading">
 				
@@ -381,11 +373,11 @@ indicate that this method verification is successful
 					<div class="method-source-code"
 						id="successful--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 37</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">successful?</span>
-      <span class="ruby-identifier">a</span> = <span class="ruby-identifier">any_args?</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">:any</span>] <span class="ruby-operator">:</span> <span class="ruby-ivar">@args</span>
-      <span class="ruby-ivar">@recorder</span>.<span class="ruby-identifier">was_called?</span>(<span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@mode</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">a</span>)
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 37</span>
+37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">successful?</span>
+38:       <span class="ruby-identifier">a</span> = <span class="ruby-identifier">any_args?</span> <span class="ruby-value">? </span>[<span class="ruby-identifier">:any</span>] <span class="ruby-operator">:</span> <span class="ruby-ivar">@args</span>
+39:       <span class="ruby-ivar">@recorder</span>.<span class="ruby-identifier">was_called?</span>(<span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@mode</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">a</span>)
+40:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -416,13 +408,13 @@ constrain this verification to the provided arguments
 					<div class="method-source-code"
 						id="with-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 18</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-ivar">@any_args</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
-      <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span> 
-     <span class="ruby-comment cmt"># @callback = b if b</span>
-      <span class="ruby-keyword kw">self</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/verification.rb, line 18</span>
+18:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+19:       <span class="ruby-ivar">@any_args</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:any</span>
+20:       <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span> 
+21:      <span class="ruby-comment cmt"># @callback = b if b</span>
+22:       <span class="ruby-keyword kw">self</span>
+23:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

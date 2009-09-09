@@ -59,9 +59,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000030">::new</a></li>
+					<li><a href="#M000028">::new</a></li>
 					
-					<li><a href="#M000031">#instance_member?</a></li>
+					<li><a href="#M000029">#instance_member?</a></li>
 					
 				</ul>
 			</div>
@@ -78,13 +78,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -171,8 +165,6 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
-					<li><a href="../MyClass.html">MyClass</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -249,7 +241,7 @@ the name of this member
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000030"></a>
+				<a name="M000028"></a>
 
 				<div class="method-heading">
 				
@@ -270,10 +262,10 @@ initializes a nem instance of member descriptor
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 48</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">return_type</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">is_instance_member</span>=<span class="ruby-keyword kw">true</span>)
-      <span class="ruby-ivar">@name</span>, <span class="ruby-ivar">@return_type</span>, <span class="ruby-ivar">@instance_member</span> = <span class="ruby-identifier">name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-identifier">is_instance_member</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">return_type</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">is_instance_member</span>=<span class="ruby-keyword kw">true</span>)
+49:       <span class="ruby-ivar">@name</span>, <span class="ruby-ivar">@return_type</span>, <span class="ruby-ivar">@instance_member</span> = <span class="ruby-identifier">name</span>, <span class="ruby-identifier">return_type</span>, <span class="ruby-identifier">is_instance_member</span>
+50:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -289,7 +281,7 @@ initializes a nem instance of member descriptor
 
 		
 			<div id="instance-member--method" class="method-detail ">
-				<a name="M000031"></a>
+				<a name="M000029"></a>
 
 				<div class="method-heading">
 				
@@ -310,10 +302,10 @@ indicates whether this member is a class member or an instance member
 					<div class="method-source-code"
 						id="instance-member--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 53</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_member?</span>
-      <span class="ruby-ivar">@instance_member</span>
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/descriptor.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_member?</span>
+54:       <span class="ruby-ivar">@instance_member</span>
+55:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>

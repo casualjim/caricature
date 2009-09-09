@@ -59,13 +59,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000091">::new</a></li>
+					<li><a href="#M000096">::new</a></li>
 					
-					<li><a href="#M000093">#record_call</a></li>
+					<li><a href="#M000097">#record_call</a></li>
 					
-					<li><a href="#M000097">#size</a></li>
+					<li><a href="#M000099">#size</a></li>
 					
-					<li><a href="#M000095">#was_called?</a></li>
+					<li><a href="#M000098">#was_called?</a></li>
 					
 				</ul>
 			</div>
@@ -82,13 +82,7 @@
 				<h3 class="section-header">Files</h3>
 				<ul>
 				
-					<li class="file"><a href="../PostInstall_txt.html">PostInstall.txt</a></li>
-				
-					<li class="file"><a href="../README_markdown.html">README.markdown</a></li>
-				
 					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-				
-					<li class="file"><a href="../Rakefile.html">Rakefile</a></li>
 				
 				</ul>
 			</div>
@@ -175,8 +169,6 @@
 				
 					<li><a href="../Module.html">Module</a></li>
 				
-					<li><a href="../MyClass.html">MyClass</a></li>
-				
 					<li><a href="../Object.html">Object</a></li>
 				
 					<li><a href="../String.html">String</a></li>
@@ -237,7 +229,7 @@ key
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000091"></a>
+				<a name="M000096"></a>
 
 				<div class="method-heading">
 				
@@ -260,10 +252,10 @@ recorder
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 95</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-      <span class="ruby-ivar">@method_calls</span> = {<span class="ruby-identifier">:instance</span> =<span class="ruby-operator">&gt;</span> {}, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> {} }      
-    <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+96:       <span class="ruby-ivar">@method_calls</span> = {<span class="ruby-identifier">:instance</span> =<span class="ruby-operator">&gt;</span> {}, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> {} }      
+97:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -279,7 +271,7 @@ recorder
 
 		
 			<div id="record-call-method" class="method-detail ">
-				<a name="M000093"></a>
+				<a name="M000097"></a>
 
 				<div class="method-heading">
 				
@@ -301,14 +293,14 @@ was called.
 					<div class="method-source-code"
 						id="record-call-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 100</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">record_call</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-      <span class="ruby-identifier">mn_sym</span> = <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>
-      <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mode</span>][<span class="ruby-identifier">mn_sym</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">MethodCallRecording</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">method_name</span>
-      <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mode</span>][<span class="ruby-identifier">mn_sym</span>]
-      <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-      <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">add_argument_variation</span> <span class="ruby-identifier">args</span>, <span class="ruby-identifier">block</span> 
-    <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 100</span>
+100:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">record_call</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+101:       <span class="ruby-identifier">mn_sym</span> = <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>
+102:       <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mode</span>][<span class="ruby-identifier">mn_sym</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">MethodCallRecording</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">method_name</span>
+103:       <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mode</span>][<span class="ruby-identifier">mn_sym</span>]
+104:       <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+105:       <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">add_argument_variation</span> <span class="ruby-identifier">args</span>, <span class="ruby-identifier">block</span> 
+106:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -318,7 +310,7 @@ was called.
 
 		
 			<div id="size-method" class="method-detail ">
-				<a name="M000097"></a>
+				<a name="M000099"></a>
 
 				<div class="method-heading">
 				
@@ -339,10 +331,10 @@ returns the number of different methods that has been recorderd
 					<div class="method-source-code"
 						id="size-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 124</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">size</span>
-      <span class="ruby-ivar">@method_calls</span>.<span class="ruby-identifier">size</span>
-    <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 124</span>
+124:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">size</span>
+125:       <span class="ruby-ivar">@method_calls</span>.<span class="ruby-identifier">size</span>
+126:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -352,7 +344,7 @@ returns the number of different methods that has been recorderd
 
 		
 			<div id="was-called--method" class="method-detail ">
-				<a name="M000095"></a>
+				<a name="M000098"></a>
 
 				<div class="method-heading">
 				
@@ -374,15 +366,15 @@ constraints
 					<div class="method-source-code"
 						id="was-called--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 109</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">was_called?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mode</span>][<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>]
-      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mc</span>    
-        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">find_argument_variations</span>(<span class="ruby-identifier">args</span>).<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">args</span>        
-      <span class="ruby-keyword kw">else</span>
-        <span class="ruby-keyword kw">return</span> <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">mc</span>
-      <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/method_call_recorder.rb, line 109</span>
+109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">was_called?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">mode</span>=<span class="ruby-identifier">:instance</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+110:       <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">method_calls</span>[<span class="ruby-identifier">mode</span>][<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>]
+111:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mc</span>    
+112:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">find_argument_variations</span>(<span class="ruby-identifier">args</span>).<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">args</span>        
+113:       <span class="ruby-keyword kw">else</span>
+114:         <span class="ruby-keyword kw">return</span> <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">mc</span>
+115:       <span class="ruby-keyword kw">end</span>
+116:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
