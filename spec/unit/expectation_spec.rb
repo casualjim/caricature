@@ -36,6 +36,10 @@ describe "Caricature::ExpectationBuilder" do
 
     it "should have no return_value" do
       @expectation.return_value.should.equal nil
+    end                
+    
+    it "should have no callback" do
+      @expectation.should.not.has_callback?
     end
 
   end

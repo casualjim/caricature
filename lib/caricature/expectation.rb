@@ -38,10 +38,10 @@ module Caricature
     # tell the expection which arguments it needs to respond to
     # there is a magic argument here +any+ which configures
     # the expectation to respond to any arguments
-    def with(*args)
+    def with(*args, &b)
       @any_args = args.first.is_a?(Symbol) and args.first == :any
       @args = args   
-      @callback = lambda { |*ags| yield *ags } if block_given?
+      @callback = b unless b.nil?
       self
     end
 
@@ -128,7 +128,7 @@ module Caricature
       !@super.nil?
     end      
     
-    def has_callback?
+    def has_callback? 
       !@callback.nil?
     end
     
@@ -136,7 +136,7 @@ module Caricature
     def execute(*margs)
       ags = any_args? ? (margs.empty? ? :any : margs) : args
       actual_raise *@error_args if has_error_args?    
-      callback.call(*margs) if has_callback?
+      callback.call(*ags) if has_callback?
       return return_value if has_return_value? 
       nil
     end
