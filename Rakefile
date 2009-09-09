@@ -132,7 +132,7 @@ begin
     s.extra_rdoc_files = RDOC_FILES
     s.rdoc_options = RDOC_OPTIONS
     s.required_ruby_version = ">= 1.8.4"  
-    s.add_runtime_dependency(%q<uuidtools>, [">= 2.0.0"])
+    s.add_dependency 'uuidtools', ">= 2.0.0"
   end
 
   Rake::GemPackageTask.new(spec) do |pkg|

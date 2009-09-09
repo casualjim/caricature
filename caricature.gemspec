@@ -4,14 +4,16 @@
 Gem::Specification.new do |s|
   s.authors = ["Ivan Porto Carrero"]
   s.bindir = "bin"
-  s.add_dependency "uuidtools", ">= 2.0.0, runtime"
+  s.add_dependency "uuidtools", ">= 2.0.0"
   s.description = "Caricature brings simple mocking to Ruby, DLR and CLR."
   s.email = "ivan@flanders.co.nz"
   s.extra_rdoc_files = ["README.rdoc"]
   s.files = ["README.rdoc",
  "Rakefile",
  "caricature.gemspec",
+ "lib/caricature",
  "lib/caricature.rb",
+ "lib/caricature/clr",
  "lib/caricature/clr.rb",
  "lib/caricature/clr/aspnet_mvc.rb",
  "lib/caricature/clr/descriptor.rb",
@@ -26,6 +28,7 @@ Gem::Specification.new do |s|
  "lib/caricature/method_call_recorder.rb",
  "lib/caricature/verification.rb",
  "lib/caricature/version.rb",
+ "lib/core_ext",
  "lib/core_ext/array.rb",
  "lib/core_ext/class.rb",
  "lib/core_ext/core_ext.rb",
@@ -33,17 +36,22 @@ Gem::Specification.new do |s|
  "lib/core_ext/module.rb",
  "lib/core_ext/object.rb",
  "lib/core_ext/string.rb",
+ "lib/core_ext/system",
  "lib/core_ext/system/string.rb",
  "lib/core_ext/system/type.rb",
  "spec/bacon_helper.rb",
+ "spec/bin",
  "spec/bin/ClrModels.dll",
  "spec/bin/ClrModels.dll.mdb",
+ "spec/integration",
  "spec/integration/callback_spec.rb",
  "spec/integration/clr_to_clr_spec.rb",
  "spec/integration/clr_to_ruby_spec.rb",
  "spec/integration/indexer_spec.rb",
  "spec/integration/ruby_to_ruby_spec.rb",
+ "spec/models",
  "spec/models/ClrModels.cs",
+ "spec/unit",
  "spec/unit/core_ext_spec.rb",
  "spec/unit/descriptor_spec.rb",
  "spec/unit/expectation_spec.rb",
