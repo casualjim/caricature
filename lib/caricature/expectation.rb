@@ -102,9 +102,9 @@ module Caricature
     attr_reader :callback
 
     # Initializes a new instance of an expectation
-    def initialize(method_name, args, error_args, return_value, super_mode)
-      @method_name, @args, @error_args, @return_value, @super =
-              method_name, args, error_args, return_value, super_mode
+    def initialize(method_name, args, error_args, return_value, super_mode, callback)
+      @method_name, @args, @error_args, @return_value, @super, @callback =
+              method_name, args, error_args, return_value, super_mode, callback
       @any_args = true
     end
 
@@ -128,6 +128,7 @@ module Caricature
       !@super.nil?
     end      
     
+    # indicates whether this expecation has a callback it needs to execute
     def has_callback? 
       !@callback.nil?
     end
@@ -160,15 +161,15 @@ module Caricature
     # this builder is passed into the block to allow only certain
     # operations in the block.
     def initialize(method_name)
-      @method_name, @return_value, @super, @block, @error_args, @args, @any_args = 
-              method_name, nil, nil, nil, nil, [], true
+      @method_name, @return_value, @super, @block, @error_args, @args, @any_args, @callback = 
+              method_name, nil, nil, nil, nil, [], true, nil
     end
 
 
 
     # build up the expectation with the provided arguments
     def build
-      Expectation.new @method_name, @args, @error_args, @return_value, @super
+      Expectation.new @method_name, @args, @error_args, @return_value, @super, @callback
     end
 
   end

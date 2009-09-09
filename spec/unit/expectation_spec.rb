@@ -70,6 +70,10 @@ describe "Caricature::ExpectationBuilder" do
 
     it "should have no return_value" do
       @expectation.return_value.should.equal nil
+    end 
+    
+    it "should have no callback" do
+      @expectation.should.not.has_callback?
     end
 
   end
@@ -193,6 +197,33 @@ describe "Caricature::ExpectationBuilder" do
       @expectation.return_value.should.equal 5
     end
 
+  end 
+  
+  describe "when giving a block to the arguments constraint it should register it as a callback" do      
+    
+    before do
+      builder = Caricature::ExpectationBuilder.new :some_method
+      @counter, @args = 0, []
+      builder.with(5) do |*args| 
+        @counter += 1 
+        @args = args
+      end
+      @expectation = builder.build
+    end
+    
+    it "should have a callback" do
+      @expectation.should.has_callback?
+    end                                
+    
+    it "should call the callback when the expectation is called" do
+      @expectation.execute
+      @counter.should == 1
+    end  
+    
+    it "should pass on the correct arguments" do
+      @expectation.execute 1, 2, 3
+      @args.should == [1, 2, 3]
+    end
   end
 
 end

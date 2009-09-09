@@ -1,4 +1,6 @@
 bin/*
 spec/bin/*.dll
-spec/bin/*.pdb
+spec/bin/*.?db
+rdoc/
+pkg/
 .idea

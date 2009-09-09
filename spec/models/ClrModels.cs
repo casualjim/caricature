@@ -88,7 +88,7 @@ namespace ClrModels{
 
 	public class Sword : IWeapon {
 
-	    public int Attack(IWarrior warrior){
+	    public virtual int Attack(IWarrior warrior){
 	        return warrior.SurviveAttackWith(this);
 	    }
 

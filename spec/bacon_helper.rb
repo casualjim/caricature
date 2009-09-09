@@ -7,14 +7,10 @@ $: << File.dirname(__FILE__) + "/../lib"
 
 # load the caricature library
 require "caricature"
-require 'caricature/clr' if defined? IRONRUBY_VERSION
 
 require 'rubygems'
 # load the bacon library
 require 'bacon'
-
-# Add the .NET framework
-require 'mscorlib' if defined? IRONRUBY_VERSION
 
 # load the assembly with the C# code
 require 'ClrModels.dll' if defined? IRONRUBY_VERSION

@@ -15,19 +15,19 @@ In Moq it would be the Loose mocking strategy.
 The naming of the methods for creating mocks is the one that JP Boodhoo proposed WhenToldTo and WasToldTo.
 To specify a stub/expectation on an isolation you have one and only one way of doing that with the method called when_receiving.
 Then only if you're interested in asserting if a method has been called you can use the did_receive? method for this.
+                                                   
 
-<pre>
-isolation = Isolation.for(Ninja)
-isolation.when_receiving(:attack) do |exp|
-  exp.with(:shuriken)
-  exp.return(3)
-end
+    isolation = Isolation.for(Ninja)
+    isolation.when_receiving(:attack) do |exp|
+    exp.with(:shuriken)
+    exp.return(3)
+    end
 
-Battle.new(mock)
-battle.combat
+    Battle.new(mock)
+    battle.combat
 
-isolation.did_receive?(:attack).should.be.true?
-</pre>
+    isolation.did_receive?(:attack).should.be.successful
+
 
 It may be very important to note that when you're going to be isolating CLR classes to be used in other CLR classes
 you still need to obide by the CLR rules. That means if you want to redefine a method you'll need to make sure it's

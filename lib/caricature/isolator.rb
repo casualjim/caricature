@@ -204,7 +204,6 @@ module Caricature
     # Creates the new class name for the isolation
     def class_name(subj)
       nm = subj.respond_to?(:class_eval) ? subj.demodulize : subj.class.demodulize
-#      @class_name = "#{nm}#{System::Guid.new_guid.to_string('n')}"
       @class_name = "#{nm}#{UUIDTools::UUID.random_create.to_s.gsub /-/, ''}"
       @class_name
     end

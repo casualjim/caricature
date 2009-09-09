@@ -2,14 +2,6 @@ module Caricature
 
   # Contains the logic to collect members from a CLR type
   module ClrMemberCollector
-    
-    def instance_flags
-      System::Reflection::BindingFlags.public | System::Reflection::BindingFlags.instance
-    end   
-    
-    def static_flags
-      System::Reflection::BindingFlags.public | System::Reflection::BindingFlags.static
-    end
 
     private
       # collects the instance members for a CLR type.
@@ -34,6 +26,16 @@ module Caricature
       def property_name_from(property_info)
         return property_info.name.underscore if property_info.get_index_parameters.empty?
         "__getitem__"
+      end     
+      
+      # the binding flags for instance members of a CLR type
+      def instance_flags
+        System::Reflection::BindingFlags.public | System::Reflection::BindingFlags.instance
+      end   
+      
+      # the binding flags for class members of a CLR type
+      def class_flags
+        System::Reflection::BindingFlags.public | System::Reflection::BindingFlags.static
       end
 
   end
@@ -70,8 +72,8 @@ module Caricature
     def initialize_instance_members_for(klass)
       clr_type = klass.to_clr_type
 
-      methods = clr_type.get_methods(instance_flags) #Workarounds::ReflectionHelper.get_instance_methods(clr_type)
-      properties = clr_type.get_properties(instance_flags) #Workarounds::ReflectionHelper.get_instance_properties(clr_type)
+      methods = clr_type.get_methods(instance_flags) 
+      properties = clr_type.get_properties(instance_flags) 
 
       @instance_members = collect_members_from methods, properties
     end
@@ -80,8 +82,8 @@ module Caricature
     def initialize_class_members_for(klass)
       clr_type = klass.to_clr_type
 
-      methods = clr_type.get_methods(static_flags) #Workarounds::ReflectionHelper.get_class_methods(clr_type)
-      properties = clr_type.get_properties(static_flags) #Workarounds::ReflectionHelper.get_class_properties(clr_type)
+      methods = clr_type.get_methods(class_flags) 
+      properties = clr_type.get_properties(class_flags) 
 
       @class_members = collect_members_from methods, properties, false
     end
