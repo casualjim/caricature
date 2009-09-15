@@ -49,7 +49,11 @@ module Caricature
 
     def add_block_variation(*args)
       bv = find_block_variation(*args)
-      blocks << BlockCallRecording.new(*args)
+      if bv.empty?
+        blocks << BlockCallRecording.new(*args)
+      else
+        bv.first.call_number += 1
+      end
     end
 
     def find_block_variation(*args)
@@ -108,7 +112,7 @@ module Caricature
 
     # add an argument variation
     def add_argument_variation(args, block)
-      variation = find_argument_variations args
+      variation = find_argument_variations args, nil
       if variation.empty?
         @variations << ArgumentRecording.new(args, @variations.size+1, block) if variation == []
       else
@@ -117,9 +121,14 @@ module Caricature
     end
 
     # finds an argument variation that matches the provided +args+
-    def find_argument_variations(args)
-      return @variations if args.first.is_a?(Symbol) and args.first == :any
-      @variations.select { |ar| ar.args == args }
+    def find_argument_variations(args, block_args)
+      return @variations if args.first.is_a?(Symbol) and args.last == :any
+      return @variations.select { |ar| ar.args == args } if block_args.nil?
+      return @variations.select { |ar| ar.args == args and ar.block } if block_args.last == :any
+      return @variations.select do |ar|
+        av = ar.args == args
+        av and not ar.find_block_variation(*block_args).empty?
+      end
     end
   end
 
@@ -146,20 +155,24 @@ module Caricature
       agc = mc.add_argument_variation args, block
       b = (expectation && expectation.block) ? (expectation.block||block) : block
       expectation.block = lambda do |*ags|
-        b.call *ags if b
+        res = nil
+        res = b.call *ags if b
         agc.first.add_block_variation *ags
+        res
       end if expectation
-      (block.nil? ? nil : lambda { |*ags|
-        block.call *ags if block
+      block.nil? ? nil : (lambda { |*ags|
+        res = nil
+        res = block.call *ags if block
         agc.first.add_block_variation *ags
+        res
       })
-    end
+      end
 
     # returns whether the method was actually called with the specified constraints
-    def was_called?(method_name, mode=:instance, *args)
+    def was_called?(method_name, block_args, mode=:instance, *args)
       mc = method_calls[mode][method_name.to_s.to_sym]  
       if mc
-        return mc.find_argument_variations(args).first == args        
+        return mc.find_argument_variations(args, block_args).first == args
       else
         return !!mc
       end

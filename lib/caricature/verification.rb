@@ -6,7 +6,7 @@ module Caricature
 
     # Initializes a new instance of a +Verification+
     def initialize(method_name, recorder, mode=:instance)
-      @method_name, @args, @any_args, @recorder, @mode = method_name, [], true, recorder, mode
+      @method_name, @args, @any_args, @recorder, @mode, @block_args = method_name, [], true, recorder, mode, nil
     end
 
     # indicates whether this verification can be for any arguments
@@ -20,6 +20,10 @@ module Caricature
       @args = args 
      # @callback = b if b
       self
+    end
+
+    def with_block_args(*args)
+      @block_args = args
     end
 
     # allow any arguments ignore the argument constraint
@@ -36,7 +40,7 @@ module Caricature
     # indicate that this method verification is successful
     def successful?
       a = any_args? ? [:any] : @args
-      @recorder.was_called?(@method_name, @mode, *a)
+      @recorder.was_called?(@method_name, @block_args, @mode, *a)
     end
 
   end
