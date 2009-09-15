@@ -30,6 +30,10 @@ module Caricature
       other = self.class.new(other) if other.respond_to?(:each)
       return true if other.args.first.is_a?(Symbol) and other.args.first == :any 
       other.args == args
+    end   
+    
+    def to_s
+      "<ArgumentRecording @args=#{args}, @block= #{block}, @call_number=#{call_number}"
     end
   end
 
@@ -107,7 +111,11 @@ module Caricature
 
     # returns whether the method was actually called with the specified constraints
     def was_called?(method_name, mode=:instance, *args)
-      mc = method_calls[mode][method_name.to_s.to_sym]
+      mc = method_calls[mode][method_name.to_s.to_sym]  
+      # print "arguments: "
+      # pp args
+      # print "actual: "
+      # pp mc.args if mc  
       if mc    
         return mc.find_argument_variations(args).first == args        
       else

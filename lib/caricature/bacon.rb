@@ -1,0 +1,1 @@
+require 'caricature/bacon/integration'

@@ -2,15 +2,6 @@ module Caricature
 
   class Isolation
     
-    def internal_create_override(method_name, mode=:instance, &block)
-      builder = ExpectationBuilder.new method_name
-      block.call builder unless block.nil?
-      exp = builder.build           
-      
-      expectations.add_expectation exp, mode
-      exp
-    end
-
     class << self
 
       # Creates an isolation object complete with proxy and method call recorder
@@ -34,8 +25,18 @@ module Caricature
           return ClrInterfaceIsolator if subject.respond_to? :class_eval and !subject.respond_to? :new
           ClrIsolator
         end
-    end
+    end 
     
+    protected
+    
+      def internal_create_override(method_name, mode=:instance, &block)
+        builder = ExpectationBuilder.new method_name
+        block.call builder unless block.nil?
+        exp = builder.build           
+      
+        expectations.add_expectation exp, mode
+        exp
+      end
 
   end
 

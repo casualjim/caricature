@@ -47,9 +47,16 @@ module Caricature
 
     # tell the expectation it nees to return this value or the value returned by the block
     # you provide to this method.
-    def return(value=nil)
+    def return(value=nil, &b)
       @return_value = value
-      @return_value ||= yield if block_given?
+      @return_callback = b if b
+      self
+    end
+
+    def pass_block(*args, &b)
+      @any_block_args = args.first.is_a?(Symbol) and args.first == :any
+      @block_args = args
+      @block_callback = b unless b.nil?
       self
     end
 
@@ -61,13 +68,17 @@ module Caricature
     end
 
     # tell the expecation it needs to call the super before the expectation exectution
-    def super_before
+    def super_before(&b)
       @super = :before
+      @block = b if b
+      self
     end
 
     # tell the expectation it needs to call the super after the expecation execution
-    def super_after
+    def super_after(&b)
       @super = :after
+      @block = b if b
+      self
     end
 
     # indicates whether this expectation should match with any arguments
@@ -101,10 +112,24 @@ module Caricature
     # contains the callback if one is given
     attr_reader :callback
 
+    # contains the callback that is used to return the value when this expectation
+    # is executed
+    attr_reader :return_callback
+
+    # contains the arguments that will be passed on to the block
+    attr_reader :block_args
+
+    # The block that will be used as value provider for the block in the method
+    attr_reader :block_callback
+
+    # the block that will be used
+    attr_reader :block
+
+
     # Initializes a new instance of an expectation
-    def initialize(method_name, args, error_args, return_value, super_mode, callback)
-      @method_name, @args, @error_args, @return_value, @super, @callback =
-              method_name, args, error_args, return_value, super_mode, callback
+    def initialize(*args)
+      @method_name, @args, @error_args, @return_value, @return_callback,
+              @super, @callback, @block_args, @block_callback, @block = *args
       @any_args = true
     end
 
@@ -131,13 +156,19 @@ module Caricature
     # indicates whether this expecation has a callback it needs to execute
     def has_callback? 
       !@callback.nil?
+    end           
+    
+    # a flag to indicate it has a return value callback
+    def has_return_callback?
+      !@return_callback.nil?
     end
     
     # executes this expectation with its configuration
-    def execute(*margs)
+    def execute(*margs,&b)
       ags = any_args? ? (margs.empty? ? :any : margs) : args
       actual_raise *@error_args if has_error_args?    
-      callback.call(*ags) if has_callback?
+      callback.call(*ags) if has_callback?   
+      return @return_callback.call(*margs) if has_return_callback?
       return return_value if has_return_value? 
       nil
     end
@@ -161,15 +192,14 @@ module Caricature
     # this builder is passed into the block to allow only certain
     # operations in the block.
     def initialize(method_name)
-      @method_name, @return_value, @super, @block, @error_args, @args, @any_args, @callback = 
-              method_name, nil, nil, nil, nil, [], true, nil
+      @method_name, @args, @any_args = method_name, [], true
     end
 
 
 
     # build up the expectation with the provided arguments
     def build
-      Expectation.new @method_name, @args, @error_args, @return_value, @super, @callback
+      Expectation.new @method_name, @args, @error_args, @return_value, @return_callback, @super, @callback, @block_args, @block_callback, @block
     end
 
   end

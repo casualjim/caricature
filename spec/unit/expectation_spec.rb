@@ -102,8 +102,12 @@ describe "Caricature::ExpectationBuilder" do
       @expectation.error_args.should.equal nil
     end
 
+    it "should have a return callback" do
+      @expectation.return_callback.should.not.be.nil
+    end
+
     it "should have the correct return_value" do
-      @expectation.return_value.should.equal 5
+      @expectation.return_callback.call.should.equal 5
     end
 
   end

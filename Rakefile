@@ -92,8 +92,8 @@ Rake::RDocTask.new do |rd|
   # This requires that graphiz (dot) be installed as a local binary and on your path.
   # See : http://www.graphviz.org/
   # Please don't check this change in to the source repo as it introduces a binary dependency.
-  #rd.options << '--diagram'
-  #rd.options << '--fileboxes'
+  rd.options << '--diagram'
+  rd.options << '--fileboxes'
 
 end
 
