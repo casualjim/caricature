@@ -219,6 +219,28 @@ describe "Caricature::Messenger strategies" do
 
     end
 
+    describe "when an expectation with a block has been defined" do
+
+      it "should invoke the block that is passed with the args from the expectation only once"  do
+        messenger = Caricature::ClrClassMessenger.new BlockExpectations.new
+        counter = 0
+        arguments = []
+        messenger.deliver(:a_message, nil) do |*args|
+          counter += 1
+          arguments = args
+        end
+        counter.should == 1
+        [5,6,7].should == arguments
+      end
+
+      it "should call the block that is defined on the expectation by super when call super is enabled" do
+        messenger = Caricature::ClrClassMessenger.new BlockExpectations.new(false), CallingBlock.new
+        result = messenger.deliver(:a_message, nil)
+        [7,8,9].should == result
+      end
+
+    end
+
   end
 
   describe "Caricature::ClrInterfaceMessenger" do
@@ -255,6 +277,22 @@ describe "Caricature::Messenger strategies" do
       it "should not call call_super? after executing the expectation" do
         @messenger.deliver(:a_message, nil)
         @messenger.expectations.expectation.should.not.have_called_call_super
+      end
+
+    end
+
+    describe "when an expectation with a block has been defined" do
+
+      it "should invoke the block that is passed with the args from the expectation only once"  do
+        messenger = Caricature::ClrInterfaceMessenger.new BlockExpectations.new
+        counter = 0
+        arguments = []
+        messenger.deliver(:a_message, nil) do |*args|
+          counter += 1
+          arguments = args
+        end
+        counter.should == 1
+        [5,6,7].should == arguments
       end
 
     end
