@@ -44,7 +44,7 @@ module Caricature
       def internal_deliver(mode, method_name, return_type, *args, &b)   
         exp = expectations.find(method_name, mode, *args)
         if exp     
-          block = b #exp.block || b
+          block = exp.block || b
           res = instance.__send__(method_name, *args, &block) if exp.super_before?
           res = exp.execute *args, &b
           res = instance.__send__(method_name, *args, &block) if !exp.super_before? and exp.call_super?

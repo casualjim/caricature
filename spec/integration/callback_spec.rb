@@ -139,7 +139,7 @@ describe "Callbacks on expectations" do
       cnt.should == 1
     end   
     
-    it "should execute a callback when an expectation is being invoked and with is not defined in a block" do
+    it "should execute a callback when an expectation is being invoked and with is defined in a block" do
       cnt = 0
       iso = Caricature::Isolation.for(Dagger) 
       iso.when_receiving(:damage) do |exp| 

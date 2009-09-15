@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + "/../bacon_helper"
 
 class EmptyExpectations
+
   def find(method_name, *args, &b)
     nil
   end
@@ -12,6 +13,10 @@ class ReturnValueExpecation
     @super_before_called = false
     @call_super_called = false
     @called_super_after = false
+  end
+
+  def block
+    nil
   end
 
   def super_before?
@@ -39,6 +44,7 @@ class ReturnValueExpecation
 end
 
 class ReturnValueExpectations
+
   def expectation
     @expectation ||= ReturnValueExpecation.new
     @expectation
@@ -48,6 +54,72 @@ class ReturnValueExpectations
     nil
   end
 end
+
+class PassThruBlockExpectation
+
+  def block
+    nil
+  end
+
+  def block_args
+    [5,6,7]
+  end
+
+  def execute(*args, &b)
+    b.call *block_args
+  end
+
+  def super_before?
+    false
+  end
+
+  def call_super?
+    false
+  end
+
+end
+
+class CallingBlock
+  def a_message(*args, &b)
+    b.call(7,8,9)
+  end
+end
+
+class BlockExpectation
+  def block
+    lambda { |*args| return args }
+  end
+
+  def super_before?
+    false
+  end
+
+  def call_super?
+    true
+  end
+
+  def execute(*args, &b)
+
+  end
+
+end
+
+class BlockExpectations
+
+  def initialize(pass_thru=true)
+    @pass_thru = pass_thru
+  end
+
+  def expectation
+    @expectation ||= (@pass_thru ? PassThruBlockExpectation.new : BlockExpectation.new)
+    @expectation
+  end
+  def find(method_name, *args, &b)
+    return expectation  if method_name == :a_message
+    nil
+  end
+end
+
 
 describe "Caricature::Messenger strategies" do
 
@@ -84,7 +156,27 @@ describe "Caricature::Messenger strategies" do
 
     end
 
+    describe "when an expectation with a block has been defined" do
 
+      it "should invoke the block that is passed with the args from the expectation only once"  do
+        messenger = Caricature::RubyMessenger.new BlockExpectations.new
+        counter = 0
+        arguments = []
+        messenger.deliver(:a_message, nil) do |*args|
+          counter += 1
+          arguments = args
+        end
+        counter.should == 1
+        [5,6,7].should == arguments
+      end
+
+      it "should call the block that is defined on the expectation by super when call super is enabled" do
+        messenger = Caricature::RubyMessenger.new BlockExpectations.new(false), CallingBlock.new
+        result = messenger.deliver(:a_message, nil)
+        [7,8,9].should == result
+      end
+
+    end
 
 
   end

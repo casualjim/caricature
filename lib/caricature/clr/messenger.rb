@@ -11,9 +11,10 @@ module Caricature
         is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type 
         res = nil
         if exp
-          res = instance.__send__(method_name, *args, &b) if exp.super_before?
-          res = exp.execute *args
-          res = instance.__send__(method_name, *args, &b) if !exp.super_before? and exp.call_super?
+          block = exp.block || b
+          res = instance.__send__(method_name, *args, &block) if exp.super_before?
+          res = exp.execute *args, &b
+          res = instance.__send__(method_name, *args, &block) if !exp.super_before? and exp.call_super?
         end
         res ||= System::Activator.create_instance(return_type) if is_value_type     
         res
@@ -31,7 +32,7 @@ module Caricature
         res = nil                                               
         is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
         exp = expectations.find(method_name, mode, *args)
-        res = exp.execute *args if exp
+        res = exp.execute *args, &b if exp
         res ||= System::Activator.create_instance(return_type) if is_value_type  
         res
       end
