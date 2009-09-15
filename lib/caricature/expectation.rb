@@ -53,6 +53,7 @@ module Caricature
       self
     end
 
+    # Sets up arguments for the block that is being passed into the isolated method call
     def pass_block(*args, &b)
       @any_block_args = args.first.is_a?(Symbol) and args.first == :any
       @block_args = args
@@ -156,8 +157,13 @@ module Caricature
     # indicates whether this expecation has a callback it needs to execute
     def has_callback? 
       !@callback.nil?
-    end           
-    
+    end
+
+    # indicates whether this expectation has a block as value provider for the method call block
+    def has_block_callback?
+      !@block_callback.nil?
+    end
+
     # a flag to indicate it has a return value callback
     def has_return_callback?
       !@return_callback.nil?
@@ -167,7 +173,16 @@ module Caricature
     def execute(*margs,&b)
       ags = any_args? ? (margs.empty? ? :any : margs) : args
       actual_raise *@error_args if has_error_args?    
-      callback.call(*ags) if has_callback?   
+      callback.call(*ags) if has_callback?
+
+      if b
+        if has_block_callback?
+          b.call(*@block_callback.call)
+        else
+          b.call(*@block_args)
+        end
+      end
+
       return @return_callback.call(*margs) if has_return_callback?
       return return_value if has_return_value? 
       nil

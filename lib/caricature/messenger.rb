@@ -43,10 +43,11 @@ module Caricature
       # implementation of the template method for looking up the expectation and/or returning a value
       def internal_deliver(mode, method_name, return_type, *args, &b)   
         exp = expectations.find(method_name, mode, *args)
-        if exp
-          res = instance.__send__(method_name, *args, &b) if exp.super_before?
-          res = exp.execute *args
-          res = instance.__send__(method_name, *args, &b) if !exp.super_before? and exp.call_super?
+        if exp     
+          block = b #exp.block || b
+          res = instance.__send__(method_name, *args, &block) if exp.super_before?
+          res = exp.execute *args, &b
+          res = instance.__send__(method_name, *args, &block) if !exp.super_before? and exp.call_super?
           res
         else
           nil

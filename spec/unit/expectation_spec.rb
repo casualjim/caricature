@@ -230,4 +230,72 @@ describe "Caricature::ExpectationBuilder" do
     end
   end
 
+  describe "when giving a block to a super method it should register it" do
+
+    before do
+      builder = Caricature::ExpectationBuilder.new :some_method
+      @counter = 0
+      builder.super_after do
+        @counter += 1
+      end
+      @expectation = builder.build
+    end
+
+    it "should should have a callback" do
+      @expectation.block.should.not.be.nil
+    end
+
+    it "should pass on the correct callback" do
+      @expectation.block.call
+      @counter.should == 1
+    end
+
+  end
+
+  describe "when given arguments to the block pass method" do
+
+    before do
+      builder = Caricature::ExpectationBuilder.new :some_method
+      builder.pass_block(1,2,3)
+      @expectation = builder.build
+    end
+
+    it "should not have a block callback" do
+      @expectation.should.not.has_block_callback
+    end
+
+    it "should should execute the block with the provided arguments when executed" do
+      ags = []
+      @expectation.execute do |*args|
+        ags = args
+      end
+      ags.should == [1,2,3]
+    end
+
+  end
+
+  describe "when given arguments to the block pass method" do
+
+    before do
+      builder = Caricature::ExpectationBuilder.new :some_method
+      builder.pass_block do
+       [1,3,4]
+      end
+      @expectation = builder.build
+    end
+
+    it "should have a block callback" do
+      @expectation.should.has_block_callback
+    end
+
+    it "should execute the block with the result of the provided callback when executed" do
+      ags = []
+      @expectation.execute do |*args|
+        ags = args
+      end
+      ags.should == [1,3,4]
+    end
+
+  end
+
 end
