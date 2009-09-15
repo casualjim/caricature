@@ -124,7 +124,7 @@ module Caricature
     attr_reader :block_callback
 
     # the block that will be used
-    attr_reader :block
+    attr_accessor :block
 
 
     # Initializes a new instance of an expectation

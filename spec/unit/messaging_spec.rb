@@ -58,7 +58,11 @@ end
 class PassThruBlockExpectation
 
   def block
-    nil
+    @block
+  end
+
+  def block=(val)
+    @block=val
   end
 
   def block_args
@@ -160,6 +164,7 @@ describe "Caricature::Messenger strategies" do
 
       it "should invoke the block that is passed with the args from the expectation only once"  do
         messenger = Caricature::RubyMessenger.new BlockExpectations.new
+        messenger.recorder = Caricature::MethodCallRecorder.new
         counter = 0
         arguments = []
         messenger.deliver(:a_message, nil) do |*args|
@@ -171,8 +176,9 @@ describe "Caricature::Messenger strategies" do
       end
 
       it "should call the block that is defined on the expectation by super when call super is enabled" do
-        messenger = Caricature::RubyMessenger.new BlockExpectations.new(false), CallingBlock.new
-        result = messenger.deliver(:a_message, nil)
+        exp =  BlockExpectations.new(false)
+        messenger = Caricature::RubyMessenger.new exp, CallingBlock.new
+        result = messenger.deliver(:a_message, nil, exp.expectation)
         [7,8,9].should == result
       end
 
@@ -223,6 +229,7 @@ describe "Caricature::Messenger strategies" do
 
       it "should invoke the block that is passed with the args from the expectation only once"  do
         messenger = Caricature::ClrClassMessenger.new BlockExpectations.new
+        messenger.recorder = Caricature::MethodCallRecorder.new
         counter = 0
         arguments = []
         messenger.deliver(:a_message, nil) do |*args|
@@ -284,10 +291,12 @@ describe "Caricature::Messenger strategies" do
     describe "when an expectation with a block has been defined" do
 
       it "should invoke the block that is passed with the args from the expectation only once"  do
-        messenger = Caricature::ClrInterfaceMessenger.new BlockExpectations.new
+        exp = BlockExpectations.new
+        messenger = Caricature::ClrInterfaceMessenger.new exp
+        messenger.recorder = Caricature::MethodCallRecorder.new
         counter = 0
         arguments = []
-        messenger.deliver(:a_message, nil) do |*args|
+        messenger.deliver(:a_message, nil, exp.expectation) do |*args|
           counter += 1
           arguments = args
         end

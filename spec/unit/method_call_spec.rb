@@ -96,7 +96,7 @@ describe "MethodCallRecorder" do
   describe "when recording a call 1 argument" do
 
     before do
-      @recorder.record_call :my_method, :instance, 1
+      @recorder.record_call :my_method, :instance, nil, 1
     end
 
     it "should have 1 method call" do
@@ -140,7 +140,7 @@ describe "MethodCallRecorder" do
   describe "when recording a call 2 arguments" do
 
     before do
-      @recorder.record_call :my_method, :instance, 1, 2
+      @recorder.record_call :my_method, :instance, nil, 1, 2
     end
 
     it "should have 1 method call" do
@@ -214,7 +214,7 @@ describe "MethodCallRecorder" do
          @mc.block.should.equal nil
       end
 
-      it "should have a count a 1" do
+      it "should have a count of 2" do
         @mc.count.should.equal 2
       end
 
@@ -226,7 +226,7 @@ describe "MethodCallRecorder" do
 
     before do
       @recorder.record_call :my_method
-      @recorder.record_call :my_method, :instance, 1, 3, 4
+      @recorder.record_call :my_method, :instance, nil, 1, 3, 4
     end
 
     it "should have 1 method call" do
@@ -255,7 +255,7 @@ describe "MethodCallRecorder" do
          @mc.block.should.equal nil
       end
 
-      it "should have a count a 1" do
+      it "should have a count of 2" do
         @mc.count.should.equal 2
       end
 
@@ -267,7 +267,7 @@ describe "MethodCallRecorder" do
 
     before do
       @recorder.record_call :my_method
-      @recorder.record_call :my_method, :instance, 1, 3, 4
+      @recorder.record_call :my_method, :instance, nil, 1, 3, 4
     end
 
     it "should confirm when we don't care about the arguments" do

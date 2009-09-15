@@ -64,9 +64,9 @@ module Caricature
     # Initializes a new instance of this isolation.
     def initialize(isolator, context)
       @instance = isolator.subject
-      @recorder = context.recorder
       @messenger = context.messenger
-      @expectations = context.expectations 
+      @messenger.recorder = @recorder = context.recorder
+      @expectations = context.expectations
       @proxy = isolator.isolation
       isolator.isolation.class.instance_variable_set("@___context___", self)
     end
@@ -74,14 +74,12 @@ module Caricature
     # record and send the message to the isolation.
     # takes care of following expectations rules when sending messages.
     def send_message(method_name, return_type, *args, &b)
-      recorder.record_call method_name, :instance, *args, &b
       @messenger.deliver(method_name, return_type, *args, &b)
     end
 
     # record and send the message to the isolation.
     # takes care of following expectations rules when sending messages.
     def send_class_message(method_name, return_type, *args, &b)
-      recorder.record_call method_name, :class, *args, &b
       @messenger.deliver_to_class(method_name, return_type, *args, &b)
     end
 

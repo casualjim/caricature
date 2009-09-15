@@ -1,5 +1,24 @@
 module Caricature
 
+  class BlockCallRecording
+    attr_accessor :call_number
+    attr_reader :args
+
+    def initialize(*args)
+      @call_number = 1
+      @args = args
+    end
+
+    # compares one block variation to another.
+    # Also takes an array as an argument
+    def ==(other)
+      other = self.class.new(other) if other.respond_to?(:each)
+      return true if other.args.first.is_a?(Symbol) and other.args.first == :any
+      other.args == args
+    end
+
+  end
+
   # A recording of an argument variation.
   # Every time a method is called with different arguments
   # the method call recorder will create an ArgumentVariation
@@ -16,12 +35,26 @@ module Caricature
     # the number of the call that has the following parameters
     attr_accessor :call_number
 
+    # the collection of block calls variations on this argument variation 
+    attr_reader :blocks
+
     # initializes a new instance of an argument recording.
     # configures it with 1 call count and the args as an +Array+
     def initialize(args=[], call_number=1, block=nil)
       @args = args
       @block = block
+      @blocks = []
       @call_number = call_number
+    end
+
+    def add_block_variation(*args)
+      bv = find_block_variation(*args)
+      blocks << BlockCallRecording.new(*args)
+    end
+
+    def find_block_variation(*args)
+      return @blocks if args.last.is_a?(Symbol) and args.last == :any
+      @blocks.select { |bv| bv.args == args }
     end
 
     # compares one argument variation to another.
@@ -76,7 +109,11 @@ module Caricature
     # add an argument variation
     def add_argument_variation(args, block)
       variation = find_argument_variations args
-      @variations << ArgumentRecording.new(args, @variations.size+1, block) if variation == []
+      if variation.empty?
+        @variations << ArgumentRecording.new(args, @variations.size+1, block) if variation == []
+      else
+        variation.first.call_number += 1
+      end
     end
 
     # finds an argument variation that matches the provided +args+
@@ -101,12 +138,21 @@ module Caricature
     end
 
     # records a method call or increments the count of how many times this method was called.
-    def record_call(method_name, mode=:instance, *args, &block)
+    def record_call(method_name, mode=:instance, expectation=nil, *args, &block)
       mn_sym = method_name.to_s.to_sym
       method_calls[mode][mn_sym] ||= MethodCallRecording.new method_name
       mc = method_calls[mode][mn_sym]
       mc.count += 1
-      mc.add_argument_variation args, block 
+      agc = mc.add_argument_variation args, block
+      b = (expectation && expectation.block) ? (expectation.block||block) : block
+      expectation.block = lambda do |*ags|
+        b.call *ags if b
+        agc.first.add_block_variation *ags
+      end if expectation
+      (block.nil? ? nil : lambda { |*ags|
+        block.call *ags if block
+        agc.first.add_block_variation *ags
+      })
     end
 
     # returns whether the method was actually called with the specified constraints
