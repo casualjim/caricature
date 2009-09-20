@@ -72,6 +72,7 @@ module Caricature
     def to_s
       "<ArgumentRecording @args=#{args}, @block= #{block}, @call_number=#{call_number}"
     end
+    alias_method :inspect, :to_s
   end
 
   # A recording that represents a method call
@@ -172,7 +173,9 @@ module Caricature
     def was_called?(method_name, block_args, mode=:instance, *args)
       mc = method_calls[mode][method_name.to_s.to_sym]  
       if mc
-        return mc.find_argument_variations(args, block_args).first == args
+         result = mc.find_argument_variations(args, block_args).first == args
+         raise ArgumentError, "Arguments don't match.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
+         result
       else
         return !!mc
       end

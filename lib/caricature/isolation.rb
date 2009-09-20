@@ -124,11 +124,6 @@ module Caricature
       builder = ExpectationBuilder.new method_name
       block.call builder unless block.nil?
       exp = builder.build           
-      @proxy.class.send((mode == :instance ? :define_method : :define_cmethod), method_name.to_sym, lambda do  |*args|  
-        b = nil
-        b = Proc.new { yield } if block_given?
-        isolation_context.send_message(method_name, nil, *args, &b)
-      end)
       expectations.add_expectation exp, mode
       exp
     end
