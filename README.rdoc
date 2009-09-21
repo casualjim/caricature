@@ -33,25 +33,25 @@ problems but for the time being this is how it has to be.
 
     isolation = Isolation.for(Ninja)
     isolation.when_receiving(:attack) do |exp|
-      exp.with(:shuriken)
-      exp.return(3)
+        exp.with(:shuriken)
+        exp.return(3)
     end
 
-Battle.new(mock)
-battle.combat
+    Battle.new(mock)
+    battle.combat
 
-isolation.did_receive?(:attack).should.be.successful
+    isolation.should.have_received?(:attack)
 
 
 == REQUIREMENTS:
 
 * To use the caricature library you need to have uuidtools installed
-sudo gem install uuidtools
-sudo igem install uuidtools
+(sudo) gem install uuidtools
+(sudo) igem install uuidtools
 
 == INSTALL:
 
-sudo gem install caricature
+(sudo) gem install caricature
 
 == LICENSE:
 
