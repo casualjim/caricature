@@ -7,6 +7,11 @@ module Caricature
     # Initializes a new instance of a +Verification+
     def initialize(method_name, recorder, mode=:instance)
       @method_name, @args, @any_args, @recorder, @mode, @block_args = method_name, [], true, recorder, mode, nil
+      init_plugin
+    end
+    
+    def init_plugin
+      
     end
 
     # indicates whether this verification can be for any arguments

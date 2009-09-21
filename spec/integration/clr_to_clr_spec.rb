@@ -27,6 +27,7 @@ describe "CLR to CLR interactions" do
       @weapon.when_receiving(:attack).with(ClrModels::Ninja.new).return(5)
 
       @ninja.attack(ClrModels::Ninja.new, @weapon).should.equal 0
+      #@ninja.attack(ClrModels::Ninja.new, ClrModels::Sword.new).should.equal 0
     end
 
     it "should work for expectations with an argument constraint and an assertion argument constraint" do

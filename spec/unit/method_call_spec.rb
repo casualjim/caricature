@@ -305,7 +305,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should be negative when we provide the wrong arguments" do
-      @recorder.was_called?(:my_method, nil, :instance, 1, 2, 5).should.be.false?
+      lambda { @recorder.was_called?(:my_method, nil, :instance, 1, 2, 5) }.should.raise(ArgumentError)
     end
 
     it "should be positive when we provide the correct arguments" do

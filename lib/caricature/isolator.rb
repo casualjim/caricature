@@ -56,7 +56,7 @@ module Caricature
       # You will probably be using this method only when you're interested in whether a method has been called
       # during the course of the test you're running.
       def did_receive?(method_name, &block)
-        isolation_context.class_verify method_name
+        isolation_context.class_verify method_name, &block
       end
 
     end
@@ -129,7 +129,7 @@ module Caricature
     # You will probably be using this method only when you're interested in whether a method has been called
     # during the course of the test you're running.
     def did_receive?(method_name, &block)
-      isolation_context.verify method_name
+      isolation_context.verify method_name, &block
     end
 
     # Verifies whether the specified class method has been called
@@ -158,7 +158,7 @@ module Caricature
     # It expects the constructor parameters if they are needed.
     def with_subject(*args, &b)
       isolation_context.instance = self.class.superclass.new *args 
-      yield self if block_given?
+      b.call self if b
       self
     end
 

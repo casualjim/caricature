@@ -1,1 +1,2 @@
-require 'caricature/bacon/integration'
+require 'caricature/bacon/integration' if defined? Bacon
+
