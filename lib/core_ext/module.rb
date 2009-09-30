@@ -6,7 +6,7 @@ class Module
   end
 
   # indicates whether this type has a CLR type in its ancestors
-  def is_clr_type?
+  def clr_type?
     !self.to_clr_type.nil? ||
             self.included_modules.any? {|mod| !mod.to_clr_type.nil? } ||
             self.ancestors.any? { |mod| !mod.to_clr_type.nil? }

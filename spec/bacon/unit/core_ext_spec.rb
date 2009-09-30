@@ -19,23 +19,23 @@ describe "Module" do
   end
 
   it "should identify it's not a CLR type for a Ruby defined module" do
-    Caricature.is_clr_type?.should.be.false?
+    Caricature.clr_type?.should.be.false?
   end
 
   it "should identify it's a CLR type for a CLR defined interface" do
-    ClrModels::IExposingWarrior.is_clr_type?.should.be.true?
+    ClrModels::IExposingWarrior.clr_type?.should.be.true?
   end
 
   it "should identify it's a CLR type for a Ruby defined module that includes a CLR interface" do
-    Caricature::InterfaceIncludingModule.is_clr_type?.should.be.true?
+    Caricature::InterfaceIncludingModule.clr_type?.should.be.true?
   end
 
   it "should identify it's not a CLR type for a Ruby defined module that includes a Ruby module" do
-    Caricature::RubyModuleIncludingModule.is_clr_type?.should.be.false?
+    Caricature::RubyModuleIncludingModule.clr_type?.should.be.false?
   end
 
   it "should identify it's a CLR type when an ancestor includes a CLR interface" do
-    Caricature::InterfaceUpTheWazoo.is_clr_type?.should.be.true?
+    Caricature::InterfaceUpTheWazoo.clr_type?.should.be.true?
   end
 
 end
@@ -47,31 +47,31 @@ describe "Class" do
   end
 
   it "should identify it's not a CLR type for a ruby defined type" do
-    Soldier.is_clr_type?.should.be.false?
+    Soldier.clr_type?.should.be.false?
   end
 
   it "should identify it's not a CLR type for a ruby defined type that subclasses a Ruby class" do
-    Caricature::SubclassingRubyClass.is_clr_type?.should.be.false?
+    Caricature::SubclassingRubyClass.clr_type?.should.be.false?
   end
 
   it "should identify it's not a CLR type for a ruby defined type that includes only ruby modueles in its hierarchy" do
-    Caricature::ModuleIncludingClass.is_clr_type?.should.be.false?
+    Caricature::ModuleIncludingClass.clr_type?.should.be.false?
   end
 
   it "should identify it's a CLR type for a type defined in C#" do
-    ClrModels::Ninja.is_clr_type?.should.be.true?
+    ClrModels::Ninja.clr_type?.should.be.true?
   end
 
   it "should identify it's a CLR type for a type defined in Ruby that includes a CLR interface" do
-    Caricature::InterfaceIncludingClass.is_clr_type?.should.be.true?
+    Caricature::InterfaceIncludingClass.clr_type?.should.be.true?
   end
 
   it "should identify it's a CLR type for a type defined in Ruby that subclasses a CLR class" do
-    Caricature::SubClassingClrClass.is_clr_type?.should.be.true?
+    Caricature::SubClassingClrClass.clr_type?.should.be.true?
   end
 
   it "should identify it's a CLR type for a type defined in Ruby that includes a CLR interface in its hierarchy" do
-    Caricature::InterfaceUpTheWazooClass.is_clr_type?.should.be.true?
+    Caricature::InterfaceUpTheWazooClass.clr_type?.should.be.true?
   end
 
 end

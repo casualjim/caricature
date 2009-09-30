@@ -19,13 +19,13 @@ task :default => [:clr_models, :bacon]
 
   namespace fw.to_sym do
 
-    desc "runs the specifications for the different classes"
+    desc "runs the #{gem_name} examples for the different classes"
     task :unit do
       specs = Dir.glob("spec/#{gem_name}/unit/**/*_spec.rb")
       system "#{fw} #{specs.join(' ')}"
     end
 
-    desc "runs the integration tests"
+    desc "runs the #{gem_name} integration examples"
     task :integration do
       specs = Dir.glob("spec/#{gem_name}/integration/**/*_spec.rb")
       system "#{fw} #{specs.join(' ')}"
@@ -281,30 +281,30 @@ end
 #   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 # end
 # 
-# begin
-#   require 'rake/contrib/sshpublisher'
-#   namespace :rubyforge do
-# 
-#     desc "Release gem and RDoc documentation to RubyForge"
-#     task :release => ["rubyforge:release:gem", 'rubyforge:release:docs']
-# 
-#     namespace :release do
-#       desc "Publish RDoc to RubyForge."
-#       task :docs => [:rdoc] do
-#         config = YAML.load(
-#             File.read(File.expand_path('~/.rubyforge/user-config.yml'))
-#         )
-# 
-#         host = "#{config['username']}@rubyforge.org"
-#         remote_dir = "/var/www/gforge-projects/caricature/"
-#         local_dir = 'doc'
-# 
-#         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
-#       end
-#     end
-#   end
-# rescue LoadError
-#   puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
-# end
-# 
-#
+ begin
+   require 'rake/contrib/sshpublisher'
+   namespace :rubyforge do
+
+     desc "Release gem and RDoc documentation to RubyForge"
+     task :release => ["rubyforge:release:gem", 'rubyforge:release:docs']
+
+     namespace :release do
+       desc "Publish RDoc to RubyForge."
+       task :docs => [:rdoc] do
+         config = YAML.load(
+             File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+         )
+
+         host = "#{config['username']}@rubyforge.org"
+         remote_dir = "/var/www/gforge-projects/caricature/"
+         local_dir = 'doc'
+
+         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+       end
+     end
+   end
+ rescue LoadError
+   puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
+ end
+
+

@@ -9,7 +9,7 @@ module Caricature
       # method call recorder
       def for(subject, recorder = MethodCallRecorder.new, expectations = Expectations.new)
         context = IsolatorContext.new subject, recorder, expectations
-        isolation_strategy = subject.is_clr_type? ? get_clr_isolation_strategy(subject) : RubyIsolator
+        isolation_strategy = subject.clr_type? ? get_clr_isolation_strategy(subject) : RubyIsolator
 
         isolator = isolation_strategy.for context
         isolation = new(isolator, context)

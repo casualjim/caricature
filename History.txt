@@ -1,0 +1,5 @@
+*** 30/09/2009 ***
+
+  * Start keeping track of history
+  * Adds an isolate/stub/mock method
+  * Allows using bacon or rspec for testing the application

@@ -2,8 +2,8 @@ class Object
 
   # returns whether this object is a clr_type.
   # if it has a CLR type in one of its ancestors
-  def is_clr_type?
-    self.class.is_clr_type?
+  def clr_type?
+    self.class.clr_type?
   end
 
   # returns the clr type of this object if any
