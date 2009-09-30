@@ -1,0 +1,1 @@
+require 'caricature/rspec/integration' if defined? Spec

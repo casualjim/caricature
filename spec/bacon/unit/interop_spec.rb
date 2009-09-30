@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/../bacon_helper"
+require File.dirname(__FILE__) + "/../spec_helper"
 
 describe "Event handling" do
 
@@ -30,12 +30,12 @@ describe "Event handling" do
   describe "for an IR generated interface proxy" do
 
     before do
-      @proxy = Caricature::ClrIsolator.new ClrModels::IExposingWarrior
+      @proxy = isolate ClrModels::IExposingWarrior
     end
 
     # apparently events don't work yet in IronRuby.. keeping this spec here to find out when it does
 #    it "should not raise an error when subcribing to an event" do
-#      lambda { ClrModels::ExposedChangedSubscriber.new(@proxy.subject) }.should.not.raise
+#      lambda { ClrModels::ExposedChangedSubscriber.new(@proxy) }.should.not.raise
 #    end
 
   end

@@ -1,20 +1,3 @@
-# add some search paths to ironruby
-# this first one adds the path with the assemblies
-# this enables us not to have to specify a path to the assemblies everywhere.
-$: << File.dirname(__FILE__) + "/bin"
-# adds the path to the caricature library.
-$: << File.dirname(__FILE__) + "/../lib"
-
-# load the caricature library
-require "caricature"
-
-require 'rubygems'
-# load the bacon library
-require 'bacon'
-
-# load the assembly with the C# code
-require 'ClrModels.dll' if defined? IRONRUBY_VERSION
-
 class Soldier
 
   def initialize
@@ -74,7 +57,7 @@ class Dagger
   end
 
   def attack(target)
-    target.survive_attack_with self  
+    target.survive_attack_with self
   end
 
 
@@ -102,21 +85,21 @@ class WithClassMethods
     "Goodbye world!"
   end
 
-end   
+end
 
 class Sheath
   attr_reader :dagger
-  
+
   def initialize(dagger)
     @dagger = dagger
-  end       
-  
+  end
+
   def insert(dagger)
     raise "There is already a dagger in here" if @dagger
     @dagger = dagger
-  end               
-  
-  def draw       
+  end
+
+  def draw
     raise "Dagger is nowhere to be found" unless @dagger
     d = @dagger
     @dagger = nil
@@ -133,7 +116,7 @@ if defined? IRONRUBY_VERSION
     end
 
     module PureRubyModule
-    
+
     end
 
     module RubyModuleIncludingModule

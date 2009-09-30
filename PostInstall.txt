@@ -1,7 +1,7 @@
 
-For more information on caricature, see http://caricature.rubyforge.org
+Thank you for installing caricature
 
-NOTE: Change this information in PostInstall.txt 
-You can also delete it if you don't want it.
+For more information on caricature, see http://casualjim.github.com/caricature
+
 
 

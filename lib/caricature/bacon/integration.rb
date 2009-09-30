@@ -42,7 +42,7 @@ module Caricature
       begin
         return @recorder.was_called?(@method_name, @block_args, @mode, *a)
       rescue ArgumentError => e
-        raise Caricature::ArgumentMatchError.new :failed, e    
+        raise Caricature::ArgumentMatchError.new(:failed, e)    
       end
     end
 

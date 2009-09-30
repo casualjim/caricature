@@ -1,6 +1,7 @@
 bin/*
 spec/bin/*.dll
 spec/bin/*.?db
+script/gen_requires
 rdoc/
 pkg/
 .idea

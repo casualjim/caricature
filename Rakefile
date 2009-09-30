@@ -6,27 +6,34 @@ $:.unshift 'lib'
 require 'caricature'
  
 desc "The default task is to run all the specs"
-task :default => [:clr_models, :spec]
+task :default => [:clr_models, :bacon]
 
-desc "Runs all the specs"
-task :spec do
-  system "ibacon #{Dir.glob('spec/**/*_spec.rb').join(' ')}"
-end
+%w(bacon spec).each do |fw|
 
-namespace :spec do 
+  gem_name = fw == "bacon" ? fw : "r#{fw}"
 
-  desc "runs the specifications for the different classes"
-  task :unit do
-    specs = Dir.glob('spec/unit/**/*_spec.rb')
-    system "ibacon #{specs.join(' ')}"
+  desc "Runs all the #{gem_name} specs"
+  task fw.to_sym do
+    system "i#{fw} #{Dir.glob("spec/#{gem_name}/**/*_spec.rb").join(' ')}"
   end
 
-  desc "runs the integration tests"
-  task :integration do
-    specs = Dir.glob('spec/integration/**/*_spec.rb')
-    system "ibacon #{specs.join(' ')}"
+  namespace fw.to_sym do
+
+    desc "runs the specifications for the different classes"
+    task :unit do
+      specs = Dir.glob("spec/#{gem_name}/unit/**/*_spec.rb")
+      system "#{fw} #{specs.join(' ')}"
+    end
+
+    desc "runs the integration tests"
+    task :integration do
+      specs = Dir.glob("spec/#{gem_name}/integration/**/*_spec.rb")
+      system "#{fw} #{specs.join(' ')}"
+    end
   end
 end
+
+
 
 def csc
   system "gmcs"
