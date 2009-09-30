@@ -12,15 +12,15 @@ describe "Caricature::Verification" do
     describe "Default initialisation" do
 
       it "should allow any arguments" do
-        @ver.any_args?.should.be.true?
+        @ver.any_args?.should be_true
       end
 
       it "should match the provided method name when no arguments have been given" do
-        @ver.matches?(:my_method).should.be.true?
+        @ver.matches?(:my_method).should be_true
       end
 
       it "should match the method name when arguments have been given" do
-        @ver.matches?(:my_method, 1, 3, 4).should.be.true?
+        @ver.matches?(:my_method, 1, 3, 4).should be_true
       end
 
     end
@@ -32,15 +32,15 @@ describe "Caricature::Verification" do
       end
 
       it "should match the provided method name when the correct arguments are given" do
-        @ver.matches?(:my_method, 1, 3, 6).should.be.true?
+        @ver.matches?(:my_method, 1, 3, 6).should be_true
       end
 
       it "should not match the method name when the arguments are not correct" do
-        @ver.matches?(:my_method, 1, 3, 3).should.be.false?
+        @ver.matches?(:my_method, 1, 3, 3).should be_false
       end
 
       it "should not match the method name when no arguments have been given" do
-        @ver.matches?(:my_method).should.be.false?
+        @ver.matches?(:my_method).should be_false
       end
 
     end
@@ -52,15 +52,15 @@ describe "Caricature::Verification" do
       end
 
       it "should match the provided method name when the correct arguments are given" do
-        @ver.matches?(:my_method, 1, 3, 6).should.be.true?
+        @ver.matches?(:my_method, 1, 3, 6).should be_true
       end
 
       it "should match the method name when the arguments are not correct" do
-        @ver.matches?(:my_method, 1, 3, 3).should.be.true?
+        @ver.matches?(:my_method, 1, 3, 3).should be_true
       end
 
       it "should match the method name when no arguments have been given" do
-        @ver.matches?(:my_method).should.be.true?
+        @ver.matches?(:my_method).should be_true
       end
 
     end
@@ -79,24 +79,24 @@ describe "Caricature::Verification" do
 
     it "should be successful with any arguments allowed" do
       ver = Caricature::Verification.new(:my_method, @rec)
-      ver.should.be.successful
+      ver.should be_successful
     end
 
     it "should be successful with a correct set of arguments provided for my_method" do
       ver = Caricature::Verification.new(:my_method, @rec)
       ver.with 1, 2, 3
-      ver.should.be.successful
+      ver.should be_successful
     end
 
     it "should be unsuccessful when a wrong set of arguments is provided" do
       ver = Caricature::Verification.new(:my_method, @rec)
       ver.with 1, 5, 7
-      ver.should.not.be.successful
+      ver.should_not be_successful
     end
 
     it "should be unsuccessful when the wrong method name is provided" do
       ver = Caricature::Verification.new(:some_method, @rec)
-      ver.should.not.be.successful
+      ver.should_not be_successful
     end
 
   end

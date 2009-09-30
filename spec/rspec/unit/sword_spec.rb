@@ -19,9 +19,9 @@ describe "ClrModels::Sword" do
     @warrior.when_receiving(:survive_attack_with).return(5)
 
     sword = ClrModels::Sword.new
-    sword.attack(@warrior).should.equal 5
+    sword.attack(@warrior).should == 5
 
-    @warrior.did_receive?(:survive_attack_with).should.be.successful
+    @warrior.did_receive?(:survive_attack_with).should be_successful
   end
 
   it "should return different results when expectation is defined with arguments" do
@@ -31,10 +31,10 @@ describe "ClrModels::Sword" do
     @warrior.when_receiving(:survive_attack_with).with(:any).return(5)
     @warrior.when_receiving(:survive_attack_with).with(sword2).return(15)
 
-    sword1.attack(@warrior).should.equal 5
-    sword2.attack(@warrior).should.equal 15
+    sword1.attack(@warrior).should == 5
+    sword2.attack(@warrior).should == 15
 
-    @warrior.did_receive?(:survive_attack_with).with(sword2).should.be.successful
+    @warrior.did_receive?(:survive_attack_with).with(sword2).should be_successful
   end
 
 end

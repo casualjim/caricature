@@ -13,7 +13,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should have 1 method call" do
-      @recorder.method_calls[:instance].size.should.equal 1
+      @recorder.method_calls[:instance].size.should == 1
     end
 
     describe "recorded call" do
@@ -23,23 +23,23 @@ describe "MethodCallRecorder" do
       end
 
       it "should have a method call collected" do
-        @mc.should.not.equal nil
+        @mc.should_not be_nil
       end
 
       it "should have the correct name" do
-        @mc.method_name.should.equal :my_method
+        @mc.method_name.should == :my_method
       end
 
       it "should have no arguments" do
-        @mc.args.should.equal [Caricature::ArgumentRecording.new]
+        @mc.args.should == [Caricature::ArgumentRecording.new]
       end
 
       it "should have no block" do
-        @mc.block.should.equal nil
+        @mc.block.should be_nil
       end
 
       it "should have a count a 1" do
-        @mc.count.should.equal 1
+        @mc.count.should == 1
       end
 
     end
@@ -56,7 +56,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should have 1 method call" do
-      @recorder.method_calls[:instance].size.should.equal 1
+      @recorder.method_calls[:instance].size.should == 1
     end
 
     describe "recorded call" do
@@ -66,27 +66,27 @@ describe "MethodCallRecorder" do
       end
 
       it "should have a method call collected" do
-        @mc.should.not.equal nil
+        @mc.should_not be_nil
       end
 
       it "should have the correct name" do
-        @mc.method_name.should.equal :my_method
+        @mc.method_name.should == :my_method
       end
 
       it "should have no arguments" do
-        @mc.args.should.equal [Caricature::ArgumentRecording.new]
+        @mc.args.should == [Caricature::ArgumentRecording.new]
       end
 
       it "should have a block" do
-        @mc.args.first.block.should.not.equal nil
+        @mc.args.first.block.should_not be_nil
       end
 
       it "should have the correct block" do
-        @mc.args.first.block.call.should.equal @block_content
+        @mc.args.first.block.call.should == @block_content
       end
 
       it "should have a count a 1" do
-        @mc.count.should.equal 1
+        @mc.count.should == 1
       end
 
     end
@@ -100,7 +100,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should have 1 method call" do
-      @recorder.method_calls[:instance].size.should.equal 1
+      @recorder.method_calls[:instance].size.should == 1
     end
 
     describe "recorded call" do
@@ -110,27 +110,27 @@ describe "MethodCallRecorder" do
       end
 
       it "should have a method call collected" do
-        @mc.should.not.equal nil
+        @mc.should_not be_nil
       end
 
       it "should have the correct name" do
-        @mc.method_name.should.equal :my_method
+        @mc.method_name.should == :my_method
       end
 
       it "should have 1 argument" do
-        @mc.args.size.should.equal 1
+        @mc.args.size.should == 1
       end
 
       it "should have the correct argument" do
-        @mc.args.should.equal [Caricature::ArgumentRecording.new([1])]
+        @mc.args.should == [Caricature::ArgumentRecording.new([1])]
       end
 
       it "should have no block" do
-        @mc.block.should.equal nil
+        @mc.block.should be_nil
       end
 
       it "should have a count a 1" do
-        @mc.count.should.equal 1
+        @mc.count.should == 1
       end
 
     end
@@ -144,7 +144,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should have 1 method call" do
-      @recorder.method_calls[:instance].size.should.equal 1
+      @recorder.method_calls[:instance].size.should == 1
     end
 
     describe "recorded call" do
@@ -154,27 +154,27 @@ describe "MethodCallRecorder" do
       end
 
       it "should have a method call collected" do
-        @mc.should.not.equal nil
+        @mc.should_not be_nil
       end
 
       it "should have the correct name" do
-        @mc.method_name.should.equal :my_method
+        @mc.method_name.should == :my_method
       end
 
       it "should have 1 argument recording" do
-        @mc.args.size.should.equal 1
+        @mc.args.size.should == 1
       end
 
       it "should have the correct arguments" do
-        @mc.args.should.equal [Caricature::ArgumentRecording.new([1, 2])]
+        @mc.args.should == [Caricature::ArgumentRecording.new([1, 2])]
       end
 
       it "should have no block" do
-        @mc.block.should.equal nil
+        @mc.block.should be_nil
       end
 
       it "should have a count a 1" do
-        @mc.count.should.equal 1
+        @mc.count.should == 1
       end
 
     end
@@ -189,7 +189,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should have 1 method call" do
-      @recorder.method_calls[:instance].size.should.equal 1
+      @recorder.method_calls[:instance].size.should == 1
     end
 
     describe "recorded call" do
@@ -199,23 +199,23 @@ describe "MethodCallRecorder" do
       end
 
       it "should have a method call collected" do
-        @mc.should.not.equal nil
+        @mc.should_not be_nil
       end
 
       it "should have the correct name" do
-        @mc.method_name.should.equal :my_method
+        @mc.method_name.should == :my_method
       end
 
       it "should have no arguments" do
-        @mc.args.should.equal [Caricature::ArgumentRecording.new]
+        @mc.args.should == [Caricature::ArgumentRecording.new]
       end
 
       it "should have no block" do
-        @mc.block.should.equal nil
+        @mc.block.should be_nil
       end
 
       it "should have a count of 2" do
-        @mc.count.should.equal 2
+        @mc.count.should == 2
       end
 
     end
@@ -232,17 +232,17 @@ describe "MethodCallRecorder" do
     end
 
     it "should return a block" do
-      @b.should.not.be.nil
+      @b.should_not be_nil
     end
 
     it "should return a block that wraps a recording" do
       @b.call 8, 9, 0
-      @recorder.method_calls[:instance][:some_method].args.first.blocks.first.args.should.equal [8, 9, 0]
+      @recorder.method_calls[:instance][:some_method].args.first.blocks.first.args.should == [8, 9, 0]
     end
 
     it "should call the original block" do
       @b.call 8, 9, 0
-      @args.should.equal [8, 9, 0]
+      @args.should == [8, 9, 0]
     end
   end
 
@@ -254,7 +254,7 @@ describe "MethodCallRecorder" do
     end
 
     it "should have 1 method call" do
-      @recorder.method_calls[:instance].size.should.equal 1
+      @recorder.method_calls[:instance].size.should == 1
     end
 
     describe "recorded call" do
@@ -264,23 +264,23 @@ describe "MethodCallRecorder" do
       end
 
       it "should have a method call collected" do
-        @mc.should.not.equal nil
+        @mc.should_not be_nil
       end
 
       it "should have the correct name" do
-        @mc.method_name.should.equal :my_method
+        @mc.method_name.should == :my_method
       end
 
       it "should have argument variations" do
-        @mc.has_argument_variations?.should.be.true?
+        @mc.has_argument_variations?.should be_true
       end
 
       it "should have no block" do
-        @mc.block.should.equal nil
+        @mc.block.should be_nil
       end
 
       it "should have a count of 2" do
-        @mc.count.should.equal 2
+        @mc.count.should == 2
       end
 
     end
@@ -296,24 +296,24 @@ describe "MethodCallRecorder" do
     end
 
     it "should confirm when we don't care about the arguments" do
-      @recorder.was_called?(:my_method, nil, :instance, :any).should.be.true?
+      @recorder.was_called?(:my_method, nil, :instance, :any).should be_true
     end
 
     it "should confirm when there are no argument variations" do
       @recorder.record_call :another_method
-      @recorder.was_called?(:another_method, nil, :instance, :any).should.be.true?
+      @recorder.was_called?(:another_method, nil, :instance, :any).should be_true
     end
 
     it "should be negative when we provide the wrong arguments" do
-      lambda { @recorder.was_called?(:my_method, nil, :instance, 1, 2, 5) }.should.raise(ArgumentError)
+      lambda { @recorder.was_called?(:my_method, nil, :instance, 1, 2, 5) }.should raise_error(ArgumentError)
     end
 
     it "should be positive when we provide the correct arguments" do
-      @recorder.was_called?(:my_method, nil, :instance, 1, 3, 4).should.be.true?
+      @recorder.was_called?(:my_method, nil, :instance, 1, 3, 4).should be_true
     end
 
     it "should be positive when we provide no arguments and a call had been recorded without arguments" do
-      @recorder.was_called?(:my_method, nil, :instance).should.be.true?
+      @recorder.was_called?(:my_method, nil, :instance).should be_true
     end
 
     describe "with block" do
@@ -329,11 +329,11 @@ describe "MethodCallRecorder" do
       end
 
       it "should be positive when we provide any arguments" do
-        @recorder.was_called?(:some_method, [:any], :instance, :any).should.be.true?
+        @recorder.was_called?(:some_method, [:any], :instance, :any).should be_true
       end
 
       it "should be positive when we provide specific arguments" do
-        @recorder.was_called?(:some_method, [1, 3, 5], :instance, :any).should.be.true?                
+        @recorder.was_called?(:some_method, [1, 3, 5], :instance, :any).should be_true                
       end
 
     end

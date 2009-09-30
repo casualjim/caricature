@@ -131,7 +131,7 @@ describe "Caricature::Messenger strategies" do
 
     it "should return nil for any method name not in the expectation collection" do
       messenger = Caricature::RubyMessenger.new EmptyExpectations.new
-      messenger.deliver(:a_message, nil).should.be.nil
+      messenger.deliver(:a_message, nil).should be_nil
     end
 
     describe "when an expectation with a return value has been defined" do
@@ -141,21 +141,21 @@ describe "Caricature::Messenger strategies" do
       end
 
       it "should return the a value when specified by the expecation" do
-        @messenger.deliver(:a_message, nil).should.not.be.nil
+        @messenger.deliver(:a_message, nil).should_not be_nil
       end
 
       it "should return the value specified by the expecation" do
-        @messenger.deliver(:a_message, nil).should.equal 5
+        @messenger.deliver(:a_message, nil).should == 5
       end
 
       it "should call super_before before executing the expectation" do
         @messenger.deliver(:a_message, nil)
-        @messenger.expectations.expectation.should.have_called_super_before
+        @messenger.expectations.expectation.should be_have_called_super_before
       end
 
       it "should call call_super? after executing the expectation" do
         @messenger.deliver(:a_message, nil)
-        @messenger.expectations.expectation.should.have_called_call_super
+        @messenger.expectations.expectation.should be_have_called_call_super
       end
 
     end
@@ -191,12 +191,12 @@ describe "Caricature::Messenger strategies" do
 
     it "should return nil for any method name not in the expectation collection" do
       messenger = Caricature::ClrClassMessenger.new EmptyExpectations.new
-      messenger.deliver(:a_message, nil).should.be.nil
+      messenger.deliver(:a_message, nil).should be_nil
     end
 
     it "should return the default value for a value type return type" do
       messenger = Caricature::ClrClassMessenger.new EmptyExpectations.new
-      messenger.deliver(:a_message, System::Int32.to_clr_type).should.equal 0
+      messenger.deliver(:a_message, System::Int32.to_clr_type).should == 0
     end
 
     describe "when an expectation with a return value has been defined" do
@@ -206,21 +206,21 @@ describe "Caricature::Messenger strategies" do
       end
 
       it "should return the a value when specified by the expecation" do
-        @messenger.deliver(:a_message, nil).should.not.be.nil
+        @messenger.deliver(:a_message, nil).should_not be_nil
       end
 
       it "should return the value specified by the expecation" do
-        @messenger.deliver(:a_message, nil).should.equal 5
+        @messenger.deliver(:a_message, nil).should == 5
       end
 
       it "should call super_before before executing the expectation" do
         @messenger.deliver(:a_message, nil)
-        @messenger.expectations.expectation.should.have_called_super_before
+        @messenger.expectations.expectation.should be_have_called_super_before
       end
 
       it "should call call_super? after executing the expectation" do
         @messenger.deliver(:a_message, nil)
-        @messenger.expectations.expectation.should.have_called_call_super
+        @messenger.expectations.expectation.should be_have_called_call_super
       end
 
     end
@@ -254,12 +254,12 @@ describe "Caricature::Messenger strategies" do
 
     it "should return nil for any method name not in the expectation collection" do
       messenger = Caricature::ClrInterfaceMessenger.new EmptyExpectations.new
-      messenger.deliver(:a_message, nil).should.be.nil
+      messenger.deliver(:a_message, nil).should be_nil
     end
 
     it "should return the default value for a value type return type" do
       messenger = Caricature::ClrClassMessenger.new EmptyExpectations.new
-      messenger.deliver(:a_message, System::Int32.to_clr_type).should.equal 0
+      messenger.deliver(:a_message, System::Int32.to_clr_type).should == 0
     end
 
     describe "when an expectation with a return value has been defined" do
@@ -269,21 +269,21 @@ describe "Caricature::Messenger strategies" do
       end
 
       it "should return the a value when specified by the expecation" do
-        @messenger.deliver(:a_message, nil).should.not.be.nil
+        @messenger.deliver(:a_message, nil).should_not be_nil
       end
 
       it "should return the value specified by the expecation" do
-        @messenger.deliver(:a_message, nil).should.equal 5
+        @messenger.deliver(:a_message, nil).should == 5
       end
 
       it "should not call super_before before executing the expectation" do
         @messenger.deliver(:a_message, nil)
-        @messenger.expectations.expectation.should.not.have_called_super_before
+        @messenger.expectations.expectation.should_not be_have_called_super_before
       end
 
       it "should not call call_super? after executing the expectation" do
         @messenger.deliver(:a_message, nil)
-        @messenger.expectations.expectation.should.not.have_called_call_super
+        @messenger.expectations.expectation.should_not be_have_called_call_super
       end
 
     end

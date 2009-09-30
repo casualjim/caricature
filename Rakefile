@@ -22,13 +22,13 @@ task :default => [:clr_models, :bacon]
     desc "runs the #{gem_name} examples for the different classes"
     task :unit do
       specs = Dir.glob("spec/#{gem_name}/unit/**/*_spec.rb")
-      system "#{fw} #{specs.join(' ')}"
+      system "i#{fw} #{specs.join(' ')}"
     end
 
     desc "runs the #{gem_name} integration examples"
     task :integration do
       specs = Dir.glob("spec/#{gem_name}/integration/**/*_spec.rb")
-      system "#{fw} #{specs.join(' ')}"
+      system "i#{fw} #{specs.join(' ')}"
     end
   end
 end

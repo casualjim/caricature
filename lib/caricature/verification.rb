@@ -45,7 +45,11 @@ module Caricature
     # indicate that this method verification is successful
     def successful?
       a = any_args? ? [:any] : @args
-      @recorder.was_called?(@method_name, @block_args, @mode, *a)
+      begin
+        @recorder.was_called?(@method_name, @block_args, @mode, *a)
+      rescue ArgumentError
+        false
+      end
     end
 
   end

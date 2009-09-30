@@ -5,7 +5,7 @@ describe "Caricature::Isolation" do
   describe "when creating an isolation for ruby objects" do
 
     it "should not raise" do
-      lambda { Caricature::Isolation.for(Soldier) }.should.not.raise
+      lambda { Caricature::Isolation.for(Soldier) }.should_not raise_error
     end
 
   end
@@ -17,7 +17,7 @@ describe "Caricature::Isolation" do
     end
 
     it "should create a proxy" do
-      @isolator.should.not.be == nil
+      @isolator.should_not be_nil
     end
 
     describe "when asked to stub a method" do
@@ -27,17 +27,17 @@ describe "Caricature::Isolation" do
         expectation = @isolator.when_receiving(:name) do |cl|
           cl.return(nm)
         end
-        expectation.method_name.should.equal :name
-        expectation.has_return_value?.should.be.true?
-        expectation.return_value.should.equal nm
+        expectation.method_name.should == :name
+        expectation.should be_has_return_value
+        expectation.return_value.should == nm
       end
 
       it "should create an expectation without a block" do
         nm = "What's in a name"
         expectation = @isolator.when_receiving(:name).return(nm)
-        expectation.method_name.should.equal :name
-        expectation.has_return_value?.should.be.true?
-        expectation.return_value.should.equal nm
+        expectation.method_name.should == :name
+        expectation.should be_has_return_value
+        expectation.return_value.should == nm
       end
     end
 
@@ -46,7 +46,7 @@ describe "Caricature::Isolation" do
   describe "when creating an isolation for CLR objects" do
 
     it "should not raise" do
-      lambda { Caricature::Isolation.for(ClrModels::Ninja) }.should.not.raise
+      lambda { Caricature::Isolation.for(ClrModels::Ninja) }.should_not raise_error
     end
 
   end
@@ -58,7 +58,7 @@ describe "Caricature::Isolation" do
     end
 
     it "should create a proxy" do
-      @isolator.should.not.be == nil
+      @isolator.should_not be_nil
     end
 
     describe "when asked to stub a method" do
@@ -68,17 +68,17 @@ describe "Caricature::Isolation" do
         expectation = @isolator.when_receiving(:name) do |cl|
           cl.return(nm)
         end
-        expectation.method_name.should.equal :name
-        expectation.has_return_value?.should.be.true?
-        expectation.return_value.should.equal nm
+        expectation.method_name.should == :name
+        expectation.should be_has_return_value
+        expectation.return_value.should == nm
       end
 
       it "should create an expectation without a block" do
         nm = "What's in a name"
         expectation = @isolator.when_receiving(:name).return(nm)
-        expectation.method_name.should.equal :name
-        expectation.has_return_value?.should.be.true?
-        expectation.return_value.should.equal nm
+        expectation.method_name.should == :name
+        expectation.should be_has_return_value
+        expectation.return_value.should == nm
       end
     end
 

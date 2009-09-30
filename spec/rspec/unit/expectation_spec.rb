@@ -8,7 +8,7 @@ describe "Caricature::ExpectationBuilder" do
 
   it "should create an expectation builder" do
     builder = Caricature::ExpectationBuilder.new :some_method
-    builder.should.not.equal nil
+    builder.should_not be_nil
   end
 
   describe "when using all defaults" do
@@ -19,27 +19,27 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have the correct method_name" do
-      @expectation.method_name.should.equal :some_method
+      @expectation.method_name.should == :some_method
     end
 
     it "should have empty args" do
-      @expectation.args.should.be.empty?
+      @expectation.args.should be_empty
     end
 
     it "should have no super call" do
-      @expectation.super.should.equal nil
+      @expectation.super.should == nil
     end
 
     it "should have no error args" do
-      @expectation.error_args.should.equal nil
+      @expectation.error_args.should == nil
     end
 
     it "should have no return_value" do
-      @expectation.return_value.should.equal nil
+      @expectation.return_value.should == nil
     end                
     
     it "should have no callback" do
-      @expectation.should.not.has_callback?
+      @expectation.should_not be_has_callback
     end
 
   end
@@ -53,27 +53,27 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have the correct method_name" do
-      @expectation.method_name.should.equal :some_method
+      @expectation.method_name.should == :some_method
     end
 
     it "should have empty args" do
-      @expectation.args.should.equal [1,2,3]
+      @expectation.args.should == [1,2,3]
     end
 
     it "should have no super call" do
-      @expectation.super.should.equal nil
+      @expectation.super.should == nil
     end
 
     it "should have no error args" do
-      @expectation.error_args.should.equal nil
+      @expectation.error_args.should == nil
     end
 
     it "should have no return_value" do
-      @expectation.return_value.should.equal nil
+      @expectation.return_value.should == nil
     end 
     
     it "should have no callback" do
-      @expectation.should.not.has_callback?
+      @expectation.should_not be_has_callback
     end
 
   end
@@ -87,27 +87,27 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have the correct method_name" do
-      @expectation.method_name.should.equal :some_method
+      @expectation.method_name.should == :some_method
     end
 
     it "should have empty args" do
-      @expectation.args.should.be.empty?
+      @expectation.args.should be_empty
     end
 
     it "should have no super call" do
-      @expectation.super.should.equal nil
+      @expectation.super.should == nil
     end
 
     it "should have no error args" do
-      @expectation.error_args.should.equal nil
+      @expectation.error_args.should == nil
     end
 
     it "should have a return callback" do
-      @expectation.return_callback.should.not.be.nil
+      @expectation.return_callback.should_not be_nil
     end
 
     it "should have the correct return_value" do
-      @expectation.return_callback.call.should.equal 5
+      @expectation.return_callback.call.should == 5
     end
 
   end
@@ -121,23 +121,23 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have the correct method_name" do
-      @expectation.method_name.should.equal :some_method
+      @expectation.method_name.should == :some_method
     end
 
     it "should have empty args" do
-      @expectation.args.should.be.empty?
+      @expectation.args.should be_empty
     end
 
     it "should have no super call" do
-      @expectation.super.should.equal nil
+      @expectation.super.should == nil
     end
 
     it "should have no error args" do
-      @expectation.error_args.should.equal nil
+      @expectation.error_args.should == nil
     end
 
     it "should have the correct return_value" do
-      @expectation.return_value.should.equal 5
+      @expectation.return_value.should == 5
     end
 
   end
@@ -152,23 +152,23 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have the correct method_name" do
-      @expectation.method_name.should.equal :some_method
+      @expectation.method_name.should == :some_method
     end
 
     it "should have empty args" do
-      @expectation.args.should.be.empty?
+      @expectation.args.should be_empty
     end
 
     it "should have no super call" do
-      @expectation.super.should.equal nil
+      @expectation.super.should == nil
     end
 
     it "should have no error args" do
-      @expectation.error_args.should.equal [@msg]
+      @expectation.error_args.should == [@msg]
     end
 
     it "should have the correct return_value" do
-      @expectation.return_value.should.equal nil
+      @expectation.return_value.should == nil
     end
 
   end
@@ -182,23 +182,23 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have the correct method_name" do
-      @expectation.method_name.should.equal :some_method
+      @expectation.method_name.should == :some_method
     end
 
     it "should have empty args" do
-      @expectation.args.should.be.empty?
+      @expectation.args.should be_empty
     end
 
     it "should have no super call" do
-      @expectation.super.should.equal :before
+      @expectation.super.should == :before
     end
 
     it "should have no error args" do
-      @expectation.error_args.should.equal nil
+      @expectation.error_args.should == nil
     end
 
     it "should have the correct return_value" do
-      @expectation.return_value.should.equal 5
+      @expectation.return_value.should == 5
     end
 
   end 
@@ -216,7 +216,7 @@ describe "Caricature::ExpectationBuilder" do
     end
     
     it "should have a callback" do
-      @expectation.should.has_callback?
+      @expectation.should be_has_callback
     end                                
     
     it "should call the callback when the expectation is called" do
@@ -242,7 +242,7 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should should have a callback" do
-      @expectation.block.should.not.be.nil
+      @expectation.block.should_not be_nil
     end
 
     it "should pass on the correct callback" do
@@ -261,7 +261,7 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should not have a block callback" do
-      @expectation.should.not.has_block_callback
+      @expectation.should_not be_has_block_callback
     end
 
     it "should should execute the block with the provided arguments when executed" do
@@ -285,7 +285,7 @@ describe "Caricature::ExpectationBuilder" do
     end
 
     it "should have a block callback" do
-      @expectation.should.has_block_callback
+      @expectation.should be_has_block_callback
     end
 
     it "should execute the block with the result of the provided callback when executed" do

@@ -7,27 +7,27 @@ describe "Caricature::TypeDescriptor" do
   end
 
   it "should have a class_members method" do
-    @des.should.respond_to?(:class_members)
+    @des.should respond_to(:class_members)
   end
 
   it "should return an empty collection for the class members" do
-    @des.class_members.should.be.empty
+    @des.class_members.should be_empty
   end
 
   it "should have an instance members method" do
-    @des.should.respond_to?(:instance_members)
+    @des.should respond_to(:instance_members)
   end
 
   it "should return an empty collection for the instance members" do
-    @des.instance_members.should.be.empty
+    @des.instance_members.should be_empty
   end
 
   it "should raise a NotImplementedError for the initialize_instance_members method" do
-    lambda { @des.initialize_instance_members_for Soldier }.should.raise NotImplementedError
+    lambda { @des.initialize_instance_members_for Soldier }.should raise_error(NotImplementedError)
   end
 
   it "should raise a NotImplementedError for the initialize_class_members method" do
-    lambda { @des.initialize_class_members_for Soldier }.should.raise NotImplementedError
+    lambda { @des.initialize_class_members_for Soldier }.should raise_error(NotImplementedError)
   end
 
 end
@@ -36,32 +36,32 @@ describe "Caricature::MemberDescriptor" do
 
   it "should have a name" do
     des = Caricature::MemberDescriptor.new 'a name', 'a type'
-    des.name.should.not.be.nil
+    des.name.should_not be_nil
   end
 
   it "should have the correct name" do
     des = Caricature::MemberDescriptor.new 'a name', 'a type'
-    des.name.should.equal 'a name'
+    des.name.should == 'a name'
   end
 
   it "should have a return_type" do
     des = Caricature::MemberDescriptor.new 'a name', 'a type'
-    des.return_type.should.not.be.nil
+    des.return_type.should_not be_nil
   end
 
   it "should have the correct return_type" do
     des = Caricature::MemberDescriptor.new 'a name', 'a type'
-    des.return_type.should.equal 'a type'
+    des.return_type.should == 'a type'
   end
 
   it "should say it's an instance type" do
     des = Caricature::MemberDescriptor.new 'a name', 'a type'
-    des.should.be.instance_member
+    des.should be_instance_member
   end
 
   it "should say it's not an instance type" do
     des = Caricature::MemberDescriptor.new 'a name', 'a type', false
-    des.should.not.be.instance_member
+    des.should_not be_instance_member
   end
 
 end
@@ -73,7 +73,7 @@ describe "Caricature::ClrInterfaceDescriptor" do
   end
 
   it "should have 2 instance members" do
-    @des.instance_members.size.should.equal 2
+    @des.instance_members.size.should == 2
   end
 
   it "should contain only instance members" do
@@ -82,21 +82,21 @@ describe "Caricature::ClrInterfaceDescriptor" do
      result = false unless mem.instance_member?
     end
 
-    result.should.be.true
+    result.should be_true
   end
 
   it "should have a damage instance member" do
-    @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+    @des.instance_members.select { |mem| mem.name == "damage" }.should_not be_empty
   end
 
   it "should correctly identify indexers" do
     des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
-    des.instance_members.select { |mem| mem.name == "__getitem__" }.should.not.be.empty
+    des.instance_members.select { |mem| mem.name == "__getitem__" }.should_not be_empty
   end
 
   it "should correctly identify indexers" do
     des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
-    des.instance_members.select { |mem| mem.name == "__setitem__" }.should.not.be.empty
+    des.instance_members.select { |mem| mem.name == "__setitem__" }.should_not be_empty
   end
     
 end
@@ -108,29 +108,29 @@ describe "Caricature::ClrClassDescriptor" do
   end
 
   it "should have 11 instance members" do
-    @des.instance_members.size.should.equal 11
+    @des.instance_members.size.should == 11
   end
 
   it "should have 5 static members" do
-    @des.class_members.size.should.equal 5
+    @des.class_members.size.should == 5
   end
 
   it "should have a damage instance member" do
-    @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+    @des.instance_members.select { |mem| mem.name == "damage" }.should_not be_empty
   end
 
   it "should have a another method instance member" do
-    @des.instance_members.select { |mem| mem.name == "another_method" }.should.not.be.empty
+    @des.instance_members.select { |mem| mem.name == "another_method" }.should_not be_empty
   end
 
   it "should correctly identify indexers" do
     des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
-    des.instance_members.select { |mem| mem.name == "__getitem__" }.should.not.be.empty
+    des.instance_members.select { |mem| mem.name == "__getitem__" }.should_not be_empty
   end
 
   it "should correctly identify indexers" do
     des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
-    des.instance_members.select { |mem| mem.name == "__setitem__" }.should.not.be.empty
+    des.instance_members.select { |mem| mem.name == "__setitem__" }.should_not be_empty
   end
 
 end
@@ -142,19 +142,19 @@ describe "Caricature::RubyObjectDescriptor" do
   end
 
   it "should have 2 instance members" do
-    @des.instance_members.size.should.equal 2
+    @des.instance_members.size.should == 2
   end
 
   it "should have a damage instance member" do
-    @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+    @des.instance_members.select { |mem| mem.name == "damage" }.should_not be_empty
   end
 
   it "should have 1 class member" do
-    @des.class_members.size.should.equal 1
+    @des.class_members.size.should == 1
   end
 
   it "should have a class_name class member" do
-    @des.class_members.select { |mem| mem.name == "class_name" }.should.not.be.empty
+    @des.class_members.select { |mem| mem.name == "class_name" }.should_not be_empty
   end
 
 end

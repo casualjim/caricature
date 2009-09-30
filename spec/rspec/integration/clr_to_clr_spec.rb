@@ -11,62 +11,62 @@ describe "CLR to CLR interactions" do
     it "should work without expectations" do
       @ninja.attack ClrModels::Ninja.new, @weapon
 
-      @weapon.did_receive?(:attack).should.be.successful
+      @weapon.did_receive?(:attack).should be_successful
     end
 
     it "should work for expectations with an argument constraint" do
       ninja = ClrModels::Ninja.new
       @weapon.when_receiving(:attack).with(ninja).return(5)
 
-      @ninja.attack(ninja, @weapon).should.equal 5
+      @ninja.attack(ninja, @weapon).should == 5
 
-      @weapon.did_receive?(:attack).with(:any).should.be.successful
+      @weapon.did_receive?(:attack).with(:any).should be_successful
     end
 
     it "should work for expectations with an argument constraint when a wrong argument is passed in" do
       @weapon.when_receiving(:attack).with(ClrModels::Ninja.new).return(5)
 
-      @ninja.attack(ClrModels::Ninja.new, @weapon).should.equal 0
-      #@ninja.attack(ClrModels::Ninja.new, ClrModels::Sword.new).should.equal 0
+      @ninja.attack(ClrModels::Ninja.new, @weapon).should == 0
+      #@ninja.attack(ClrModels::Ninja.new, ClrModels::Sword.new).should == 0
     end
 
     it "should work for expectations with an argument constraint and an assertion argument constraint" do
       ninja = ClrModels::Ninja.new
       @weapon.when_receiving(:attack).with(ninja).return(5)
 
-      @ninja.attack(ninja, @weapon).should.equal 5
+      @ninja.attack(ninja, @weapon).should == 5
 
-      @weapon.did_receive?(:attack).with(ninja).should.be.successful
+      @weapon.did_receive?(:attack).with(ninja).should be_successful
     end
 
     it "should fail for expectations with an argument constraint and an assertion argument constraint" do
       ninja = ClrModels::Ninja.new
       @weapon.when_receiving(:attack).with(ninja).return(5)
 
-      @ninja.attack(ninja, @weapon).should.equal 5
+      @ninja.attack(ninja, @weapon).should == 5
 
-      @weapon.did_receive?(:attack).with(ClrModels::Ninja.new).should.not.be.successful
+      @weapon.did_receive?(:attack).with(ClrModels::Ninja.new).should_not be_successful
     end
 
     it "should work with an expectation with any arguments" do
       @weapon.when_receiving(:damage).return(5)
 
-      @ninja.is_killed_by(@weapon).should.be.true?
-      @weapon.did_receive?(:damage).should.be.successful
+      @ninja.is_killed_by(@weapon).should be_true
+      @weapon.did_receive?(:damage).should be_successful
     end
 
     it "should work with an expectation getting different method call result" do
       @weapon.when_receiving(:damage).return(2)
 
-      @ninja.is_killed_by(@weapon).should.be.false?
-      @weapon.did_receive?(:damage).should.be.successful
+      @ninja.is_killed_by(@weapon).should be_false
+      @weapon.did_receive?(:damage).should be_successful
     end
 
     it "should work for an assertion on a specific argument" do
       @weapon.when_receiving(:damage).return(2)
 
-      @ninja.is_killed_by(@weapon).should.be.false?
-      @weapon.did_receive?(:damage).should.be.successful
+      @ninja.is_killed_by(@weapon).should be_false
+      @weapon.did_receive?(:damage).should be_successful
     end
 
   end
@@ -81,52 +81,52 @@ describe "CLR to CLR interactions" do
 
       it "should work without expectations" do
         result = @weapon.attack @ninja
-        result.should.equal 0
+        result.should == 0
 
-        @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(@weapon).should be_successful
       end
 
       it "should work for expectations with an argument constraint" do
         @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-        @weapon.attack(@ninja).should.equal 5
+        @weapon.attack(@ninja).should == 5
 
-        @ninja.did_receive?(:survive_attack_with).with(:any).should.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(:any).should be_successful
       end
 
       it "should work for expectations with an argument constraint when a wrong argument is passed in" do
         @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-        @weapon.attack(ClrModels::Ninja.new).should.equal 6
+        @weapon.attack(ClrModels::Ninja.new).should == 6
 
-        @ninja.did_receive?(:survive_attack_with).with(@weapon).should.not.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(@weapon).should_not be_successful
       end
 
       it "should work for expectations with an argument constraint and an assertion argument constraint" do
         ninja = ClrModels::Ninja.new
         @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-        @weapon.attack(@ninja).should.equal 5
+        @weapon.attack(@ninja).should == 5
 
-        @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(@weapon).should be_successful
       end
 
       it "should fail for expectations with an argument constraint and an assertion argument constraint" do
         ninja = ClrModels::Ninja.new
         @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-        @weapon.attack(@ninja).should.equal 5
+        @weapon.attack(@ninja).should == 5
 
-        @ninja.did_receive?(:survive_attack_with).with(ClrModels::Sword.new).should.not.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(ClrModels::Sword.new).should_not be_successful
       end
 
       it "should work with an expectation for any arguments" do
         @ninja.when_receiving(:survive_attack_with).return(5)
 
         result = @weapon.attack @ninja
-        result.should.equal 5
+        result.should == 5
 
-        @ninja.did_receive?(:survive_attack_with).with(:any).should.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(:any).should be_successful
       end
 
       it "should work with an assertion for specific arguments" do
@@ -135,9 +135,9 @@ describe "CLR to CLR interactions" do
         end
 
         result = @weapon.attack @ninja
-        result.should.equal 5
+        result.should == 5
 
-        @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
+        @ninja.did_receive?(:survive_attack_with).with(@weapon).should be_successful
       end
 
       it "should fail for an assertion with wrong arguments" do
@@ -146,12 +146,12 @@ describe "CLR to CLR interactions" do
         end
 
         result = @weapon.attack @ninja
-        result.should.equal 5
+        result.should == 5
 
         @ninja.
                 did_receive?(:survive_attack_with).
                 with(Caricature::Isolation.for(ClrModels::IWeapon)).
-                should.not.be.successful
+                should_not be_successful
       end
 
     end
@@ -163,7 +163,7 @@ describe "CLR to CLR interactions" do
       end
 
       it "should work without expectations" do
-        @cons.call_index_on_class(@ind, "key1").should.be.nil
+        @cons.call_index_on_class(@ind, "key1").should be_nil
       end
 
 
@@ -180,52 +180,52 @@ describe "CLR to CLR interactions" do
 
     it "should work without expectations" do
       result = @weapon.attack @ninja
-      result.should.equal 0
+      result.should == 0
 
-      @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(@weapon).should be_successful
     end
 
     it "should work for expectations with an argument constraint" do
       @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-      @weapon.attack(@ninja).should.equal 5
+      @weapon.attack(@ninja).should == 5
 
-      @ninja.did_receive?(:survive_attack_with).with(:any).should.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(:any).should be_successful
     end
 
     it "should work for expectations with an argument constraint when a wrong argument is passed in" do
       @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-      @weapon.attack(ClrModels::Ninja.new).should.equal 6
+      @weapon.attack(ClrModels::Ninja.new).should == 6
 
-      @ninja.did_receive?(:survive_attack_with).with(@weapon).should.not.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(@weapon).should_not be_successful
     end
 
     it "should work for expectations with an argument constraint and an assertion argument constraint" do
       ninja = ClrModels::Ninja.new
       @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-      @weapon.attack(@ninja).should.equal 5
+      @weapon.attack(@ninja).should == 5
 
-      @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(@weapon).should be_successful
     end
 
     it "should fail for expectations with an argument constraint and an assertion argument constraint" do
       ninja = ClrModels::Ninja.new
       @ninja.when_receiving(:survive_attack_with).with(@weapon).return(5)
 
-      @weapon.attack(@ninja).should.equal 5
+      @weapon.attack(@ninja).should == 5
 
-      @ninja.did_receive?(:survive_attack_with).with(ClrModels::Sword.new).should.not.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(ClrModels::Sword.new).should_not be_successful
     end
 
     it "should work with an expectation for any arguments" do
       @ninja.when_receiving(:survive_attack_with).return(5)
 
       result = @weapon.attack @ninja
-      result.should.equal 5
+      result.should == 5
 
-      @ninja.did_receive?(:survive_attack_with).with(:any).should.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(:any).should be_successful
     end
 
     it "should fail for an assertion for specific arguments" do
@@ -234,18 +234,18 @@ describe "CLR to CLR interactions" do
       end
 
       result = @weapon.attack @ninja
-      result.should.equal 5
+      result.should == 5
       var = @ninja.did_receive?(:survive_attack_with).with(:any)
-      @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
+      @ninja.did_receive?(:survive_attack_with).with(@weapon).should be_successful
     end
 
     it "should allow to delegate the method call to the real instance (partial mock)" do
       @ninja.when_receiving(:survive_attack_with).super_after
 
       result = @weapon.attack @ninja
-      result.should.equal 6
+      result.should == 6
 
-      @ninja.did_receive?(:survive_attack_with).should.be.successful
+      @ninja.did_receive?(:survive_attack_with).should be_successful
     end
 
 

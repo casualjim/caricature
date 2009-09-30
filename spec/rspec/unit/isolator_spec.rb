@@ -45,7 +45,7 @@ describe "Caricature::RubyIsolator" do
     end
 
     it "should return nil" do
-      @proxy.name.should.be.nil
+      @proxy.name.should be_nil
     end
 
   end
@@ -61,7 +61,7 @@ describe "Caricature::RubyIsolator" do
 
     it "should return nil for the class method" do
 
-      @proxy.class.class_name.should.be.nil
+      @proxy.class.class_name.should be_nil
 
     end
 
@@ -84,8 +84,8 @@ describe "Caricature::RecordingClrProxy" do
 
     it "should create a proxy" do
 
-      @proxy.___super___.name.should.equal @ninja.name
-      @proxy.___super___.id.should.equal 1
+      @proxy.___super___.name.should == @ninja.name
+      @proxy.___super___.id.should == 1
     end
 
     describe "when invoking a method" do
@@ -95,7 +95,7 @@ describe "Caricature::RecordingClrProxy" do
       end
 
       it "should return nil" do
-        @proxy.name.should.be.nil
+        @proxy.name.should be_nil
       end
 
     end
@@ -111,7 +111,7 @@ describe "Caricature::RecordingClrProxy" do
 
       it "should return nil for the class method" do
 
-        @proxy.class.class_naming.should.be.nil
+        @proxy.class.class_naming.should be_nil
 
       end
 
@@ -132,7 +132,7 @@ describe "Caricature::RecordingClrProxy" do
 
     it "should create a proxy" do
       
-      @proxy.class.superclass.should.equal ClrModels::Ninja
+      @proxy.class.superclass.should == ClrModels::Ninja
       
     end
 
@@ -147,19 +147,19 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create a proxy" do
-      @proxy.class.to_s.should.match /^IWarrior/
+      @proxy.class.to_s.should match(/^IWarrior/)
     end
 
     it "should create a method on the proxy" do
-      @proxy.should.respond_to?(:is_killed_by)
+      @proxy.should respond_to(:is_killed_by)
     end
 
     it "should create a getter for a property on the proxy" do
-      @proxy.should.respond_to?(:id)
+      @proxy.should respond_to(:id)
     end
 
     it "should create a setter for a writable property on the proxy" do
-      @proxy.should.respond_to?(:name=)
+      @proxy.should respond_to(:name=)
     end
 
   end
@@ -172,11 +172,11 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create an add method for the event" do
-      @proxy.should.respond_to?(:add_is_exposed_changed)
+      @proxy.should respond_to(:add_is_exposed_changed)
     end
 
     it "should create a remove method for the event" do
-      @proxy.should.respond_to?(:remove_is_exposed_changed)
+      @proxy.should respond_to(:remove_is_exposed_changed)
     end
 
   end
@@ -189,31 +189,31 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create a method defined on the CLR interface" do
-      @proxy.should.respond_to?(:own_method)
+      @proxy.should respond_to(:own_method)
     end
 
     it "should create a method defined on one of the composing interfaces" do
-      @proxy.should.respond_to?(:some_method)
+      @proxy.should respond_to(:some_method)
     end
 
     it "should create a method defined on one of the topmost composing interfaces" do
-      @proxy.should.respond_to?(:is_killed_by)
+      @proxy.should respond_to(:is_killed_by)
     end
 
     it "should create an add method for an event defined on a composing interface" do
-      @proxy.should.respond_to?(:add_is_exposed_changed)
+      @proxy.should respond_to(:add_is_exposed_changed)
     end
 
     it "should create a remove method for an event defined on a composing interface" do
-      @proxy.should.respond_to?(:remove_is_exposed_changed)
+      @proxy.should respond_to(:remove_is_exposed_changed)
     end
 
     it "should create a getter for a property on the proxy" do
-      @proxy.should.respond_to?(:id)
+      @proxy.should respond_to(:id)
     end
 
     it "should create a setter for a writable property on the proxy" do
-      @proxy.should.respond_to?(:name=)
+      @proxy.should respond_to(:name=)
     end
   end
 

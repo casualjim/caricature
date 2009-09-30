@@ -12,17 +12,17 @@ describe "Event handling" do
 
     it "should subscribe to an event" do
       ClrModels::ExposedChangedSubscriber.new(@warrior)
-      @warrior.has_event_subscriptions.should.be.true?
+      @warrior.has_event_subscriptions.should be_true
     end
 
     it "should not raise an error when subcribing to an event" do
-      lambda { ClrModels::ExposedChangedSubscriber.new(@warrior) }.should.not.raise
+      lambda { ClrModels::ExposedChangedSubscriber.new(@warrior) }.should_not raise_error
     end
 
     it "should handle an event when raised" do
       subscriber = ClrModels::ExposedChangedSubscriber.new(@warrior)
       @warrior.change_is_exposed
-      subscriber.counter.should.equal 1
+      subscriber.counter.should == 1
     end
 
   end
@@ -35,7 +35,7 @@ describe "Event handling" do
 
     # apparently events don't work yet in IronRuby.. keeping this spec here to find out when it does
 #    it "should not raise an error when subcribing to an event" do
-#      lambda { ClrModels::ExposedChangedSubscriber.new(@proxy) }.should.not.raise
+#      lambda { ClrModels::ExposedChangedSubscriber.new(@proxy) }.should_not raise_error
 #    end
 
   end
