@@ -6,7 +6,7 @@ $:.unshift 'lib'
 require 'caricature'
  
 desc "The default task is to run all the specs"
-task :default => [:clr_models, :bacon]
+task :default => [:clr_models, :spec]
 
 %w(bacon spec).each do |fw|
 

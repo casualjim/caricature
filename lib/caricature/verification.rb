@@ -42,6 +42,10 @@ module Caricature
       @method_name == method_name and any_args? or @args == args
     end
 
+    def error
+      @recorder.error
+    end
+
     # indicate that this method verification is successful
     def successful?
       a = any_args? ? [:any] : @args

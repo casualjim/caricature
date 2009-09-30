@@ -39,11 +39,9 @@ module Caricature
     # indicate that this method verification is successful
     def successful?
       a = any_args? ? [:any] : @args
-      begin
-        return @recorder.was_called?(@method_name, @block_args, @mode, *a)
-      rescue ArgumentError => e
-        raise Caricature::ArgumentMatchError.new(:failed, e)    
-      end
+      res = @recorder.was_called?(@method_name, @block_args, @mode, *a)
+      raise Caricature::ArgumentMatchError.new(:failed, self.error) unless res
+      res
     end
 
 

@@ -167,16 +167,21 @@ module Caricature
         agc.first.add_block_variation *ags
         res
       })
-      end
+    end
+
+    def error
+      @error
+    end
 
     # returns whether the method was actually called with the specified constraints
     def was_called?(method_name, block_args, mode=:instance, *args)
       mc = method_calls[mode][method_name.to_s.to_sym]  
       if mc
          result = mc.find_argument_variations(args, block_args).first == args
-         raise ArgumentError, "Arguments don't match.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
+         @error = "Arguments don't match.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
          result
       else
+        @error = "Couldn't find a method with name #{method_name}"
         return !!mc
       end
     end

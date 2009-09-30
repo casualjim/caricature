@@ -3,3 +3,4 @@
   * Start keeping track of history
   * Adds an isolate/stub/mock method
   * Allows using bacon or rspec for testing the application
+  * Adds a basic rspec integration

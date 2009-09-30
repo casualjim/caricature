@@ -243,7 +243,8 @@ describe "Ruby to Ruby interactions" do
       result = @dagger.attack @soldier
       result.should == 5
       var = @soldier.did_receive?(:survive_attack_with).with(:any)
-      @soldier.did_receive?(:survive_attack_with).with(@dagger).should be_successful
+#      @soldier.did_receive?(:survive_attack_with).with(@dagger).should be_successful
+      @soldier.should have_received(:survive_attack_with).with(@dagger)
     end
 
     it "should allow to delegate the method call to the real instance (partial mock)" do
@@ -252,7 +253,7 @@ describe "Ruby to Ruby interactions" do
       result = @dagger.attack @soldier
       result.should == 8
 
-      @soldier.did_receive?(:survive_attack_with).should be_successful
+      @soldier.should have_received(:survive_attack_with)
     end
     
     it "should be able to isolate objects with constructor params" do
