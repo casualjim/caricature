@@ -66,71 +66,124 @@ describe "Caricature::MemberDescriptor" do
 
 end
 
+describe Caricature::ClrEventDescriptor.to_s do
+
+  it "should have an event name" do
+    des = Caricature::ClrEventDescriptor.new "EventName"
+    des.event_name.should == "EventName"
+  end
+
+  it "should correctly identify when it's not an instance member" do
+    des = Caricature::ClrEventDescriptor.new "EventName", false
+    des.should.not.be.instance_member
+  end
+
+end
+
 describe "Caricature::ClrInterfaceDescriptor" do
 
-  before do
-    @des = Caricature::ClrInterfaceDescriptor.new ClrModels::IWeapon
-  end
+  describe "when collecting methods" do
 
-  it "should have 2 instance members" do
-    @des.instance_members.size.should.equal 2
-  end
-
-  it "should contain only instance members" do
-    result = true
-    @des.instance_members.each do |mem|
-     result = false unless mem.instance_member?
+    before do
+      @des = Caricature::ClrInterfaceDescriptor.new ClrModels::IWeapon
     end
 
-    result.should.be.true
+    it "should have 2 instance members" do
+      @des.instance_members.size.should.equal 2
+    end
+
+    it "should contain only instance members" do
+      result = true
+      @des.instance_members.each do |mem|
+        result = false unless mem.instance_member?
+      end
+
+      result.should.be.true
+    end
+
+    it "should have a damage instance member" do
+      @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+    end
+
+    it "should correctly identify indexers" do
+      des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
+      des.instance_members.select { |mem| mem.name == "__getitem__" }.should.not.be.empty
+    end
+
+    it "should correctly identify indexers" do
+      des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
+      des.instance_members.select { |mem| mem.name == "__setitem__" }.should.not.be.empty
+    end
   end
 
-  it "should have a damage instance member" do
-    @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+  describe "when collecting events" do
+
+    before do
+      @des = Caricature::ClrInterfaceDescriptor.new ClrModels::IExplodingWarrior
+    end
+
+    it "should have collected 2 events" do
+      @des.events.size.should == 2
+    end
+
+    it "should have collected 2 instance events" do
+      @des.events.all? { |ev| ev.instance_member? }.should.be.true?
+    end
+
+
   end
 
-  it "should correctly identify indexers" do
-    des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
-    des.instance_members.select { |mem| mem.name == "__getitem__" }.should.not.be.empty
-  end
-
-  it "should correctly identify indexers" do
-    des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
-    des.instance_members.select { |mem| mem.name == "__setitem__" }.should.not.be.empty
-  end
-    
 end
 
 describe "Caricature::ClrClassDescriptor" do
 
-  before do
-    @des = Caricature::ClrClassDescriptor.new ClrModels::SwordWithStatics
+  describe "when collecting methods" do
+
+    before do
+      @des = Caricature::ClrClassDescriptor.new ClrModels::SwordWithStatics
+    end
+
+    it "should have 11 instance members" do
+      @des.instance_members.size.should.equal 11
+    end
+
+    it "should have 5 static members" do
+      @des.class_members.size.should.equal 5
+    end
+
+    it "should have a damage instance member" do
+      @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
+    end
+
+    it "should have a another method instance member" do
+      @des.instance_members.select { |mem| mem.name == "another_method" }.should.not.be.empty
+    end
+
+    it "should correctly identify indexers" do
+      des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
+      des.instance_members.select { |mem| mem.name == "__getitem__" }.should.not.be.empty
+    end
+
+    it "should correctly identify indexers" do
+      des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
+      des.instance_members.select { |mem| mem.name == "__setitem__" }.should.not.be.empty
+    end
   end
 
-  it "should have 11 instance members" do
-    @des.instance_members.size.should.equal 11
-  end
+  describe "when collecting events" do
 
-  it "should have 5 static members" do
-    @des.class_members.size.should.equal 5
-  end
+    before do
+      @des = Caricature::ClrClassDescriptor.new ClrModels::ExposingWarrior
+    end
 
-  it "should have a damage instance member" do
-    @des.instance_members.select { |mem| mem.name == "damage" }.should.not.be.empty
-  end
+    it "should have 2 instance events" do
+      @des.events.size.should == 2
+    end
 
-  it "should have a another method instance member" do
-    @des.instance_members.select { |mem| mem.name == "another_method" }.should.not.be.empty
-  end
+    it "should should have 1 class event" do
+      @des.class_events.size.should == 1
+    end
 
-  it "should correctly identify indexers" do
-    des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
-    des.instance_members.select { |mem| mem.name == "__getitem__" }.should.not.be.empty
-  end
-
-  it "should correctly identify indexers" do
-    des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
-    des.instance_members.select { |mem| mem.name == "__setitem__" }.should.not.be.empty
   end
 
 end

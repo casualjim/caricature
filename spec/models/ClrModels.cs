@@ -54,6 +54,20 @@ namespace ClrModels{
         public event EventHandler<EventArgs> OnIsExposedChanged;
         public bool IsExposed {get; set; }
 
+
+        public event EventHandler<EventArgs> OnIsAliveChanged;
+
+        public void Die(){
+            OnIsAliveChanged(this, EventArgs.Empty);
+        }
+
+        public static event EventHandler<EventArgs> OnCountChanged;
+
+        public static void ChangeCount(){
+            OnCountChanged(null, EventArgs.Empty);
+        }
+
+
         public void SomeMethod(){}
         public void OwnMethod(){
 

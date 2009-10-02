@@ -19,7 +19,7 @@ module System
     def collect_interface_events
       iface_events = []
       iface_events += self.get_interfaces.collect { |t| t.collect_interface_events }
-      self.get_events + iface_events.flatten
+      self.get_events + iface_events.flatten.uniq
     end
 
   end
