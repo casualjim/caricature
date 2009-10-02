@@ -18,7 +18,7 @@ namespace ClrModels{
     }
 
     public interface IExposing {
-        event EventHandler<EventArgs> IsExposedChanged;
+        event EventHandler<EventArgs> OnIsExposedChanged;
         bool IsExposed {get; set; }
     }
 
@@ -28,6 +28,12 @@ namespace ClrModels{
 
     public interface IExposingWarrior : IExposingBridge {
         void OwnMethod();
+    }
+
+    public interface IExplodingWarrior : IExposingBridge{
+        event EventHandler<EventArgs> OnExploding;
+        void Explode();
+
     }
 
     public class ExposingWarrior : IExposingWarrior{
@@ -45,7 +51,7 @@ namespace ClrModels{
             return weapon.Damage() > 3;
         }
 
-        public event EventHandler<EventArgs> IsExposedChanged;
+        public event EventHandler<EventArgs> OnIsExposedChanged;
         public bool IsExposed {get; set; }
 
         public void SomeMethod(){}
@@ -60,22 +66,22 @@ namespace ClrModels{
 
         public void ChangeIsExposed(){
             IsExposed = !IsExposed;
-            var handler = IsExposedChanged;
+            var handler = OnIsExposedChanged;
             if(handler != null){
                 handler(this, EventArgs.Empty);
             }
         }
 
-        public bool HasEventSubscriptions{ get { return IsExposedChanged != null; } }
+        public bool HasEventSubscriptions{ get { return OnIsExposedChanged != null; } }
     }
 
     public class ExposedChangedSubscriber{
 
-        private readonly IExposingWarrior _warrior;
+        private readonly IExposingBridge _warrior;
 
-        public ExposedChangedSubscriber(IExposingWarrior warrior){
+        public ExposedChangedSubscriber(IExposingBridge warrior){
           _warrior = warrior;
-          _warrior.IsExposedChanged += OnExposedChanged;
+          _warrior.OnIsExposedChanged += OnExposedChanged;
         }
 
         public int Counter { get; set; }

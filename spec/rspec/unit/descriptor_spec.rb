@@ -66,6 +66,15 @@ describe "Caricature::MemberDescriptor" do
 
 end
 
+describe Caricature::ClrEventDescriptor do
+
+  it "should have an event name" do
+    des = Caricature::ClrEventDescriptor.new "EventName"
+    des.event_name.should == "EventName"
+  end
+  
+end
+
 describe "Caricature::ClrInterfaceDescriptor" do
 
   before do

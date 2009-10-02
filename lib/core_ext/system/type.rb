@@ -16,6 +16,12 @@ module System
       self.get_properties + iface_properties.flatten
     end
 
+    def collect_interface_events
+      iface_events = []
+      iface_events += self.get_interfaces.collect { |t| t.collect_interface_events }
+      self.get_events + iface_events.flatten
+    end
+
   end
 
 end

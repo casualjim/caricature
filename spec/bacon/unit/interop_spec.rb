@@ -25,19 +25,6 @@ describe "Event handling" do
       subscriber.counter.should.equal 1
     end
 
-  end
-
-  describe "for an IR generated interface proxy" do
-
-    before do
-      @proxy = isolate ClrModels::IExposingWarrior
-    end
-
-    # apparently events don't work yet in IronRuby.. keeping this spec here to find out when it does
-#    it "should not raise an error when subcribing to an event" do
-#      lambda { ClrModels::ExposedChangedSubscriber.new(@proxy) }.should.not.raise
-#    end
-
-  end
+  end 
 
 end
