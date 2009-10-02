@@ -1,21 +1,16 @@
-module Spec
-  module Adapters
-    module MockFramework
+module Caricature
+  module RSpecAdapter
 
-      def setup_mocks_for_rspec
-        # No setup required
-      end
+    def setup_mocks_for_rspec
+      # No setup required
+    end
 
-      def verify_mocks_for_rspec
-      end
+    def verify_mocks_for_rspec
+    end
 
-      def teardown_mocks_for_rspec
-      end
+    def teardown_mocks_for_rspec
     end
   end
-end
-
-module Caricature
 
   module RSpecMatchers
 
@@ -72,6 +67,7 @@ module Caricature
   end
 end
 
-Spec::Runner.configure do |config|
-  config.include(Caricature::RSpecMatchers)
-end
+#Spec::Runner.configure do |config|
+#  config.mock_with Caricature::RSpecAdapter
+#  config.include Caricature::RSpecMatchers
+#end
