@@ -68,7 +68,7 @@ describe "Caricature::RubyIsolator" do
   end
 end
 
-describe "Caricature::RecordingClrProxy" do
+describe "Caricature::ClrIsolator" do
 
   describe "for an instance of a CLR class" do
 
@@ -172,11 +172,11 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create an add method for the event" do
-      @proxy.should.respond_to?(:add_on_is_exposed_changed)
+      @proxy.should.respond_to?(:add_OnIsExposedChanged)
     end
 
     it "should create a remove method for the event" do
-      @proxy.should.respond_to?(:remove_on_is_exposed_changed)
+      @proxy.should.respond_to?(:remove_OnIsExposedChanged)
     end
 
   end
@@ -201,11 +201,11 @@ describe "Caricature::RecordingClrProxy" do
     end
 
     it "should create an add method for an event defined on a composing interface" do
-      @proxy.should.respond_to?(:add_on_is_exposed_changed)
+      @proxy.should.respond_to?(:add_OnIsExposedChanged)
     end
 
     it "should create a remove method for an event defined on a composing interface" do
-      @proxy.should.respond_to?(:remove_on_is_exposed_changed)
+      @proxy.should.respond_to?(:remove_OnIsExposedChanged)
     end
 
     it "should create a getter for a property on the proxy" do

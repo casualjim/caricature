@@ -1,5 +1,88 @@
 module Caricature
 
+  # Groups the methods for interception together
+  # this is a mix-in for the created isolations for classes
+  module Interception
+
+    # the class methods of this intercepting object
+    module ClassMethods
+
+      # Raises an event on the isolation
+      # You can specify the arguments in the block or as parameters
+      #
+      # Example
+      #
+      #     an_isolation.class.raise_event :on_property_changed do |raiser|
+      #       raiser.with an_isolation, System::EventArgs.empty
+      #     end
+      #
+      # is equivalent to:
+      #
+      #     an_isolation.class.raise_event :on_property_changed, an_isolation, System::EventArgs.empty
+      #
+      # or
+      #
+      #     an_isolation.class.raise_event(:on_property_changed).with(an_isolation, System::EventArgs.empty)
+      #
+      # You will most likely use this method when you want to verify logic in an event handler
+      # You will most likely use this method when you want to verify logic in an event handler
+      def raise_event(event_name, *args, &block)
+        isolation_context.raise_event event_name, *args, &block
+      end
+
+    end
+
+    # Raises an event on the isolation
+    # You can specify the arguments in the block or as parameters
+    #
+    # Example
+    #
+    #     an_isolation.raise_event :on_property_changed do |raiser|
+    #       raiser.with an_isolation, System::EventArgs.empty
+    #     end
+    #
+    # is equivalent to:
+    #
+    #     an_isolation.raise_event :on_property_changed, an_isolation, System::EventArgs.empty
+    #
+    # or
+    #
+    #     an_isolation.raise_event(:on_property_changed).with(an_isolation, System::EventArgs.empty)
+    #
+    # You will most likely use this method when you want to verify logic in an event handler
+    def raise_event(event_name, *args, &block)
+      isolation_context.raise_event event_name, *args, &block
+    end
+
+    # Raises an event on the isolation
+    # You can specify the arguments in the block or as parameters
+    #
+    # Example
+    #
+    #     an_isolation.raise_class_event :on_property_changed do |raiser|
+    #       raiser.with an_isolation, System::EventArgs.empty
+    #     end
+    #
+    # is equivalent to:
+    #
+    #     an_isolation.raise_class_event :on_property_changed, an_isolation, System::EventArgs.empty
+    #
+    # or
+    #
+    #     an_isolation.raise_class_event(:on_property_changed).with(an_isolation, System::EventArgs.empty)
+    #
+    # You will most likely use this method when you want to verify logic in an event handler
+    def raise_class_event(event_name, *args, &block)
+      isolation_context.class.raise_event event_name, *args, &block
+    end
+
+    
+    def did_raise_event?(event_name)
+      isolation_context.verify_event_raised event_name
+    end
+
+  end
+
   # A proxy to CLR objects that records method calls.
   # this implements all the public instance methods of the class when you use it in ruby code
   # When you use it in a CLR class you're bound to CLR rules and it only overrides the methods
@@ -28,7 +111,7 @@ module Caricature
     end
 
     # builds the Isolator class for the specified subject
-    def  create_isolation_for(subj)
+    def create_isolation_for(subj)
       members = @descriptor.instance_members
       class_members = @descriptor.class_members
 
@@ -40,10 +123,10 @@ module Caricature
         # access to the proxied subject
         def ___super___
           isolation_context.instance
-        end      
-        
-        def initialize(*args)  
-          self                      
+        end
+
+        def initialize(*args)
+          self
         end
 
         members.each do |mem|
@@ -92,6 +175,7 @@ module Caricature
     # builds the actual +isolator+ for the CLR interface
     def create_isolation_for(subj)
       proxy_members = @descriptor.instance_members
+      events = @descriptor.events
 
       klass = Object.const_set(class_name(subj), Class.new)
       klass.class_eval do
@@ -108,7 +192,27 @@ module Caricature
           end
         end
 
+
       end
+
+      evts = events.collect do |evt|
+        add_nm = evt.add_method_name.to_sym
+        remove_nm = evt.remove_method_name.to_sym
+
+        <<-end_event_definition
+
+def #{add_nm}(block)
+  isolation_context.add_event_subscription('#{evt.event_name}', block)
+end
+
+def #{remove_nm}(block)
+  isolation_context.remove_event_subscription('#{evt.event_name}', block)
+end
+
+        end_event_definition
+      end.join("\n")
+
+      klass.class_eval evts
 
       klass
     end

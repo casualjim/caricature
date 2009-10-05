@@ -88,6 +88,14 @@ module Caricature
       @instance_member
     end
 
+    def add_method_name
+      "add_#{event_name}"
+    end
+
+    def remove_method_name
+      "remove_#{event_name}"
+    end
+
     def to_s
       "<#{self.class}:#{object_id} @event_name=\"#{event_name}\">"
     end

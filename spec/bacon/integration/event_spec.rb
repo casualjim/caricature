@@ -12,7 +12,10 @@ describe "CLR event handling" do
       lambda { ClrModels::ExposedChangedSubscriber.new(@proxy) }.should.not.raise
     end
 
-    
+#    it "should have 1 event subscription" do
+#
+#    end
+
   end
 
 end

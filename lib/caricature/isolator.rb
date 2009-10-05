@@ -289,8 +289,6 @@ module Caricature
             isolation_context.send_class_message(mn, nil, *args, &b)
           end
         end   
-              
-
 
       end
 

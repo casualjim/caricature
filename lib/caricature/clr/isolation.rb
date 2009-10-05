@@ -1,7 +1,21 @@
 module Caricature
 
   class Isolation
-    
+
+    attr_reader :events
+
+    def events
+      @events ||= {}
+    end
+
+    def add_event_subscription(event_name, handler)
+      (events[event_name_for(event_name)] ||=[]) << handler
+    end
+
+    def remove_event_subscription(event_name, handler)
+      (events[event_name_for(event_name)] ||=[]).delete(handler)
+    end
+
     class << self
 
       # Creates an isolation object complete with proxy and method call recorder
@@ -33,10 +47,15 @@ module Caricature
         builder = ExpectationBuilder.new method_name
         block.call builder unless block.nil?
         exp = builder.build           
-      
         expectations.add_expectation exp, mode
         exp
       end
+
+    private
+
+    def event_name_for(method_name)
+      method_name.gsub(/^(add|remove)_/, '').underscore.to_sym
+    end
 
   end
 
