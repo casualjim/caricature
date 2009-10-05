@@ -7,4 +7,4 @@ export MONO_LIB=/usr/local/mono-2-6-p1/lib
 #export MERLIN_ROOT=$WORKSPACE/Merlin/Main
 export MONO_SHARED_DIR=/tmp
 
-rake bacon
+ibacon spec/bacon/**/*_spec.rb
