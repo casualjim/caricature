@@ -124,11 +124,31 @@ module Caricature
     # finds an argument variation that matches the provided +args+
     def find_argument_variations(args, block_args)
       return @variations if args.first.is_a?(Symbol) and args.last == :any
-      return @variations.select { |ar| ar.args == args } if block_args.nil?
+      return match_hash(args, block_args) if args.size == 1 and args.last.is_a?(Hash)
+      return @variations.select { |ar| ar.args == args } if block_args.nil? 
       return @variations.select { |ar| ar.args == args and ar.block } if block_args.last == :any
       return @variations.select do |ar|
         av = ar.args == args
+        # idx = 0
+        #         ags = ar.args
+        #         av = args.all? do |ag| 
+        #           rag = ags[idx]
+        #           res = if ag.is_a?(Hash) and rag.is_a?(Hash)
+        #             ag.all? { |k, v| ar.args[idx][k] == v  }
+        #           else
+        #             ag == rag
+        #           end
+        #           idx += 1
+        #           res
+        #         end
         av and not ar.find_block_variation(*block_args).empty?
+      end
+    end
+    
+    def match_hash(args, block_args)
+      @variations.select do |ar| 
+        ags = ar.args.last
+        args.last.all? { |k, v| ags[k] == v }  
       end
     end
   end
@@ -177,9 +197,16 @@ module Caricature
     def was_called?(method_name, block_args, mode=:instance, *args)
       mc = method_calls[mode][method_name.to_s.to_sym]  
       if mc
-         result = mc.find_argument_variations(args, block_args).first == args
-         @error = "Arguments don't match.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
-         result
+        vari = mc.find_argument_variations(args, block_args)
+        result = vari.any? { |agv| agv == args }
+        return result if result
+        if args.size == 1 and args.last.is_a?(Hash)
+          result = vari.any? do |agv|
+            agv.args.last.is_a?(Hash) and args.last.all? { |k, v| agv.args.last[k] == v }
+          end
+        end
+        @error = "Arguments don't match.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
+        result
       else
         @error = "Couldn't find a method with name #{method_name}"
         return !!mc

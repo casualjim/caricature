@@ -1,3 +1,6 @@
+*** 15/10/2009 ***
+  * Adds support for partial Hash matching
+
 *** 30/09/2009 ***
 
   * Start keeping track of history
