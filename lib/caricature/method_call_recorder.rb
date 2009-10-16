@@ -188,6 +188,7 @@ module Caricature
         res
       })
     end
+    
 
     def error
       @error

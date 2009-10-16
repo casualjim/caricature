@@ -13,7 +13,7 @@ module Caricature
     end
 
     # adds an event subscription
-    def add_event_subscription(event_name, handler)
+    def add_event_subscription(event_name, mode, handler)
       (events[event_name_for(event_name)] ||=[]) << handler
     end
 
