@@ -1,5 +1,11 @@
+*** 16/10/2009 ***
+  * Adds raising events
+
 *** 15/10/2009 ***
   * Adds support for partial Hash matching
+
+*** 02/10/2009 ***
+  * Adds subscribing to events
 
 *** 30/09/2009 ***
 

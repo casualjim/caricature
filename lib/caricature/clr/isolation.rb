@@ -1,17 +1,23 @@
 module Caricature
+  
+  
 
-  class Isolation
+  class Isolation # :nodoc:
 
+    # the event subscriptions collected at runtime
     attr_reader :events
-
+    
+    # the event subscriptions collected at runtime
     def events
       @events ||= {}
     end
 
+    # adds an event subscription
     def add_event_subscription(event_name, handler)
       (events[event_name_for(event_name)] ||=[]) << handler
     end
 
+    # removes an event subscription
     def remove_event_subscription(event_name, handler)
       (events[event_name_for(event_name)] ||=[]).delete(handler)
     end
@@ -40,20 +46,10 @@ module Caricature
           ClrIsolator
         end
     end 
-    
-    protected
-    
-      def internal_create_override(method_name, mode=:instance, &block)
-        builder = ExpectationBuilder.new method_name
-        block.call builder unless block.nil?
-        exp = builder.build           
-        expectations.add_expectation exp, mode
-        exp
-      end
 
     private
 
-    def event_name_for(method_name)
+    def event_name_for(method_name) #:nodoc:
       method_name.gsub(/^(add|remove)_/, '').underscore.to_sym
     end
 

@@ -83,5 +83,5 @@ describe "Caricature::Isolation" do
     end
 
   end
-
+  
 end

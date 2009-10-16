@@ -208,9 +208,9 @@ describe "Caricature::ExpectationBuilder" do
     before do
       builder = Caricature::ExpectationBuilder.new :some_method
       @counter, @args = 0, []
-      builder.with(5) do |*args| 
+      builder.with(5) do |*ags| 
         @counter += 1 
-        @args = args
+        @args = ags
       end
       @expectation = builder.build
     end
