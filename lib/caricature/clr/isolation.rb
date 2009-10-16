@@ -13,13 +13,22 @@ module Caricature
     end
 
     # adds an event subscription
-    def add_event_subscription(event_name, mode, handler)
-      (events[event_name_for(event_name)] ||=[]) << handler
+    def add_event_subscription(event_name, mode = :instance, &handler)
+      ((events[mode] ||= {})[event_name_for(event_name)] ||=[]) << handler
     end
 
     # removes an event subscription
-    def remove_event_subscription(event_name, handler)
-      (events[event_name_for(event_name)] ||=[]).delete(handler)
+    def remove_event_subscription(event_name, mode= :instance, &handler)
+      ((events[mode] ||= {})[event_name_for(event_name)] ||=[]).delete(handler)
+    end
+    
+    # def add_event_expectation(name, mode, *args, &handler)
+    # end
+    
+    def verify_event_raise(event_name, mode= :instance, &block)
+      verification = EventVerification.new(event_name, recorder, mode)
+      block.call verification unless block.nil?
+      verification
     end
 
     class << self

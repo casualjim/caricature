@@ -27,7 +27,15 @@ module Caricature
       # You will most likely use this method when you want to verify logic in an event handler
       # You will most likely use this method when you want to verify logic in an event handler
       def raise_event(event_name, *args, &block)
-        isolation_context.add_event_subscription event_name, *args, &block
+        isolation_context.add_event_expectation event_name, :class, *args, &block
+      end
+      
+      # Verifies whether the specified event was raised
+      #
+      # You will probably be using this method only when you're interested in whether an event has been raised
+      # during the course of the test you're running.
+      def did_raise_event?(event_name)
+        isolation_context.verify_event_raise event_name, :class
       end
 
     end
@@ -51,7 +59,7 @@ module Caricature
     #
     # You will most likely use this method when you want to verify logic in an event handler
     def raise_event(event_name, *args, &block)
-      isolation_context.add_event_subscription event_name, *args, &block
+      isolation_context.add_event_expectation event_name, :instance, *args, &block
     end
 
     # Raises an event on the isolation
@@ -81,7 +89,15 @@ module Caricature
     # You will probably be using this method only when you're interested in whether an event has been raised
     # during the course of the test you're running.
     def did_raise_event?(event_name)
-      isolation_context.verify_event_raised event_name
+      isolation_context.verify_event_raise event_name
+    end
+    
+    # Verifies whether the specified event was raised
+    #
+    # You will probably be using this method only when you're interested in whether an event has been raised
+    # during the course of the test you're running.
+    def did_raise_event?(event_name)
+      isolation_context.class.did_raise_event? event_name
     end
 
   end

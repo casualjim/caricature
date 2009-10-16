@@ -1,5 +1,7 @@
 *** 16/10/2009 ***
   * Adds raising events
+  * Adds verifying events 
+  * Adds event support to bacon and RSpec integrations
 
 *** 15/10/2009 ***
   * Adds support for partial Hash matching

@@ -72,7 +72,7 @@ module Caricature
     end
     
     # returns whether the event was actually raised with the specified constraints
-    def was_called?(event_name, mode=:instance, *args)
+    def event_raised?(event_name, mode=:instance, *args)
       mc = event_raises[mode][event_name.to_s.to_sym]  
       if mc
         vari = mc.find_argument_variations(args, block_args)
@@ -86,7 +86,7 @@ module Caricature
         @event_error = "Event Arguments don't match for #{event_name}.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
         result
       else
-        @event_error = "Couldn't find a method with name #{event_name}"
+        @event_error = "Couldn't find an event with name #{event_name}"
         return !!mc
       end
     end

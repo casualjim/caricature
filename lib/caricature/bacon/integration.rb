@@ -4,6 +4,10 @@ class Should
     lambda { |obj, *args| obj.did_receive?(name, &b).successful? }
   end
   
+  def have_raised_event?(name, &b)
+    lambda { |obj, *args| obj.did_raise_event?(name, &b).successful? }
+  end if defined?(IRONRUBY_VERSION)  
+  
   def satisfy(*args, &block)
     if args.size == 1 && String === args.first
       description = args.shift
@@ -46,6 +50,19 @@ module Caricature
 
 
   end
+if defined?(IRONRUBY_VERSION)
+  class EventVerification
+    
+    # indicate that this event verification is successful
+    def successful?
+      a = any_args? ? [:any] : @args
+      res = @recorder.event_raised?(@event_name, @mode, *a)
+      raise Caricature::ArgumentMatchError.new(:failed, self.error) unless res
+      res
+    end
+    
+  end
+end
   
   class ArgumentMatchError < Bacon::Error; 
   
