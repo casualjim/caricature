@@ -7,11 +7,13 @@ module Caricature
     # tell the expectation it needs to raise an event when this method is called
     def raise_event(name, *ags, &b)
       collected.merge!(:event_name => name, :event_args => ags, :event_handler => b)
+      self
     end
     
     # raises the events that has been registered on the object at runtime
     def raise_subscriptions
       collected[:raise_subscriptions] = true
+      self
     end
     
   end
@@ -24,24 +26,22 @@ module Caricature
     
     include EventExpectationSyntax
     
-    def initialzie(options={})
-      collected[:raise_subscriptions] = false
-      super
-    end
+    
     
     # the block that will be used
     def event_name
       collected[:event_name]
     end
     
-    # the block that will be used
+    # the arguments that will be used for the event
     def event_args
-      collected[:event_args]
+      evt_ags = collected[:event_args]
+      evt_ags.nil? or evt_ags.empty? ? [nil, System::EventArgs.empty] : evt_ags
     end
     
     # the block that will be used# the block that will be used
     def event_handler
-      collected[:event_handler]
+      collected[:event_handler] || lambda { |s,e| }
     end
     
     # the events attached to the context
@@ -68,6 +68,10 @@ module Caricature
     def raises_registered?
       !!collected[:raise_subscriptions]
     end
+   
+    def event_recorder(&b)
+      @event_recorder = b
+    end
     
     def to_s #:nodoc:
       "<Caricature::Expecation, method_name: #{method_name}, args: #{args}, error args: #{error_args}, event: #{event_name}>"
@@ -77,11 +81,18 @@ module Caricature
     private 
     
     def do_event_raise #:nodoc:
-      if raises_event?
-        ags = collected[:event_args]
-        collected[:event_callback].call *ags if has_event_handler?
-        events[collected[:event_name]].each { |evt| evt.call *ags } if raises_registered? or not has_event_handler?
-      end
+      @event_recorder.call event_name, event_args, event_handler
+      return unless raises_event?
+      
+      ags = event_args
+      event_handler.call *ags if has_event_handler?
+      
+      return unless raises_registered? or not has_event_handler?
+      events[event_name].each { |evt| call_handler evt, *ags }
+    end
+    
+    def call_handler(evt, *ags)
+      evt.respond_to?(:call) ? evt.call(*ags) : evt.get_invocation_list.each{|ev| ev.invoke(*ags) }
     end
   end
 

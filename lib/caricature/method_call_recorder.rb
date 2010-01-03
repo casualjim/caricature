@@ -206,7 +206,7 @@ module Caricature
             agv.args.last.is_a?(Hash) and args.last.all? { |k, v| agv.args.last[k] == v }
           end
         end
-        @error = "Arguments don't match.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
+        @error = "Arguments don't match.\nYou expected:\n#{args.join(", ")}.\nI did find the following variations:\n#{mc.args.collect {|ar| ar.args.join(', ') }.join("\nand\n")}" unless result
         result
       else
         @error = "Couldn't find a method with name #{method_name}"

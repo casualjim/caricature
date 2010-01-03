@@ -51,7 +51,7 @@ namespace ClrModels{
             return weapon.Damage() > 3;
         }
 
-        public event EventHandler<EventArgs> OnIsExposedChanged;
+        public virtual event EventHandler<EventArgs> OnIsExposedChanged;
         public bool IsExposed {get; set; }
 
 
@@ -78,7 +78,7 @@ namespace ClrModels{
             return _life - weapon.Damage();
         }
 
-        public void ChangeIsExposed(){
+        public void Explode(){
             IsExposed = !IsExposed;
             var handler = OnIsExposedChanged;
             if(handler != null){
@@ -99,9 +99,13 @@ namespace ClrModels{
         }
 
         public int Counter { get; set; }
+		public object Sender {get; set;  }
+		public EventArgs Args { get; set; }
 
         private void OnExposedChanged(object sender, EventArgs args){
             Counter++;            
+            Sender = sender;
+            Args = args;
         }
 
     }

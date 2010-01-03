@@ -38,7 +38,7 @@ module Caricature
 
      # add an argument variation
      def add_argument_variation(args, block)
-       variation = find_argument_variations args, nil
+       variation = find_argument_variations args
        if variation.empty?
          @variations << ArgumentRecording.new(args, @variations.size+1, block) if variation == []
        else
@@ -62,6 +62,7 @@ module Caricature
     
     def record_event_raise(event_name, mode, *args, &handler)
       en_sym = event_name.to_sym
+      event_raises[mode] ||= {}
       ev = (event_raises[mode][en_sym] ||= EventRaiseRecording.new(event_name))
       ev.count += 1
       ev.add_argument_variation args, handler
@@ -72,10 +73,10 @@ module Caricature
     end
     
     # returns whether the event was actually raised with the specified constraints
-    def event_raised?(event_name, mode=:instance, *args)
+    def event_raised?(event_name, mode = :instance, *args)
       mc = event_raises[mode][event_name.to_s.to_sym]  
       if mc
-        vari = mc.find_argument_variations(args, block_args)
+        vari = mc.find_argument_variations(args)
         result = vari.any? { |agv| agv == args }
         return result if result
         if args.size == 1 and args.last.is_a?(Hash)
@@ -83,7 +84,7 @@ module Caricature
             agv.args.last.is_a?(Hash) and args.last.all? { |k, v| agv.args.last[k] == v }
           end
         end
-        @event_error = "Event Arguments don't match for #{event_name}.\nYou expected: #{args.join(", ")}.\nI did find the following variations: #{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
+        @event_error = "Event Arguments don't match for #{event_name}.\n\nYou expected:\n#{args.join(", ")}.\n\nI did find the following variations:\n#{mc.args.collect {|ar| ar.args.join(', ') }.join(' and ')}" unless result
         result
       else
         @event_error = "Couldn't find an event with name #{event_name}"

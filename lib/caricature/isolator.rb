@@ -214,6 +214,7 @@ module Caricature
       pxy.instance_variable_set("@___context___", context)
       pxy
     end
+ 
 
     class << self
 
@@ -280,10 +281,11 @@ module Caricature
         def initialize(*args)  
           self                      
         end 
-                   
+        
         cmembers.each do |mn|
           mn = mn.name.to_s.to_sym
           define_cmethod mn do |*args|        
+            return if mn.to_s =~ /$(singleton_)?method_added/ and args.first.to_s =~ /$(singleton_)?method_added/
             b = nil
             b = Proc.new { yield } if block_given?  
             isolation_context.send_class_message(mn, nil, *args, &b)

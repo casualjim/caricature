@@ -138,7 +138,7 @@ module Caricature
       context = {}
       context[:methods] = clr_type.get_methods(instance_flags)
       context[:properties] = clr_type.get_properties(instance_flags)
-      context[:events] = clr_type.get_events(instance_flags)
+      context[:events] = clr_type.get_events(event_flags)
 
       @instance_members = build_member_collections context
     end
@@ -150,7 +150,7 @@ module Caricature
       context = {}
       context[:methods] = clr_type.get_methods(class_flags)
       context[:properties] = clr_type.get_properties(class_flags)
-      context[:events] = clr_type.get_events(class_flags)
+      context[:events] = clr_type.get_events(class_event_flags)
 
       @class_members = build_member_collections context, false
     end

@@ -14,6 +14,9 @@ module Caricature
         if exp
           block = exp.block || b
           res = instance.__send__(method_name, *args, &block) if exp.super_before?
+          exp.event_recorder do |ev_nm, ev_ar, ev_h|
+            recorder.record_event_raise ev_nm, mode, *ev_ar, &ev_h 
+          end if recorder
           res = exp.execute *args, &bl
           res = instance.__send__(method_name, *args, &block) if !exp.super_before? and exp.call_super?
         end
@@ -33,6 +36,9 @@ module Caricature
         res = nil                                               
         is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
         exp = expectations.find(method_name, mode, *args)
+        exp.event_recorder do |ev_nm, ev_ar, ev_h|
+          recorder.record_event_raise ev_nm, mode, *ev_ar, &ev_h 
+        end if recorder
         bl = record_call(method_name, mode, exp, *args, &b)
         res = exp.execute *args, &bl if exp
         res ||= System::Activator.create_instance(return_type) if is_value_type  

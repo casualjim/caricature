@@ -1,11 +1,11 @@
 class Should
   
   def have_received?(name, &b)
-    lambda { |obj, *args| obj.did_receive?(name, &b).successful? }
+    be(name) { |obj, *args| obj.did_receive?(name, &b).successful? }
   end
   
   def have_raised_event?(name, &b)
-    lambda { |obj, *args| obj.did_raise_event?(name, &b).successful? }
+    be(name) { |obj, *args| obj.did_raise_event?(name, &b).successful? }
   end if defined?(IRONRUBY_VERSION)  
   
   def satisfy(*args, &block)
@@ -14,11 +14,10 @@ class Should
     else
       description = ""
     end
-    
     r=nil
     err = nil
     begin
-      r = yield(@object, *args)
+      r = block.call(@object, *args)
     rescue Caricature::ArgumentMatchError => e
       err =e 
     end
@@ -62,6 +61,10 @@ if defined?(IRONRUBY_VERSION)
     end
     
   end
+  
+  # class ClrInterfaceIsolator
+  #     def
+  #   end
 end
   
   class ArgumentMatchError < Bacon::Error; 

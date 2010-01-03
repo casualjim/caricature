@@ -34,8 +34,8 @@ module Caricature
       #
       # You will probably be using this method only when you're interested in whether an event has been raised
       # during the course of the test you're running.
-      def did_raise_event?(event_name)
-        isolation_context.verify_event_raise event_name, :class
+      def did_raise_event?(event_name, &b)
+        isolation_context.verify_event_raise event_name, :class, &b
       end
 
     end
@@ -81,23 +81,23 @@ module Caricature
     #
     # You will most likely use this method when you want to verify logic in an event handler
     def raise_class_event(event_name, *args, &block)
-      isolation_context.class.raise_event event_name, *args, &block
+      self.class.raise_event event_name, *args, &block
     end
 
     # Verifies whether the specified event was raised
     #
     # You will probably be using this method only when you're interested in whether an event has been raised
     # during the course of the test you're running.
-    def did_raise_event?(event_name)
-      isolation_context.verify_event_raise event_name
+    def did_raise_event?(event_name, &b)
+      isolation_context.verify_event_raise event_name, :instance, &b
     end
     
     # Verifies whether the specified event was raised
     #
     # You will probably be using this method only when you're interested in whether an event has been raised
     # during the course of the test you're running.
-    def did_raise_event?(event_name)
-      isolation_context.class.did_raise_event? event_name
+    def did_raise_class_event?(event_name, &b)
+      self.class.did_raise_event? event_name, &b
     end
 
   end
@@ -133,6 +133,8 @@ module Caricature
     def create_isolation_for(subj)
       members = @descriptor.instance_members
       class_members = @descriptor.class_members
+      events = @descriptor.events
+      class_events = @descriptor.class_events
 
       klass = Object.const_set(class_name(subj), Class.new(subj))
       klass.class_eval do
@@ -165,6 +167,24 @@ module Caricature
             isolation_context.send_class_message(mn, nil, *args, &b)
           end
         end
+        
+       evts = (events + class_events).collect do |evt|
+         %w(add remove).inject("") do |res, nm|
+           res << <<-end_event_definition
+           
+def #{"self." unless evt.instance_member?}#{nm}_#{evt.event_name}(block)
+  puts "Adding event #{evt.event_name}" 
+  isolation_context.#{nm}_event_subscription('#{evt.event_name}', :#{evt.instance_member? ? "instance" : "class"}, block)
+end
+ 
+           end_event_definition
+         end
+
+        end.join("\n")
+
+        klass.class_eval evts
+        
+        puts evts
 
       end
 
@@ -215,22 +235,17 @@ module Caricature
       end
 
       evts = events.collect do |evt|
-        add_nm = evt.add_method_name.to_sym
-        remove_nm = evt.remove_method_name.to_sym
+       %w(add remove).inject("") do |res, nm|
+         res << <<-end_event_definition
 
-        <<-end_event_definition
-
-def #{add_nm}(block)
-  isolation_context.add_event_subscription('#{evt.event_name}', block)
+def #{"self." unless evt.instance_member?}#{nm}_#{evt.event_name}(block)
+  puts "Adding event #{evt.event_name}" 
+  isolation_context.#{nm}_event_subscription('#{evt.event_name}', :#{evt.instance_member? ? "instance" : "class"}, block)
 end
 
-def #{remove_nm}(block)
-  isolation_context.remove_event_subscription('#{evt.event_name}', block)
-end
-
-        end_event_definition
+         end_event_definition
+       end
       end.join("\n")
-
       klass.class_eval evts
 
       klass
