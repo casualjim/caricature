@@ -234,7 +234,7 @@ describe "CLR to CLR interactions" do
 
       result = @weapon.attack @ninja
       result.should.equal 5
-      var = @ninja.did_receive?(:survive_attack_with).with(:any)
+      @ninja.did_receive?(:survive_attack_with).with(:any).should.be.successful
       @ninja.did_receive?(:survive_attack_with).with(@weapon).should.be.successful
     end
 

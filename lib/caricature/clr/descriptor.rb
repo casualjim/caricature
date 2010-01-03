@@ -22,8 +22,8 @@ module Caricature
       context[:properties].inject([]) do |res, pi|
         prop_name = property_name_from(pi)
         res << MemberDescriptor.new(prop_name, pi.property_type, instance_member)
-#        res << MemberDescriptor.new("__setitem__", nil, instance_member) if pi.can_write and prop_name == "__getitem__"
-        res << MemberDescriptor.new("#{prop_name}=", nil, instance_member) if pi.can_write #and prop_name != "__getitem__"
+        res << MemberDescriptor.new("set_Item", nil, instance_member) if prop_name == "get_Item"
+        res << MemberDescriptor.new("#{prop_name}=", nil, instance_member) if pi.can_write and prop_name != "get_Item"
         res
       end
     end
@@ -49,7 +49,7 @@ module Caricature
     # when the property is an indexer it will return +[]+
     def property_name_from(property_info)
       return property_info.name.underscore if property_info.get_index_parameters.empty?
-      "Item"
+      "get_Item"
     end
 
     # the binding flags for instance members of a CLR type

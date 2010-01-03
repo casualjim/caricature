@@ -53,7 +53,7 @@ module Caricature
         isolation_strategy = subject.clr_type? ? get_clr_isolation_strategy(subject) : RubyIsolator
 
         isolator = isolation_strategy.for context
-        isolation = new(isolator, context)
+        new(isolator, context)
         isolator.isolation
       end
 

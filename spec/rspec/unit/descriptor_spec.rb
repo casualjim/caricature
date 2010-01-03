@@ -106,12 +106,12 @@ describe Caricature::ClrInterfaceDescriptor do
 
     it "should correctly identify indexers" do
       des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
-      des.instance_members.select { |mem| mem.name == "__getitem__" }.should_not be_empty
+      des.instance_members.select { |mem| mem.name == "get_Item" }.should_not be_empty
     end
 
     it "should correctly identify indexers" do
       des = Caricature::ClrInterfaceDescriptor.new ClrModels::IHaveAnIndexer
-      des.instance_members.select { |mem| mem.name == "__setitem__" }.should_not be_empty
+      des.instance_members.select { |mem| mem.name == "set_Item" }.should_not be_empty
     end
   end
 
@@ -159,12 +159,12 @@ describe "Caricature::ClrClassDescriptor" do
 
     it "should correctly identify indexers" do
       des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
-      des.instance_members.select { |mem| mem.name == "__getitem__" }.should_not be_empty
+      des.instance_members.select { |mem| mem.name == "get_Item" }.should_not be_empty
     end
 
     it "should correctly identify indexers" do
       des = Caricature::ClrClassDescriptor.new ClrModels::IndexerContained
-      des.instance_members.select { |mem| mem.name == "__setitem__" }.should_not be_empty
+      des.instance_members.select { |mem| mem.name == "set_Item" }.should_not be_empty
     end
   end
 
