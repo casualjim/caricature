@@ -81,6 +81,7 @@ module Caricature
     private 
     
     def do_event_raise #:nodoc:
+      return unless @event_recorder
       @event_recorder.call event_name, event_args, event_handler
       return unless raises_event?
       

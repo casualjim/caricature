@@ -15,7 +15,7 @@ describe "CLR to CLR interactions" do
       end
 
       it "should work with an expectation" do
-        @ind.when_receiving(:__getitem__).return("5")
+        @ind.when_receiving(:Item).return("5")
         
         @cons.call_index_on_class(@ind, "key1").should == "5"
       end

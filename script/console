@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 # File: script/console
-irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+irb = ENV['OS'] =~ /^WINDOWS/iu ? 'CALL iirb.bat' : 'iirb'
 
 libs =  " -r irb/completion"
 # Perhaps use a console_lib to store any extra methods I may want available in the cosole
 # libs << " -r #{File.dirname(__FILE__) + '/../lib/console_lib/console_logger.rb'}"
-libs <<  " -r #{File.dirname(__FILE__) + '/../lib/caricature.rb'}"
+libs <<  " -r rubygems -r #{File.dirname(__FILE__) + '/../lib/caricature.rb'}"
 puts "Loading caricature gem"
 exec "#{irb} #{libs} --simple-prompt"

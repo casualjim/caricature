@@ -1,4 +1,6 @@
+require 'rubygems' unless defined?(Gem)
 $:.unshift File.dirname(__FILE__)
+require 'uuidtools'
 
 module Caricature
 #

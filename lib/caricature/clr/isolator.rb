@@ -173,8 +173,7 @@ module Caricature
            res << <<-end_event_definition
            
 def #{"self." unless evt.instance_member?}#{nm}_#{evt.event_name}(block)
-  puts "Adding event #{evt.event_name}" 
-  isolation_context.#{nm}_event_subscription('#{evt.event_name}', :#{evt.instance_member? ? "instance" : "class"}, block)
+  self.isolation_context.#{nm}_event_subscription('#{evt.event_name}', :#{evt.instance_member? ? "instance" : "class"}, block)
 end
  
            end_event_definition
@@ -184,7 +183,7 @@ end
 
         klass.class_eval evts
         
-        puts evts
+        #puts evts
 
       end
 
@@ -239,7 +238,6 @@ end
          res << <<-end_event_definition
 
 def #{"self." unless evt.instance_member?}#{nm}_#{evt.event_name}(block)
-  puts "Adding event #{evt.event_name}" 
   isolation_context.#{nm}_event_subscription('#{evt.event_name}', :#{evt.instance_member? ? "instance" : "class"}, block)
 end
 
