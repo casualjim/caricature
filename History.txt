@@ -1,3 +1,6 @@
+*** 12/01/2009 ***
+  * Adds camel-cased method name support
+  
 *** 16/10/2009 ***
   * Adds raising events
   * Adds verifying events 
