@@ -24,7 +24,7 @@ module Caricature
     def find(method_name, mode=:instance, *args)
       expectations = mode == :class ? @class_expectations : @instance_expectations
 
-      candidates = expectations.select { |exp| exp.method_name.to_s.to_sym == method_name.to_s.to_sym }
+      candidates = expectations.select { |exp| exp.method_name.to_s.underscore =~ /#{method_name}|#{method_name.to_s.underscore}/ }
       with_arguments_candidates = candidates.select { |exp| exp.args == args }
       
       with_arguments_candidates.first || candidates.select { |exp| exp.any_args?  }.first

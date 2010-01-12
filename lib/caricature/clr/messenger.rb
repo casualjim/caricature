@@ -8,6 +8,7 @@ module Caricature
       # deliver the message to the receiving isolation
       def internal_deliver(mode, method_name, return_type, *args, &b)   
         exp = expectations.find(method_name, mode, *args)
+#        exp = expectations.find(method_name.underscore, mode, *args) unless exp
         bl = record_call(method_name, mode, exp, *args, &b)
         is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type 
         res = nil
@@ -36,6 +37,7 @@ module Caricature
         res = nil                                               
         is_value_type = return_type && return_type != System::Void.to_clr_type && return_type.is_value_type
         exp = expectations.find(method_name, mode, *args)
+#        exp = expectations.find(method_name.underscore, mode, *args) unless exp
         exp.event_recorder do |ev_nm, ev_ar, ev_h|
           recorder.record_event_raise ev_nm, mode, *ev_ar, &ev_h if ev_nm
         end if recorder && exp

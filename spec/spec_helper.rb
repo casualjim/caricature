@@ -12,4 +12,5 @@ require "caricature"
 require 'ClrModels.dll' if defined? IRONRUBY_VERSION
 
 # Load the ruby models
-require File.dirname(__FILE__) + "/models/ruby_models"
+require File.dirname(__FILE__) + "/fixtures/soldier"
+Dir[File.dirname(__FILE__) + "/fixtures/*.rb"].each { |l| require l }

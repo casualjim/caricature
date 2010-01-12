@@ -43,7 +43,7 @@ end
 desc "Compiles the clr models"
 task :clr_models do
   Dir.chdir(File.dirname(__FILE__))
-  files = Dir.glob("spec/models/*.cs").join(' ') #.collect { |f| f.gsub(/\//, "\\")  }.join(" ")
+  files = Dir.glob("spec/fixtures/*.cs").join(' ') #.collect { |f| f.gsub(/\//, "\\")  }.join(" ")
   system "#{csc} /noconfig /target:library /debug+ /debug:full /out:spec/bin/ClrModels.dll #{files}"
 end              
 
@@ -67,8 +67,7 @@ RDOC_OPTIONS  = [
                 "--quiet",
                 "--title", SUMMARY,
                 "--main", "README.rdoc",
-                "--line-numbers",
-                "--format","darkfish"
+                "--line-numbers"
                 ]
 
 # Extra files outside of the lib dir that should be included with the rdocs.
@@ -137,7 +136,7 @@ begin
     s.has_rdoc = true
     s.extra_rdoc_files = RDOC_FILES
     s.rdoc_options = RDOC_OPTIONS
-    s.required_ruby_version = ">= 1.8.4"  
+    s.required_ruby_version = ">= 1.8.6"  
     s.add_dependency 'uuidtools', ">= 2.0.0"
   end
 

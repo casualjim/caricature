@@ -169,8 +169,8 @@ module Caricature
 
     # records a method call or increments the count of how many times this method was called.
     def record_call(method_name, mode=:instance, expectation=nil, *args, &block)
-      mn_sym = method_name.to_s.to_sym
-      method_calls[mode][mn_sym] ||= MethodCallRecording.new method_name
+      mn_sym = method_name.to_s.underscore.to_sym
+      method_calls[mode][mn_sym] ||= MethodCallRecording.new mn_sym.to_s
       mc = method_calls[mode][mn_sym]
       mc.count += 1
       agc = mc.add_argument_variation args, block
@@ -196,7 +196,7 @@ module Caricature
 
     # returns whether the method was actually called with the specified constraints
     def was_called?(method_name, block_args, mode=:instance, *args)
-      mc = method_calls[mode][method_name.to_s.to_sym]  
+      mc = method_calls[mode][method_name.to_s.underscore.to_sym]
       if mc
         vari = mc.find_argument_variations(args, block_args)
         result = vari.any? { |agv| agv == args }
