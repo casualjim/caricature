@@ -9,8 +9,13 @@ describe "syntax improvements" do
       soldier.should.not.be.nil
     end
 
-    it "should allow setting an expectation" do
+    it "should allow setting an expectation with a block parameter" do
       soldier = SoldierWithClassMembers.isolate(:class_name){ |exp| exp.return("overridden") }
+      soldier.class.class_name.should == "overridden"
+    end
+
+    it "should allow setting an expectation without a block parameter" do
+      soldier = SoldierWithClassMembers.isolate(:class_name){ returns("overridden") }
       soldier.class.class_name.should == "overridden"
     end
 
@@ -24,8 +29,13 @@ describe "syntax improvements" do
       soldier.should.not.be.nil
     end
 
-    it "should allow setting an expectation" do
+    it "should allow setting an expectation with a block parameter" do
       soldier = Soldier.new.isolate(:name){ |exp| exp.return("overridden") }
+      soldier.name.should == "overridden"
+    end
+
+    it "should allow setting an expectation without a block parameter" do
+      soldier = Soldier.new.isolate(:name){ returns("overridden") }
       soldier.name.should == "overridden"
     end
 

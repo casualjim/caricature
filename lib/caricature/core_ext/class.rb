@@ -15,7 +15,14 @@ class Class
   def isolate(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)
     iso = Caricature::Isolation.for(self, recorder, expectations)
     return iso unless name
-    iso.when_class_receives(name, &block)
+    if block
+      if block.arity > 0
+        @expectation = iso.when_class_receives(name, &block)
+      else
+        @expectation = iso.when_class_receives(name)
+        instance_eval &block
+      end
+    end
     iso
   end
   alias_method :when_receiving, :isolate

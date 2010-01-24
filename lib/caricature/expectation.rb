@@ -53,6 +53,7 @@ module Caricature
       collected[:return_callback] = b if b
       self
     end
+    alias_method :returns, :return
 
     # Sets up arguments for the block that is being passed into the isolated method call
     def pass_block(*ags, &b)
