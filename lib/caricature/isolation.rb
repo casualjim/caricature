@@ -113,7 +113,7 @@ module Caricature
 
         isolator = RubyIsolator.for context
         isolation = new(isolator, context)
-        isolator.isolation
+        isolation
       end
             
     end

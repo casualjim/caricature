@@ -15,5 +15,15 @@ class Object
   def define_cmethod(name, &blk)
     (class << self; self; end).instance_eval { define_method name, &blk }
   end
-  
+
+  public
+  def isolate(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)
+    iso = Caricature::Isolation.for(self, recorder, expectations)
+    return iso unless name
+    iso.when_receiving(name, &block)
+    iso
+  end
+  alias_method :when_receiving, :isolate
+  alias_method :mock, :isolate
+  alias_method :stub, :isolate
 end

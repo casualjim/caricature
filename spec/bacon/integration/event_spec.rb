@@ -76,7 +76,7 @@ describe "CLR event handling" do
    describe "for CLR interfaces" do
 
      before do
-       @proxy = isolate ClrModels::IExplodingWarrior
+       @proxy = isolation_for ClrModels::IExplodingWarrior
        @subscriber = ClrModels::ExposedChangedSubscriber.new(@proxy)
      end
 
@@ -87,7 +87,7 @@ describe "CLR event handling" do
   describe "for CLR classes" do
     
     before do
-      @proxy = isolate ClrModels::ExposingWarrior
+      @proxy = isolation_for ClrModels::ExposingWarrior
       @subscriber = ClrModels::ExposedChangedSubscriber.new(@proxy)
     end
 

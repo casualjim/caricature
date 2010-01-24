@@ -5,7 +5,7 @@ describe "CLR event handling" do
   context "for CLR interfaces" do
 
     before do
-      @proxy = isolate ClrModels::IExplodingWarrior
+      @proxy = isolation_for ClrModels::IExplodingWarrior
     end
 
     it "should not raise an error when subcribing to an event" do

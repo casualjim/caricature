@@ -12,4 +12,14 @@ class Class
             self.ancestors.reject {|mod| mod == Object }.any? { |mod| !mod.to_clr_type.nil? }
   end
 
+  def isolate(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)
+    iso = Caricature::Isolation.for(self, recorder, expectations)
+    return iso unless name
+    iso.when_class_receives(name, &block)
+    iso
+  end
+  alias_method :when_receiving, :isolate
+  alias_method :mock, :isolate
+  alias_method :stub, :isolate
+
 end

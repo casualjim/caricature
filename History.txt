@@ -1,4 +1,7 @@
-*** 12/01/2009 ***
+*** 24/01/2010 ***
+  * Adds ability set expectation on a plain object
+
+*** 12/01/201- ***
   * Adds camel-cased method name support
   
 *** 16/10/2009 ***

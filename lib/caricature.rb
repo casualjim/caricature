@@ -18,8 +18,8 @@ require 'caricature/bacon' if defined? Bacon
 require 'caricature/rspec' if defined? Spec
 
 # convenience method for creating an isolation. aliased as mock and stub for less surprises
-def isolate(subject, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new)
+def isolation_for(subject, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new)
   Caricature::Isolation.for(subject, recorder, expectations)
 end
-alias :mock :isolate
-alias :stub :isolate
+alias :mock_for :isolation_for
+alias :stub_for :isolation_for

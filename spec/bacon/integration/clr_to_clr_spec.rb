@@ -70,7 +70,7 @@ describe "CLR to CLR interactions" do
     
     before do
       @ninja = ClrModels::Ninja.new
-      @weapon = isolate ClrModels::IWeapon
+      @weapon = isolation_for ClrModels::IWeapon
     end
     
     
@@ -81,7 +81,7 @@ describe "CLR to CLR interactions" do
   describe "when isolating CLR interfaces" do
     before do
       @ninja = ClrModels::Ninja.new
-      @weapon = isolate ClrModels::IWeapon
+      @weapon = isolation_for ClrModels::IWeapon
     end
 
     it "should work without expectations" do
@@ -151,7 +151,7 @@ describe "CLR to CLR interactions" do
     describe "plain vanilla CLR classes" do
       before do
         @weapon = ClrModels::Sword.new
-        @ninja = isolate ClrModels::Ninja
+        @ninja = isolation_for ClrModels::Ninja
       end
 
       it "should work without expectations" do
@@ -223,7 +223,7 @@ describe "CLR to CLR interactions" do
         result = @weapon.attack @ninja
         result.should.equal 5
 
-        @ninja.should.not.have_received?(:survive_attack_with) {|v| v.with(isolate(ClrModels::IWeapon)) }
+        @ninja.should.not.have_received?(:survive_attack_with) {|v| v.with(isolation_for(ClrModels::IWeapon)) }
       end
 
     end
