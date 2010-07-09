@@ -22,14 +22,24 @@
 <body class="class">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
 				<div class="section-body">
 					<ul>
 					
-						<li><a href="./lib/core_ext/hash_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/core_ext/hash.rb">lib/core_ext/hash.rb</a></li>
+						<li><a href="./lib/caricature/core_ext/hash_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/core_ext/hash.rb">lib/caricature/core_ext/hash.rb</a></li>
 					
 					</ul>
 				</div>
@@ -59,7 +69,7 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000109">#symbolize_keys!</a></li>
+					<li><a href="#method-i-symbolize_keys%21">#symbolize_keys!</a></li>
 					
 				</ul>
 			</div>
@@ -99,11 +109,17 @@
 				
 					<li><a href="./Caricature.html">Caricature</a></li>
 				
+					<li><a href="./Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="./Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="./Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="./Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="./Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="./Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="./Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -114,6 +130,12 @@
 					<li><a href="./Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="./Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="./Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="./Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="./Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="./Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -127,8 +149,6 @@
 				
 					<li><a href="./Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="./Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="./Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="./Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -138,6 +158,14 @@
 					<li><a href="./Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="./Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="./Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="./Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -164,6 +192,8 @@
 					<li><a href="./Module.html">Module</a></li>
 				
 					<li><a href="./Object.html">Object</a></li>
+				
+					<li><a href="./Should.html">Should</a></li>
 				
 					<li><a href="./String.html">String</a></li>
 				
@@ -195,7 +225,7 @@
 
 		
 			<div id="symbolize-keys--method" class="method-detail ">
-				<a name="M000109"></a>
+				<a name="method-i-symbolize_keys%21"></a>
 
 				<div class="method-heading">
 				
@@ -217,11 +247,11 @@ recursively if given nested hashes.
 					<div class="method-source-code"
 						id="symbolize-keys--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/core_ext/hash.rb, line 4</span>
+    <span class="ruby-comment cmt"># File lib/caricature/core_ext/hash.rb, line 4</span>
  4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">symbolize_keys!</span>
  5:     <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
- 6:       <span class="ruby-identifier">sym</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_sym</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">k</span>
- 7:       <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">sym</span>] = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">v</span> <span class="ruby-value">? </span><span class="ruby-identifier">v</span>.<span class="ruby-identifier">symbolize_keys!</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">v</span>
+ 6:       <span class="ruby-identifier">sym</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_sym</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">k</span>
+ 7:       <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">sym</span>] = <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">symbolize_keys!</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">v</span>
  8:       <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">sym</span>
  9:     <span class="ruby-keyword kw">end</span>
 10:     <span class="ruby-keyword kw">self</span>
@@ -229,6 +259,8 @@ recursively if given nested hashes.
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>

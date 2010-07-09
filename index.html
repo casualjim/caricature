@@ -25,9 +25,10 @@
 	<div id="main">
 		
 <ul>
-<li><a
+<li><p>
+<a
 href="http://github.com/casualjim/caricature">github.com/casualjim/caricature</a>
-
+</p>
 </li>
 </ul>
 <h2>DESCRIPTION:</h2>
@@ -61,47 +62,49 @@ It may be very important to note that when you&#8217;re going to be
 isolating CLR classes to be used in other CLR classes you still need to
 obide by the CLR rules. That means if you want to redefine a method
 you&#8217;ll need to make sure it&#8217;s marked as virtual. Static types
-are still governed by static type rules. I&#8217;m working on a solution
+are still governed by static type rules.  I&#8217;m working on a solution
 around those problems but for the time being this is how it has to be.
 </p>
 <h2>FEATURES/PROBLEMS:</h2>
 <ul>
-<li>[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> won&#8217;t
+<li><p>
+[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> won&#8217;t
 mock static methods because you can&#8217;t override those according to CLR
 rules
-
+</p>
 </li>
-<li>[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> can only
+<li><p>
+[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> can only
 override methods that are marked virtual (CLR rules)
-
+</p>
 </li>
 </ul>
 <h2>SYNOPSIS:</h2>
 <pre>
     isolation = Isolation.for(Ninja)
     isolation.when_receiving(:attack) do |exp|
-      exp.with(:shuriken)
-      exp.return(3)
+        exp.with(:shuriken)
+        exp.return(3)
     end
+
+    Battle.new(mock)
+    battle.combat
+
+    isolation.should.have_received?(:attack)
 </pre>
-<p>
-Battle.new(mock) battle.combat
-</p>
-<p>
-isolation.did_receive?(:attack).should.be.successful
-</p>
 <h2>REQUIREMENTS:</h2>
 <ul>
-<li>To use the caricature library you need to have uuidtools installed
-
+<li><p>
+To use the caricature library you need to have uuidtools installed
+</p>
 </li>
 </ul>
 <p>
-sudo gem install uuidtools sudo igem install uuidtools
+(sudo) gem install uuidtools (sudo) igem install uuidtools
 </p>
 <h2>INSTALL:</h2>
 <p>
-sudo gem install caricature
+(sudo) gem install caricature
 </p>
 <h2>LICENSE:</h2>
 <p>
@@ -149,8 +152,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [This is the BSD license, see
 </p>
 <pre>
- http://www.opensource.org/licenses/bsd-license.php]
-</pre>
+ http://www.opensource.org/licenses/bsd-license.php]</pre>
 
 	</div>
 	
@@ -165,16 +167,22 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	</ul>
 	
 
-	<h2>Classes/Modules</h2>
+	<h2 id="classes">Classes/Modules</h2>
 	<ul>
 		
 		<li class="module"><a href="Caricature.html">Caricature</a></li>
 		
+		<li class="class"><a href="Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+		
 		<li class="class"><a href="Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+		
+		<li class="class"><a href="Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 		
 		<li class="class"><a href="Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 		
 		<li class="class"><a href="Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+		
+		<li class="class"><a href="Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 		
 		<li class="class"><a href="Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 		
@@ -185,6 +193,12 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		<li class="class"><a href="Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 		
 		<li class="module"><a href="Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+		
+		<li class="module"><a href="Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+		
+		<li class="class"><a href="Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+		
+		<li class="class"><a href="Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 		
 		<li class="class"><a href="Caricature/Expectation.html">Caricature::Expectation</a></li>
 		
@@ -198,8 +212,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		
 		<li class="module"><a href="Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 		
-		<li class="class"><a href="Caricature/Isolation.html">Caricature::Isolation</a></li>
-		
 		<li class="class"><a href="Caricature/Isolator.html">Caricature::Isolator</a></li>
 		
 		<li class="class"><a href="Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -209,6 +221,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		<li class="class"><a href="Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 		
 		<li class="class"><a href="Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+		
+		<li class="module"><a href="Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+		
+		<li class="module"><a href="Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+		
+		<li class="class"><a href="Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+		
+		<li class="class"><a href="Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 		
 		<li class="class"><a href="Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 		
@@ -236,254 +256,454 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		
 		<li class="class"><a href="Object.html">Object</a></li>
 		
+		<li class="class"><a href="Should.html">Should</a></li>
+		
 		<li class="class"><a href="String.html">String</a></li>
 		
 	</ul>
 
-	<h2>Methods</h2>
+	<h2 id="methods">Methods</h2>
 	<ul>
 		
-			<li><a href="Caricature/Isolation.html#M000007">::for &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Isolator.html#method-c-for">::for &mdash; Caricature::Isolator</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000057">::for &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Interception.html#method-c-included">::included &mdash; Caricature::Interception</a></li>
 		
-			<li><a href="Caricature/Isolator.html#M000083">::for &mdash; Caricature::Isolator</a></li>
+			<li><a href="Caricature/ExpectationBuilder.html#method-c-new">::new &mdash; Caricature::ExpectationBuilder</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000012">::get_clr_isolation_strategy &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/ClrIsolator.html#method-c-new">::new &mdash; Caricature::ClrIsolator</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000071">::included &mdash; Caricature::Interception</a></li>
+			<li><a href="Caricature/Verification.html#method-c-new">::new &mdash; Caricature::Verification</a></li>
 		
-			<li><a href="Caricature/ClrInterfaceIsolator.html#M000021">::new &mdash; Caricature::ClrInterfaceIsolator</a></li>
+			<li><a href="Caricature/MemberDescriptor.html#method-c-new">::new &mdash; Caricature::MemberDescriptor</a></li>
 		
-			<li><a href="Caricature/MethodCallRecording.html#M000091">::new &mdash; Caricature::MethodCallRecording</a></li>
+			<li><a href="Caricature/ClrInterfaceIsolator.html#method-c-new">::new &mdash; Caricature::ClrInterfaceIsolator</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000044">::new &mdash; Caricature::Expectation</a></li>
+			<li><a href="Caricature/Messenger.html#method-c-new">::new &mdash; Caricature::Messenger</a></li>
 		
-			<li><a href="Caricature/ClrIsolator.html#M000015">::new &mdash; Caricature::ClrIsolator</a></li>
+			<li><a href="Caricature/Expectations.html#method-c-new">::new &mdash; Caricature::Expectations</a></li>
 		
-			<li><a href="Caricature/Expectations.html#M000032">::new &mdash; Caricature::Expectations</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveRaised.html#method-c-new">::new &mdash; Caricature::RSpecMatchers::HaveRaised</a></li>
 		
-			<li><a href="Caricature/ClrIsolator.html#M000019">::new &mdash; Caricature::ClrIsolator</a></li>
+			<li><a href="Caricature/ClrEventDescriptor.html#method-c-new">::new &mdash; Caricature::ClrEventDescriptor</a></li>
 		
-			<li><a href="Caricature/Isolator.html#M000078">::new &mdash; Caricature::Isolator</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-c-new">::new &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000035">::new &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/RubyIsolator.html#method-c-new">::new &mdash; Caricature::RubyIsolator</a></li>
 		
-			<li><a href="Caricature/RubyIsolator.html#M000084">::new &mdash; Caricature::RubyIsolator</a></li>
+			<li><a href="Caricature/MethodCallRecorder.html#method-c-new">::new &mdash; Caricature::MethodCallRecorder</a></li>
 		
-			<li><a href="Caricature/MethodCallRecorder.html#M000096">::new &mdash; Caricature::MethodCallRecorder</a></li>
+			<li><a href="Caricature/EventVerification.html#method-c-new">::new &mdash; Caricature::EventVerification</a></li>
 		
-			<li><a href="Caricature/MemberDescriptor.html#M000028">::new &mdash; Caricature::MemberDescriptor</a></li>
+			<li><a href="Caricature/MethodCallRecording.html#method-c-new">::new &mdash; Caricature::MethodCallRecording</a></li>
 		
-			<li><a href="Caricature/ExpectationBuilder.html#M000060">::new &mdash; Caricature::ExpectationBuilder</a></li>
+			<li><a href="Caricature/TypeDescriptor.html#method-c-new">::new &mdash; Caricature::TypeDescriptor</a></li>
 		
-			<li><a href="Caricature/ArgumentRecording.html#M000089">::new &mdash; Caricature::ArgumentRecording</a></li>
+			<li><a href="Caricature/Expectation.html#method-c-new">::new &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/TypeDescriptor.html#M000025">::new &mdash; Caricature::TypeDescriptor</a></li>
+			<li><a href="Caricature/Isolator.html#method-c-new">::new &mdash; Caricature::Isolator</a></li>
 		
-			<li><a href="Caricature/Messenger.html#M000064">::new &mdash; Caricature::Messenger</a></li>
+			<li><a href="Caricature/ClrIsolator.html#method-c-new">::new &mdash; Caricature::ClrIsolator</a></li>
 		
-			<li><a href="Caricature/Verification.html#M000100">::new &mdash; Caricature::Verification</a></li>
+			<li><a href="Caricature/ArgumentRecording.html#method-c-new">::new &mdash; Caricature::ArgumentRecording</a></li>
 		
-			<li><a href="Caricature/RubyIsolator.html#M000088">::new &mdash; Caricature::RubyIsolator</a></li>
+			<li><a href="Caricature/BlockCallRecording.html#method-c-new">::new &mdash; Caricature::BlockCallRecording</a></li>
 		
-			<li><a href="Caricature/ArgumentRecording.html#M000090">#== &mdash; Caricature::ArgumentRecording</a></li>
+			<li><a href="Caricature/EventRaiseRecording.html#method-c-new">::new &mdash; Caricature::EventRaiseRecording</a></li>
 		
-			<li><a href="Caricature/ClrIsolator.html#M000018">#___super___ &mdash; Caricature::ClrIsolator</a></li>
+			<li><a href="Caricature/RubyIsolator.html#method-c-new">::new &mdash; Caricature::RubyIsolator</a></li>
 		
-			<li><a href="Caricature/RubyIsolator.html#M000087">#___super___ &mdash; Caricature::RubyIsolator</a></li>
+			<li><a href="Caricature/BlockCallRecording.html#method-i-%3D%3D">#== &mdash; Caricature::BlockCallRecording</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000040">#actual_raise &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Caricature/ArgumentRecording.html#method-i-%3D%3D">#== &mdash; Caricature::ArgumentRecording</a></li>
 		
-			<li><a href="Caricature/MethodCallRecording.html#M000094">#add_argument_variation &mdash; Caricature::MethodCallRecording</a></li>
+			<li><a href="Caricature/RubyIsolator.html#method-i-___super___">#___super___ &mdash; Caricature::RubyIsolator</a></li>
 		
-			<li><a href="Caricature/Expectations.html#M000033">#add_expectation &mdash; Caricature::Expectations</a></li>
+			<li><a href="Caricature/ClrIsolator.html#method-i-___super___">#___super___ &mdash; Caricature::ClrIsolator</a></li>
 		
-			<li><a href="Caricature/Verification.html#M000103">#allow_any_arguments &mdash; Caricature::Verification</a></li>
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-actual_raise">#actual_raise &mdash; Caricature::ExpectationSyntax</a></li>
 		
-			<li><a href="Caricature/Verification.html#M000101">#any_args? &mdash; Caricature::Verification</a></li>
+			<li><a href="Caricature/EventRaiseRecording.html#method-i-add_argument_variation">#add_argument_variation &mdash; Caricature::EventRaiseRecording</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000043">#any_args? &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Caricature/MethodCallRecording.html#method-i-add_argument_variation">#add_argument_variation &mdash; Caricature::MethodCallRecording</a></li>
 		
-			<li><a href="Caricature/MethodCallRecording.html#M000092">#args &mdash; Caricature::MethodCallRecording</a></li>
+			<li><a href="Caricature/ArgumentRecording.html#method-i-add_block_variation">#add_block_variation &mdash; Caricature::ArgumentRecording</a></li>
 		
-			<li><a href="Caricature/ExpectationBuilder.html#M000061">#build &mdash; Caricature::ExpectationBuilder</a></li>
+			<li><a href="Caricature/Expectations.html#method-i-add_expectation">#add_expectation &mdash; Caricature::Expectations</a></li>
 		
-			<li><a href="Caricature/Isolator.html#M000079">#build_isolation &mdash; Caricature::Isolator</a></li>
+			<li><a href="Caricature/ClrEventDescriptor.html#method-i-add_method_name">#add_method_name &mdash; Caricature::ClrEventDescriptor</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000053">#call_super? &mdash; Caricature::Expectation</a></li>
+			<li><a href="Caricature/Verification.html#method-i-allow_any_arguments">#allow_any_arguments &mdash; Caricature::Verification</a></li>
 		
-			<li><a href="Caricature/ClrMemberCollector.html#M000009">#class_flags &mdash; Caricature::ClrMemberCollector</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveRaised.html#method-i-allow_any_arguments">#allow_any_arguments &mdash; Caricature::RSpecMatchers::HaveRaised</a></li>
 		
-			<li><a href="Caricature/Isolator.html#M000081">#class_name &mdash; Caricature::Isolator</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-i-allow_any_arguments">#allow_any_arguments &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000049">#class_verify &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/EventVerification.html#method-i-allow_any_arguments">#allow_any_arguments &mdash; Caricature::EventVerification</a></li>
 		
-			<li><a href="String.html#M000116">#classify &mdash; String</a></li>
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-any_args%3F">#any_args? &mdash; Caricature::ExpectationSyntax</a></li>
 		
-			<li><a href="System/String.html#M000118">#classify &mdash; System::String</a></li>
+			<li><a href="Caricature/Verification.html#method-i-any_args%3F">#any_args? &mdash; Caricature::Verification</a></li>
 		
-			<li><a href="System/Type.html#M000119">#collect_interface_methods &mdash; System::Type</a></li>
+			<li><a href="Caricature/EventVerification.html#method-i-any_args%3F">#any_args? &mdash; Caricature::EventVerification</a></li>
 		
-			<li><a href="System/Type.html#M000120">#collect_interface_properties &mdash; System::Type</a></li>
+			<li><a href="Caricature/MethodCallRecording.html#method-i-args">#args &mdash; Caricature::MethodCallRecording</a></li>
 		
-			<li><a href="Caricature/ClrMemberCollector.html#M000004">#collect_members_from &mdash; Caricature::ClrMemberCollector</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-args">#args &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000047">#create_class_override &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/EventRaiseRecording.html#method-i-args">#args &mdash; Caricature::EventRaiseRecording</a></li>
 		
-			<li><a href="Caricature/ClrIsolator.html#M000017">#create_isolation_for &mdash; Caricature::ClrIsolator</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-block">#block &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/RubyIsolator.html#M000086">#create_isolation_for &mdash; Caricature::RubyIsolator</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-block%3D">#block= &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/ClrInterfaceIsolator.html#M000023">#create_isolation_for &mdash; Caricature::ClrInterfaceIsolator</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-block_args">#block_args &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000046">#create_override &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-block_callback">#block_callback &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Object.html#M000114">#define_cmethod &mdash; Object</a></li>
+			<li><a href="Caricature/ExpectationBuilder.html#method-i-build">#build &mdash; Caricature::ExpectationBuilder</a></li>
 		
-			<li><a href="Caricature/Messenger.html#M000065">#deliver &mdash; Caricature::Messenger</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-build_event_collection">#build_event_collection &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Caricature/Messenger.html#M000066">#deliver_to_class &mdash; Caricature::Messenger</a></li>
+			<li><a href="Caricature/Isolator.html#method-i-build_isolation">#build_isolation &mdash; Caricature::Isolator</a></li>
 		
-			<li><a href="Module.html#M000110">#demodulize &mdash; Module</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-build_member_collections">#build_member_collections &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Class.html#M000106">#demodulize &mdash; Class</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-build_method_collection">#build_method_collection &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000076">#did_class_receive? &mdash; Caricature::Interception</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-build_property_collection">#build_property_collection &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000075">#did_receive? &mdash; Caricature::Interception</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-call_handler">#call_handler &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Interception/ClassMethods.html#M000069">#did_receive? &mdash; Caricature::Interception::ClassMethods</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-call_super%3F">#call_super? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000055">#execute &mdash; Caricature::Expectation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-callback">#callback &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Expectations.html#M000034">#find &mdash; Caricature::Expectations</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-class_event_flags">#class_event_flags &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Caricature/MethodCallRecording.html#M000095">#find_argument_variations &mdash; Caricature::MethodCallRecording</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-class_flags">#class_flags &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Caricature/MethodCallRecording.html#M000093">#has_argument_variations? &mdash; Caricature::MethodCallRecording</a></li>
+			<li><a href="Caricature/Isolator.html#method-i-class_name">#class_name &mdash; Caricature::Isolator</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000054">#has_callback? &mdash; Caricature::Expectation</a></li>
+			<li><a href="String.html#method-i-classify">#classify &mdash; String</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000050">#has_error_args? &mdash; Caricature::Expectation</a></li>
+			<li><a href="System/String.html#method-i-classify">#classify &mdash; System::String</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000051">#has_return_value? &mdash; Caricature::Expectation</a></li>
+			<li><a href="Class.html#method-i-clr_type%3F">#clr_type? &mdash; Class</a></li>
 		
-			<li><a href="Object.html#M000002">#http_context_isolation &mdash; Object</a></li>
+			<li><a href="Module.html#method-i-clr_type%3F">#clr_type? &mdash; Module</a></li>
 		
-			<li><a href="Caricature/RubyObjectDescriptor.html#M000031">#initialize_class_members_for &mdash; Caricature::RubyObjectDescriptor</a></li>
+			<li><a href="Object.html#method-i-clr_type%3F">#clr_type? &mdash; Object</a></li>
 		
-			<li><a href="Caricature/ClrClassDescriptor.html#M000014">#initialize_class_members_for &mdash; Caricature::ClrClassDescriptor</a></li>
+			<li><a href="System/Type.html#method-i-collect_interface_events">#collect_interface_events &mdash; System::Type</a></li>
 		
-			<li><a href="Caricature/ClrInterfaceDescriptor.html#M000011">#initialize_class_members_for &mdash; Caricature::ClrInterfaceDescriptor</a></li>
+			<li><a href="System/Type.html#method-i-collect_interface_methods">#collect_interface_methods &mdash; System::Type</a></li>
 		
-			<li><a href="Caricature/TypeDescriptor.html#M000027">#initialize_class_members_for &mdash; Caricature::TypeDescriptor</a></li>
+			<li><a href="System/Type.html#method-i-collect_interface_properties">#collect_interface_properties &mdash; System::Type</a></li>
 		
-			<li><a href="Caricature/ClrInterfaceDescriptor.html#M000010">#initialize_instance_members_for &mdash; Caricature::ClrInterfaceDescriptor</a></li>
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-collected">#collected &mdash; Caricature::ExpectationSyntax</a></li>
 		
-			<li><a href="Caricature/TypeDescriptor.html#M000026">#initialize_instance_members_for &mdash; Caricature::TypeDescriptor</a></li>
+			<li><a href="Caricature/RubyIsolator.html#method-i-create_isolation_for">#create_isolation_for &mdash; Caricature::RubyIsolator</a></li>
 		
-			<li><a href="Caricature/ClrClassDescriptor.html#M000013">#initialize_instance_members_for &mdash; Caricature::ClrClassDescriptor</a></li>
+			<li><a href="Caricature/ClrIsolator.html#method-i-create_isolation_for">#create_isolation_for &mdash; Caricature::ClrIsolator</a></li>
 		
-			<li><a href="Caricature/RubyObjectDescriptor.html#M000030">#initialize_instance_members_for &mdash; Caricature::RubyObjectDescriptor</a></li>
+			<li><a href="Caricature/ClrInterfaceIsolator.html#method-i-create_isolation_for">#create_isolation_for &mdash; Caricature::ClrInterfaceIsolator</a></li>
 		
-			<li><a href="Caricature/Isolator.html#M000082">#initialize_isolation &mdash; Caricature::Isolator</a></li>
+			<li><a href="Object.html#method-i-define_cmethod">#define_cmethod &mdash; Object</a></li>
 		
-			<li><a href="Caricature/ClrIsolator.html#M000016">#initialize_messenger &mdash; Caricature::ClrIsolator</a></li>
+			<li><a href="Caricature/Messenger.html#method-i-deliver">#deliver &mdash; Caricature::Messenger</a></li>
 		
-			<li><a href="Caricature/RubyIsolator.html#M000085">#initialize_messenger &mdash; Caricature::RubyIsolator</a></li>
+			<li><a href="Caricature/Messenger.html#method-i-deliver_to_class">#deliver_to_class &mdash; Caricature::Messenger</a></li>
 		
-			<li><a href="Caricature/Isolator.html#M000080">#initialize_messenger &mdash; Caricature::Isolator</a></li>
+			<li><a href="Module.html#method-i-demodulize">#demodulize &mdash; Module</a></li>
 		
-			<li><a href="Caricature/ClrInterfaceIsolator.html#M000022">#initialize_messenger &mdash; Caricature::ClrInterfaceIsolator</a></li>
+			<li><a href="Class.html#method-i-demodulize">#demodulize &mdash; Class</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000059">#inspect &mdash; Caricature::Expectation</a></li>
+			<li><a href="Caricature/Interception.html#method-i-did_class_receive%3F">#did_class_receive? &mdash; Caricature::Interception</a></li>
 		
-			<li><a href="Caricature/ClrMemberCollector.html#M000008">#instance_flags &mdash; Caricature::ClrMemberCollector</a></li>
+			<li><a href="Caricature/Interception.html#method-i-did_raise_class_event%3F">#did_raise_class_event? &mdash; Caricature::Interception</a></li>
 		
-			<li><a href="Caricature/MemberDescriptor.html#M000029">#instance_member? &mdash; Caricature::MemberDescriptor</a></li>
+			<li><a href="Caricature/Interception.html#method-i-did_raise_event%3F">#did_raise_event? &mdash; Caricature::Interception</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000006">#internal_create_override &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Interception/ClassMethods.html#method-i-did_raise_event%3F">#did_raise_event? &mdash; Caricature::Interception::ClassMethods</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000058">#internal_create_override &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Interception/ClassMethods.html#method-i-did_receive%3F">#did_receive? &mdash; Caricature::Interception::ClassMethods</a></li>
 		
-			<li><a href="Caricature/Messenger.html#M000067">#internal_deliver &mdash; Caricature::Messenger</a></li>
+			<li><a href="Caricature/Interception.html#method-i-did_receive%3F">#did_receive? &mdash; Caricature::Interception</a></li>
 		
-			<li><a href="Caricature/RubyMessenger.html#M000070">#internal_deliver &mdash; Caricature::RubyMessenger</a></li>
+			<li><a href="Caricature/Verification.html#method-i-error">#error &mdash; Caricature::Verification</a></li>
 		
-			<li><a href="Caricature/ClrClassMessenger.html#M000020">#internal_deliver &mdash; Caricature::ClrClassMessenger</a></li>
+			<li><a href="Caricature/EventVerification.html#method-i-error">#error &mdash; Caricature::EventVerification</a></li>
 		
-			<li><a href="Caricature/ClrInterfaceMessenger.html#M000024">#internal_deliver &mdash; Caricature::ClrInterfaceMessenger</a></li>
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-error">#error &mdash; Caricature::MethodCallRecorder</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000062">#internal_verify &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-error_args">#error_args &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Class.html#M000107">#is_clr_type? &mdash; Class</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-event%3F">#event? &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Object.html#M000112">#is_clr_type? &mdash; Object</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-event_args">#event_args &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Module.html#M000111">#is_clr_type? &mdash; Module</a></li>
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-event_error">#event_error &mdash; Caricature::MethodCallRecorder</a></li>
 		
-			<li><a href="Caricature/Interception/ClassMethods.html#M000063">#isolation_context &mdash; Caricature::Interception::ClassMethods</a></li>
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-event_flags">#event_flags &mdash; Caricature::ClrMemberCollector</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000072">#isolation_context &mdash; Caricature::Interception</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-event_handler">#event_handler &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Verification.html#M000104">#matches? &mdash; Caricature::Verification</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-event_name">#event_name &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/ClrMemberCollector.html#M000005">#property_name_from &mdash; Caricature::ClrMemberCollector</a></li>
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-event_raised%3F">#event_raised? &mdash; Caricature::MethodCallRecorder</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000039">#raise &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-event_raises">#event_raises &mdash; Caricature::MethodCallRecorder</a></li>
 		
-			<li><a href="Caricature/MethodCallRecorder.html#M000097">#record_call &mdash; Caricature::MethodCallRecorder</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-event_recorder">#event_recorder &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000037">#return &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-events">#events &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000045">#send_class_message &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-events%3D">#events= &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000038">#send_message &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-execute">#execute &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Object.html#M000003">#setup_request_url &mdash; Object</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveRaised.html#method-i-failure_message_for_should">#failure_message_for_should &mdash; Caricature::RSpecMatchers::HaveRaised</a></li>
 		
-			<li><a href="Caricature/MethodCallRecorder.html#M000099">#size &mdash; Caricature::MethodCallRecorder</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-i-failure_message_for_should">#failure_message_for_should &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
 		
-			<li><a href="Caricature/Verification.html#M000105">#successful? &mdash; Caricature::Verification</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveRaised.html#method-i-failure_message_for_should_not">#failure_message_for_should_not &mdash; Caricature::RSpecMatchers::HaveRaised</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000042">#super_after &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-i-failure_message_for_should_not">#failure_message_for_should_not &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000041">#super_before &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Caricature/Expectations.html#method-i-find">#find &mdash; Caricature::Expectations</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000052">#super_before? &mdash; Caricature::Expectation</a></li>
+			<li><a href="Caricature/EventRaiseRecording.html#method-i-find_argument_variations">#find_argument_variations &mdash; Caricature::EventRaiseRecording</a></li>
 		
-			<li><a href="Hash.html#M000109">#symbolize_keys! &mdash; Hash</a></li>
+			<li><a href="Caricature/MethodCallRecording.html#method-i-find_argument_variations">#find_argument_variations &mdash; Caricature::MethodCallRecording</a></li>
 		
-			<li><a href="Object.html#M000113">#to_clr_type &mdash; Object</a></li>
+			<li><a href="Caricature/ArgumentRecording.html#method-i-find_block_variation">#find_block_variation &mdash; Caricature::ArgumentRecording</a></li>
 		
-			<li><a href="Array.html#M000108">#to_h &mdash; Array</a></li>
+			<li><a href="Caricature/EventRaiseRecording.html#method-i-has_argument_variations%3F">#has_argument_variations? &mdash; Caricature::EventRaiseRecording</a></li>
 		
-			<li><a href="String.html#M000001">#to_qs_parameters &mdash; String</a></li>
+			<li><a href="Caricature/MethodCallRecording.html#method-i-has_argument_variations%3F">#has_argument_variations? &mdash; Caricature::MethodCallRecording</a></li>
 		
-			<li><a href="Caricature/Expectation.html#M000056">#to_s &mdash; Caricature::Expectation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-has_block_callback%3F">#has_block_callback? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="String.html#M000000">#to_url_filename &mdash; String</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-has_callback%3F">#has_callback? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="String.html#M000115">#underscore &mdash; String</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-has_error_args%3F">#has_error_args? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="System/String.html#M000117">#underscore &mdash; System::String</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-has_event_handler%3F">#has_event_handler? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Isolation.html#M000048">#verify &mdash; Caricature::Isolation</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-has_return_callback%3F">#has_return_callback? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/MethodCallRecorder.html#M000098">#was_called? &mdash; Caricature::MethodCallRecorder</a></li>
+			<li><a href="Caricature/Expectation.html#method-i-has_return_value%3F">#has_return_value? &mdash; Caricature::Expectation</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000074">#when_class_receives &mdash; Caricature::Interception</a></li>
+			<li><a href="Caricature/RSpecMatchers.html#method-i-have_raised">#have_raised &mdash; Caricature::RSpecMatchers</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000073">#when_receiving &mdash; Caricature::Interception</a></li>
+			<li><a href="Should.html#method-i-have_raised_event%3F">#have_raised_event? &mdash; Should</a></li>
 		
-			<li><a href="Caricature/Interception/ClassMethods.html#M000068">#when_receiving &mdash; Caricature::Interception::ClassMethods</a></li>
+			<li><a href="Caricature/RSpecMatchers.html#method-i-have_received">#have_received &mdash; Caricature::RSpecMatchers</a></li>
 		
-			<li><a href="Caricature/Verification.html#M000102">#with &mdash; Caricature::Verification</a></li>
+			<li><a href="Should.html#method-i-have_received%3F">#have_received? &mdash; Should</a></li>
 		
-			<li><a href="Caricature/ExpectationSyntax.html#M000036">#with &mdash; Caricature::ExpectationSyntax</a></li>
+			<li><a href="Object.html#method-i-http_context_isolation">#http_context_isolation &mdash; Object</a></li>
 		
-			<li><a href="Caricature/Interception.html#M000077">#with_subject &mdash; Caricature::Interception</a></li>
+			<li><a href="Caricature/EventVerification.html#method-i-init_plugin">#init_plugin &mdash; Caricature::EventVerification</a></li>
+		
+			<li><a href="Caricature/Verification.html#method-i-init_plugin">#init_plugin &mdash; Caricature::Verification</a></li>
+		
+			<li><a href="Caricature/ClrClassDescriptor.html#method-i-initialize_class_members_for">#initialize_class_members_for &mdash; Caricature::ClrClassDescriptor</a></li>
+		
+			<li><a href="Caricature/RubyObjectDescriptor.html#method-i-initialize_class_members_for">#initialize_class_members_for &mdash; Caricature::RubyObjectDescriptor</a></li>
+		
+			<li><a href="Caricature/ClrInterfaceDescriptor.html#method-i-initialize_class_members_for">#initialize_class_members_for &mdash; Caricature::ClrInterfaceDescriptor</a></li>
+		
+			<li><a href="Caricature/TypeDescriptor.html#method-i-initialize_class_members_for">#initialize_class_members_for &mdash; Caricature::TypeDescriptor</a></li>
+		
+			<li><a href="Caricature/ClrInterfaceDescriptor.html#method-i-initialize_instance_members_for">#initialize_instance_members_for &mdash; Caricature::ClrInterfaceDescriptor</a></li>
+		
+			<li><a href="Caricature/TypeDescriptor.html#method-i-initialize_instance_members_for">#initialize_instance_members_for &mdash; Caricature::TypeDescriptor</a></li>
+		
+			<li><a href="Caricature/ClrClassDescriptor.html#method-i-initialize_instance_members_for">#initialize_instance_members_for &mdash; Caricature::ClrClassDescriptor</a></li>
+		
+			<li><a href="Caricature/RubyObjectDescriptor.html#method-i-initialize_instance_members_for">#initialize_instance_members_for &mdash; Caricature::RubyObjectDescriptor</a></li>
+		
+			<li><a href="Caricature/Isolator.html#method-i-initialize_isolation">#initialize_isolation &mdash; Caricature::Isolator</a></li>
+		
+			<li><a href="Caricature/RubyIsolator.html#method-i-initialize_messenger">#initialize_messenger &mdash; Caricature::RubyIsolator</a></li>
+		
+			<li><a href="Caricature/ClrIsolator.html#method-i-initialize_messenger">#initialize_messenger &mdash; Caricature::ClrIsolator</a></li>
+		
+			<li><a href="Caricature/ClrInterfaceIsolator.html#method-i-initialize_messenger">#initialize_messenger &mdash; Caricature::ClrInterfaceIsolator</a></li>
+		
+			<li><a href="Caricature/Isolator.html#method-i-initialize_messenger">#initialize_messenger &mdash; Caricature::Isolator</a></li>
+		
+			<li><a href="Caricature/ArgumentRecording.html#method-i-inspect">#inspect &mdash; Caricature::ArgumentRecording</a></li>
+		
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-instance_flags">#instance_flags &mdash; Caricature::ClrMemberCollector</a></li>
+		
+			<li><a href="Caricature/MemberDescriptor.html#method-i-instance_member%3F">#instance_member? &mdash; Caricature::MemberDescriptor</a></li>
+		
+			<li><a href="Caricature/ClrEventDescriptor.html#method-i-instance_member%3F">#instance_member? &mdash; Caricature::ClrEventDescriptor</a></li>
+		
+			<li><a href="Caricature/ClrClassMessenger.html#method-i-internal_deliver">#internal_deliver &mdash; Caricature::ClrClassMessenger</a></li>
+		
+			<li><a href="Caricature/ClrInterfaceMessenger.html#method-i-internal_deliver">#internal_deliver &mdash; Caricature::ClrInterfaceMessenger</a></li>
+		
+			<li><a href="Caricature/Messenger.html#method-i-internal_deliver">#internal_deliver &mdash; Caricature::Messenger</a></li>
+		
+			<li><a href="Caricature/RubyMessenger.html#method-i-internal_deliver">#internal_deliver &mdash; Caricature::RubyMessenger</a></li>
+		
+			<li><a href="Class.html#method-i-isolate">#isolate &mdash; Class</a></li>
+		
+			<li><a href="Object.html#method-i-isolate">#isolate &mdash; Object</a></li>
+		
+			<li><a href="Caricature/Interception.html#method-i-isolation_context">#isolation_context &mdash; Caricature::Interception</a></li>
+		
+			<li><a href="Caricature/Interception/ClassMethods.html#method-i-isolation_context">#isolation_context &mdash; Caricature::Interception::ClassMethods</a></li>
+		
+			<li><a href="Object.html#method-i-isolation_for">#isolation_for &mdash; Object</a></li>
+		
+			<li><a href="Caricature/MethodCallRecording.html#method-i-match_hash">#match_hash &mdash; Caricature::MethodCallRecording</a></li>
+		
+			<li><a href="Caricature/RSpecMatchers/HaveRaised.html#method-i-matches%3F">#matches? &mdash; Caricature::RSpecMatchers::HaveRaised</a></li>
+		
+			<li><a href="Caricature/Verification.html#method-i-matches%3F">#matches? &mdash; Caricature::Verification</a></li>
+		
+			<li><a href="Caricature/EventVerification.html#method-i-matches%3F">#matches? &mdash; Caricature::EventVerification</a></li>
+		
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-i-matches%3F">#matches? &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-method_name">#method_name &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Object.html#method-i-mock">#mock &mdash; Object</a></li>
+		
+			<li><a href="Class.html#method-i-mock">#mock &mdash; Class</a></li>
+		
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-non_public_flag">#non_public_flag &mdash; Caricature::ClrMemberCollector</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-pass_block">#pass_block &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Object.html#method-i-pass_block">#pass_block &mdash; Object</a></li>
+		
+			<li><a href="Caricature/ClrMemberCollector.html#method-i-property_name_from">#property_name_from &mdash; Caricature::ClrMemberCollector</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-raise">#raise &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Caricature/Interception.html#method-i-raise_class_event">#raise_class_event &mdash; Caricature::Interception</a></li>
+		
+			<li><a href="Object.html#method-i-raise_error">#raise_error &mdash; Object</a></li>
+		
+			<li><a href="Caricature/EventExpectationSyntax.html#method-i-raise_event">#raise_event &mdash; Caricature::EventExpectationSyntax</a></li>
+		
+			<li><a href="Caricature/Interception.html#method-i-raise_event">#raise_event &mdash; Caricature::Interception</a></li>
+		
+			<li><a href="Caricature/Interception/ClassMethods.html#method-i-raise_event">#raise_event &mdash; Caricature::Interception::ClassMethods</a></li>
+		
+			<li><a href="Caricature/EventExpectationSyntax.html#method-i-raise_subscriptions">#raise_subscriptions &mdash; Caricature::EventExpectationSyntax</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-raises_event%3F">#raises_event? &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-raises_registered%3F">#raises_registered? &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-record_call">#record_call &mdash; Caricature::MethodCallRecorder</a></li>
+		
+			<li><a href="Caricature/Messenger.html#method-i-record_call">#record_call &mdash; Caricature::Messenger</a></li>
+		
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-record_event_raise">#record_event_raise &mdash; Caricature::MethodCallRecorder</a></li>
+		
+			<li><a href="Caricature/ClrEventDescriptor.html#method-i-remove_method_name">#remove_method_name &mdash; Caricature::ClrEventDescriptor</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-return">#return &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-return_callback">#return_callback &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-return_value">#return_value &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-returns">#returns &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Object.html#method-i-returns">#returns &mdash; Object</a></li>
+		
+			<li><a href="Should.html#method-i-satisfy">#satisfy &mdash; Should</a></li>
+		
+			<li><a href="Caricature/RSpecAdapter.html#method-i-setup_mocks_for_rspec">#setup_mocks_for_rspec &mdash; Caricature::RSpecAdapter</a></li>
+		
+			<li><a href="Object.html#method-i-setup_request_url">#setup_request_url &mdash; Object</a></li>
+		
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-size">#size &mdash; Caricature::MethodCallRecorder</a></li>
+		
+			<li><a href="Object.html#method-i-stub">#stub &mdash; Object</a></li>
+		
+			<li><a href="Class.html#method-i-stub">#stub &mdash; Class</a></li>
+		
+			<li><a href="Caricature/EventVerification.html#method-i-successful%3F">#successful? &mdash; Caricature::EventVerification</a></li>
+		
+			<li><a href="Caricature/Verification.html#method-i-successful%3F">#successful? &mdash; Caricature::Verification</a></li>
+		
+			<li><a href="Caricature/EventVerification.html#method-i-successful%3F">#successful? &mdash; Caricature::EventVerification</a></li>
+		
+			<li><a href="Caricature/Verification.html#method-i-successful%3F">#successful? &mdash; Caricature::Verification</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-super">#super &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Object.html#method-i-super_after">#super_after &mdash; Object</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-super_after">#super_after &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Object.html#method-i-super_before">#super_before &mdash; Object</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-super_before">#super_before &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Caricature/Expectation.html#method-i-super_before%3F">#super_before? &mdash; Caricature::Expectation</a></li>
+		
+			<li><a href="Hash.html#method-i-symbolize_keys%21">#symbolize_keys! &mdash; Hash</a></li>
+		
+			<li><a href="Caricature/RSpecAdapter.html#method-i-teardown_mocks_for_rspec">#teardown_mocks_for_rspec &mdash; Caricature::RSpecAdapter</a></li>
+		
+			<li><a href="Object.html#method-i-to_clr_type">#to_clr_type &mdash; Object</a></li>
+		
+			<li><a href="Array.html#method-i-to_h">#to_h &mdash; Array</a></li>
+		
+			<li><a href="String.html#method-i-to_qs_parameters">#to_qs_parameters &mdash; String</a></li>
+		
+			<li><a href="Caricature/ClrEventDescriptor.html#method-i-to_s">#to_s &mdash; Caricature::ClrEventDescriptor</a></li>
+		
+			<li><a href="Caricature/ArgumentRecording.html#method-i-to_s">#to_s &mdash; Caricature::ArgumentRecording</a></li>
+		
+			<li><a href="String.html#method-i-to_url_filename">#to_url_filename &mdash; String</a></li>
+		
+			<li><a href="String.html#method-i-underscore">#underscore &mdash; String</a></li>
+		
+			<li><a href="System/String.html#method-i-underscore">#underscore &mdash; System::String</a></li>
+		
+			<li><a href="Caricature/RSpecAdapter.html#method-i-verify_mocks_for_rspec">#verify_mocks_for_rspec &mdash; Caricature::RSpecAdapter</a></li>
+		
+			<li><a href="Caricature/MethodCallRecorder.html#method-i-was_called%3F">#was_called? &mdash; Caricature::MethodCallRecorder</a></li>
+		
+			<li><a href="Caricature/Interception.html#method-i-when_class_receives">#when_class_receives &mdash; Caricature::Interception</a></li>
+		
+			<li><a href="Object.html#method-i-when_receiving">#when_receiving &mdash; Object</a></li>
+		
+			<li><a href="Caricature/Interception/ClassMethods.html#method-i-when_receiving">#when_receiving &mdash; Caricature::Interception::ClassMethods</a></li>
+		
+			<li><a href="Caricature/Interception.html#method-i-when_receiving">#when_receiving &mdash; Caricature::Interception</a></li>
+		
+			<li><a href="Class.html#method-i-when_receiving">#when_receiving &mdash; Class</a></li>
+		
+			<li><a href="Object.html#method-i-with">#with &mdash; Object</a></li>
+		
+			<li><a href="Caricature/ExpectationSyntax.html#method-i-with">#with &mdash; Caricature::ExpectationSyntax</a></li>
+		
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-i-with">#with &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
+		
+			<li><a href="Caricature/Verification.html#method-i-with">#with &mdash; Caricature::Verification</a></li>
+		
+			<li><a href="Caricature/RSpecMatchers/HaveRaised.html#method-i-with">#with &mdash; Caricature::RSpecMatchers::HaveRaised</a></li>
+		
+			<li><a href="Caricature/EventVerification.html#method-i-with">#with &mdash; Caricature::EventVerification</a></li>
+		
+			<li><a href="Caricature/Verification.html#method-i-with_block_args">#with_block_args &mdash; Caricature::Verification</a></li>
+		
+			<li><a href="Caricature/RSpecMatchers/HaveReceived.html#method-i-with_block_args">#with_block_args &mdash; Caricature::RSpecMatchers::HaveReceived</a></li>
+		
+			<li><a href="Caricature/Interception.html#method-i-with_subject">#with_subject &mdash; Caricature::Interception</a></li>
 		
 	</ul>
 

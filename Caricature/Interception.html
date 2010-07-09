@@ -22,11 +22,24 @@
 <body class="module">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
 				<div class="section-body">
 					<ul>
+					
+						<li><a href="../lib/caricature/clr/isolator_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/clr/isolator.rb">lib/caricature/clr/isolator.rb</a></li>
 					
 						<li><a href="../lib/caricature/isolator_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/caricature/isolator.rb">lib/caricature/isolator.rb</a></li>
@@ -61,19 +74,27 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000071">::included</a></li>
+					<li><a href="#method-c-included">::included</a></li>
 					
-					<li><a href="#M000076">#did_class_receive?</a></li>
+					<li><a href="#method-i-did_class_receive%3F">#did_class_receive?</a></li>
 					
-					<li><a href="#M000075">#did_receive?</a></li>
+					<li><a href="#method-i-did_raise_class_event%3F">#did_raise_class_event?</a></li>
 					
-					<li><a href="#M000072">#isolation_context</a></li>
+					<li><a href="#method-i-did_raise_event%3F">#did_raise_event?</a></li>
 					
-					<li><a href="#M000074">#when_class_receives</a></li>
+					<li><a href="#method-i-did_receive%3F">#did_receive?</a></li>
 					
-					<li><a href="#M000073">#when_receiving</a></li>
+					<li><a href="#method-i-isolation_context">#isolation_context</a></li>
 					
-					<li><a href="#M000077">#with_subject</a></li>
+					<li><a href="#method-i-raise_class_event">#raise_class_event</a></li>
+					
+					<li><a href="#method-i-raise_event">#raise_event</a></li>
+					
+					<li><a href="#method-i-when_class_receives">#when_class_receives</a></li>
+					
+					<li><a href="#method-i-when_receiving">#when_receiving</a></li>
+					
+					<li><a href="#method-i-with_subject">#with_subject</a></li>
 					
 				</ul>
 			</div>
@@ -113,11 +134,17 @@
 				
 					<li><a href="../Caricature.html">Caricature</a></li>
 				
+					<li><a href="../Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -128,6 +155,12 @@
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="../Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="../Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -141,8 +174,6 @@
 				
 					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -152,6 +183,14 @@
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -179,6 +218,8 @@
 				
 					<li><a href="../Object.html">Object</a></li>
 				
+					<li><a href="../Should.html">Should</a></li>
+				
 					<li><a href="../String.html">String</a></li>
 				
 				</ul>
@@ -194,6 +235,10 @@
 
 		<div id="description">
 			<p>
+Groups the methods for interception together this is a mix-in for the
+created isolations for classes
+</p>
+<hr style="height: 1px"></hr><p>
 Groups the methods for interception together this is a mix-in for the
 created isolations for classes
 </p>
@@ -213,7 +258,7 @@ created isolations for classes
 
 		
 			<div id="included-method" class="method-detail ">
-				<a name="M000071"></a>
+				<a name="method-c-included"></a>
 
 				<div class="method-heading">
 				
@@ -243,6 +288,8 @@ mixes in the class methods of this module when it gets included in a class.
 				</div>
 
 				
+
+				
 			</div>
 
 		
@@ -253,7 +300,7 @@ mixes in the class methods of this module when it gets included in a class.
 
 		
 			<div id="did-class-receive--method" class="method-detail ">
-				<a name="M000076"></a>
+				<a name="method-i-did_class_receive%3F"></a>
 
 				<div class="method-heading">
 				
@@ -300,19 +347,103 @@ running.
 						id="did-class-receive--source">
 <pre>
      <span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 153</span>
-153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_class_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-154:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_class_receive?</span>(<span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>)
+154:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>)
 155:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
 				
+
+				
+			</div>
+
+		
+			<div id="did-raise-class-event--method" class="method-detail ">
+				<a name="method-i-did_raise_class_event%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">did_raise_class_event?</span><span
+						class="method-args">(event_name, &b)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Verifies whether the specified event was raised
+</p>
+<p>
+You will probably be using this method only when you&#8217;re interested in
+whether an event has been raised during the course of the test you&#8217;re
+running.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="did-raise-class-event--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 99</span>
+ 99:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_raise_class_event?</span>(<span class="ruby-identifier">event_name</span>, &amp;<span class="ruby-identifier">b</span>)
+100:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">did_raise_event?</span> <span class="ruby-identifier">event_name</span>, &amp;<span class="ruby-identifier">b</span>
+101:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="did-raise-event--method" class="method-detail ">
+				<a name="method-i-did_raise_event%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">did_raise_event?</span><span
+						class="method-args">(event_name, &b)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Verifies whether the specified event was raised
+</p>
+<p>
+You will probably be using this method only when you&#8217;re interested in
+whether an event has been raised during the course of the test you&#8217;re
+running.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="did-raise-event--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 91</span>
+91:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_raise_event?</span>(<span class="ruby-identifier">event_name</span>, &amp;<span class="ruby-identifier">b</span>)
+92:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">verify_event_raise</span> <span class="ruby-identifier">event_name</span>, <span class="ruby-value">:instance</span>, &amp;<span class="ruby-identifier">b</span>
+93:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
 			</div>
 
 		
 			<div id="did-receive--method" class="method-detail ">
-				<a name="M000075"></a>
+				<a name="method-i-did_receive%3F"></a>
 
 				<div class="method-heading">
 				
@@ -359,19 +490,21 @@ running.
 						id="did-receive--source">
 <pre>
      <span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 131</span>
-131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-132:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">verify</span> <span class="ruby-identifier">method_name</span>
+131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">did_receive?</span>(<span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>)
+132:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">verify</span> <span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>
 133:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
 				
+
+				
 			</div>
 
 		
 			<div id="isolation-context-method" class="method-detail ">
-				<a name="M000072"></a>
+				<a name="method-i-isolation_context"></a>
 
 				<div class="method-heading">
 				
@@ -402,11 +535,135 @@ responding to method calls etc.
 				</div>
 
 				
+
+				
+			</div>
+
+		
+			<div id="raise-class-event-method" class="method-detail ">
+				<a name="method-i-raise_class_event"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">raise_class_event</span><span
+						class="method-args">(event_name, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Raises an event on the isolation You can specify the arguments in the block
+or as parameters
+</p>
+<p>
+Example
+</p>
+<pre>
+    an_isolation.raise_class_event :on_property_changed do |raiser|
+      raiser.with an_isolation, System::EventArgs.empty
+    end
+</pre>
+<p>
+is equivalent to:
+</p>
+<pre>
+    an_isolation.raise_class_event :on_property_changed, an_isolation, System::EventArgs.empty
+</pre>
+<p>
+or
+</p>
+<pre>
+    an_isolation.raise_class_event(:on_property_changed).with(an_isolation, System::EventArgs.empty)
+</pre>
+<p>
+You will most likely use this method when you want to verify logic in an
+event handler
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="raise-class-event-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 83</span>
+83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise_class_event</span>(<span class="ruby-identifier">event_name</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+84:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">raise_event</span> <span class="ruby-identifier">event_name</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>
+85:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="raise-event-method" class="method-detail ">
+				<a name="method-i-raise_event"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">raise_event</span><span
+						class="method-args">(event_name, *args, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Raises an event on the isolation You can specify the arguments in the block
+or as parameters
+</p>
+<p>
+Example
+</p>
+<pre>
+    an_isolation.raise_event :on_property_changed do |raiser|
+      raiser.with an_isolation, System::EventArgs.empty
+    end
+</pre>
+<p>
+is equivalent to:
+</p>
+<pre>
+    an_isolation.raise_event :on_property_changed, an_isolation, System::EventArgs.empty
+</pre>
+<p>
+or
+</p>
+<pre>
+    an_isolation.raise_event(:on_property_changed).with(an_isolation, System::EventArgs.empty)
+</pre>
+<p>
+You will most likely use this method when you want to verify logic in an
+event handler
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="raise-event-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 61</span>
+61:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raise_event</span>(<span class="ruby-identifier">event_name</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+62:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">add_event_expectation</span> <span class="ruby-identifier">event_name</span>, <span class="ruby-value">:instance</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>
+63:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
 			</div>
 
 		
 			<div id="when-class-receives-method" class="method-detail ">
-				<a name="M000074"></a>
+				<a name="method-i-when_class_receives"></a>
 
 				<div class="method-heading">
 				
@@ -449,19 +706,21 @@ test they are defined in.
 						id="when-class-receives-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 109</span>
-109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_class_receives</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-110:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">when_receiving</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_class_receives</span>(<span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>)
+110:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">when_receiving</span> <span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>
 111:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
 				
+
+				
 			</div>
 
 		
 			<div id="when-receiving-method" class="method-detail ">
-				<a name="M000073"></a>
+				<a name="method-i-when_receiving"></a>
 
 				<div class="method-heading">
 				
@@ -504,19 +763,21 @@ test they are defined in.
 						id="when-receiving-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 90</span>
-90:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-91:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">create_override</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+90:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">when_receiving</span>(<span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>)
+91:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">create_override</span> <span class="ruby-identifier">method_name</span>, &amp;<span class="ruby-identifier">block</span>
 92:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
 				
+
+				
 			</div>
 
 		
 			<div id="with-subject-method" class="method-detail ">
-				<a name="M000077"></a>
+				<a name="method-i-with_subject"></a>
 
 				<div class="method-heading">
 				
@@ -539,14 +800,16 @@ they are needed.
 						id="with-subject-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/caricature/isolator.rb, line 159</span>
-159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_subject</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-160:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">instance</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">new</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span> 
-161:       <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_subject</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">b</span>)
+160:       <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">instance</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">new</span> *<span class="ruby-identifier">args</span> 
+161:       <span class="ruby-identifier">b</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">b</span>
 162:       <span class="ruby-keyword kw">self</span>
 163:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>

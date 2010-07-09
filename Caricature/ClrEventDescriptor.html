@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Caricature::ClrEventDescriptor</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/caricature/clr/descriptor_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/clr/descriptor.rb">lib/caricature/clr/descriptor.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link"><a href="../Object.html">Object</a></p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-add_method_name">#add_method_name</a></li>
+					
+					<li><a href="#method-i-instance_member%3F">#instance_member?</a></li>
+					
+					<li><a href="#method-i-remove_method_name">#remove_method_name</a></li>
+					
+					<li><a href="#method-i-to_s">#to_s</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Caricature.html">Caricature</a></li>
+				
+					<li><a href="../Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
+					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
+				
+					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceIsolator.html">Caricature::ClrInterfaceIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrInterfaceMessenger.html">Caricature::ClrInterfaceMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
+				
+					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="../Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="../Caricature/EventVerification.html">Caricature::EventVerification</a></li>
+				
+					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
+				
+					<li><a href="../Caricature/ExpectationBuilder.html">Caricature::ExpectationBuilder</a></li>
+				
+					<li><a href="../Caricature/ExpectationSyntax.html">Caricature::ExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/Expectations.html">Caricature::Expectations</a></li>
+				
+					<li><a href="../Caricature/Interception.html">Caricature::Interception</a></li>
+				
+					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
+				
+					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
+				
+					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
+				
+					<li><a href="../Caricature/Messenger.html">Caricature::Messenger</a></li>
+				
+					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
+				
+					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
+				
+					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
+				
+					<li><a href="../Caricature/RubyMessenger.html">Caricature::RubyMessenger</a></li>
+				
+					<li><a href="../Caricature/RubyObjectDescriptor.html">Caricature::RubyObjectDescriptor</a></li>
+				
+					<li><a href="../Caricature/TypeDescriptor.html">Caricature::TypeDescriptor</a></li>
+				
+					<li><a href="../Caricature/Verification.html">Caricature::Verification</a></li>
+				
+					<li><a href="../System.html">System</a></li>
+				
+					<li><a href="../System/String.html">System::String</a></li>
+				
+					<li><a href="../System/Type.html">System::Type</a></li>
+				
+					<li><a href="../Array.html">Array</a></li>
+				
+					<li><a href="../Class.html">Class</a></li>
+				
+					<li><a href="../Hash.html">Hash</a></li>
+				
+					<li><a href="../Module.html">Module</a></li>
+				
+					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../Should.html">Should</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Caricature::ClrEventDescriptor</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="event-name-attribute-method" class="method-detail">
+				<a name="event_name"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">event_name</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(event_name, instance_member=true)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 83</span>
+83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">event_name</span>, <span class="ruby-identifier">instance_member</span>=<span class="ruby-keyword kw">true</span>)
+84:       <span class="ruby-ivar">@event_name</span>, <span class="ruby-ivar">@instance_member</span> = <span class="ruby-identifier">event_name</span>, <span class="ruby-identifier">instance_member</span>
+85:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="add-method-name-method" class="method-detail ">
+				<a name="method-i-add_method_name"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_method_name</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="add-method-name-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 91</span>
+91:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_method_name</span>
+92:       <span class="ruby-node">&quot;add_#{event_name}&quot;</span>
+93:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="instance-member--method" class="method-detail ">
+				<a name="method-i-instance_member%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">instance_member?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="instance-member--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 87</span>
+87:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_member?</span>
+88:       <span class="ruby-ivar">@instance_member</span>
+89:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="remove-method-name-method" class="method-detail ">
+				<a name="method-i-remove_method_name"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">remove_method_name</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="remove-method-name-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove_method_name</span>
+96:       <span class="ruby-node">&quot;remove_#{event_name}&quot;</span>
+97:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="method-i-to_s"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 99</span>
+ 99:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+100:       <span class="ruby-node">&quot;&lt;#{self.class}:#{object_id} @event_name=\&quot;#{event_name}\&quot;&gt;&quot;</span>
+101:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

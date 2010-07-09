@@ -22,6 +22,16 @@
 <body class="class">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
@@ -45,7 +55,7 @@
 			<div id="parent-class-section" class="section">
 				<h3 class="section-header">Parent</h3>
 				
-				<p class="link">TypeDescriptor</p>
+				<p class="link"><a href="TypeDescriptor.html">Caricature::TypeDescriptor</a></p>
 				
 			</div>
 			
@@ -59,9 +69,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000014">#initialize_class_members_for</a></li>
+					<li><a href="#method-i-initialize_class_members_for">#initialize_class_members_for</a></li>
 					
-					<li><a href="#M000013">#initialize_instance_members_for</a></li>
+					<li><a href="#method-i-initialize_instance_members_for">#initialize_instance_members_for</a></li>
 					
 				</ul>
 			</div>
@@ -74,7 +84,7 @@
 				<ul class="link-list">
 				
 				
-					<li><a class="include" href="../Caricature.html">Caricature</a></li>
+					<li><span class="include">ClrMemberCollector</span></li>
 				
 				
 				</ul>
@@ -112,11 +122,17 @@
 				
 					<li><a href="../Caricature.html">Caricature</a></li>
 				
+					<li><a href="../Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -127,6 +143,12 @@
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="../Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="../Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -140,8 +162,6 @@
 				
 					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -151,6 +171,14 @@
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -177,6 +205,8 @@
 					<li><a href="../Module.html">Module</a></li>
 				
 					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../Should.html">Should</a></li>
 				
 					<li><a href="../String.html">String</a></li>
 				
@@ -212,7 +242,7 @@ instance as well as on a static level
 
 		
 			<div id="initialize-class-members-for-method" class="method-detail ">
-				<a name="M000014"></a>
+				<a name="method-i-initialize_class_members_for"></a>
 
 				<div class="method-heading">
 				
@@ -233,25 +263,29 @@ collects all the static members of the provided CLR class type
 					<div class="method-source-code"
 						id="initialize-class-members-for-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 82</span>
-82:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_class_members_for</span>(<span class="ruby-identifier">klass</span>)
-83:       <span class="ruby-identifier">clr_type</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_clr_type</span>
-84: 
-85:       <span class="ruby-identifier">methods</span> = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_methods</span>(<span class="ruby-identifier">class_flags</span>) 
-86:       <span class="ruby-identifier">properties</span> = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_properties</span>(<span class="ruby-identifier">class_flags</span>) 
-87: 
-88:       <span class="ruby-ivar">@class_members</span> = <span class="ruby-identifier">collect_members_from</span> <span class="ruby-identifier">methods</span>, <span class="ruby-identifier">properties</span>, <span class="ruby-keyword kw">false</span>
-89:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 147</span>
+147:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_class_members_for</span>(<span class="ruby-identifier">klass</span>)
+148:       <span class="ruby-identifier">clr_type</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_clr_type</span>
+149: 
+150:       <span class="ruby-identifier">context</span> = {}
+151:       <span class="ruby-identifier">context</span>[<span class="ruby-value">:methods</span>] = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_methods</span>(<span class="ruby-identifier">class_flags</span>)
+152:       <span class="ruby-identifier">context</span>[<span class="ruby-value">:properties</span>] = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_properties</span>(<span class="ruby-identifier">class_flags</span>)
+153:       <span class="ruby-identifier">context</span>[<span class="ruby-value">:events</span>] = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_events</span>(<span class="ruby-identifier">class_event_flags</span>)
+154: 
+155:       <span class="ruby-ivar">@class_members</span> = <span class="ruby-identifier">build_member_collections</span> <span class="ruby-identifier">context</span>, <span class="ruby-keyword kw">false</span>
+156:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="initialize-instance-members-for-method" class="method-detail ">
-				<a name="M000013"></a>
+				<a name="method-i-initialize_instance_members_for"></a>
 
 				<div class="method-heading">
 				
@@ -272,18 +306,22 @@ collects all the instance members of the provided CLR class type
 					<div class="method-source-code"
 						id="initialize-instance-members-for-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 72</span>
-72:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_instance_members_for</span>(<span class="ruby-identifier">klass</span>)
-73:       <span class="ruby-identifier">clr_type</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_clr_type</span>
-74: 
-75:       <span class="ruby-identifier">methods</span> = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_methods</span>(<span class="ruby-identifier">instance_flags</span>) 
-76:       <span class="ruby-identifier">properties</span> = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_properties</span>(<span class="ruby-identifier">instance_flags</span>) 
-77: 
-78:       <span class="ruby-ivar">@instance_members</span> = <span class="ruby-identifier">collect_members_from</span> <span class="ruby-identifier">methods</span>, <span class="ruby-identifier">properties</span>
-79:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/descriptor.rb, line 135</span>
+135:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_instance_members_for</span>(<span class="ruby-identifier">klass</span>)
+136:       <span class="ruby-identifier">clr_type</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_clr_type</span>
+137: 
+138:       <span class="ruby-identifier">context</span> = {}
+139:       <span class="ruby-identifier">context</span>[<span class="ruby-value">:methods</span>] = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_methods</span>(<span class="ruby-identifier">instance_flags</span>)
+140:       <span class="ruby-identifier">context</span>[<span class="ruby-value">:properties</span>] = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_properties</span>(<span class="ruby-identifier">instance_flags</span>)
+141:       <span class="ruby-identifier">context</span>[<span class="ruby-value">:events</span>] = <span class="ruby-identifier">clr_type</span>.<span class="ruby-identifier">get_events</span>(<span class="ruby-identifier">event_flags</span>)
+142: 
+143:       <span class="ruby-ivar">@instance_members</span> = <span class="ruby-identifier">build_member_collections</span> <span class="ruby-identifier">context</span>
+144:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>

@@ -22,6 +22,16 @@
 <body class="class">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
@@ -45,7 +55,7 @@
 			<div id="parent-class-section" class="section">
 				<h3 class="section-header">Parent</h3>
 				
-				<p class="link">Isolator</p>
+				<p class="link"><a href="Isolator.html">Caricature::Isolator</a></p>
 				
 			</div>
 			
@@ -59,11 +69,11 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000021">::new</a></li>
+					<li><a href="#method-c-new">::new</a></li>
 					
-					<li><a href="#M000023">#create_isolation_for</a></li>
+					<li><a href="#method-i-create_isolation_for">#create_isolation_for</a></li>
 					
-					<li><a href="#M000022">#initialize_messenger</a></li>
+					<li><a href="#method-i-initialize_messenger">#initialize_messenger</a></li>
 					
 				</ul>
 			</div>
@@ -76,7 +86,7 @@
 				<ul class="link-list">
 				
 				
-					<li><a class="include" href="../Caricature.html">Caricature</a></li>
+					<li><span class="include">Interception</span></li>
 				
 				
 				</ul>
@@ -114,11 +124,17 @@
 				
 					<li><a href="../Caricature.html">Caricature</a></li>
 				
+					<li><a href="../Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -129,6 +145,12 @@
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="../Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="../Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -142,8 +164,6 @@
 				
 					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -153,6 +173,14 @@
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -179,6 +207,8 @@
 					<li><a href="../Module.html">Module</a></li>
 				
 					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../Should.html">Should</a></li>
 				
 					<li><a href="../String.html">String</a></li>
 				
@@ -214,7 +244,7 @@ that are defined on the interface.
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000021"></a>
+				<a name="method-c-new"></a>
 
 				<div class="method-heading">
 				
@@ -236,16 +266,18 @@ interface defined in a CLR language.
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 80</span>
-80:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">context</span>)
-81:       <span class="ruby-keyword kw">super</span>
-82:       <span class="ruby-identifier">sklass</span> = <span class="ruby-identifier">context</span>.<span class="ruby-identifier">subject</span>
-83:       <span class="ruby-ivar">@descriptor</span> = <span class="ruby-constant">ClrInterfaceDescriptor</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">sklass</span>
-84:       <span class="ruby-identifier">build_isolation</span> <span class="ruby-identifier">sklass</span>
-85:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 201</span>
+201:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">context</span>)
+202:       <span class="ruby-keyword kw">super</span>
+203:       <span class="ruby-identifier">sklass</span> = <span class="ruby-identifier">context</span>.<span class="ruby-identifier">subject</span>
+204:       <span class="ruby-ivar">@descriptor</span> = <span class="ruby-constant">ClrInterfaceDescriptor</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">sklass</span>
+205:       <span class="ruby-identifier">build_isolation</span> <span class="ruby-identifier">sklass</span>
+206:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
@@ -258,7 +290,7 @@ interface defined in a CLR language.
 
 		
 			<div id="create-isolation-for-method" class="method-detail ">
-				<a name="M000023"></a>
+				<a name="method-i-create_isolation_for"></a>
 
 				<div class="method-heading">
 				
@@ -279,39 +311,50 @@ builds the actual <tt>isolator</tt> for the CLR interface
 					<div class="method-source-code"
 						id="create-isolation-for-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 93</span>
- 93:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_isolation_for</span>(<span class="ruby-identifier">subj</span>)
- 94:       <span class="ruby-identifier">proxy_members</span> = <span class="ruby-ivar">@descriptor</span>.<span class="ruby-identifier">instance_members</span>
- 95: 
- 96:       <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-identifier">class_name</span>(<span class="ruby-identifier">subj</span>), <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>)
- 97:       <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span>
- 98: 
- 99:         <span class="ruby-identifier">include</span> <span class="ruby-identifier">subj</span>
-100:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Interception</span>
-101: 
-102:         <span class="ruby-identifier">proxy_members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mem</span><span class="ruby-operator">|</span>
-103:           <span class="ruby-identifier">nm</span> = <span class="ruby-identifier">mem</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>
-104:           <span class="ruby-identifier">define_method</span> <span class="ruby-identifier">nm</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
-105:             <span class="ruby-identifier">b</span> = <span class="ruby-keyword kw">nil</span>
-106:             <span class="ruby-identifier">b</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> { <span class="ruby-keyword kw">yield</span> } <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
-107:             <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">send_message</span>(<span class="ruby-identifier">nm</span>, <span class="ruby-identifier">mem</span>.<span class="ruby-identifier">return_type</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">b</span>)
-108:           <span class="ruby-keyword kw">end</span>
-109:         <span class="ruby-keyword kw">end</span>
-110: 
-111:       <span class="ruby-keyword kw">end</span>
-112: 
-113:       <span class="ruby-identifier">klass</span>
-114:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 214</span>
+214:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_isolation_for</span>(<span class="ruby-identifier">subj</span>)
+215:       <span class="ruby-identifier">proxy_members</span> = <span class="ruby-ivar">@descriptor</span>.<span class="ruby-identifier">instance_members</span>
+216:       <span class="ruby-identifier">events</span> = <span class="ruby-ivar">@descriptor</span>.<span class="ruby-identifier">events</span>
+217: 
+218:       <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-identifier">class_name</span>(<span class="ruby-identifier">subj</span>), <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>)
+219:       <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span>
+220: 
+221:         <span class="ruby-identifier">include</span> <span class="ruby-identifier">subj</span>
+222:         <span class="ruby-identifier">include</span> <span class="ruby-constant">Interception</span>
+223: 
+224:         <span class="ruby-identifier">proxy_members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mem</span><span class="ruby-operator">|</span>
+225:           <span class="ruby-identifier">nm</span> = <span class="ruby-identifier">mem</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">to_sym</span>
+226:           <span class="ruby-identifier">define_method</span> <span class="ruby-identifier">nm</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>*<span class="ruby-identifier">args</span><span class="ruby-operator">|</span>
+227:             <span class="ruby-identifier">b</span> = <span class="ruby-keyword kw">nil</span>
+228:             <span class="ruby-identifier">b</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> { <span class="ruby-keyword kw">yield</span> } <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+229:             <span class="ruby-identifier">isolation_context</span>.<span class="ruby-identifier">send_message</span>(<span class="ruby-identifier">nm</span>, <span class="ruby-identifier">mem</span>.<span class="ruby-identifier">return_type</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">b</span>)
+230:           <span class="ruby-keyword kw">end</span>
+231:         <span class="ruby-keyword kw">end</span>
+232: 
+233: 
+234:       <span class="ruby-keyword kw">end</span>
+235: 
+236:       <span class="ruby-identifier">evts</span> = <span class="ruby-identifier">events</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">evt</span><span class="ruby-operator">|</span>
+237:        <span class="ruby-node">%(add remove)</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">res</span>, <span class="ruby-identifier">nm</span><span class="ruby-operator">|</span>
+238:          <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">def #{&quot;self.&quot; unless evt.instance_member?}#{nm}_#{evt.event_name}(block)  isolation_context.#{nm}_event_subscription('#{evt.event_name}', :#{evt.instance_member? ? &quot;instance&quot; : &quot;class&quot;}, block)end</span>
+239:        <span class="ruby-keyword kw">end</span>
+240:       <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+241:       <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-identifier">evts</span>
+242: 
+243:       <span class="ruby-identifier">klass</span>
+244:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="initialize-messenger-method" class="method-detail ">
-				<a name="M000022"></a>
+				<a name="method-i-initialize_messenger"></a>
 
 				<div class="method-heading">
 				
@@ -332,13 +375,15 @@ initializes the messaging strategy for the isolator
 					<div class="method-source-code"
 						id="initialize-messenger-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 88</span>
-88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_messenger</span>
-89:       <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">messenger</span> = <span class="ruby-constant">ClrInterfaceMessenger</span>.<span class="ruby-identifier">new</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">expectations</span>
-90:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/clr/isolator.rb, line 209</span>
+209:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_messenger</span>
+210:       <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">messenger</span> = <span class="ruby-constant">ClrInterfaceMessenger</span>.<span class="ruby-identifier">new</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">expectations</span>
+211:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>

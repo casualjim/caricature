@@ -1,1 +1,33 @@
-Wed, 09 Sep 2009 18:14:50 +0200
+Fri, 09 Jul 2010 18:53:08 +0200
+README.rdoc	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/bacon/integration.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/bacon.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/aspnet_mvc.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/descriptor.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/event_verification.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/expectation.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/isolation.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/isolator.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/messenger.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr/method_call_recorder.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/clr.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/array.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/class.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/hash.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/module.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/object.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/string.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/system/string.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext/system/type.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/core_ext.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/descriptor.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/expectation.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/isolation.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/isolator.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/messenger.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/method_call_recorder.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/rspec/integration.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/rspec.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/verification.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature/version.rb	Fri, 09 Jul 2010 18:51:21 +0200
+lib/caricature.rb	Fri, 09 Jul 2010 18:51:21 +0200

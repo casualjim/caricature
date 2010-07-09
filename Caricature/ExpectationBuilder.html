@@ -22,6 +22,16 @@
 <body class="class">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
@@ -59,9 +69,9 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000060">::new</a></li>
+					<li><a href="#method-c-new">::new</a></li>
 					
-					<li><a href="#M000061">#build</a></li>
+					<li><a href="#method-i-build">#build</a></li>
 					
 				</ul>
 			</div>
@@ -74,7 +84,7 @@
 				<ul class="link-list">
 				
 				
-					<li><a class="include" href="../Caricature.html">Caricature</a></li>
+					<li><span class="include">ExpectationSyntax</span></li>
 				
 				
 				</ul>
@@ -112,11 +122,17 @@
 				
 					<li><a href="../Caricature.html">Caricature</a></li>
 				
+					<li><a href="../Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -127,6 +143,12 @@
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="../Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="../Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -140,8 +162,6 @@
 				
 					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -151,6 +171,14 @@
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -177,6 +205,8 @@
 					<li><a href="../Module.html">Module</a></li>
 				
 					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../Should.html">Should</a></li>
 				
 					<li><a href="../String.html">String</a></li>
 				
@@ -212,7 +242,7 @@ and usage of the expectation
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000060"></a>
+				<a name="method-c-new"></a>
 
 				<div class="method-heading">
 				
@@ -234,14 +264,15 @@ passed into the block to allow only certain operations in the block.
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 163</span>
-163:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>)
-164:       <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span>, <span class="ruby-ivar">@block</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@any_args</span>, <span class="ruby-ivar">@callback</span> = 
-165:               <span class="ruby-identifier">method_name</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, [], <span class="ruby-keyword kw">true</span>, <span class="ruby-keyword kw">nil</span>
-166:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 252</span>
+252:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>)
+253:       <span class="ruby-ivar">@collected</span> = { <span class="ruby-value">:method_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">method_name</span>, <span class="ruby-value">:args</span> =<span class="ruby-operator">&gt;</span> [], <span class="ruby-value">:any_args</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span> }
+254:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
@@ -254,7 +285,7 @@ passed into the block to allow only certain operations in the block.
 
 		
 			<div id="build-method" class="method-detail ">
-				<a name="M000061"></a>
+				<a name="method-i-build"></a>
 
 				<div class="method-heading">
 				
@@ -275,13 +306,15 @@ build up the expectation with the provided arguments
 					<div class="method-source-code"
 						id="build-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 171</span>
-171:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build</span>
-172:       <span class="ruby-constant">Expectation</span>.<span class="ruby-identifier">new</span> <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span>, <span class="ruby-ivar">@callback</span>
-173:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 259</span>
+259:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build</span>
+260:       <span class="ruby-constant">Expectation</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">collected</span>
+261:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>

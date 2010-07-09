@@ -22,6 +22,16 @@
 
 <body class="file">
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="project-metadata">
 			
 			
@@ -52,11 +62,17 @@
 				
 					<li><a href="./Caricature.html">Caricature</a></li>
 				
+					<li><a href="./Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="./Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="./Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="./Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="./Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="./Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="./Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -67,6 +83,12 @@
 					<li><a href="./Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="./Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="./Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="./Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="./Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="./Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -80,8 +102,6 @@
 				
 					<li><a href="./Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="./Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="./Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="./Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -91,6 +111,14 @@
 					<li><a href="./Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="./Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="./Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="./Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -118,6 +146,8 @@
 				
 					<li><a href="./Object.html">Object</a></li>
 				
+					<li><a href="./Should.html">Should</a></li>
+				
 					<li><a href="./String.html">String</a></li>
 				
 				</ul>
@@ -131,9 +161,10 @@
 	<div id="documentation">
 		<h1><a href="Caricature.html">Caricature</a> - Bringing simple mocking to the DLR</h1>
 <ul>
-<li><a
+<li><p>
+<a
 href="http://github.com/casualjim/caricature">github.com/casualjim/caricature</a>
-
+</p>
 </li>
 </ul>
 <h2>DESCRIPTION:</h2>
@@ -167,47 +198,49 @@ It may be very important to note that when you&#8217;re going to be
 isolating CLR classes to be used in other CLR classes you still need to
 obide by the CLR rules. That means if you want to redefine a method
 you&#8217;ll need to make sure it&#8217;s marked as virtual. Static types
-are still governed by static type rules. I&#8217;m working on a solution
+are still governed by static type rules.  I&#8217;m working on a solution
 around those problems but for the time being this is how it has to be.
 </p>
 <h2>FEATURES/PROBLEMS:</h2>
 <ul>
-<li>[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> won&#8217;t
+<li><p>
+[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> won&#8217;t
 mock static methods because you can&#8217;t override those according to CLR
 rules
-
+</p>
 </li>
-<li>[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> can only
+<li><p>
+[CLR-to-CLR mocking]: <a href="Caricature.html">Caricature</a> can only
 override methods that are marked virtual (CLR rules)
-
+</p>
 </li>
 </ul>
 <h2>SYNOPSIS:</h2>
 <pre>
     isolation = Isolation.for(Ninja)
     isolation.when_receiving(:attack) do |exp|
-      exp.with(:shuriken)
-      exp.return(3)
+        exp.with(:shuriken)
+        exp.return(3)
     end
+
+    Battle.new(mock)
+    battle.combat
+
+    isolation.should.have_received?(:attack)
 </pre>
-<p>
-Battle.new(mock) battle.combat
-</p>
-<p>
-isolation.did_receive?(:attack).should.be.successful
-</p>
 <h2>REQUIREMENTS:</h2>
 <ul>
-<li>To use the caricature library you need to have uuidtools installed
-
+<li><p>
+To use the caricature library you need to have uuidtools installed
+</p>
 </li>
 </ul>
 <p>
-sudo gem install uuidtools sudo igem install uuidtools
+(sudo) gem install uuidtools (sudo) igem install uuidtools
 </p>
 <h2>INSTALL:</h2>
 <p>
-sudo gem install caricature
+(sudo) gem install caricature
 </p>
 <h2>LICENSE:</h2>
 <p>
@@ -255,8 +288,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [This is the BSD license, see
 </p>
 <pre>
- http://www.opensource.org/licenses/bsd-license.php]
-</pre>
+ http://www.opensource.org/licenses/bsd-license.php]</pre>
 
 	</div>
 

@@ -22,14 +22,24 @@
 <body class="class">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
 				<div class="section-body">
 					<ul>
 					
-						<li><a href="./lib/core_ext/class_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/core_ext/class.rb">lib/core_ext/class.rb</a></li>
+						<li><a href="./lib/caricature/core_ext/class_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/core_ext/class.rb">lib/caricature/core_ext/class.rb</a></li>
 					
 					</ul>
 				</div>
@@ -59,9 +69,17 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000106">#demodulize</a></li>
+					<li><a href="#method-i-clr_type%3F">#clr_type?</a></li>
 					
-					<li><a href="#M000107">#is_clr_type?</a></li>
+					<li><a href="#method-i-demodulize">#demodulize</a></li>
+					
+					<li><a href="#method-i-isolate">#isolate</a></li>
+					
+					<li><a href="#method-i-mock">#mock</a></li>
+					
+					<li><a href="#method-i-stub">#stub</a></li>
+					
+					<li><a href="#method-i-when_receiving">#when_receiving</a></li>
 					
 				</ul>
 			</div>
@@ -101,11 +119,17 @@
 				
 					<li><a href="./Caricature.html">Caricature</a></li>
 				
+					<li><a href="./Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="./Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="./Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="./Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="./Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="./Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="./Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -116,6 +140,12 @@
 					<li><a href="./Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="./Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="./Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="./Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="./Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="./Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -129,8 +159,6 @@
 				
 					<li><a href="./Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="./Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="./Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="./Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -140,6 +168,14 @@
 					<li><a href="./Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="./Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="./Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="./Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="./Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -166,6 +202,8 @@
 					<li><a href="./Module.html">Module</a></li>
 				
 					<li><a href="./Object.html">Object</a></li>
+				
+					<li><a href="./Should.html">Should</a></li>
 				
 					<li><a href="./String.html">String</a></li>
 				
@@ -196,8 +234,46 @@
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="clr-type--method" class="method-detail ">
+				<a name="method-i-clr_type%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">clr_type?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+indicates whether this type has a CLR type in its ancestors
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="clr-type--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/core_ext/class.rb, line 9</span>
+ 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clr_type?</span>
+10:     <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span>
+11:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included_modules</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> } <span class="ruby-operator">||</span>
+12:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-identifier">mod</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Object</span> }.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> }
+13:   <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
 			<div id="demodulize-method" class="method-detail ">
-				<a name="M000106"></a>
+				<a name="method-i-demodulize"></a>
 
 				<div class="method-heading">
 				
@@ -218,7 +294,7 @@ removes all the modules from this class name
 					<div class="method-source-code"
 						id="demodulize-source">
 <pre>
-   <span class="ruby-comment cmt"># File lib/core_ext/class.rb, line 4</span>
+   <span class="ruby-comment cmt"># File lib/caricature/core_ext/class.rb, line 4</span>
 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demodulize</span>
 5:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/^.*::/</span>, <span class="ruby-value str">''</span>)
 6:   <span class="ruby-keyword kw">end</span></pre>
@@ -227,41 +303,142 @@ removes all the modules from this class name
 				</div>
 
 				
+
+				
 			</div>
 
 		
-			<div id="is-clr-type--method" class="method-detail ">
-				<a name="M000107"></a>
+			<div id="isolate-method" class="method-detail ">
+				<a name="method-i-isolate"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">is_clr_type?</span><span
-						class="method-args">()</span>
+					<span class="method-name">isolate</span><span
+						class="method-args">(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
 
 				<div class="method-description">
 					
-					<p>
-indicates whether this type has a CLR type in its ancestors
-</p>
+					
 					
 
 					
 					<div class="method-source-code"
-						id="is-clr-type--source">
+						id="isolate-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/core_ext/class.rb, line 9</span>
- 9:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_clr_type?</span>
-10:     <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span>
-11:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included_modules</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> } <span class="ruby-operator">||</span>
-12:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-identifier">mod</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Object</span> }.<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mod</span>.<span class="ruby-identifier">to_clr_type</span>.<span class="ruby-identifier">nil?</span> }
-13:   <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/core_ext/class.rb, line 15</span>
+15:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">isolate</span>(<span class="ruby-identifier">name</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">recorder</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">MethodCallRecorder</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">expectations</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span>.<span class="ruby-identifier">new</span>, &amp;<span class="ruby-identifier">block</span>)
+16:     <span class="ruby-identifier">iso</span> = <span class="ruby-constant">Caricature</span><span class="ruby-operator">::</span><span class="ruby-constant">Isolation</span>.<span class="ruby-identifier">for</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">recorder</span>, <span class="ruby-identifier">expectations</span>)
+17:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">iso</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">name</span>
+18:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>
+19:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+20:         <span class="ruby-ivar">@expectation</span> = <span class="ruby-identifier">iso</span>.<span class="ruby-identifier">when_class_receives</span>(<span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">block</span>)
+21:       <span class="ruby-keyword kw">else</span>
+22:         <span class="ruby-ivar">@expectation</span> = <span class="ruby-identifier">iso</span>.<span class="ruby-identifier">when_class_receives</span>(<span class="ruby-identifier">name</span>)
+23:         <span class="ruby-identifier">instance_eval</span> &amp;<span class="ruby-identifier">block</span>
+24:       <span class="ruby-keyword kw">end</span>
+25:     <span class="ruby-keyword kw">end</span>
+26:     <span class="ruby-identifier">iso</span>
+27:   <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
+				
+				<div class="aliases">
+					Also aliased as: <a href="Class.html#method-i-when_receiving">when_receiving</a>, <a href="Class.html#method-i-mock">mock</a>, <a href="Class.html#method-i-stub">stub</a>
+				</div>
+				
+
+				
+			</div>
+
+		
+			<div id="mock-method" class="method-detail method-alias">
+				<a name="method-i-mock"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">mock</span><span
+						class="method-args">(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+				</div>
+
+				
+
+				
+				<div class="aliases">
+          Alias for: <a href="Class.html#method-i-isolate">isolate</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="stub-method" class="method-detail method-alias">
+				<a name="method-i-stub"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">stub</span><span
+						class="method-args">(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+				</div>
+
+				
+
+				
+				<div class="aliases">
+          Alias for: <a href="Class.html#method-i-isolate">isolate</a>
+				</div>
+				
+			</div>
+
+		
+			<div id="when-receiving-method" class="method-detail method-alias">
+				<a name="method-i-when_receiving"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">when_receiving</span><span
+						class="method-args">(name=nil, recorder = Caricature::MethodCallRecorder.new, expectations = Caricature::Expectations.new, &block)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+				</div>
+
+				
+
+				
+				<div class="aliases">
+          Alias for: <a href="Class.html#method-i-isolate">isolate</a>
+				</div>
 				
 			</div>
 

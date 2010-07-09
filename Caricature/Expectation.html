@@ -22,11 +22,24 @@
 <body class="class">
 
 	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
 		<div id="file-metadata">
 			<div id="file-list-section" class="section">
 				<h3 class="section-header">In Files</h3>
 				<div class="section-body">
 					<ul>
+					
+						<li><a href="../lib/caricature/clr/expectation_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/caricature/clr/expectation.rb">lib/caricature/clr/expectation.rb</a></li>
 					
 						<li><a href="../lib/caricature/expectation_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/caricature/expectation.rb">lib/caricature/expectation.rb</a></li>
@@ -59,23 +72,65 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000044">::new</a></li>
+					<li><a href="#method-c-new">::new</a></li>
 					
-					<li><a href="#M000053">#call_super?</a></li>
+					<li><a href="#method-i-args">#args</a></li>
 					
-					<li><a href="#M000055">#execute</a></li>
+					<li><a href="#method-i-block">#block</a></li>
 					
-					<li><a href="#M000054">#has_callback?</a></li>
+					<li><a href="#method-i-block%3D">#block=</a></li>
 					
-					<li><a href="#M000050">#has_error_args?</a></li>
+					<li><a href="#method-i-block_args">#block_args</a></li>
 					
-					<li><a href="#M000051">#has_return_value?</a></li>
+					<li><a href="#method-i-block_callback">#block_callback</a></li>
 					
-					<li><a href="#M000059">#inspect</a></li>
+					<li><a href="#method-i-call_handler">#call_handler</a></li>
 					
-					<li><a href="#M000052">#super_before?</a></li>
+					<li><a href="#method-i-call_super%3F">#call_super?</a></li>
 					
-					<li><a href="#M000056">#to_s</a></li>
+					<li><a href="#method-i-callback">#callback</a></li>
+					
+					<li><a href="#method-i-error_args">#error_args</a></li>
+					
+					<li><a href="#method-i-event_args">#event_args</a></li>
+					
+					<li><a href="#method-i-event_handler">#event_handler</a></li>
+					
+					<li><a href="#method-i-event_name">#event_name</a></li>
+					
+					<li><a href="#method-i-event_recorder">#event_recorder</a></li>
+					
+					<li><a href="#method-i-events">#events</a></li>
+					
+					<li><a href="#method-i-events%3D">#events=</a></li>
+					
+					<li><a href="#method-i-execute">#execute</a></li>
+					
+					<li><a href="#method-i-has_block_callback%3F">#has_block_callback?</a></li>
+					
+					<li><a href="#method-i-has_callback%3F">#has_callback?</a></li>
+					
+					<li><a href="#method-i-has_error_args%3F">#has_error_args?</a></li>
+					
+					<li><a href="#method-i-has_event_handler%3F">#has_event_handler?</a></li>
+					
+					<li><a href="#method-i-has_return_callback%3F">#has_return_callback?</a></li>
+					
+					<li><a href="#method-i-has_return_value%3F">#has_return_value?</a></li>
+					
+					<li><a href="#method-i-method_name">#method_name</a></li>
+					
+					<li><a href="#method-i-raises_event%3F">#raises_event?</a></li>
+					
+					<li><a href="#method-i-raises_registered%3F">#raises_registered?</a></li>
+					
+					<li><a href="#method-i-return_callback">#return_callback</a></li>
+					
+					<li><a href="#method-i-return_value">#return_value</a></li>
+					
+					<li><a href="#method-i-super">#super</a></li>
+					
+					<li><a href="#method-i-super_before%3F">#super_before?</a></li>
 					
 				</ul>
 			</div>
@@ -88,7 +143,11 @@
 				<ul class="link-list">
 				
 				
-					<li><a class="include" href="../Caricature.html">Caricature</a></li>
+					<li><span class="include">EventExpectationSyntax</span></li>
+				
+				
+				
+					<li><span class="include">ExpectationSyntax</span></li>
 				
 				
 				</ul>
@@ -126,11 +185,17 @@
 				
 					<li><a href="../Caricature.html">Caricature</a></li>
 				
+					<li><a href="../Caricature/ArgumentMatchError.html">Caricature::ArgumentMatchError</a></li>
+				
 					<li><a href="../Caricature/ArgumentRecording.html">Caricature::ArgumentRecording</a></li>
+				
+					<li><a href="../Caricature/BlockCallRecording.html">Caricature::BlockCallRecording</a></li>
 				
 					<li><a href="../Caricature/ClrClassDescriptor.html">Caricature::ClrClassDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrClassMessenger.html">Caricature::ClrClassMessenger</a></li>
+				
+					<li><a href="../Caricature/ClrEventDescriptor.html">Caricature::ClrEventDescriptor</a></li>
 				
 					<li><a href="../Caricature/ClrInterfaceDescriptor.html">Caricature::ClrInterfaceDescriptor</a></li>
 				
@@ -141,6 +206,12 @@
 					<li><a href="../Caricature/ClrIsolator.html">Caricature::ClrIsolator</a></li>
 				
 					<li><a href="../Caricature/ClrMemberCollector.html">Caricature::ClrMemberCollector</a></li>
+				
+					<li><a href="../Caricature/EventExpectationSyntax.html">Caricature::EventExpectationSyntax</a></li>
+				
+					<li><a href="../Caricature/EventRaiseRecording.html">Caricature::EventRaiseRecording</a></li>
+				
+					<li><a href="../Caricature/EventVerification.html">Caricature::EventVerification</a></li>
 				
 					<li><a href="../Caricature/Expectation.html">Caricature::Expectation</a></li>
 				
@@ -154,8 +225,6 @@
 				
 					<li><a href="../Caricature/Interception/ClassMethods.html">Caricature::Interception::ClassMethods</a></li>
 				
-					<li><a href="../Caricature/Isolation.html">Caricature::Isolation</a></li>
-				
 					<li><a href="../Caricature/Isolator.html">Caricature::Isolator</a></li>
 				
 					<li><a href="../Caricature/MemberDescriptor.html">Caricature::MemberDescriptor</a></li>
@@ -165,6 +234,14 @@
 					<li><a href="../Caricature/MethodCallRecorder.html">Caricature::MethodCallRecorder</a></li>
 				
 					<li><a href="../Caricature/MethodCallRecording.html">Caricature::MethodCallRecording</a></li>
+				
+					<li><a href="../Caricature/RSpecAdapter.html">Caricature::RSpecAdapter</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers.html">Caricature::RSpecMatchers</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveRaised.html">Caricature::RSpecMatchers::HaveRaised</a></li>
+				
+					<li><a href="../Caricature/RSpecMatchers/HaveReceived.html">Caricature::RSpecMatchers::HaveReceived</a></li>
 				
 					<li><a href="../Caricature/RubyIsolator.html">Caricature::RubyIsolator</a></li>
 				
@@ -192,6 +269,8 @@
 				
 					<li><a href="../Object.html">Object</a></li>
 				
+					<li><a href="../Should.html">Should</a></li>
+				
 					<li><a href="../String.html">String</a></li>
 				
 				</ul>
@@ -207,6 +286,10 @@
 
 		<div id="description">
 			<p>
+Adds event support to the expectation this is only applicable to clr
+isolations and not to ruby isolations
+</p>
+<hr style="height: 1px"></hr><p>
 A description of an expectation. An expectation has the power to call the
 proxy method or completely ignore it
 </p>
@@ -218,117 +301,6 @@ proxy method or completely ignore it
 
 		<!-- Attributes -->
 		
-		<div id="attribute-method-details" class="method-section section">
-			<h3 class="section-header">Attributes</h3>
-
-			
-			<div id="method-name-attribute-method" class="method-detail">
-				<a name="method_name"></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">method_name</span><span
-						class="attribute-access-type">[R]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p>
-gets the <a href="Expectation.html#method_name">method_name</a> to which
-this expectation needs to listen to
-</p>
-				
-				</div>
-			</div>
-			
-			<div id="args-attribute-method" class="method-detail">
-				<a name="args"></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">args</span><span
-						class="attribute-access-type">[R]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p>
-the arguments that this expectation needs to be constrained by
-</p>
-				
-				</div>
-			</div>
-			
-			<div id="error-args-attribute-method" class="method-detail">
-				<a name="error_args"></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">error_args</span><span
-						class="attribute-access-type">[R]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p>
-the <a href="Expectation.html#error_args">error_args</a> that this
-expectation will raise an error with
-</p>
-				
-				</div>
-			</div>
-			
-			<div id="return-value-attribute-method" class="method-detail">
-				<a name="return_value"></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">return_value</span><span
-						class="attribute-access-type">[R]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p>
-the value that this expecation will return when executed
-</p>
-				
-				</div>
-			</div>
-			
-			<div id="super-attribute-method" class="method-detail">
-				<a name="super"></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">super</span><span
-						class="attribute-access-type">[R]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p>
-indicator for the mode to call the super <tt>:before</tt>, <tt>:after</tt>
-and <tt>nil</tt>
-</p>
-				
-				</div>
-			</div>
-			
-			<div id="callback-attribute-method" class="method-detail">
-				<a name="callback"></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">callback</span><span
-						class="attribute-access-type">[R]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p>
-contains the callback if one is given
-</p>
-				
-				</div>
-			</div>
-			
-		</div>
-		
 
 		<!-- Methods -->
 		
@@ -337,12 +309,12 @@ contains the callback if one is given
 
 		
 			<div id="new-method" class="method-detail ">
-				<a name="M000044"></a>
+				<a name="method-c-new"></a>
 
 				<div class="method-heading">
 				
 					<span class="method-name">new</span><span
-						class="method-args">(method_name, args, error_args, return_value, super_mode, callback)</span>
+						class="method-args">(options={})</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -358,15 +330,16 @@ Initializes a new instance of an expectation
 					<div class="method-source-code"
 						id="new-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 105</span>
-105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>, <span class="ruby-identifier">callback</span>)
-106:       <span class="ruby-ivar">@method_name</span>, <span class="ruby-ivar">@args</span>, <span class="ruby-ivar">@error_args</span>, <span class="ruby-ivar">@return_value</span>, <span class="ruby-ivar">@super</span>, <span class="ruby-ivar">@callback</span> =
-107:               <span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">error_args</span>, <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">super_mode</span>, <span class="ruby-identifier">callback</span>
-108:       <span class="ruby-ivar">@any_args</span> = <span class="ruby-keyword kw">true</span>
-109:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 164</span>
+164:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>={})
+165:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:any_args</span>] = <span class="ruby-keyword kw">true</span>
+166:       <span class="ruby-identifier">collected</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">options</span>)
+167:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
@@ -378,8 +351,188 @@ Initializes a new instance of an expectation
 			<h3 class="section-header">Public Instance Methods</h3>
 
 		
+			<div id="args-method" class="method-detail ">
+				<a name="method-i-args"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">args</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the arguments that this expectation needs to be constrained by
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="args-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 159</span>
+159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">args</span>
+160:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:args</span>]
+161:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="block-method" class="method-detail ">
+				<a name="method-i-block"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">block</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the block that will be used
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="block-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 144</span>
+144:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">block</span>
+145:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:block</span>]
+146:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="block--method" class="method-detail ">
+				<a name="method-i-block%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">block=</span><span
+						class="method-args">(val)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+sets the block callback 
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="block--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 149</span>
+149:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">block=</span>(<span class="ruby-identifier">val</span>)
+150:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:block</span>] = <span class="ruby-identifier">val</span>
+151:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="block-args-method" class="method-detail ">
+				<a name="method-i-block_args"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">block_args</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+contains the arguments that will be passed on to the block
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="block-args-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 134</span>
+134:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">block_args</span>
+135:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:block_args</span>]
+136:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="block-callback-method" class="method-detail ">
+				<a name="method-i-block_callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">block_callback</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The block that will be used as value provider for the block in the method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="block-callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 139</span>
+139:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">block_callback</span>
+140:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:block_callback</span>]
+141:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
 			<div id="call-super--method" class="method-detail ">
-				<a name="M000053"></a>
+				<a name="method-i-call_super%3F"></a>
 
 				<div class="method-heading">
 				
@@ -400,25 +553,315 @@ indicates whether super needs to be called somewhere
 					<div class="method-source-code"
 						id="call-super--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 127</span>
-127:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_super?</span>
-128:       <span class="ruby-operator">!</span><span class="ruby-ivar">@super</span>.<span class="ruby-identifier">nil?</span>
-129:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 185</span>
+185:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_super?</span>
+186:       <span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:super</span>].<span class="ruby-identifier">nil?</span>
+187:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="callback-method" class="method-detail ">
+				<a name="method-i-callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">callback</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+contains the callback if one is given
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 123</span>
+123:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">callback</span>
+124:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:callback</span>]
+125:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="error-args-method" class="method-detail ">
+				<a name="method-i-error_args"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">error_args</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the <a href="Expectation.html#method-i-error_args">error_args</a> that this
+expectation will raise an error with
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="error-args-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 108</span>
+108:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error_args</span>
+109:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:error_args</span>]
+110:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="event-args-method" class="method-detail ">
+				<a name="method-i-event_args"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">event_args</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the arguments that will be used for the event
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="event-args-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 37</span>
+37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">event_args</span>
+38:       <span class="ruby-identifier">evt_ags</span> = <span class="ruby-identifier">collected</span>[<span class="ruby-value">:event_args</span>]
+39:       <span class="ruby-identifier">evt_ags</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">evt_ags</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> [<span class="ruby-keyword kw">nil</span>, <span class="ruby-constant">System</span><span class="ruby-operator">::</span><span class="ruby-constant">EventArgs</span>.<span class="ruby-identifier">empty</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">evt_ags</span>
+40:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="event-handler-method" class="method-detail ">
+				<a name="method-i-event_handler"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">event_handler</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the block that will be used# the block that will be used
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="event-handler-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 43</span>
+43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">event_handler</span>
+44:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:event_handler</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span>,<span class="ruby-identifier">e</span><span class="ruby-operator">|</span> }
+45:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="event-name-method" class="method-detail ">
+				<a name="method-i-event_name"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">event_name</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the block that will be used
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="event-name-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 32</span>
+32:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">event_name</span>
+33:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:event_name</span>]
+34:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="event-recorder-method" class="method-detail ">
+				<a name="method-i-event_recorder"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">event_recorder</span><span
+						class="method-args">(&b)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="event-recorder-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 72</span>
+72:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">event_recorder</span>(&amp;<span class="ruby-identifier">b</span>)
+73:       <span class="ruby-ivar">@event_recorder</span> = <span class="ruby-identifier">b</span>
+74:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="events-method" class="method-detail ">
+				<a name="method-i-events"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">events</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the events attached to the context
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="events-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">events</span>
+49:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:events</span>] <span class="ruby-operator">||=</span> {}
+50:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="events--method" class="method-detail ">
+				<a name="method-i-events%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">events=</span><span
+						class="method-args">(evts)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the registered events for this expectation
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="events--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">events=</span>(<span class="ruby-identifier">evts</span>)
+54:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:events</span>]=<span class="ruby-identifier">evts</span>
+55:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="execute-method" class="method-detail ">
-				<a name="M000055"></a>
+				<a name="method-i-execute"></a>
 
 				<div class="method-heading">
 				
 					<span class="method-name">execute</span><span
-						class="method-args">(*margs)</span>
+						class="method-args">(*margs,&b)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
@@ -434,24 +877,67 @@ executes this expectation with its configuration
 					<div class="method-source-code"
 						id="execute-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 137</span>
-137:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">margs</span>)
-138:       <span class="ruby-identifier">ags</span> = <span class="ruby-identifier">any_args?</span> <span class="ruby-value">? </span>(<span class="ruby-identifier">margs</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-operator">:</span><span class="ruby-identifier">any</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">margs</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">args</span>
-139:       <span class="ruby-identifier">actual_raise</span> <span class="ruby-operator">*</span><span class="ruby-ivar">@error_args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_error_args?</span>    
-140:       <span class="ruby-identifier">callback</span>.<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ags</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_callback?</span>
-141:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_return_value?</span> 
-142:       <span class="ruby-keyword kw">nil</span>
-143:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 205</span>
+205:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(*<span class="ruby-identifier">margs</span>,&amp;<span class="ruby-identifier">b</span>)
+206:       <span class="ruby-identifier">ags</span> = <span class="ruby-identifier">any_args?</span> <span class="ruby-operator">?</span> <span class="ruby-value">:any</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">margs</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">collected</span>[<span class="ruby-value">:args</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">margs</span>)
+207:       <span class="ruby-identifier">do_raise_error</span>
+208:       <span class="ruby-identifier">do_callback</span>(<span class="ruby-identifier">ags</span>)
+209:       <span class="ruby-identifier">do_block_callback</span>(&amp;<span class="ruby-identifier">b</span>)
+210:       <span class="ruby-identifier">do_event_raise</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:events</span>)
+211: 
+212:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">collected</span>[<span class="ruby-value">:return_callback</span>].<span class="ruby-identifier">call</span>(*<span class="ruby-identifier">margs</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_return_callback?</span>
+213:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_value</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_return_value?</span> 
+214:       <span class="ruby-keyword kw">nil</span>
+215:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="has-block-callback--method" class="method-detail ">
+				<a name="method-i-has_block_callback%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">has_block_callback?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+indicates whether this expectation has a block as value provider for the
+method call block
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="has-block-callback--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 195</span>
+195:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_block_callback?</span>
+196:       <span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:block_callback</span>].<span class="ruby-identifier">nil?</span>
+197:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="has-callback--method" class="method-detail ">
-				<a name="M000054"></a>
+				<a name="method-i-has_callback%3F"></a>
 
 				<div class="method-heading">
 				
@@ -472,20 +958,22 @@ indicates whether this expecation has a callback it needs to execute
 					<div class="method-source-code"
 						id="has-callback--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 132</span>
-132:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_callback?</span> 
-133:       <span class="ruby-operator">!</span><span class="ruby-ivar">@callback</span>.<span class="ruby-identifier">nil?</span>
-134:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 190</span>
+190:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_callback?</span> 
+191:       <span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:callback</span>].<span class="ruby-identifier">nil?</span>
+192:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="has-error-args--method" class="method-detail ">
-				<a name="M000050"></a>
+				<a name="method-i-has_error_args%3F"></a>
 
 				<div class="method-heading">
 				
@@ -506,20 +994,94 @@ indicates whether this expecation will raise an event.
 					<div class="method-source-code"
 						id="has-error-args--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 112</span>
-112:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_error_args?</span>
-113:       <span class="ruby-operator">!</span><span class="ruby-ivar">@error_args</span>.<span class="ruby-identifier">nil?</span>
-114:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 170</span>
+170:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_error_args?</span>
+171:       <span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:error_args</span>].<span class="ruby-identifier">nil?</span>
+172:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="has-event-handler--method" class="method-detail ">
+				<a name="method-i-has_event_handler%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">has_event_handler?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+indicates whether this expectation has an event handler to be called 
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="has-event-handler--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_event_handler?</span>
+64:       <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:event_handler</span>]
+65:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="has-return-callback--method" class="method-detail ">
+				<a name="method-i-has_return_callback%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">has_return_callback?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+a flag to indicate it has a return value callback
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="has-return-callback--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 200</span>
+200:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_return_callback?</span>
+201:       <span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:return_callback</span>].<span class="ruby-identifier">nil?</span>
+202:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="has-return-value--method" class="method-detail ">
-				<a name="M000051"></a>
+				<a name="method-i-has_return_value%3F"></a>
 
 				<div class="method-heading">
 				
@@ -540,24 +1102,26 @@ indicates whether this expectation will return a value.
 					<div class="method-source-code"
 						id="has-return-value--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 117</span>
-117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_return_value?</span>
-118:       <span class="ruby-operator">!</span><span class="ruby-ivar">@return_value</span>.<span class="ruby-identifier">nil?</span>
-119:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 175</span>
+175:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">has_return_value?</span>
+176:       <span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:return_value</span>].<span class="ruby-identifier">nil?</span>
+177:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
 				
+
+				
 			</div>
 
 		
-			<div id="inspect-method" class="method-detail ">
-				<a name="M000059"></a>
+			<div id="method-name-method" class="method-detail ">
+				<a name="method-i-method_name"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">inspect</span><span
+					<span class="method-name">method_name</span><span
 						class="method-args">()</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
@@ -565,27 +1129,214 @@ indicates whether this expectation will return a value.
 
 				<div class="method-description">
 					
-					<p class="missing-docs">(Not documented)</p>
+					<p>
+gets the <a href="Expectation.html#method-i-method_name">method_name</a> to
+which this expectation needs to listen to
+</p>
 					
 
 					
 					<div class="method-source-code"
-						id="inspect-source">
+						id="method-name-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 149</span>
-149:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span>
-150:       <span class="ruby-identifier">to_s</span>
-151:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 154</span>
+154:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_name</span> 
+155:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:method_name</span>]
+156:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="raises-event--method" class="method-detail ">
+				<a name="method-i-raises_event%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">raises_event?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+indicates whether this expectation has an event that needs to be raised
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="raises-event--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 58</span>
+58:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raises_event?</span>
+59:       <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:event_name</span>]
+60:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="raises-registered--method" class="method-detail ">
+				<a name="method-i-raises_registered%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">raises_registered?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+indicates whether to raise the registered event handlers
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="raises-registered--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 68</span>
+68:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raises_registered?</span>
+69:       <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">collected</span>[<span class="ruby-value">:raise_subscriptions</span>]
+70:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="return-callback-method" class="method-detail ">
+				<a name="method-i-return_callback"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">return_callback</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+contains the callback that is used to return the value when this
+expectation is executed
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="return-callback-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 129</span>
+129:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">return_callback</span>
+130:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:return_callback</span>]
+131:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="return-value-method" class="method-detail ">
+				<a name="method-i-return_value"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">return_value</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the value that this expecation will return when executed
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="return-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 113</span>
+113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">return_value</span>
+114:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:return_value</span>]
+115:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="super-method" class="method-detail ">
+				<a name="method-i-super"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">super</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+indicator for the mode to call the super <tt>:before</tt>, <tt>:after</tt>
+and <tt>nil</tt>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="super-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 118</span>
+118:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">super</span> 
+119:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:super</span>]
+120:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
 
 				
 			</div>
 
 		
 			<div id="super-before--method" class="method-detail ">
-				<a name="M000052"></a>
+				<a name="method-i-super_before%3F"></a>
 
 				<div class="method-heading">
 				
@@ -606,45 +1357,55 @@ call the super before the expectation
 					<div class="method-source-code"
 						id="super-before--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 122</span>
-122:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_before?</span>
-123:       <span class="ruby-ivar">@super</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:before</span>
-124:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 180</span>
+180:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">super_before?</span>
+181:       <span class="ruby-identifier">collected</span>[<span class="ruby-value">:super</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:before</span>
+182:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
 
 				
+
+				
 			</div>
 
 		
-			<div id="to-s-method" class="method-detail ">
-				<a name="M000056"></a>
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="call-handler-method" class="method-detail ">
+				<a name="method-i-call_handler"></a>
 
 				<div class="method-heading">
 				
-					<span class="method-name">to_s</span><span
-						class="method-args">()</span>
+					<span class="method-name">call_handler</span><span
+						class="method-args">(evt, *ags)</span>
 					<span class="method-click-advice">click to toggle source</span>
 				
 				</div>
 
 				<div class="method-description">
 					
-					<p class="missing-docs">(Not documented)</p>
+					
 					
 
 					
 					<div class="method-source-code"
-						id="to-s-source">
+						id="call-handler-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/caricature/expectation.rb, line 145</span>
-145:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
-146:       <span class="ruby-node">&quot;&lt;Caricature::Expecation, method_name: #{method_name}, args: #{args}, error args: #{error_args}&gt;&quot;</span>
-147:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/caricature/clr/expectation.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_handler</span>(<span class="ruby-identifier">evt</span>, *<span class="ruby-identifier">ags</span>)
+96:       <span class="ruby-identifier">evt</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:call</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">evt</span>.<span class="ruby-identifier">call</span>(*<span class="ruby-identifier">ags</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">evt</span>.<span class="ruby-identifier">get_invocation_list</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">ev</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ev</span>.<span class="ruby-identifier">invoke</span>(*<span class="ruby-identifier">ags</span>) }
+97:     <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
+
+				
 
 				
 			</div>
