@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.files = ["README.rdoc",
  "Rakefile",
  "caricature.gemspec",
+ "lib/bin/Workarounds.dll.mdb",
  "lib/caricature.rb",
  "lib/caricature/bacon.rb",
  "lib/caricature/bacon/integration.rb",
@@ -48,6 +49,7 @@ Gem::Specification.new do |s|
  "spec/bacon/integration/event_spec.rb",
  "spec/bacon/integration/indexer_spec.rb",
  "spec/bacon/integration/ruby_to_ruby_spec.rb",
+ "spec/bacon/integration/syntax_spec.rb",
  "spec/bacon/spec_helper.rb",
  "spec/bacon/unit/core_ext_spec.rb",
  "spec/bacon/unit/descriptor_spec.rb",
@@ -87,8 +89,6 @@ Gem::Specification.new do |s|
  "spec/fixtures/soldier_with_class_members.rb",
  "spec/fixtures/swift_cleanup_crew.rb",
  "spec/fixtures/with_class_methods.rb",
- "spec/models.notused/ClrModels.cs",
- "spec/models.notused/ruby_models.rb",
  "spec/rspec/integration/callback_spec.rb",
  "spec/rspec/integration/clr_to_clr_spec.rb",
  "spec/rspec/integration/clr_to_ruby_spec.rb",
@@ -117,8 +117,8 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.8.6"
   s.required_rubygems_version = ">= 0"
   s.rubyforge_project = "caricature"
-  s.rubygems_version = "1.3.5"
+  s.rubygems_version = "1.3.7"
   s.specification_version = 3
   s.summary = "Caricature brings simple mocking to Ruby, DLR and CLR."
-  s.version = "0.7.6"
+  s.version = "0.7.7"
 end
